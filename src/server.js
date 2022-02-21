@@ -9,8 +9,14 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
-const buf = Buffer.from('BASIC=basic');
-const config = dotenv.parse(buf);  // devolverá una 
+
+dotenv.config({ path: '.env' })
+
+module.exports = {
+    consumer_key : process.env.NOTES_APP_MONGODB_HOST,
+    indexedDB: process.env.NOTES_APP_MONGODB_DATABASE,
+    access_token_secret : process.env.SECRET
+};
 
 var corsOptions = {
     origin: "http://localhost:3000/",
