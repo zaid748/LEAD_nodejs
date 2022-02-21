@@ -11,7 +11,6 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const buf = Buffer.from('BASIC=basic');
 const config = dotenv.parse(buf);  // devolverá una 
-consoladeobjetos.log(typeof config, config );
 
 var corsOptions = {
     origin: "http://localhost:3000/",
