@@ -8,7 +8,10 @@ const flash = require('connect-flash');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const { trusted } = require('mongoose');
+const dotenv = require('dotenv');
+const buf = Buffer.from('BASIC=basic');
+const config = dotenv.parse(buf);  // devolverá una 
+consoladeobjetos.log(typeof config, config );
 
 var corsOptions = {
     origin: "http://localhost:3000/",
