@@ -1,0 +1,155 @@
+<div class="contect">
+    <h1>Registrar</h1>
+    <form action="/users/registrar" method="post">
+        <div class="section">
+            <div class="form">
+                <div class="ctrl">
+                    <label for="prim-nom" class="label-ctrl">Nombre</label>
+                    <input id="prim-nom" name="prim_nom" type="text" class="campo-obligatorio" campo value="{{prim_nom}}">
+                </div>
+                <div class="ctrl">
+                    <label for="segun-nom" class="label-ctrl">Segundo nombre</label>
+                    <input id="segun-nom" name="segun_nom" type="text" value="{{segun_nom}}">
+                </div>
+                <div class="ctrl">
+                    <label for="apell-pa" class="label-ctrl">Apellido  paterno</label>
+                    <input id="apell-pa" name="apell_pa" type="text" class="campo-obligatorio" campo value="{{apell_pa}}">
+                </div>
+                <div class="ctrl">
+                    <label for="apell-ma" class="label-ctrl">Apellido  materno</label>
+                    <input id="apell-ma" name="apell_ma" type="text" class="campo-obligatorio" campo value="{{apell_ma}}">
+                </div>
+                <div class="ctrl">
+                    <label for="pust" class="label-ctrl">Puesto</label>
+                    <select name="pust" >
+                        <option value="" disabled="" selected="">Select an Department</option>
+                        {{#each department}}
+                            {{#each departments}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        {{/each }}
+                    </select>
+                </div>
+                <div class="ctrl">
+                    <label for="calle" class="label-ctrl">Calle</label>
+                    <input id="calle" name="calle" type="text" class="campo-obligatorio" campo value="{{calle}}">
+                </div>
+            </div>
+            <div class="form">
+                <div class="ctrl">
+                    <label for="nun-in" class="label-ctrl">Número interno</label>
+                    <input id="nun-in" name="nun_in" type="text" value="{{nun-in}}">
+                </div>
+                <div class="ctrl">
+                    <label for="nun-ex" class="label-ctrl">Número externo</label>
+                    <input id="nun-ex" name="nun_ex" type="text" class="campo-obligatorio" campo value="{{nun_ex}}">
+                </div>
+                <div class="ctrl">
+                    <label for="codigo" class="label-ctrl">Código postal</label>
+                    <input id="codigo" name="codigo" type="text" class="campo-obligatorio" campo value="{{codigo}}">
+                </div>
+                <div class="ctrl">
+                    <label for="telefono" class="label-ctrl">telefono</label>
+                    <input id="telefono" name="telefono" type="tel" class="campo-obligatorio" campo value="{{telefono}}">
+                </div>
+                <div class="ctrl">
+                    <label for="email-sig" class="label-ctrl">Correo</label>
+                    <input id="email-sig" name="email" type="text" class="campo-obligatorio {{error_msg}}" campo>
+                    <span class="{{error2_msg}}" style="color: red; display: none;">El correo ya esta en uso</span>
+                </div>
+                <div class="ctrl">
+                    <label for="password" class="label-ctrl">Contraseña</label>
+                    <input id="password" name="password" type="password" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="pass-confi" class="label-ctrl">Confirmar Contraseña</label>
+                    <input id="pass-confi" type="password" class="campo-obligatorio" campo>
+                </div>
+            </div>
+        </div>
+        <div class="btn- sing">
+            <button id="registrarLimpieza" class="btn-span" type="button">Enviar</button>
+        </div>
+    </form>
+</div>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    let password = document.getElementById('password');
+    let configPass = document.getElementById('pass-confi');
+    let btn = document.getElementById('registrarLimpieza');
+    let email = document.getElementById('email-sig');
+    var validad = true;
+    var validad2 = true;
+    email.addEventListener('blur', ()=>{
+        let emailRegu = new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$");
+        if(emailRegu.test(email.value)){
+            email.style = 'box-shadow: 0px 0px 6px rgb(5 231 85)';
+            validad = true;
+        }else{
+            email.style = 'box-shadow: 0px 0px 6px rgb(231 5 5)';
+            validad = false;
+        }
+    });
+    configPass.addEventListener('keyup', ()=>{
+        let valor1 = password.value;
+        let valor2 = configPass.value;
+        console.log(valor1, ' = ', valor2);
+        if(valor1 == valor2){
+            console.log('hola');
+            configPass.classList.add('valid');
+            configPass.classList.remove('invalid');
+            validad2 = true;
+        }else{
+            configPass.classList.remove('valid');
+            configPass.classList.add('invalid');
+            validad2 = false;
+        }
+    });
+    btn.addEventListener('click', ()=>{
+        if(validate() && validad && validad2){
+            btn.type = 'submit';
+        }else{
+            console.log(btn.type);
+            console.log(false);
+        }
+    });
+    function validate() {
+        let errors = 0;
+        let $requireds = 0;
+        const $inputs = document.querySelectorAll('.section [campo]');
+        $inputs.forEach($input => {
+
+            let $value = $input.value.trim();
+            if ($value == '' && $input.classList.contains('campo-obligatorio')) {
+                errors++;
+                $input.classList.add('invalid');
+            } else {
+                $input.classList.add('valid');
+            }
+
+            if ($input.classList.contains('campo-obligatorio')) {
+                $requireds++;
+            }
+
+        });
+
+        const $inputsForValidate = document.querySelectorAll('.campo-obligatorio.valid');
+
+        if (errors > 0) {
+            return false;
+        }
+
+        if ($requireds == $inputsForValidate.length) {
+            // $log('todo valido');
+            return true;
+        } else if ($requireds == 0 && $inputsForValidate.length == 0) {
+            // $log('No hay inputs obligatorios');
+            return true
+        } else {
+            // $log('hay inputs erroneos');
+            window.scrollTo(0, 0);
+            return false;
+        }
+    }
+     
+</script>

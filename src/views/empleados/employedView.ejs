@@ -1,0 +1,40 @@
+<div class="btn-contect">
+    <a href="/empleados/Agregar">
+        <button class="btn-">Agregar Empleado</button>
+    </a>
+</div>
+<div class="contect" style="border-radius: 10px; background: azure; padding: 7px;">
+    <div class="setinfo">
+        <div class="etiquetado">
+            <span class="margin"><label>Empleado</label></span>
+        </div>
+        <div class="etiquetado">
+            <span class="margin"><label>Puesto</label></span>
+        </div>
+        <div class="etiquetado">
+            <span class="margin"><label>Telefono</label></span>
+        </div>
+        <div class="etiquetado">
+            <span class="margin"><label>Ver estado</label></span>
+        </div>
+    </div>
+    {{#each Employed}}
+    <div class="setinfo">
+        <div class="etiquetado">
+            <span class="margin"><label>{{prim_nom}} {{apell_pa}} {{apell_ma}}</label></span>
+        </div>
+        <div class="etiquetado">
+            <span class="margin"><label>{{pust}}</label></span>
+        </div>
+        <div class="etiquetado">
+            <span class="margin"><label>{{telefono}}</label></span>
+        </div>
+        <div class="etiquetado">
+            <a href="empleado/{{_id}}" style="width: 50%;">
+                <div id="verEmpleado"><label style="cursor: pointer;">Ver</label></div>
+            </a>
+            <div class="estado"><span><label class="margin-t-4">{{estado}}</label></span></div>
+        </div>
+    </div>
+    {{/each}}
+</div>

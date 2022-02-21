@@ -1,0 +1,22 @@
+<div class="col-md-2 mx-auto" >
+    <div class="card text-center">
+        <div class="card-header">
+            <h3 style="text-transform: capitalize;">Nueva nota</h3>
+        </div>
+        <div class="card-body">
+            <form action="/notes/new-note" method="post">
+                <div class="form-group">
+                    <input type="text" name="title" class="from-control" placeholder="Titulo" autofocus>
+                </div>
+                <div class="form-group">
+                    <textarea name="description" placeholder="Descripcion" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
