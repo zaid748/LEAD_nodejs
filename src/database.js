@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
  
 const {NOTES_APP_MONGODB_HOST} = process.env;
 
-const MONGODB_URI = `mongodb://${NOTES_APP_MONGODB_HOST}`
+const MONGODB_URI = `${NOTES_APP_MONGODB_HOST}`
 
 console.log(NOTES_APP_MONGODB_HOST);
 
