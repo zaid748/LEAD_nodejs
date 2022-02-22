@@ -23,9 +23,7 @@ notesCtrl.renderNotes = async(req, res)=>{
     console.log(notes);
     let description = [];
     notes.forEach(notas => {
-        notes['title'] = notas.title;
-        notes['description'] = notas.description;
-        description = notes['description'];
+        console.log(notas);
     });
     console.log(notes.title, 'hola title');
     console.log(notes['title'], notes['description']);
