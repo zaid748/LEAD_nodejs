@@ -6,7 +6,7 @@ const EmpleadoSchema = new Schema({
     apell_pa: { type: String, required: true},
     apell_ma: { type: String, required: true},
     pust: { type: String, required: true},
-    fecha_ing: { type: String, rewuired: true},
+    fecha_na: { type: String, required: true},
     calle: { type: String, required: true},
     num_in: { type: String, required: false},
     nun_ex: { type: String, required: true},
@@ -14,7 +14,7 @@ const EmpleadoSchema = new Schema({
     telefono: {type:String, required: true},
     email: { type: String, required: true, unique: true},
     salario: { type: String, required: true},
-    fecha_ing: { type: String, rewuired: true},
+    fecha_ing: { type: String, required: true},
     estado: { type: String, required: true}
 });
 

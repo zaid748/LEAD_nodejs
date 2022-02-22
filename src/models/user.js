@@ -8,6 +8,7 @@ const usuario = new Schema({
     segun_nom: { type: String, required: false},
     apell_pa: { type: String, required: true},
     apell_ma: { type: String, required: true},
+    fecha_na: { type: String, required: true},
     pust: { type: String, required: true},
     calle: { type: String, required: true},
     num_in: { type: String, required: false},

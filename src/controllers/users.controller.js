@@ -12,7 +12,7 @@ userCtrl.renderSignUpForm = async(req, res)=>{
 };
 
 userCtrl.signup = async (req, res) =>{
-    const { prim_nom, segun_nom, apell_pa, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password } = req.body;
+    const { prim_nom, segun_nom, apell_pa, telefono, fecha_na, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password } = req.body;
     let fullname = prim_nom +' '+ segun_nom+' '+apell_pa+' '+apell_ma;
     
     const emailUser = await user.findOne({email: email})
@@ -22,7 +22,9 @@ userCtrl.signup = async (req, res) =>{
             segun_nom: segun_nom, 
             apell_pa: apell_pa, 
             apell_ma: apell_ma, 
-            pust: pust, 
+            pust: pust,
+            fecha_na: fecha_na,
+            telefono: telefono,
             calle: calle, 
             nun_in: nun_in, 
             nun_ex: nun_ex, 
@@ -31,7 +33,7 @@ userCtrl.signup = async (req, res) =>{
             error2_msg: 'error_let'
          });
     }else{
-        const newUser = new user({prim_nom, segun_nom, apell_pa, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password });
+        const newUser = new user({prim_nom, segun_nom, apell_pa, apell_ma, pust, calle, telefono, fecha_na, nun_in, nun_ex, codigo, email, password });
         newUser.password = await user.encryptPassword(password);
         await newUser.save();
         const toke = jwt.sign({_id: newUser._id, pust: newUser.pust, email: newUser.email, role: newUser.role}, SECRET,{
