@@ -9,9 +9,9 @@ userCtrl.renderSignUpForm = async(req, res)=>{
     const department = await Departamentos.find();
     department.forEach(arradeparment => {
         let departamentos = []
-        return departamentos['departamentos'] = arradeparment.departments;
+        departamentos['departamentos'] = arradeparment.departments;
     });
-    console.log( departamentos['departamentos'], department, 'desde registro4');
+    console.log( department, 'desde registro4');
     res.render('users/signup', department);
 };
 
