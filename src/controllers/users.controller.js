@@ -10,7 +10,7 @@ userCtrl.renderSignUpForm = async(req, res)=>{
     department.forEach(departments => {
         department['departamentos'] = departments.departments;
     });
-    console.log( department, 'desde registro4');
+    console.log( department['departamentos'], 'desde registro5');
     res.render('users/signup', department);
 };
 
