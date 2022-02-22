@@ -8,9 +8,10 @@ const {SECRET} = process.env;
 userCtrl.renderSignUpForm = async(req, res)=>{
     const department = await Departamentos.find();
     department.forEach(arradeparment => {
-        arradeparment = arradeparment.departments;
+        let departamentos = []
+        return departamentos['departamentos'] = arradeparment.departments;
     });
-    console.log( arradeparment, department, 'desde registro4');
+    console.log( departamentos['departamentos'], department, 'desde registro4');
     res.render('users/signup', department);
 };
 
