@@ -8,7 +8,8 @@ const {SECRET} = process.env;
 
 userCtrl.renderSignUpForm = async(req, res)=>{
     const department = await Departamentos.find();
-    console.log(department.departments, 'desde registro');
+    const { departments } = department;
+    console.log(departments , 'desde registro');
     res.render('users/signup', {department});
 };
 
