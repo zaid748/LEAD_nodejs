@@ -23,13 +23,8 @@ notesCtrl.renderNotes = async(req, res)=>{
     .exec(function(error, body) {
         console.log(error);
      });
-    const description = [];
-    notes.forEach(notas => {
-        description.push(notas.description);
-    });
-    console.log(description);
     console.log( 'hola animo');
-    res.render('notes/all-notes', {notes, user, description});
+    res.render('notes/all-notes', {notes, user});
 };
 
 notesCtrl.renderEditForm = async(req, res) =>{
