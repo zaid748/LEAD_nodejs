@@ -22,9 +22,9 @@ notesCtrl.renderNotes = async(req, res)=>{
     const notes = await Note.find({user: req.user}).sort({createAt: 'desc'});
     const description = [];
     notes.forEach(notas => {
-        description['description'] = notas.description;
+        description.push(notas.description);
     });
-    console.log(description['description']);
+    console.log(description);
     console.log( 'hola animo');
     res.render('notes/all-notes', {notes:notes, user});
 };
