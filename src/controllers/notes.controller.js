@@ -26,7 +26,7 @@ notesCtrl.renderNotes = async(req, res)=>{
     });
     console.log(description['description']);
     console.log( 'hola animo');
-    res.render('notes/all-notes', {notes, user});
+    res.render('notes/all-notes', {notes:notes, user});
 };
 
 notesCtrl.renderEditForm = async(req, res) =>{
