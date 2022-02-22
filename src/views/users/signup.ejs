@@ -3,7 +3,13 @@
         {{departments}}
     {{/each}}
     {{#each department}}
-        <p>{{{departments}}</p>
+        <p>{{this}}</p>
+        <p>{{departments}}</p>
+        <p>{{this.departments}}</p>
+        <p>{{{departments}}}</p>
+        {{#each departments}}
+            {{this}}
+        {{/each}}
     {{/each }}
     <h1>Registrar</h1>
     <form action="/users/registrar" method="post">
