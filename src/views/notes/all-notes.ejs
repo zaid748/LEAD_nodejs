@@ -1,9 +1,10 @@
 <div class="row">
+    {{notes}}
     {{#each notes}}
         <div class="coll-md-3">
             <div class="card" style="margin: 10px 20px;">
                 <div class="card-body">
-                    {{this}}
+                    {{this.title}}
                     <h4 class="card-title d-flex justify-content-between align-item-center">
                         {{title}} <a href="/notes/edit/{{_id}}"><ion-icon name="create-outline"></ion-icon></a>
                     </h4>
