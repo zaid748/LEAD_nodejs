@@ -4,7 +4,7 @@
             <h3 style="text-transform: capitalize;">Editar Nota</h3>
         </div>
         <div class="card-body">
-            <form action="/notes/edit/{{note.id}}?_method=PUT" method="post">
+            <form action="/notes/edit/{{note._id}}?_method=PUT" method="post">
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
                     <input type="text" name="title" class="from-control" value="{{note.title}}">
