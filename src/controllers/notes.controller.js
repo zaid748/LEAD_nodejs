@@ -22,7 +22,6 @@ notesCtrl.renderNotes = async(req, res)=>{
     const {title, description} = await Note.find({user: req.user}).sort({createAt: 'desc'});
     
     console.log(title, 'hola title', description);
-    console.log(notes['title'], notes['description']);
     res.render('notes/all-notes', { user});
 };
 
