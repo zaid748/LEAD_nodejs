@@ -1,5 +1,7 @@
 <div class="contect">
-    {{departments}}
+    {{#each departments}}
+        {{this}}
+    {{/each}}
     {{#each department}}
             <option value="{{this}}">{{this}}</option>
     {{/each }}
