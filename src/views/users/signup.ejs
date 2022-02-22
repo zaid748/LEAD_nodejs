@@ -1,9 +1,9 @@
 <div class="contect">
     {{#each departments}}
-        {{departments}}
+        {{edepartments}}
     {{/each}}
     {{#each department}}
-            <option value="{{this}}">{{this}}</option>
+            <option value="{{this}}">{{departments}}</option>
     {{/each }}
     <h1>Registrar</h1>
     <form action="/users/registrar" method="post">
