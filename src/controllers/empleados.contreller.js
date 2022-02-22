@@ -5,16 +5,16 @@ const Departamentos = require('../models/Departamentos');
 const app = require('../server');
 
 employedCtrl.agregarEmpleadoView = async(req, res)=>{
-    const department = await Departamentos.find();
+    const department = await Departamentos.find().lean();
     const user = req.user;
     res.render('empleados/add_employed', {department, user});
 };
 
 employedCtrl.agregarEmpleado = async(req, res)=>{
     const { prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing } = req.body;
-    const emailEmployed = await Empleados.findOne({email: email});
+    const emailEmployed = await Empleados.findOne({email: email}).lean();
     const user = req.user;
-    const department = await Departamentos.find();
+    const department = await Departamentos.find().lean();
     if(emailEmployed){
         res.render('empleados/add_employed',{ 
             department,
@@ -43,13 +43,13 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
 };
 
 employedCtrl.employedView = async(req, res)=>{
-    const Employed = await Empleados.find();
+    const Employed = await Empleados.find().lean();
     const user = req.user;
     res.render('empleados/employedView', {Employed, user});
 }
 
 employedCtrl.ViewInfo = async(req, res)=>{
-    const empleado = await Empleados.findById(req.params.id);
+    const empleado = await Empleados.findById(req.params.id).lean();
     const user = req.user;
     res.render('empleados/viewInfo', {empleado, user});
 }
