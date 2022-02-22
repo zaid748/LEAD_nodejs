@@ -20,12 +20,13 @@ notesCtrl.createNewNote = async (req, res) =>{
 notesCtrl.renderNotes = async(req, res)=>{
     const user = req.token;
     const notes = await Note.find({user: req.user}).sort({createAt: 'desc'});
-    console.log(notes);
     let description = [];
     notes.forEach(notas => {
-        console.log(notas.title);
+        description['description'] += notas.description;
+        console.log(notas.description);
     });
-    console.log( 'hola title');
+    console.log(description['description']);
+    console.log( 'hola animo');
     res.render('notes/all-notes', {notes, user});
 };
 
