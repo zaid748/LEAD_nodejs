@@ -1,5 +1,7 @@
 <div class="contect">
-    {{department}}
+    {{#each department}}
+        <p>{{this}}</p>
+    {{/each}}
     {{#if department}}
         <p>{{this}}</p>
         <p>{{this.departments}}</p>
