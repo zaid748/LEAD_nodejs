@@ -3,9 +3,7 @@
         {{departments}}
     {{/each}}
     {{#each department}}
-        {{#each departments}}
-            <option value="{{this}}">{{this}}</option>
-        {{/each}}
+        {{this}}
     {{/each }}
     <h1>Registrar</h1>
     <form action="/users/registrar" method="post">
