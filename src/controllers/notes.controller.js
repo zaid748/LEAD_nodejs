@@ -27,7 +27,7 @@ notesCtrl.renderNotes = async(req, res)=>{
         notes['description'] = notas.description;
         description = notes['description'];
     });
-    console.log(description);
+    console.log(notes.title, 'hola title');
     console.log(notes['title'], notes['description']);
     res.render('notes/all-notes', {notes, user});
 };
