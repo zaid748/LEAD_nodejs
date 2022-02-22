@@ -19,10 +19,11 @@ notesCtrl.createNewNote = async (req, res) =>{
 
 notesCtrl.renderNotes = async(req, res)=>{
     const user = req.token;
-    const {title, description} = await Note.find({user: req.user}).sort({createAt: 'desc'});
-    
-    console.log(title, 'hola title', description);
-    res.render('notes/all-notes', { user});
+    const notes = await Note.find({user: req.user}).sort({createAt: 'desc'});
+    /* for(i = 0; ) */
+    console.log(notes.length, 'hola title');
+    console.log(notes['title'], notes['description']);
+    res.render('notes/all-notes', {notes, user});
 };
 
 notesCtrl.renderEditForm = async(req, res) =>{
