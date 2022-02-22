@@ -2,13 +2,12 @@ const userCtrl = {};
 const user = require('../models/user');
 const Departamentos = require('../models/Departamentos');
 const  jwt  = require ('jsonwebtoken');
-const { render, response } = require('../server');
 
 const {SECRET} = process.env;
 
 userCtrl.renderSignUpForm = async(req, res)=>{
     const department = await Departamentos.find();
-    console.log(department , 'desde registro');
+    console.log({department} , 'desde registro');
     res.render('users/signup', department);
 };
 
