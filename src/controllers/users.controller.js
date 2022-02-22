@@ -11,7 +11,7 @@ userCtrl.renderSignUpForm = async(req, res)=>{
         department['departamentos'] = departments.departments;
     });
     console.log( department['departamentos'], 'desde registro5');
-    res.render('users/signup', department);
+    res.render('users/signup', {department});
 };
 
 userCtrl.signup = async (req, res) =>{
