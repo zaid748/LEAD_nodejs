@@ -23,7 +23,7 @@ notesCtrl.renderNotes = async(req, res)=>{
     .exec(function(error, body) {
         console.log(error);
      });
-    console.log( 'hola animo');
+    console.log(notes);
     res.render('notes/all-notes', {notes, user});
 };
 
