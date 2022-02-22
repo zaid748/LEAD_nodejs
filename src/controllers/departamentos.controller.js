@@ -1,4 +1,4 @@
-departamentoCtrl = {};
+const departamentoCtrl = {};
 
 const Departamentos = require('../models/Departamentos');
 
@@ -7,3 +7,5 @@ departamentoCtrl.mostrarDepartamentos = async(req, res, next) =>{
     console.log(departments, 'hola depastamentos');
     return next();
 }
+
+module.exports = departamentoCtrl;

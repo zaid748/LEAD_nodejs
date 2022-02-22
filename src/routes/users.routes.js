@@ -4,7 +4,7 @@ const { logout , signup, renderSignUpForm, signIn, renderSignInForm } = require(
 const {mostrarDepartamentos} = require('../controllers/departamentos.controller');
     router.get('/users/registrar', renderSignUpForm);
 
-    router.get('/users/signin', mostrarDepartamentos , renderSignInForm);
+    router.get('/users/signin', mostrarDepartamentos, renderSignInForm);
 
     router.post('/users/signin', signIn, (req, res)=>{
         //console.log(req.body);
