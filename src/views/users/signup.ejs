@@ -1,11 +1,6 @@
 <div class="contect">
     {{department['departamentos']}}
-    {{#each department['departamentos']}}
-        <p>{{this}}</p>
-        <p>{{departments}}</p>
-        <p>{{this.departments}}</p>
-        <p>{{{departments}}}</p>
-    {{/each }}
+    
     <h1>Registrar</h1>
     <form action="/users/registrar" method="post">
         <div class="section">
