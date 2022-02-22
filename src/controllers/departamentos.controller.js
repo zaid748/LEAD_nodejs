@@ -2,8 +2,8 @@ departamentoCtrl = {};
 
 const Departamentos = require('../models/Departamentos');
 
-departamentoCtrl.mostrarDepartamentos = async(req, res) =>{
+departamentoCtrl.mostrarDepartamentos = async(req, res, next) =>{
     const departments = await Departamentos.find();
     console.log(departments, 'hola depastamentos');
-    res.render('users/signup');
+    return next();
 }
