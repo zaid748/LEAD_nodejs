@@ -27,9 +27,7 @@
                     <select name="pust" >
                         <option value="" disabled="" selected="">Select an Department</option>
                         {{#each department}}
-                            {{#each department.departments}}
-                                <option value="{{this}}">{{this}}</option>
-                            {{/each}}
+                            <option value="{{this}}">{{this}}</option>
                         {{/each }}
                     </select>
                 </div>
