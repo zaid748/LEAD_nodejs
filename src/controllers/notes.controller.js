@@ -23,10 +23,9 @@ notesCtrl.renderNotes = async(req, res)=>{
     console.log(notes);
     let description = [];
     notes.forEach(notas => {
-        let varNota = notas;
         console.log(notas.title);
     });
-    console.log(varNota, 'hola title');
+    console.log( 'hola title');
     res.render('notes/all-notes', {notes, user});
 };
 
