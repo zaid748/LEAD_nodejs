@@ -25,7 +25,7 @@ notesCtrl.renderNotes = async(req, res)=>{
 
 notesCtrl.renderEditForm = async(req, res) =>{
     const user = req.token;
-    const note = await Note.findById(req.params.id);
+    const note = await Note.findById(req.params.id).lean();
     if(note.user != req.user){
         req.flash('error', 'Not Authorized');
         return res.redirect('/notes');
