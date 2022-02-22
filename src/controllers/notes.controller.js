@@ -21,7 +21,7 @@ notesCtrl.renderNotes = async(req, res)=>{
     const user = req.token;
     const notes = await Note.find({user: req.user}).sort({createAt: 'desc'});
     for(i = 0; i <= notes.length-1; i++){
-        console.log(notes.find({title}));
+        console.log(notes.find());
     } 
     console.log(notes.forEach)
     console.log(notes.length, 'hola title');
