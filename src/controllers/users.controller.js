@@ -10,13 +10,16 @@ userCtrl.renderSignUpForm = async(req, res)=>{
     department.forEach(departments => {
         department['departamentos'] = departments.departments;
     });
-    console.log( department['departamentos'], 'desde registro5');
     res.render('users/signup', {department: department['departamentos']});
 };
 
 userCtrl.signup = async (req, res) =>{
     const { prim_nom, segun_nom, apell_pa, telefono, fecha_na, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password } = req.body;
     let fullname = prim_nom +' '+ segun_nom+' '+apell_pa+' '+apell_ma;
+    const department = await Departamentos.find();
+    department.forEach(departments => {
+        department['departamentos'] = departments.departments;
+    });
     
     const emailUser = await user.findOne({email: email})
     if(emailUser){
@@ -33,7 +36,8 @@ userCtrl.signup = async (req, res) =>{
             nun_ex: nun_ex, 
             codigo: codigo,
             error_msg: 'error',
-            error2_msg: 'error_let'
+            error2_msg: 'error_let',
+            department: department['departamentos']
          });
     }else{
         const newUser = new user({prim_nom, segun_nom, apell_pa, apell_ma, pust, calle, telefono, fecha_na, nun_in, nun_ex, codigo, email, password });

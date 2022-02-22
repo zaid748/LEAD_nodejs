@@ -16,7 +16,6 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
     const user = req.user;
     const department = await Departamentos.find();
     if(emailEmployed){
-        console.log('hola', department);
         res.render('empleados/add_employed',{ 
             department,
             prim_nom: prim_nom, 
@@ -46,7 +45,6 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
 employedCtrl.employedView = async(req, res)=>{
     const Employed = await Empleados.find();
     const user = req.user;
-    console.log(Employed);
     res.render('empleados/employedView', {Employed, user});
 }
 
