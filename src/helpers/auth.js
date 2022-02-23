@@ -24,7 +24,7 @@ helpers.isAuthenticated = async(req, res, next) =>{
     }
 }
 
-helpers.isAustheAdministrator = async(res, res, next)=>{
+helpers.isAustheAdministrator = async(req, res, next)=>{
     console.log(req.role);
 }
 
