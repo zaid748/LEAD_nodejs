@@ -6,11 +6,9 @@ const {SECRET} = process.env;
 indexCtrl.renderIndex = async(req, res) =>{
     const cookies = req.cookies;
     const authorization  = cookies.Authorization;
-    console.log(authorization); 
     if(authorization){    
         const decoded = jwt.verify(authorization, SECRET);
         const  { _id } = decoded;
-        console.log(_id);
         const usuario = await User.findById({ _id});
         if (usuario){
             res.render('home',{ 
