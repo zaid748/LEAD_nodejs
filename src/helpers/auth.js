@@ -24,4 +24,8 @@ helpers.isAuthenticated = async(req, res, next) =>{
     }
 }
 
+helpers.isAustheAdministrator = async(res, res, next)=>{
+    console.log(req.role);
+}
+
 module.exports = helpers;

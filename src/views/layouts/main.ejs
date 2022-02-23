@@ -13,9 +13,15 @@
 </head>
 <body>
     {{#if user}}
-    {{>naver_admin}}
+    
         {{#if (equals role "admin")}}
-            <div>hola</div>
+            {{>naver_admin}}
+        {{/if}}
+        {{#if (equals role "administrator")}}
+            {{>naver_admin}}
+        {{/if}}
+        {{#if (equals role "user")}}
+            {{>naver_user}}
         {{/if}}
     {{/if}}
     <main class="container p-5">
