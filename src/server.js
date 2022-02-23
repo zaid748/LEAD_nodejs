@@ -10,12 +10,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
 
-handlebars.registerHelper('ifCond', function(v1, v2, options) {
-    if(v1 === v2) {
-      return options.fn(this);
-    }
-    return options.inverse(this);
-  });
+
 
 dotenv.config({ path: '.env' })
 
@@ -42,6 +37,12 @@ app.engine('.ejs', exphbs.engine({
     extname: '.ejs',
     handlebars: handlebars
 }));
+handlebars.registerHelper('ifCond', function(v1, v2, options) {
+    if(v1 === v2) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
 app.set('view engine', '.ejs');
 //Middlewares
 app.use(morgan('dev'));
