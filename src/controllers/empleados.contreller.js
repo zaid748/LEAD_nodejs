@@ -46,6 +46,7 @@ employedCtrl.employedView = async(req, res)=>{
     const Employed = await Empleados.find().lean();
     const user = req.user;
     const role = req.role;
+    console.log(role);
     res.render('empleados/employedView', {Employed, user, role});
 }
 
