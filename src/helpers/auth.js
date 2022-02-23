@@ -26,11 +26,12 @@ helpers.isAuthenticated = async(req, res, next) =>{
 
 helpers.isAustheAdministrator = async(req, res, next)=>{
     const role = req.role;
+    const user = req.token;
     if(role == "administrator" || role == "admin"){
         return next();
     }else{
         console.log(role);
-        res.render('home', {role});
+        res.render('home', {role, user});
     }
 }
 
