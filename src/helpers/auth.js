@@ -25,7 +25,12 @@ helpers.isAuthenticated = async(req, res, next) =>{
 }
 
 helpers.isAustheAdministrator = async(req, res, next)=>{
-    console.log(req.role);
+    const role = req.role;
+    if(role == "administrator" || role == "admin"){
+        return next();
+    }else{
+        res.render('home');
+    }
 }
 
 module.exports = helpers;
