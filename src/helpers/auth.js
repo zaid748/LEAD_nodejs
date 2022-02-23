@@ -29,6 +29,7 @@ helpers.isAustheAdministrator = async(req, res, next)=>{
     if(role == "administrator" || role == "admin"){
         return next();
     }else{
+        console.log(role);
         res.render('home', {role});
     }
 }
