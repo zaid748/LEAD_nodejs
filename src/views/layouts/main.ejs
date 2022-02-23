@@ -14,9 +14,9 @@
 <body>
     {{#if user}}
     {{>naver_admin}}
-        {{#ifEquals role == "admin"}}
+        {{#if (equals role "admin")}}
             <div>hola</div>
-        {{/ifEquals}}
+        {{/if}}
     {{/if}}
     <main class="container p-5">
         {{>errors}}

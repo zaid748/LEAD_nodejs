@@ -37,11 +37,8 @@ app.engine('.ejs', exphbs.engine({
     extname: '.ejs',
     handlebars: handlebars
 }));
-handlebars.registerHelper('ifEquals', (arg1, arg2, options) => {
-    if (arg1 == arg2) {
-      return options?.fn(this);
-    }
-    return options?.inverse(this);
+handlebars.registerHelper('equals', (arg1, arg2, options) => {
+    return arg1==arg2;
   });
 app.set('view engine', '.ejs');
 //Middlewares
