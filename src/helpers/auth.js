@@ -13,7 +13,7 @@ helpers.isAuthenticated = async(req, res, next) =>{
         if (usuario){
             req.token = authorization;
             req.user = usuario.id;
-            console.log(usuario.role);
+            req.role = usuario.role;
             return next();
         }else{
             res.render('users/signin');
