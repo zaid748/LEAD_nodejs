@@ -42,7 +42,7 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
     }else{
         const nuevoEmpleado = new Empleados({ prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing});
         await nuevoEmpleado.save();
-        res.redirect('/empleados/employedView', {user, role});
+        res.redirect('/empleados/employedView');
     }
 };
 
