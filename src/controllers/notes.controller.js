@@ -5,7 +5,8 @@ const app = require('../server');
 
 notesCtrl.renderNoteForm = (req, res) =>{
     const user = req.token;
-    res.render('notes/new-note', {user});
+    const role = req.role;
+    res.render('notes/new-note', {user, role});
 };
 
 notesCtrl.createNewNote = async (req, res) =>{
@@ -19,18 +20,20 @@ notesCtrl.createNewNote = async (req, res) =>{
 
 notesCtrl.renderNotes = async(req, res)=>{
     const user = req.token;
+    const role = req.role;
     const notes = await Note.find({user: req.user}).sort({createAt: 'desc'}).lean();
-    res.render('notes/all-notes', {notes, user});
+    res.render('notes/all-notes', {notes, user, role});
 };
 
 notesCtrl.renderEditForm = async(req, res) =>{
     const user = req.token;
+    const role = req.role;
     const note = await Note.findById(req.params.id).lean();
     if(note.user != req.user){
         req.flash('error', 'Not Authorized');
         return res.redirect('/notes');
     }
-    res.render('notes/edit-note', { note, user });
+    res.render('notes/edit-note', { note, user, role });
 };
 notesCtrl.updateNote = async(req, res) =>{
     const { title, description } = req.body;
