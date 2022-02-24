@@ -15,7 +15,8 @@ indexCtrl.renderIndex = async(req, res) =>{
                 user: usuario,
                 nombre: usuario.prim_nom, 
                 apellido_pa: usuario.apell_pa, 
-                apellido_ma: usuario.apell_ma 
+                apellido_ma: usuario.apell_ma,
+                role: usuario.role
             });
         }else{
             res.render('users/signin');

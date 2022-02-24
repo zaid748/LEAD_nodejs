@@ -7,13 +7,15 @@ const app = require('../server');
 employedCtrl.agregarEmpleadoView = async(req, res)=>{
     const department = await Departamentos.find().lean();
     const user = req.user;
-    res.render('empleados/add_employed', {department, user});
+    const role = req.role;
+    res.render('empleados/add_employed', {department, user, role});
 };
 
 employedCtrl.agregarEmpleado = async(req, res)=>{
     const { prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing } = req.body;
     const emailEmployed = await Empleados.findOne({email: email}).lean();
     const user = req.user;
+    const role = req.role;
     const department = await Departamentos.find().lean();
     if(emailEmployed){
         res.render('empleados/add_employed',{ 
@@ -33,12 +35,14 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
             salario: salario, 
             fecha_ing: fecha_ing,
             error_msg: 'error',
-            error2_msg: 'error_let'
+            error2_msg: 'error_let',
+            user, 
+            role
         });
     }else{
         const nuevoEmpleado = new Empleados({ prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing});
         await nuevoEmpleado.save();
-        res.render('empleados/employedView', {user});
+        res.render('empleados/employedView', {user, role});
     }
 };
 
@@ -52,7 +56,8 @@ employedCtrl.employedView = async(req, res)=>{
 employedCtrl.ViewInfo = async(req, res)=>{
     const empleado = await Empleados.findById(req.params.id).lean();
     const user = req.user;
-    res.render('empleados/viewInfo', {empleado, user});
+    const role = req.role;
+    res.render('empleados/viewInfo', {empleado, user, role});
 }
 
 module.exports = employedCtrl;
