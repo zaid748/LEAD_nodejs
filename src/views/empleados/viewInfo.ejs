@@ -13,7 +13,11 @@
                     <div><strong>Salario semanal</strong> {{empleado.salario}}</div>
                     <div><strong>Estado actual</strong> {{empleado.estado}}</div>
                 </div>
-                <div><button class="btn-baja">Renuncia o baja</button></div>
+                <form action="/empleado/renuncia/{{empleado._id}}?_method=PUT" method="post">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="renuncia" value="Renuncia">
+                    <div><button class="btn-baja">Renuncia o baja</button></div>
+                </form>
             </div>
         </div>
     </div>
