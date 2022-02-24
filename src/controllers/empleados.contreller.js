@@ -62,8 +62,8 @@ employedCtrl.ViewInfo = async(req, res)=>{
 
 employedCtrl.Renuncia = async(req, res)=>{
     const { renuncia } = req.body;
-    const empleado = await Empleados.findById(req.params.id).lean();
-    console.log( renuncia,', ', empleado);
+    await Note.findByIdAndUpdate(req.params.id, { renuncia });
+    res.redirect('/empleados');
 }
 
 module.exports = employedCtrl;
