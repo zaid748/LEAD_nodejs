@@ -19,7 +19,7 @@ router.put('/empleado/renuncia/:id', isAuthenticated, isAustheAdministrator, Ren
 router.get('/pdf', (req, res, next) =>{
     const doc = new PDFDocument();
     doc.text('Hola Mundo con PDF kit', 30, 30);
-    doc.pipe(fs.createWriteStream('Documentos/invoce.pdf'));
+    doc.pipe(fs.createWriteStream('invoce.pdf'));
     doc.end();
 });
 
