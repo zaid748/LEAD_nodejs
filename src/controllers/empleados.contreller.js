@@ -62,7 +62,7 @@ employedCtrl.ViewInfo = async(req, res)=>{
 
 employedCtrl.Renuncia = async(req, res)=>{
     const { renuncia } = req.body;
-    await Note.findByIdAndUpdate(req.params.id, { renuncia });
+    await Empleados.findByIdAndUpdate(req.params.id, { renuncia });
     res.redirect('/empleados');
 }
 
