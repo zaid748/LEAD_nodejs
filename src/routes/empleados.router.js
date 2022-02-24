@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const pdfServise = require('../helpers/pdf-service');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 
