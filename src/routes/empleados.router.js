@@ -10,7 +10,7 @@ router.get('/empleados/Agregar' , isAuthenticated, isAustheAdministrator , agreg
 
 router.post('/empleados/Agregar', isAuthenticated, isAustheAdministrator, agregarEmpleado);
 
-router.get('/empleados', isAuthenticated, isAustheAdministrator,employedView)
+router.get('/empleados', isAuthenticated, isAustheAdministrator, employedView)
 
 router.get('/empleado/:id', isAuthenticated, isAustheAdministrator, ViewInfo);
 
