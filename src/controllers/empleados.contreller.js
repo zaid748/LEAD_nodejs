@@ -62,11 +62,17 @@ employedCtrl.ViewInfo = async(req, res)=>{
     const user = req.params.id;
     const token = req.token;
     const role = req.role;
-    let name = nomina.empleado+nomina.fecha;
-    name = name.split(" ").join("");
-    const link = (space+'Nominas/'+name+'.pdf');
-    console.log(nomina, link);
-    res.render('empleados/viewInfo', {empleado, user, role, token, link});
+    if(nomina){
+        let name = nomina.empleado+nomina.fecha;
+        name = name.split(" ").join("");
+        console.log('hola');
+        const link = (space+'Nominas/'+name+'.pdf');
+        console.log(nomina, link);
+        res.render('empleados/viewInfo', {empleado, user, role, token, link});
+    }else{
+        res.render('empleados/viewInfo', {empleado, user, role, token});
+    }
+    
 }
 
 employedCtrl.Renuncia = async(req, res)=>{
