@@ -4,7 +4,10 @@ const puppeteer = require('puppeteer');
 PDF.CrearPdfNomina = async(req, res, next)=>{
     const local = process.env.HOST
     const url = `${local}/nomina/view/${req.id}`;
-    const navegador = await puppeteer.launch();
+    const navegador = await puppeteer.launch({
+        args: ["--no-sandbox",
+            "--disable-setuid-sandbox"]
+    });
     const pagina = await navegador.newPage({headless:true, slowMo: 100});
     const pageName = req.user+req.fecha;
     await pagina.goto(url, {
