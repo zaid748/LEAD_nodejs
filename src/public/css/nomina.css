@@ -1,0 +1,29 @@
+.contect{
+    width: 90%;
+    height: 90%;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-left: 60px;
+}
+.title-contect{
+    display: flex;
+}
+.title_h1{
+    font-size: 25px;
+    margin-top: 230px;
+    color: #000;
+}
+.date{
+    margin: 10px;
+    margin-top: 170px;
+}
+img{
+    width: 280px !important;
+    height: 180px !important;
+    margin: 10px;
+}
+.desarrollo{
+    text-align: left;
+    margin: 15px;
+    font-size: 20px !important;
+}

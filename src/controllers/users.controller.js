@@ -14,7 +14,7 @@ userCtrl.renderSignUpForm = async(req, res)=>{
 };
 
 userCtrl.signup = async (req, res) =>{
-    const { prim_nom, segun_nom, apell_pa, telefono, fecha_na, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password } = req.body;
+    const { prim_nom, segun_nom, apell_pa, telefono, fecha_na, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password, role } = req.body;
     let fullname = prim_nom +' '+ segun_nom+' '+apell_pa+' '+apell_ma;
     const department = await Departamentos.find();
     department.forEach(departments => {
@@ -35,6 +35,7 @@ userCtrl.signup = async (req, res) =>{
             nun_in: nun_in, 
             nun_ex: nun_ex, 
             codigo: codigo,
+            role: role,
             error_msg: 'error',
             error2_msg: 'error_let',
             department: department['departamentos']

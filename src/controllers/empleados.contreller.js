@@ -2,6 +2,7 @@ const employedCtrl = {};
 
 const Empleados = require('../models/Empleados');
 const Departamentos = require('../models/Departamentos');
+const Nominas = require('../models/Nomina');
 const app = require('../server');
 
 employedCtrl.agregarEmpleadoView = async(req, res)=>{
@@ -49,15 +50,23 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
 employedCtrl.employedView = async(req, res)=>{
     const Employed = await Empleados.find().lean();
     const user = req.user;
+    const token = req.token;
     const role = req.role;
-    res.render('empleados/employedView', {Employed, user, role});
+    res.render('empleados/employedView', {Employed, user, role, token});
 }
 
 employedCtrl.ViewInfo = async(req, res)=>{
     const empleado = await Empleados.findById(req.params.id).lean();
-    const user = req.user;
+    const nomina = await Nominas.findOne({empleadoId:req.params.id}).sort({fecha:-1});
+    const space = process.env.SPACESHOST;
+    const user = req.params.id;
+    const token = req.token;
     const role = req.role;
-    res.render('empleados/viewInfo', {empleado, user, role});
+    let name = nomina.empleado+nomina.fecha;
+    name = name.split(" ").join("");
+    const link = (space+'Nominas/'+name+'.pdf');
+    console.log(nomina, link);
+    res.render('empleados/viewInfo', {empleado, user, role, token, link});
 }
 
 employedCtrl.Renuncia = async(req, res)=>{
@@ -66,6 +75,18 @@ employedCtrl.Renuncia = async(req, res)=>{
     await Empleados.findByIdAndUpdate(req.params.id,  { estado:renuncia} );
     console.log(empleado, renuncia);
     res.redirect('/empleados');
+}
+
+employedCtrl.CrearNominaView =  async(req, res) =>{
+    const empleado = await Empleados.findById({_id:req.params.id}).lean();
+    const id = req.params.id;
+    const full_name = empleado.prim_nom +' '+ empleado.segun_nom +' '+ empleado.apell_pa+' '+empleado.apell_ma;
+    console.log(empleado.pust);
+    token = req.token;
+    user = req.user;
+    role = req.role;
+    console.log(token)
+    res.render('empleados/crear_nomina',{ full_name, id, token, user, role });
 }
 
 module.exports = employedCtrl;

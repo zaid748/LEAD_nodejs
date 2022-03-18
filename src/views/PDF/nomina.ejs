@@ -1,0 +1,23 @@
+<div class="contect">
+    <div class="title-contect">
+        <img src="../../img/Logi.jpg" alt="logo">
+        <h1 class="title_h1">Recibo de Dinero</h1>
+        {{#each nomina}}
+        <h3 class="date">{{fecha}}</h3>
+        {{/each}}
+    </div>
+    <div class="desarrollo">
+        <p>Recibo de: <strong>Laura Elena Alejo Duran</strong>
+            <br>
+            la cantidad de (${{#each nomina}}{{salario}}{{/each}}pesos) M.N.<br>
+            ({{textoNum}})
+        </p>
+        <p>
+            {{#each nomina}}{{conceptoDePago}}{{/each}}
+        </p>
+        <p style="text-align: center; text-transform: capitalize;">______________________<br>
+            <strong>Firma</strong><br>
+            {{#each nomina}}{{empleado}}{{/each}}
+        </p>
+    </div>
+</div>

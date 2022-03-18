@@ -1,9 +1,10 @@
 <div class="contect">
     <div class="section">
-        <div class="contenidoInfo">
+        <div class="contenidoInfo" id="info">
             <ion-icon name="person-circle-outline" style="width: 200px; height: 200px;"></ion-icon>
-            <div class="info">
-                <div>
+            <h2 style="text-transform: capitalize;">{{empleado.prim_nom}} {{empleado.segun_nom}} {{empleado.apell_pa}} {{empleado.apell_ma}}</h2>
+            <div class="info" >
+                <div class="empleado-info" id="temInfoEmpleados">
                     <div><strong>Nombre:</strong> {{empleado.prim_nom}} {{empleado.segun_nom}} {{empleado.apell_pa}} {{empleado.apell_ma}}</div>
                     <div><strong>Correo:</strong> {{empleado.email}}</div>
                     <div><strong>Puesto:</strong> {{empleado.pust}}</div>
@@ -13,12 +14,46 @@
                     <div><strong>Salario semanal</strong> {{empleado.salario}}</div>
                     <div><strong>Estado actual</strong> {{empleado.estado}}</div>
                 </div>
+                <div>
+                    <button type="none" class="btn-style" id="btnInfo">Ver informacion</button>
+                </div>
+                <div>
+                    <a href="/empleado/nomina/{{user}}">
+                        <button type="none" class="btn-style">Crear nomina</button>
+                    </a>
+                </div>
+                <div>
+                    <a href="/nomina/view/{{user}}">
+                        <button type="none" class="btn-style">Ver nomina actual</button>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{link}}">
+                        <button type="none" class="btn-style">Descargar nomina</button>
+                    </a>
+                </div>
                 <form action="/empleado/renuncia/{{empleado._id}}?_method=PUT" method="post">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="renuncia" value="Renuncia">
-                    <div><button class="btn-baja">Renuncia o baja</button></div>
+                    <div><button class="btn-style btn-ren">Renuncia o baja</button></div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    let btnInfo = document.getElementById('btnInfo');
+    btnInfo.addEventListener('click', ()=>{
+        let templay = document.getElementById('temInfoEmpleados');
+        let styleContect = document.getElementById('info');
+        console.log(templay);
+        if(templay.classList.length == 1){
+            styleContect.style.borderRadius = '10px 0 0 10px';
+            templay.classList.add('viewInfo');
+        }else{
+            console.log('hola3');
+            styleContect.style.borderRadius = '10px';
+            templay.classList.remove('viewInfo');
+        }
+    });
+</script>

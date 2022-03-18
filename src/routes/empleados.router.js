@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
-
-const { agregarEmpleadoView, agregarEmpleado, employedView, ViewInfo, Renuncia } = require('../controllers/empleados.contreller');
+const { agregarEmpleadoView, agregarEmpleado, employedView, ViewInfo, Renuncia, CrearNominaView } = require('../controllers/empleados.contreller');
 const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
+const { addNomina, nomina } = require('../controllers/nomina.controller');
+const { CrearPdfNomina } = require('../libs/PDF');
+const { uploadObject } = require('../libs/multer')
 
 router.get('/empleados/Agregar' , isAuthenticated, isAustheAdministrator , agregarEmpleadoView);
 
@@ -16,11 +16,16 @@ router.get('/empleado/:id', isAuthenticated, isAustheAdministrator, ViewInfo);
 
 router.put('/empleado/renuncia/:id', isAuthenticated, isAustheAdministrator, Renuncia);
 
-router.get('/pdf', (req, res, next) =>{
-    const doc = new PDFDocument();
-    doc.text('Hola Mundo con PDF kit', 30, 30);
-    doc.pipe(fs.createWriteStream('invoce.pdf'));
-    doc.end();
-});
+router.get('/empleados/:token', isAuthenticated, isAustheAdministrator, employedView);
+
+router.get('/empleado/nomina/:id', isAuthenticated, isAustheAdministrator, CrearNominaView);
+
+router.post('/CrearNomina/:token', isAuthenticated, isAustheAdministrator, addNomina, CrearPdfNomina, uploadObject);
+
+router.get('/nomina/view/:id', nomina);
+
+/* router.post('/pdf/:token', isAuthenticated, isAustheAdministrator, uploadObject, (req, res) =>{
+    res.redirect('/empleados');
+}); */
 
 module.exports = router;

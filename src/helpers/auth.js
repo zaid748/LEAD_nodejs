@@ -4,6 +4,7 @@ const User = require('../models/user');
 const {SECRET} = process.env;
 
 helpers.isAuthenticated = async(req, res, next) =>{
+    const { token } = req.params;
     const cookies = req.cookies;
     const authorization  = cookies.Authorization;
     if(authorization){    
@@ -12,6 +13,18 @@ helpers.isAuthenticated = async(req, res, next) =>{
         const usuario = await User.findById({ _id});
         if (usuario){
             req.token = authorization;
+            req.user = usuario.id;
+            req.role = usuario.role;
+            return next();
+        }else{
+            res.render('users/signin');
+        }
+    }else if(token){
+        const decoded = jwt.verify(token, SECRET);
+        const  { _id } = decoded;
+        const usuario = await User.findById({ _id});
+        if (usuario){
+            req.token = token;
             req.user = usuario.id;
             req.role = usuario.role;
             return next();

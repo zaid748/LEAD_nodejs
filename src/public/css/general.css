@@ -12,6 +12,14 @@ input{
     border-radius: 13px;
     margin: 15px 10px;
 }
+textarea{
+    width: 270px;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 13px;
+    margin: 15px 10px;
+}
 select{
     width: 270px;
     padding: 10px;
@@ -78,4 +86,131 @@ a{
 }
 .margin-t-4{
     margin-top: 4%;
+}
+.btn-style{
+    text-align: left;
+    height: 69px;
+    font-family: serif;
+    background-color: #354c22;
+    color: #b9ce46;
+    padding: 5px 10px;
+    transition: all .5s;
+    width: 100%;
+    font-size: 22px;
+    transition: all .5s;
+}
+
+.wh10{
+    width: 10px;
+    height: 10px;
+}
+.wh20{
+    width: 20px;
+    height: 20px;
+}
+.wh50{
+    width: 50px;
+    height: 50px;
+}
+.wh70{
+    width: 70px;
+    height: 70px;
+}
+.wh100{
+    width: 100px;
+    height: 100px;
+}
+.wh120{
+    width: 120px;
+    height: 120px;
+}
+.wh150{
+    width: 150px;
+    height: 150px;
+}
+.wh180{
+    width: 180px;
+    height: 180px;
+}
+.wh200{
+    width: 200px;
+    height: 200px;
+}
+.w10{
+    width: 10px;
+}
+.w30{
+    width: 30px;
+}
+.w50{
+    width: 50px;
+}
+.w100{
+    width: 100px;
+}
+.w200{
+    width: 200px;
+}
+.w250{
+    width: 250px;
+}
+.w300{
+    width: 300px;
+}
+.w400{
+    width: 400px;
+}
+.w450{
+    width: 450px;
+}
+.w500{
+    width: 500px;
+}
+.w550{
+    width: 550px;
+}
+.w600{
+    width: 600px;
+}
+.w700{
+    width: 700px;
+}
+.h10{
+    height: 10px;
+}
+.h30{
+    height: 30px;
+}
+.h50{
+    height: 50px;
+}
+.h100{
+    height: 100px;
+}
+.h200{
+    height: 200px;
+}
+.h250{
+    height: 250px;
+}
+.h300{
+    height: 300px;
+}
+.h400{
+    height: 400px;
+}
+.h450{
+    height: 450px;
+}
+.h500{
+    height: 500px;
+}
+.h550{
+    height: 550px;
+}
+.h600{
+    height: 600px;
+}
+.h700{
+    height: 700px;
 }
