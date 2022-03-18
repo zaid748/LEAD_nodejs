@@ -5,7 +5,7 @@ PDF.CrearPdfNomina = async(req, res, next)=>{
     const local = process.env.HOST
     const url = `${local}/nomina/view/${req.id}`;
     const navegador = await puppeteer.launch();
-    const pagina = await navegador.newPage({headless:true, ignoreHTTPSErrors: false, slowMo: 100});
+    const pagina = await navegador.newPage({headless:true, slowMo: 100});
     const pageName = req.user+req.fecha;
     await pagina.goto(url, {
          waitUntil: "networkidle0"
