@@ -1,6 +1,10 @@
+nav, body, main{
+    background-color: #fff !important;
+}
 .contect{
     width: 90%;
     height: 90%;
+    border: solid 3px #354c22;
     background-color: #fff;
     border-radius: 10px;
     margin-left: 60px;
