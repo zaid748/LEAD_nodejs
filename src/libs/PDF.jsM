@@ -3,7 +3,8 @@ const puppeteer = require('puppeteer');
 
 PDF.CrearPdfNomina = async(req, res, next)=>{
     const local = process.env.HOST
-    const url = `${local}nomina/view/${req.id}`;
+    const url = `${local}/nomina/view/${req.id}`;
+    console.log(url);
     const navegador = await puppeteer.launch({
         args: ["--no-sandbox",
             "--disable-setuid-sandbox"]
