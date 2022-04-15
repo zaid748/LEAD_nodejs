@@ -91,7 +91,6 @@ employedCtrl.CrearNominaView =  async(req, res) =>{
     token = req.token;
     user = req.user;
     role = req.role;
-    console.log(token)
     res.render('empleados/crear_nomina',{ full_name, id, token, user, role });
 }
 

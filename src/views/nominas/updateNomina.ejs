@@ -1,0 +1,27 @@
+<div class="contect">
+    <h1 style="text-transform: capitalize;">{{full_name}}</h1>
+    <form action="/CrearNomina/update/{{token}}/{{id}}?_method=PUT" method="post">
+        <div class="section" style="display: block;">
+            <div class="form">
+                <input type="hidden" name="empleadoId" value="{{empleadoId}}">
+                <input type="hidden" name="empleado" value="{{full_name}}">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="ctrl">
+                    <label for="salario" class="label-ctrl" style="left: 170px;"> Salario </label>
+                    <input id="salario" name="salario" type="text" class="campo-obligatorio" campo value="{{salario}}">
+                </div>
+                <div class="ctrl">
+                    <label for="fecha" class="label-ctrl" style="left: 170px;">Fecha de nacimiento</label>
+                    <input id="fecha" name="fecha" type="date" class="campo-obligatorio" campo value="{{fecha}}">
+                </div>
+                <div class="ctrl">
+                    <label for="concepto" class="label-ctrl" style="left: 170px;">Concepto de pago</label>
+                    <textarea id="concepto" name="concepto" type="text" class="campo-obligatorio" campo>{{conceptoDePago}}</textarea>
+                </div>
+            </div>
+        <div class="btn- sing">
+            <button id="registrarLimpieza" class="btn-span" type="submit">Crear</button>
+        </div>
+    </div>
+    </form>
+</div>

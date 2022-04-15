@@ -1,0 +1,39 @@
+<div class="btn-contect">
+    <a href="/empleado/nomina/{{empleadoId}}">
+        <button class="btn-">Crear Nomina</button>
+    </a>
+</div>
+<div class="contect" style="border-radius: 10px; background: azure; padding: 7px;">
+    <div class="setinfo">
+        <div class="etiquetado oh-35">
+            <span class="margin"><label>Nombre</label></span>
+        </div>
+        <div class="etiquetado oh-35">
+            <span class="margin"><label>Fecha</label></span>
+        </div>
+        <div class="etiquetado oh-35">
+            <span class="margin"><label>Nomina</label></span>
+        </div>
+    </div>
+    {{#each nominas}}
+    <div class="setinfo">
+        <div class="etiquetado oh-35">
+            <span class="margin"><label>{{empleado}}</label></span>
+        </div>
+        <div class="etiquetado oh-35">
+            <span class="margin"><label>{{fecha}}</label></span>
+        </div>
+        <div class="etiquetado oh-35">
+            <a href="/nomina/view/{{_id}}" style="width: 50%;">
+                <div id="verEmpleado"><label style="cursor: pointer;">Ver</label></div>
+            </a>
+            <a href="/nomina/update/{{_id}}" style="width: 50%;">
+                <div id="verEmpleado"><label style="cursor: pointer;">Editar</label></div>
+            </a>
+            <a href="{{link}}" style="width: 100%;">
+                <div id="verEmpleado"><label style="cursor: pointer;">Descargar</label></div>
+            </a>
+        </div>
+    </div>
+    {{/each}}
+</div>
