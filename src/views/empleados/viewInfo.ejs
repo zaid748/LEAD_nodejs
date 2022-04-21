@@ -17,21 +17,21 @@
                 <div>
                     <button type="none" class="btn-style" id="btnInfo">Ver informacion</button>
                 </div>
-                <div>
+                <!-- <div>
                     <a href="/empleado/nomina/{{user}}">
                         <button type="none" class="btn-style">Crear nomina</button>
                     </a>
-                </div>
+                </div> -->
                 <div>
                     <a href="/nominas/views/{{user}}">
                         <button type="none" class="btn-style">Nominas</button>
                     </a>
                 </div>
-                <div>
+                <!-- <div>
                     <a href="{{link}}" style="text-transform: uppercase;">
                         <button type="none" class="btn-style">Descargar nomina</button>
                     </a>
-                </div>
+                </div> -->
                 <form action="/empleado/renuncia/{{empleado._id}}?_method=PUT" method="post">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="renuncia" value="Renuncia">
