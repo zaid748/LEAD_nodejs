@@ -22,8 +22,6 @@ router.get('/empleado/nomina/:id', isAuthenticated, isAustheAdministrator, Crear
 
 router.post('/CrearNomina/:token', isAuthenticated, isAustheAdministrator, addNomina, CrearPdfNomina, uploadObject);
 
-router.get('/nomina/view/:id', nomina);
-
 /* router.post('/pdf/:token', isAuthenticated, isAustheAdministrator, uploadObject, (req, res) =>{
     res.redirect('/empleados');
 }); */
