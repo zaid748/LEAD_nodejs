@@ -8,7 +8,8 @@ const { PutObjectCommand, S3Client } = require('@aws-sdk/client-s3');
 upload.uploadObject = async (req, res, next) => {
   let name = req.key;
   name = name.split(" ").join("");
-  // The s3Client function validates your request and directs it to your Space's specified endpoint using the AWS SDK.
+ console.log(name); 
+ // The s3Client function validates your request and directs it to your Space's specified endpoint using the AWS SDK.
   const s3Client = new S3Client({
     endpoint: "https://sfo3.digitaloceanspaces.com", // Find your endpoint in the control panel, under Settings. Prepend "https://".
     region: "us-east-1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
