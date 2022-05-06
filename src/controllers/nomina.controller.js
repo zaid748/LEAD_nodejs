@@ -72,15 +72,18 @@ nominaCtrl.CrearNominaView =  async(req, res) =>{
     res.render('nominas/updateNomina',{ empleado, full_name, id, token, user, role, salario, fecha, conceptoDePago, empleadoId });
 }
 
-nominaCtrl.updateNomina = async(req, res)=>{
+nominaCtrl.updateNomina = async(req, res, next)=>{
     try{
         const { empleadoId, empleado, concepto, salario, fecha} = req.body;
         console.log(req.body, concepto);
         await Nomina.findByIdAndUpdate(req.params.id, { empleadoId, empleado, conceptoDePago:concepto, salario, fecha });
-        res.redirect('/empleados');
-    }catch(err){
+        req.id = empleadoId;
+        req.user = empleado;
+        req.fecha = fecha; 
+ }catch(err){
         console.log(err);
     }
+    return next();
 };
 
 module.exports = nominaCtrl;
