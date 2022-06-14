@@ -3,6 +3,7 @@
     padding: 0;
 }
 nav, body, main{
+    margin: 0;
     background-color: #354c22 !important;
 }
 input{
@@ -33,7 +34,8 @@ h1{
 }
 .ctrl{
     position: relative;
-    margin-top: 25px;
+    margin: auto;
+    margin-top: 35px;
 }
 .label-ctrl{
     color: #b9ce46;
@@ -77,6 +79,14 @@ a{
 }
 .btn{
     margin: 10px 20px !important
+}
+.btn-guardar{
+    font-size: 20px;
+    background-color: transparent;
+    color: #b9ce46;
+}
+.btn-guardar:hover{
+    background-color: darkolivegreen;
 }
 .btn-block{
     width: 89% !important;
@@ -216,4 +226,14 @@ a{
 }
 .oh-35{
     width: 35% !important;
+}
+.oh-25{
+    width: 25% !important;
+}
+.oh-100{
+    width: 100% !important;
+}
+.fichas:hover{
+    margin-top: 10px;
+    color: #354c22 !important;
 }

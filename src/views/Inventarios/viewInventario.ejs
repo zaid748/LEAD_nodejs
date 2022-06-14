@@ -1,0 +1,18 @@
+<div class="btn-contect">
+    {{#if user}}
+        <a href="/Inventario/add">
+            <button class="btn-">Agregar Inventario</button>
+        </a>
+    {{/if}}
+    
+</div>
+<div style="display: flex;">
+{{#each Inventario}}
+<div class="contect oh-25 h500" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
+    <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
+    <a href="/Inventario/{{_id}}" class="fichas">
+        <div><label style="cursor: pointer;">Ver ficha técnica</label></div>
+    </a>
+</div>
+{{/each}}
+</div>

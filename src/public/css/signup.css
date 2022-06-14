@@ -1,8 +1,14 @@
 .contect{
+    max-height: 300px;
     width: 100%;
     height: 100%;
+    margin: 10px;
     margin-top: 50px;
     text-align: center;
+}
+.inv-maxh{
+    max-height: 160px;
+    max-width: 200px;
 }
 .sing{
     margin-top: 30px;

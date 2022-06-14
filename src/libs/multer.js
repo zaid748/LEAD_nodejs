@@ -1,7 +1,7 @@
 const upload = {};
 const fs = require('fs');
 const path = require('path');
-const { s3_ENDPOINT, BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = process.env;
+const { S3_ENDPOINT, BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = process.env;
 const app = require('../server');
 const { PutObjectCommand, S3Client } = require('@aws-sdk/client-s3');
 

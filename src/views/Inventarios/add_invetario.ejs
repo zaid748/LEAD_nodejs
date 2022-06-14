@@ -1,0 +1,64 @@
+<div class="contect">
+    <h1 style="text-transform: capitalize;">Agregar un nuevo inventario</h1>
+    <form action="/Inventario/add" method="post" enctype="multipart/form-data">
+        <div class="section">
+            <div class="form">
+                <div class="ctrl">
+                    <label for="fraccionamiento" class="label-ctrl">Nombre del fraccionamiento</label>
+                    <input id="fraccionamiento" name="fraccionamiento" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="direccion" class="label-ctrl">Dirección de la propiedad</label>
+                    <input id="direccion" name="direccion" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="MtrTerreno" class="label-ctrl">Metros del terreno</label>
+                    <input id="MtrTerreno" name="MtrTerreno" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="MtsDeCostruccion" class="label-ctrl">Metros de construcción</label>
+                    <input id="MtsDeCostruccion" name="MtsDeCostruccion" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="descripcion" class="label-ctrl">Descripción de la casa</label>
+                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" class="campo-obligatorio" campo style="height: 150px;"></textarea>
+                </div>
+            </div>
+            <div class="form">
+                <div class="ctrl">
+                    <label for="tipo" class="label-ctrl">Tipo de tramite</label>
+                    <input id="tipo" name="tipo" type="text">
+                </div>
+                <div class="ctrl">
+                    <label for="numDeRecamaras" class="label-ctrl">Número de recamaras</label>
+                    <input id="numDeRecamaras" name="numDeRecamaras" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="Presio" class="label-ctrl">Precio de la casa</label>
+                    <input id="Presio" name="Presio" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="Entrega" class="label-ctrl">Entrega</label>
+                    <input id="Entrega" name="Entrega" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="Avaluo" class="label-ctrl">Avaluo</label>
+                    <input id="Avaluo" name="Avaluo" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="Comision" class="label-ctrl">Comisión</label>
+                    <input id="Comision" name="Comision" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
+                    <label for="file" class="label-ctrl">Foto</label>
+                    <input id="file" name="file" type="file" class="campo-obligatorio" campo style="border: 0;">
+                </div>
+            </div>
+        </div>
+        <div class="section" style="display: grid;">
+            <div class="ctrl">
+                <input type="submit" class="campo-obligatorio btn-guardar" campo value="Guardar">
+            </div>
+        </div>
+    </form>
+</div>

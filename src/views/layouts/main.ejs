@@ -22,10 +22,17 @@
         {{#if (equals role "administrator")}}
             {{>naver_admin}}
         {{/if}}
+        {{#if (equals role "supervisor")}}
+            {{>naver_supervisor}}
+        {{/if}}
         {{#if (equals role "user")}}
             {{>naver_user}}
         {{/if}}
+    {{else}}
+        {{>naver_clientes}}
     {{/if}}
+
+    
     <main class="container p-5">
         {{>errors}}
         {{>messages}}

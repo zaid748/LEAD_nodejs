@@ -80,7 +80,7 @@ nominaCtrl.updateNomina = async(req, res, next)=>{
         req.id = empleadoId;
         req.user = empleado;
         req.fecha = fecha; 
- }catch(err){
+    }catch(err){
         console.log(err);
     }
     return next();
