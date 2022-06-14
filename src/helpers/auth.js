@@ -11,6 +11,7 @@ helpers.isAuthenticated = async(req, res, next) =>{
         const decoded = jwt.verify(authorization, SECRET);
         const  { _id } = decoded;
         const usuario = await User.findById({ _id});
+        console.log(decoded, _id, usuario);
         if (usuario){
             req.token = authorization;
             req.user = usuario.id;
