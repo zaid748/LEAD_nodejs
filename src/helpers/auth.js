@@ -7,7 +7,7 @@ helpers.isAuthenticated = async(req, res, next) =>{
     const { token } = req.params;
     const cookies = req.cookies;
     const authorization  = cookies.Authorization;
-    if(authorization){    
+    if(authorization){
         const decoded = jwt.verify(authorization, SECRET);
         const  { _id } = decoded;
         const usuario = await User.findById({ _id});
