@@ -82,7 +82,7 @@ nominaCtrl.updateNomina = async(req, res, next)=>{
         const { empleadoId, empleado, concepto, salario, fecha} = req.body;
         console.log('update')
         await Nomina.findByIdAndUpdate(req.params.id, { empleadoId, empleado, conceptoDePago:concepto, salario, fecha });
-        req.id = empleadoId;
+        req.id = req.params.id;
         req.user = empleado;
         req.fecha = fecha; 
     }catch(err){
