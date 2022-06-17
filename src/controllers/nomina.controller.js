@@ -45,7 +45,7 @@ nominaCtrl.nomina = async(req, res)=>{
     let nomina = await Nomina.findOne({_id:req.params.id}).sort({fecha:-1});
     console.log(nomina, req.params.id, location.href, req.id);
     if(nomina){
-        console.log("hola")
+        console.log("hola");
     }
     const empleado = await Empleado.findOne({_id: nomina.empleadoId});
 
@@ -80,7 +80,7 @@ nominaCtrl.CrearNominaView =  async(req, res) =>{
 nominaCtrl.updateNomina = async(req, res, next)=>{
     try{
         const { empleadoId, empleado, concepto, salario, fecha} = req.body;
-        console('update')
+        console.log('update')
         await Nomina.findByIdAndUpdate(req.params.id, { empleadoId, empleado, conceptoDePago:concepto, salario, fecha });
         req.id = empleadoId;
         req.user = empleado;
