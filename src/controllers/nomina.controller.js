@@ -42,8 +42,10 @@ nominaCtrl.ViewNominas = async(req, res)=>{
 };
 
 nominaCtrl.nomina = async(req, res)=>{
-    const nomina = await Nomina.findOne({_id:req.params.id}).sort({fecha:-1});
-    console.log(nomina, req.params.id);
+    let nomina = await Nomina.findOne({_id:req.params.id}).sort({fecha:-1});
+    if(nomina){
+        console.log(nomina, req.params.id, location.href);
+    }
     const empleado = await Empleado.findOne({_id: nomina.empleadoId});
 
     const key_sucio = empleado.email.split("@");
