@@ -42,6 +42,7 @@ nominaCtrl.ViewNominas = async(req, res)=>{
 };
 
 nominaCtrl.nomina = async(req, res)=>{
+    console.log(id)
     let nomina = await Nomina.findOne({_id:req.params.id}).sort({fecha:-1});
     if(nomina){
         console.log(nomina, req.params.id, location.href);
