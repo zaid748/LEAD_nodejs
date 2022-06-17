@@ -7,7 +7,9 @@ const { upload } = require('../libs/multerImagenes');
 
 router.get('/Inventario', isAuthenticated, viewGetInventario);
 
-router.get('/Inventario/add', viewAddInventario);
+router.get('/Inventario/visit', viewGetInventario);
+
+router.get('/Inventario/add', isAuthenticated, viewAddInventario);
 
 router.get('/Inventario/:id', viewGetFichaTecnica);
 

@@ -22,7 +22,7 @@ const upload = multer({
     },
     key: (request, file, cb) => {
       console.log(file, "hola");
-      cb(null, `ImagenesInventario/${request.body.cliente}/${file.originalname}`);
+      cb(null, `ImagenesInventario/${request.body.direccion}/${file.originalname}`);
     },
   }),
 }).single("file");
