@@ -11,7 +11,9 @@ router.get('/Inventario/visit', viewGetInventario);
 
 router.get('/Inventario/add', isAuthenticated, viewAddInventario);
 
-router.get('/Inventario/:id', viewGetFichaTecnica);
+router.get('/Inventario/:id', isAuthenticated, viewGetFichaTecnica);
+
+router.get('/Inventario/visit/:id', viewGetFichaTecnica);
 
 router.post('/Inventario/add', upload, uploadFile);
 

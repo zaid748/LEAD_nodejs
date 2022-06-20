@@ -1,6 +1,12 @@
 const {Schema, model} = require('mongoose');
 
 const CasaInventario = new Schema({
+    Titulo:{
+        type: String
+    },
+    Tipo_Credito:{
+        type: String
+    },
     Fraccionamiento: {
         type: String
     },

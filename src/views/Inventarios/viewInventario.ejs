@@ -14,12 +14,25 @@
     
 </div>
 <div style="display: flex;">
-{{#each Inventario}}
-<div class="contect-1 oh-25 h500" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
-    <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
-    <a href="/Inventario/{{_id}}" class="fichas">
-        <div><label style="cursor: pointer;">Ver ficha técnica</label></div>
-    </a>
-</div>
-{{/each}}
+
+{{#if user}}
+    {{#each Inventario}}
+        <div class="contect-1 oh-25 h500" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
+            <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
+            
+                <a href="/Inventario/{{_id}}" class="fichas">
+                    <div><label style="cursor: pointer;">Ver ficha técnica</label></div>
+                </a>
+        </div>
+    {{/each}}
+{{else}}
+    {{#each Inventario}}
+    <div class="contect-1 oh-25 h500" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
+        <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
+        <a href="/Inventario/visit/{{_id}}" class="fichas">
+            <div><label style="cursor: pointer;">Ver ficha técnica</label></div>
+        </a>
+    </div>
+    {{/each}}
+{{/if}}
 </div>

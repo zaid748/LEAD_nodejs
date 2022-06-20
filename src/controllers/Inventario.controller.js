@@ -9,32 +9,34 @@ const { upload, s3 } = require("../libs/multerImagenes");
 const { BUCKET_NAME } = process.env;
 
 InventarioCtrl.viewGetInventario = async(req, res)=>{
+    const title = "Inventario de casas";
     const user = req.user;
     const role = req.role;
     const token = req.token;
     const Inventario = await CasasInventario.find().lean();
-    console.log(Inventario);
-    res.render('Inventarios/viewInventario', { Inventario, user, role, token });
+    res.render('Inventarios/viewInventario', { Inventario, user, role, token, title });
 }
 
 InventarioCtrl.viewGetFichaTecnica = async(req, res)=>{
+    const title = "Inventario de casas";
+    const user =  req.user;
+    const role = req.role;
     const id = req.params.id;
     const Inventario = await CasasInventario.findById({_id:id}).lean();
-    console.log(Inventario);
-    res.render('Inventarios/viewFichaTecnica', { Inventario });
+    res.render('Inventarios/viewFichaTecnica', { Inventario, title, role, user });
 } 
 
 InventarioCtrl.viewAddInventario = async(req, res)=>{
+    const title = "Inventario de casas";
     const user = req.user;
     const role = req.role;
-    res.render('Inventarios/add_invetario', { user, role});
+    res.render('Inventarios/add_invetario', { user, role, title});
 }
 
 InventarioCtrl.uploadFile = async (req, res) => {
-    // show the uploaded file information
-    
-    // Saving the Image URL in Database
     const Inventario = new CasasInventario();
+    Inventario.Titulo = req.body.Titulo;
+    Inventario.Tipo_Credito = req.body.Tipo_Credito
     Inventario.Fraccionamiento = req.body.fraccionamiento;
     Inventario.Tipo = req.body.tipo;
     Inventario.Direccion = req.body.direccion;

@@ -1,12 +1,29 @@
+{{#if user}}
 <div style="border-radius: 10px; background: url(../img/fondo-inventario.png); padding: 7px;">
+    <h1>{{Inventario.Titulo}}</h1>
     <img src="{{Inventario.url}}" alt="imagen" class="oh-35" style="max-height: 400px; max-width: 350px;">
-    <!-- 
-    <label>{{Inventario.Cliente}}</label>
-    <label>{{Inventario.Dueno}}</label>
-    <label>{{Inventario.Direccion}}</label>
-    <label>{{Inventario.Descripcion}}</label>
-    <label>{{Inventario.numDeRecamaras}}</label>
-    <label>{{Inventario.Presio}}</label>
-    <label>{{Inventario.MtrTerreno}}</label>
-    <label>{{Inventario.MtsDeCostruccion}}</label> -->
+    <div>
+        <label>{{Inventario.Tipo_Credito}}</label>
+        <label>{{Inventario.Direccion}}</label>
+        <label>{{Inventario.Descripcion}}</label>
+        <label>{{Inventario.numDeRecamaras}}</label>
+        <label>{{Inventario.Presio}}</label>
+        <label>{{Inventario.MtrTerreno}}</label>
+        <label>{{Inventario.MtsDeCostruccion}}</label>
+    </div>
 </div>
+{{else}}
+<div style="border-radius: 10px; background: url(../../img/fondo-inventario.png); padding: 7px;">
+    <h1>{{Inventario.Titulo}}</h1>
+    <img src="{{Inventario.url}}" alt="imagen" class="oh-35" style="max-height: 400px; max-width: 350px;">
+    <div>
+        <label>{{Inventario.Tipo_Credito}}</label>
+        <label>{{Inventario.Direccion}}</label>
+        <label>{{Inventario.Descripcion}}</label>
+        <label>{{Inventario.numDeRecamaras}}</label>
+        <label>{{Inventario.Presio}}</label>
+        <label>{{Inventario.MtrTerreno}}</label>
+        <label>{{Inventario.MtsDeCostruccion}}</label>
+    </div>
+</div>
+{{/if}}

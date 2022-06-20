@@ -51,6 +51,7 @@ h1{
     box-shadow: 0px 0px 6px rgb(5 231 85);
 }
 .btn-{
+    border-radius: 10px;
     font-size: 20px;
     background-color: transparent;
     color: #b9ce46;
@@ -58,7 +59,13 @@ h1{
     height: 60px;
     margin: auto;
     margin-top: 20px;
+    transition: all 1s;
 }
+
+.btn-:hover{
+    background-color: rgba(255, 255, 255, .1);
+}
+
 .btn-span{
     padding: 10px 20px;
     border: 1px solid #000;
