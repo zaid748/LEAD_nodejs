@@ -14,9 +14,9 @@ nominaCtrl.addNomina = async(req, res, next)=>{
         salario:req.body.salario,
         fecha:req.body.fecha,
     })
-    await nomina.save();
-    console.log(req.token);
-    req.id = req.body.empleadoId;
+    const newNomina = await nomina.save();
+    console.log(newNomina._id);
+    req.id = newNomina._id;
     req.user = req.body.empleado;
     req.fecha = req.body.fecha;
     console.log(req.fecha, req.user);
