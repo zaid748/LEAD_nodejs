@@ -1,29 +1,91 @@
 {{#if user}}
-<div style="border-radius: 10px; background: url(../img/fondo-inventario.png); padding: 7px;">
-    <h1>{{Inventario.Titulo}}</h1>
-    <img src="{{Inventario.url}}" alt="imagen" class="oh-35" style="max-height: 400px; max-width: 350px;">
-    <div>
-        <label>{{Inventario.Tipo_Credito}}</label>
-        <label>{{Inventario.Direccion}}</label>
-        <label>{{Inventario.Descripcion}}</label>
-        <label>{{Inventario.numDeRecamaras}}</label>
-        <label>{{Inventario.Presio}}</label>
-        <label>{{Inventario.MtrTerreno}}</label>
-        <label>{{Inventario.MtsDeCostruccion}}</label>
+<div style="    width: 1400px;
+border-radius: 10px;
+background: url(../img/fondo-inventario.png);
+background-repeat: no-repeat;
+background-size: cover;
+padding: 7px;">
+    <h1 style="margin-left: 38%;">{{Inventario.Titulo}}</h1>
+    
+    <div style="display: flex; margin: 4rem;">
+        <img src="{{Inventario.url}}" alt="imagen" style="height: 100%; width: 600px !important; margin-right: 2rem;">
+        <div>
+            <div>
+                <label class="fichaLabel"><strong>Tipo de credito: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Tipo_Credito}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Dirección de la casa: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Direccion}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Descripcion de la casa: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Descripcion}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Numero de recamaras: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.numDeRecamaras}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Precio: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Presio}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Metros Del Terreno: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.MtrTerreno}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Metros De Construcción: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.MtsDeCostruccion}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Comicion: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Comision}}</strong></label>
+            </div>
+        </div>
     </div>
 </div>
 {{else}}
-<div style="border-radius: 10px; background: url(../../img/fondo-inventario.png); padding: 7px;">
-    <h1>{{Inventario.Titulo}}</h1>
-    <img src="{{Inventario.url}}" alt="imagen" class="oh-35" style="max-height: 400px; max-width: 350px;">
-    <div>
-        <label>{{Inventario.Tipo_Credito}}</label>
-        <label>{{Inventario.Direccion}}</label>
-        <label>{{Inventario.Descripcion}}</label>
-        <label>{{Inventario.numDeRecamaras}}</label>
-        <label>{{Inventario.Presio}}</label>
-        <label>{{Inventario.MtrTerreno}}</label>
-        <label>{{Inventario.MtsDeCostruccion}}</label>
+<div style="    width: 1400px;
+border-radius: 10px;
+background: url(../img/fondo-inventario.png);
+background-repeat: no-repeat;
+background-size: cover;
+padding: 7px;">
+    <h1 style="margin-left: 38%;">{{Inventario.Titulo}}</h1>
+    
+    <div style="display: flex; margin: 4rem;">
+        <img src="{{Inventario.url}}" alt="imagen" style="height: 100%; width: 600px !important; margin-right: 2rem;">
+        <div>
+            <div>
+                <label class="fichaLabel"><strong>Tipo de credito: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Tipo_Credito}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Dirección de la casa: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Direccion}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Descripcion de la casa: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Descripcion}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Numero de recamaras: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.numDeRecamaras}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Precio: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.Presio}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Metros Del Terreno: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.MtrTerreno}}</strong></label>
+            </div>
+            <div>
+                <label class="fichaLabel"><strong>Metros De Construcción: </strong></label>
+                <label class="fichaLabel"><strong>{{Inventario.MtsDeCostruccion}}</strong></label>
+            </div>
+        </div>
     </div>
 </div>
 {{/if}}
