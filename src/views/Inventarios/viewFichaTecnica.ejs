@@ -1,46 +1,71 @@
+<style>
+    label{
+        margin-bottom: 0rem;
+    }
+</style>
 {{#if user}}
-<div style="    width: 1400px;
-border-radius: 10px;
-background: url(../img/fondo-inventario.png);
-background-repeat: no-repeat;
-background-size: cover;
-padding: 7px;">
-    <h1 style="margin-left: 38%;">{{Inventario.Titulo}}</h1>
-    
-    <div style="display: flex; margin: 4rem;">
-        <img src="{{Inventario.url}}" alt="imagen" style="height: 100%; width: 600px !important; margin-right: 2rem;">
-        <div>
-            <div>
-                <label class="fichaLabel"><strong>Tipo de credito: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.Tipo_Credito}}</strong></label>
+<div class="oh-flex oh-center wrapper" >
+    <div class="oh-flex oh-center oh-d-20">
+        <div class="oh-flex oh-center oh-d-10">
+            <img src="{{Inventario.url}}" alt="imagen" style="min-width: 400px; max-width: 400px; min-height: 800px; max-height: 800px;">
+        </div>
+        <div class="oh-flex oh-center oh-d-10">
+            <h1 class="oh-flex oh-left" style="color: #606f51;">{{Inventario.Titulo}}</h1>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/tipodecredito.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Tipo de credito: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.Tipo_Credito}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Dirección de la casa: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.Direccion}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/direccion.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Dirección de la casa: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.Direccion}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Descripcion de la casa: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.Descripcion}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/descripcion.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Descripcion de la casa: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.Descripcion}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Numero de recamaras: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.numDeRecamaras}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/recamaras.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Numero de recamaras: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.numDeRecamaras}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Precio: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.Presio}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/precio.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Precio: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.Presio}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Metros Del Terreno: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.MtrTerreno}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/metros.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Metros Del Terreno: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.MtrTerreno}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Metros De Construcción: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.MtsDeCostruccion}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/metrosdeconstruccion.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Metros De Construcción: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.MtsDeCostruccion}}</strong></label>
             </div>
-            <div>
-                <label class="fichaLabel"><strong>Comicion: </strong></label>
-                <label class="fichaLabel"><strong>{{Inventario.Comision}}</strong></label>
+            <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                <div class="oh-d-20">
+                    <img class="svginv" src="../img/tipodecredito.svg" alt="">
+                    <label class="fichaLabel" style="color: #454841;"><strong>Comisión: </strong></label>
+                </div>
+                <label class="fichaLabel" style="margin-left: 2.1rem;"><strong>{{Inventario.Comision}}</strong></label>
             </div>
         </div>
     </div>

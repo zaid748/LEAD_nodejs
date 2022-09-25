@@ -2,9 +2,13 @@
     margin: 0;
     padding: 0;
 }
-nav, body, main{
+nav{
+    background-color: #e7efe0 !important;
+}
+body, main{
     margin: 0;
-    background-color: #354c22 !important;
+    /* background-color: #354c22 !important; */
+    background-color: white !important;
 }
 input{
     width: 270px;
@@ -244,6 +248,12 @@ a{
     width: 100% !important;
 }
 .fichas:hover{
-    margin-top: 10px;
+    /* margin-top: 10px; */
     color: #354c22 !important;
+}
+.svginv{
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
 }
