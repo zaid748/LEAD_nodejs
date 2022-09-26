@@ -49,6 +49,7 @@ InventarioCtrl.uploadFile = async (req, res) => {
     Inventario.Entrega = req.body.Entrega;
     Inventario.Avaluo = req.body.Avaluo;
     Inventario.Comision = req.body.Comision;
+    Inventario.contacto = req.body.contacto;
 
     await Inventario.save();
   

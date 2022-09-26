@@ -2,9 +2,16 @@
     margin: 0;
     padding: 0;
 }
-nav, body, main{
+body, main{
     margin: 0;
-    background-color: #354c22 !important;
+    background-color: #fff !important;
+}
+nav{
+    min-height: 100px;
+    background-color: #e7efe0;
+}
+.container-fluid{
+    margin: auto;
 }
 input{
     width: 270px;
@@ -30,7 +37,7 @@ select{
 }
 h1{
     margin: auto;
-    color: #b9ce46;
+    color: #616e52;
 }
 .ctrl{
     position: relative;
@@ -40,7 +47,7 @@ h1{
 .label-ctrl{
     color: #b9ce46;
     position: absolute;
-    background: #354c22;
+    background: #fff;
     top: -24px; 
     left: 3px;
 }
@@ -53,7 +60,7 @@ h1{
 .btn-{
     border-radius: 10px;
     font-size: 20px;
-    background-color: transparent;
+    background-color: #e7efe0;
     color: #b9ce46;
     width: 200px;
     height: 60px;
@@ -63,7 +70,7 @@ h1{
 }
 
 .btn-:hover{
-    background-color: rgba(255, 255, 255, .1);
+    background-color: #c4d3b6;
 }
 
 .btn-span{
@@ -75,10 +82,10 @@ h1{
 }
 .btn-span:hover{
     color: #fff;
-    background-color: #000;
+    background-color: #c4d3b6;
 }
 a{
-    color: #b9ce46 !important;
+    color: #19270d !important;
 }
 .card{
     width: 350px;
@@ -92,11 +99,11 @@ a{
 }
 .btn-guardar{
     font-size: 20px;
-    background-color: transparent;
+    background-color: #e7efe0;
     color: #b9ce46;
 }
 .btn-guardar:hover{
-    background-color: darkolivegreen;
+    background-color: #c4d3b6;
 }
 .btn-block{
     width: 89% !important;
@@ -111,7 +118,7 @@ a{
     text-align: left;
     height: 69px;
     font-family: serif;
-    background-color: #354c22;
+    background-color: #e7efe0;
     color: #b9ce46;
     padding: 5px 10px;
     transition: all .5s;
@@ -246,4 +253,31 @@ a{
 .fichas:hover{
     margin-top: 10px;
     color: #354c22 !important;
+}
+.fichaLabel{
+    font-size: 1rem;
+    color: #19270d;
+}
+.fichaP{
+    font-size: .999rem;
+    color: #19270d;
+}
+.flex-oh{
+    display: flex;
+}
+.container-fluid{
+    width: 32% !important;
+}
+#clientes{
+    width: 23% !important;
+    padding: 0;
+}
+#navbarNavAltMarkup{
+    margin-left: 44px;
+}
+.nav-link{
+    margin: auto;
+}
+.nav-item{
+    margin: auto;
 }

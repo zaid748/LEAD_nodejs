@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose');
+const { stringAt } = require('pdfkit/js/data');
 
 const CasaInventario = new Schema({
     Titulo:{
@@ -41,6 +42,9 @@ const CasaInventario = new Schema({
         type: String,
     },
     url:{
+        type: String,
+    },
+    contacto:{
         type: String,
     }
 });

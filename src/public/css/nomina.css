@@ -1,5 +1,9 @@
-nav, body, main{
+body, main{
     background-color: #fff !important;
+}
+nav{
+    min-height: 100px;
+    background-color: #e7efe0;
 }
 .contect{
     width: 90%;
