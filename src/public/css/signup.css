@@ -29,6 +29,16 @@
 .sing{
     margin-top: 30px;
 }
+.margin-w-15{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+@media screen and (min-width: 1800px) {
+    .margin-w-15{
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+}
 .section{
     display: flex;
     width:60%;
