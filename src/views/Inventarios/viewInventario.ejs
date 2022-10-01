@@ -13,11 +13,11 @@
     {{/if}}
     
 </div>
-<div style="display: flex;">
+<div class="oh-flex oh-center oh-d-20" style="display: flex;">
 
 {{#if user}}
     {{#each Inventario}}
-        <div class="contect-1 oh-25 h500" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
+        <div class="contect-1 h500 oh-flex oh-center oh-d-6" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
             <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
             
                 <a href="/Inventario/{{_id}}" class="fichas">
@@ -27,7 +27,7 @@
     {{/each}}
 {{else}}
     {{#each Inventario}}
-    <div class="contect-1 oh-25 h500" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
+    <div class="contect-1 h500 oh-flex oh-center oh-d-6" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
         <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
         <a href="/Inventario/visit/{{_id}}" class="fichas">
             <div><label style="cursor: pointer;">Ver ficha técnica</label></div>

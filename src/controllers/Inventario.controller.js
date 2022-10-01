@@ -33,6 +33,26 @@ InventarioCtrl.viewAddInventario = async(req, res)=>{
     res.render('Inventarios/add_invetario', { user, role, title});
 }
 
+InventarioCtrl.viewEditInventario = async(req, res)=>{
+    const title = "Inventario de casas";
+    const user = req.user;
+    const role = req.role;
+    const id = req.params.id;
+    const Inventario = await CasasInventario.findById({_id:id}).lean();
+    res.render('Inventarios/edit_inventario', {Inventario, title, user, role});
+}
+
+InventarioCtrl.updateInventario = async(req, res)=>{
+    try{
+        const { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto } = req.body;
+        await CasasInventario.findByIdAndUpdate(req.params.id, { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto });
+        res.redirect('/Inventario');
+    }catch(err){
+        console.log(err);
+    }
+    
+}
+
 InventarioCtrl.uploadFile = async (req, res) => {
     const Inventario = new CasasInventario();
     Inventario.Titulo = req.body.Titulo;

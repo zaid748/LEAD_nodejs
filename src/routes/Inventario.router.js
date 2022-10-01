@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { viewGetInventario, viewAddInventario, uploadFile, viewGetFichaTecnica} = require('../controllers/Inventario.controller');
+const { viewGetInventario, viewAddInventario, uploadFile, viewGetFichaTecnica, viewEditInventario, updateInventario} = require('../controllers/Inventario.controller');
 const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
 const { upload } = require('../libs/multerImagenes');
 
@@ -10,6 +10,10 @@ router.get('/Inventario', isAuthenticated, viewGetInventario);
 router.get('/Inventario/visit', viewGetInventario);
 
 router.get('/Inventario/add', isAuthenticated, viewAddInventario);
+
+router.get('/Inventario/edit/:id', isAuthenticated, viewEditInventario);
+
+router.put('/Inventario/update/:id', isAuthenticated, updateInventario);
 
 router.get('/Inventario/:id', isAuthenticated, viewGetFichaTecnica);
 

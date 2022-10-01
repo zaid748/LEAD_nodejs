@@ -251,7 +251,7 @@ a{
     width: 100% !important;
 }
 .fichas:hover{
-    margin-top: 10px;
+    /* margin-top: 10px; */
     color: #354c22 !important;
 }
 .fichaLabel{
@@ -266,7 +266,7 @@ a{
     display: flex;
 }
 .container-fluid{
-    width: 32% !important;
+    width: 35% !important;
 }
 #clientes{
     width: 23% !important;
@@ -280,4 +280,13 @@ a{
 }
 .nav-item{
     margin: auto;
+}
+.svginv{
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+}
+.edit{
+    margin: 90%;
 }
