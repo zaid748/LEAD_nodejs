@@ -18,7 +18,7 @@
 {{#if user}}
     {{#each Inventario}}
         <div class="contect-1 h500 oh-flex oh-center oh-d-6" style="position: relative; border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
-            <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh" style="filter: brightness(0.8);">
+            <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh" style="filter: brightness(0.8); object-fit: cover;">
                 <a href="/Inventario/{{_id}}" class="fichas" style="position: absolute;">
                     <div><label style="cursor: pointer;  color: white ;
                         font-weight: bold;
@@ -28,10 +28,12 @@
     {{/each}}
 {{else}}
     {{#each Inventario}}
-    <div class="contect-1 h500 oh-flex oh-center oh-d-6" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
-        <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
-        <a href="/Inventario/visit/{{_id}}" class="fichas">
-            <div><label style="cursor: pointer;">{{Titulo}}</label></div>
+    <div class="contect-1 h500 oh-flex oh-center oh-d-6" style="position: relative; border-radius: 10px; border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
+        <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh" style="filter: brightness(0.8); object-fit: cover;">
+        <a href="/Inventario/visit/{{_id}}" class="fichas" style="position: absolute;">
+            <div><label style="cursor: pointer; color: white ;
+                font-weight: bold;
+                text-decoration: underline;">{{Titulo}}</label></div>
         </a>
     </div>
     {{/each}}
