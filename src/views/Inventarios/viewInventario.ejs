@@ -22,7 +22,7 @@
                 <a href="/Inventario/{{_id}}" class="fichas" style="position: absolute;">
                     <div><label style="cursor: pointer;  color: white ;
                         font-weight: bold;
-                        text-decoration: underline;">VER FICHA TÉCNICA</label></div>
+                        text-decoration: underline;">{{Titulo}}</label></div>
                 </a>
         </div>
     {{/each}}
@@ -31,7 +31,7 @@
     <div class="contect-1 h500 oh-flex oh-center oh-d-6" style="border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
         <img src="{{url}}" alt="imagen" class="oh-100 inv-maxh">
         <a href="/Inventario/visit/{{_id}}" class="fichas">
-            <div><label style="cursor: pointer;">Ver ficha técnica</label></div>
+            <div><label style="cursor: pointer;">{{Titulo}}</label></div>
         </a>
     </div>
     {{/each}}
