@@ -21,10 +21,10 @@ const upload = multer({
       });
     },
     key: (request, file, cb) => {
-      console.log(file, "hola");
+      console.log(file);
       cb(null, `ImagenesInventario/${request.body.direccion}/${file.originalname}`);
     },
   }),
-}).single("file");
+}).array('file');
 
 module.exports = { upload, s3 };
