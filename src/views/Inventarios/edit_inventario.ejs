@@ -1,6 +1,6 @@
 <div class="contect">
     <h1 style="text-transform: capitalize;">Agregar un nuevo inventario</h1>
-    <form action="/Inventario/update/{{Inventario._id}}?_method=PUT" method="post" >
+    <form action="/Inventario/update/{{Inventario._id}}?_method=PUT" method="post" enctype="multipart/form-data">
         <div class="section">
             <div class="form">
                 <div class="ctrl">
@@ -27,12 +27,21 @@
                     <label for="Descripcion" class="label-ctrl">Descripción de la casa</label>
                     <textarea name="Descripcion" id="descripcion" cols="30" rows="10" class="campo-obligatorio" campo style="height: 150px;">{{Inventario.Descripcion}}</textarea>
                 </div>
-            </div>
-            <div class="form">
+                <div class="ctrl">
+                    <label for="Estatus" class="label-ctrl">Estatus</label>
+                    <select name="Estatus" id="Estatus" class="campo-obligatorio" campo>
+                        <option value="" disabled="" selected="">Seleciona el estatus</option>
+                        <option value="Vendida">Vendida</option>
+                        <option value="En venta">En venta</option>
+                        <option value="Apartada">Apartada</option>
+                    </select>
+                </div>
                 <div class="ctrl">
                     <label for="Tipo" class="label-ctrl">Tipo de tramite</label>
                     <input id="tipo" name="Tipo" type="text" value="{{Inventario.Tipo}}">
                 </div>
+            </div>
+            <div class="form">
                 <div class="ctrl">
                     <label for="Tipo_Credito" class="label-ctrl">Tipo de credito</label>
                     <input id="Tipo_Credito" name="Tipo_Credito" type="text" class="campo-obligatorio" campo value="{{Inventario.Tipo_Credito}}">
@@ -58,8 +67,16 @@
                     <input id="Comision" name="Comision" type="text" class="campo-obligatorio" campo value="{{Inventario.Comision}}">
                 </div>
                 <div class="ctrl">
-                    <label for="contacto" class="label-ctrl">Contacto</label>
-                    <input id="contacto" name="Contacto" type="tel" class="campo-obligatorio" campo value="{{Inventario.Contacto}}">
+                    <label for="Nombre_contacto" class="label-ctrl">Nombre del vendedor</label>
+                    <input id="Nombre_contacto" name="Nombre_contacto" type="text" class="campo-obligatorio" campo value="{{Inventario.Nombre_contacto}}">
+                </div>
+                <div class="ctrl">
+                    <label for="Contacto" class="label-ctrl">Contacto</label>
+                    <input id="Contacto" name="Contacto" type="tel" class="campo-obligatorio" campo value="{{Inventario.Contacto}}">
+                </div>
+                <div class="ctrl">
+                    <label for="file" class="label-ctrl">Foto</label>
+                    <input id="file" name="file" multiple type="file" class="campo-obligatorio" campo style="border: 0;">
                 </div>
             </div>
         </div>

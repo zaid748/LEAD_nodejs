@@ -2,8 +2,34 @@
     label{
         margin-bottom: 0rem;
     }
+    .Estatus_Inventario{
+        width: 100%;
+        background-color: #ffb6b6;
+        text-align: center;
+    }
+    .Estatus_Inventario_Vendida{
+        width: 100%;
+        background-color: #fe8989;
+        text-align: center;
+    }
+    .Estatus_Inventario_venta{
+        width: 100%;
+        background-color: #b6ffb7;
+        text-align: center;
+    }
 </style>
 {{#if user}}
+    {{#if (equals Inventario.Estatus "Apartada")}}
+        <div class="Estatus_Inventario"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+    {{#if (equals Inventario.Estatus "Vendida")}}
+        <div class="Estatus_Inventario_Vendida"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+    {{#if (equals Inventario.Estatus "En venta")}}
+        <div class="Estatus_Inventario_venta"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+
+
 <a href="/Inventario/edit/{{Inventario._id}}" class="fichas edit"><button class="btn-">Editar Ficha</button></a>
 <div class="oh-flex oh-center wrapper" >
     <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 2rem;">

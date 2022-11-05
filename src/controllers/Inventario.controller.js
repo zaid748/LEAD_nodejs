@@ -49,8 +49,12 @@ InventarioCtrl.viewEditInventario = async(req, res)=>{
 
 InventarioCtrl.updateInventario = async(req, res)=>{
     try{
-        const { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto } = req.body;
-        await CasasInventario.findByIdAndUpdate(req.params.id, { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto });
+        let Imagenes = [];
+        req.files.forEach(imagen => {
+            Imagenes.push(imagen.location);
+        });
+        const { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto, Nombre_contacto, Estatus } = req.body;
+        await CasasInventario.findByIdAndUpdate(req.params.id, { url: Imagenes,Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto, Nombre_contacto, Estatus });
         res.redirect('/Inventario');
     }catch(err){
         console.log(err);
@@ -78,7 +82,10 @@ InventarioCtrl.uploadFile = async (req, res) => {
     Inventario.Entrega = req.body.Entrega;
     Inventario.Avaluo = req.body.Avaluo;
     Inventario.Comision = req.body.Comision;
-    Inventario.contacto = req.body.contacto;
+    Inventario.Nombre_contacto = req.body.Nombre_contacto;
+    Inventario.Contacto = req.body.Contacto;
+    Inventario.Estatus = req.body.Estatus;
+    
 
     await Inventario.save();
   
