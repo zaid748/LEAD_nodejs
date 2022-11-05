@@ -30,19 +30,30 @@
     {{/if}}
 
 
-<a href="/Inventario/edit/{{Inventario._id}}" class="fichas edit"><button class="btn-">Editar Ficha</button></a>
+<a href="/Inventario/edit/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Editar Ficha</button></a>
 <div class="oh-flex oh-center wrapper" >
     <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 2rem;">
-        {{#each Inventario.url}}
-            <div class="oh-flex oh-center oh-d-10">
-                <img src="{{this}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
+        <div class="oh-flex oh-center oh-d-10">
+            <div class="carrousel">
+                    <div class="grande">
+                        {{#each Inventario.url}}
+                            <img src="{{this}}" class="imgCarr" alt="imagen">
+                        {{/each}}
+                    </div>
+                    <ul class="puntos">
+                        {{#each Inventario.url}}
+                            <li class="punto activoCarr"></li>
+                        {{/each}}
+                    </ul>
+                
             </div>
-        {{/each}}
+        </div>
+        
         <!-- <div class="oh-flex oh-center oh-d-10">
             <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
         </div> -->
         <div class="oh-flex oh-center oh-d-10">
-            <h1 class="oh-flex oh-left" style="color: #606f51;">{{Inventario.Titulo}}</h1>
+            <h1 class="oh-flex oh-left" style="color: #606f51; font-family: 'Tangerine'; font-size: 60px;">{{Inventario.Titulo}}</h1>
             <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                 <div class="oh-d-20">
                     <img class="svginv" src="../img/tipodecredito.svg" alt="">
@@ -122,10 +133,22 @@
     <div class="oh-flex oh-center wrapper" >
         <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 4rem;">
             <div class="oh-flex oh-center oh-d-10">
-                <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
+                <div class="carrousel">
+                        <div class="grande">
+                            {{#each Inventario.url}}
+                                <img src="{{this}}" class="imgCarr" alt="imagen">
+                            {{/each}}
+                        </div>
+                        <ul class="puntos">
+                            {{#each Inventario.url}}
+                                <li class="punto activoCarr"></li>
+                            {{/each}}
+                        </ul>
+                    
+                </div>
             </div>
             <div class="oh-flex oh-center oh-d-10">
-                <h1 class="oh-flex oh-left" style="color: #606f51;">{{Inventario.Titulo}}</h1>
+                <h1 class="oh-flex oh-left" style="color: #606f51; font-family: 'Tangerine'; font-size: 60px;">{{Inventario.Titulo}}</h1>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
                         <img class="svginv" src="../../img/tipodecredito.svg" alt="">
@@ -180,3 +203,39 @@
         <!-- <a href="https://wa.me/+52{{Inventario.contacto}}">Contactanos</a> -->
     </div>
 {{/if}}
+
+
+<script>
+    const grande    = document.querySelector('.grande')
+    const punto     = document.querySelectorAll('.punto')
+
+    // Cuando CLICK en punto
+        // Saber la posición de ese punto
+        // Aplicar un transform translateX al grande
+        // QUITAR la clase activo de TODOS puntos
+        // AÑADIR la clase activo al punto que hemos hecho CLICK
+
+    // Recorrer TODOS los punto
+    punto.forEach( ( cadaPunto , i )=> {
+        // Asignamos un CLICK a cadaPunto
+        punto[i].addEventListener('click',()=>{
+
+            // Guardar la posición de ese PUNTO
+            let posicion  = i
+            // Calculando el espacio que debe DESPLAZARSE el GRANDE
+            let operacion = posicion * -50
+
+            // MOVEMOS el grand
+            grande.style.transform = `translateX(${ operacion }%)`
+
+            // Recorremos TODOS los punto
+            punto.forEach( ( cadaPunto , i )=>{
+                // Quitamos la clase ACTIVO a TODOS los punto
+                punto[i].classList.remove('activoCarr')
+            })
+            // Añadir la clase activo en el punto que hemos hecho CLICK
+            punto[i].classList.add('activoCarr')
+
+        })
+    })
+</script>
