@@ -33,12 +33,18 @@
 <a href="/Inventario/edit/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Editar Ficha</button></a>
 <div class="oh-flex oh-center wrapper" >
     <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 2rem;">
-        <div class="oh-flex oh-center oh-d-10">
-            <div class="carrousel">
+        <div class="oh-flex oh-center oh-d-10" id="Carrousel">
+            <div class="carrousel carru500px" id="CarrFotos">
                     <div class="grande">
                         {{#each Inventario.url}}
-                            <img src="{{this}}" class="imgCarr" alt="imagen">
+                            <img src="{{this}}" class="imgCarr imgscarrou" alt="imagen">
                         {{/each}}
+                            <span id="expandSVG" class="expand-svg sidisplay" onclick="expandCarrousel()">
+                                <img id="imgexpin" class="svgexp" src="../img/expand.svg" alt="">
+                            </span>
+                            <span id="reduceSVG" class="expand-svg nodisplay" onclick="reduceCarrousel()">
+                                <img id="imgexpout" class="svgexp" src="../img/close.svg" alt="">
+                            </span>
                     </div>
                     <ul class="puntos">
                         {{#each Inventario.url}}
@@ -52,7 +58,7 @@
         <!-- <div class="oh-flex oh-center oh-d-10">
             <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
         </div> -->
-        <div class="oh-flex oh-center oh-d-10">
+        <div class="oh-flex oh-center oh-d-10" id="infoCasa">
             <h1 class="oh-flex oh-left" style="color: #606f51; font-family: 'Tangerine'; font-size: 60px;">{{Inventario.Titulo}}</h1>
             <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                 <div class="oh-d-20">
@@ -238,4 +244,64 @@
 
         })
     })
+
+    function expandCarrousel(){
+        const Carr = document.getElementById('Carrousel');
+        const CarrFo = document.getElementById('CarrFotos');
+        const imgCa = document.getElementsByClassName('imgCarr');
+        const infoCasa = document.getElementById('infoCasa');
+        const expandSVG = document.getElementById('expandSVG');
+        const reduceSVG = document.getElementById('reduceSVG');
+        const imgexpin = document.getElementById('imgexpin');
+        const imgexpout = document.getElementById('imgexpout');
+
+        Carr.classList.add('expand100');
+        Carr.classList.remove('oh-d-10');
+        CarrFo.classList.add('carrousel100');
+        CarrFo.classList.remove('carru500px');
+        for(var i = 0; i < imgCa.length; i++){
+            imgCa[i].className += " imgsexpand";
+        }
+        infoCasa.classList.add('nodisplay');
+        infoCasa.classList.remove('sidisplay');
+        expandSVG.classList.add('nodisplay');
+        expandSVG.classList.remove('sidisplay');
+        imgexpin.classList.add('nodisplay');
+        imgexpin.classList.remove('sidisplay');
+        reduceSVG.classList.add('sidisplay');
+        reduceSVG.classList.remove('nodisplay');
+        imgexpout.classList.add('sidisplay');
+        imgexpout.classList.remove('nodisplay');
+        
+    }
+
+    function reduceCarrousel(){
+        const Carr = document.getElementById('Carrousel');
+        const CarrFo = document.getElementById('CarrFotos');
+        const imgCa = document.getElementsByClassName('imgCarr');
+        const infoCasa = document.getElementById('infoCasa');
+        const expandSVG = document.getElementById('expandSVG');
+        const reduceSVG = document.getElementById('reduceSVG');
+        const imgexpin = document.getElementById('imgexpin');
+        const imgexpout = document.getElementById('imgexpout');
+
+        Carr.classList.add('oh-d-10');
+        Carr.classList.remove('expand100');
+        CarrFo.classList.add('carru500px');
+        CarrFo.classList.remove('carrousel100');
+        for(var i = 0; i < imgCa.length; i++){
+            imgCa[i].classList.remove("imgsexpand");
+        }
+        infoCasa.classList.add('sidisplay');
+        infoCasa.classList.remove('nodisplay');
+        expandSVG.classList.add('sidisplay');
+        expandSVG.classList.remove('nodisplay');
+        imgexpin.classList.add('sidisplay');
+        imgexpin.classList.remove('nodisplay');
+        reduceSVG.classList.add('nodisplay');
+        reduceSVG.classList.remove('sidisplay');
+        imgexpout.classList.add('nodisplay');
+        imgexpout.classList.remove('sidisplay');
+        
+    }
 </script>

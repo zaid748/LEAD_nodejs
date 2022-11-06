@@ -310,7 +310,6 @@ a{
     padding-bottom: 2rem;
     padding-top: 4rem;
     background-color: #e7efe0;
-    width: 500px;
     max-width: 120em;
     color: var(--negro);
     transition: all 0.4s ease;
@@ -335,10 +334,7 @@ a{
   }
   
   .carrousel .imgCarr {
-    min-width: 500px;
-    min-height: 710px;
-    max-width: 500px;
-    max-height: 710px;
+    object-fit: cover;
     color: var(--negro);
     transition: all 0.4s ease;
     background-color: var(--blanco);
@@ -360,6 +356,7 @@ a{
     height: 2em;
     margin: 1em 1em 0;
     color: var(--negro);
+    cursor: pointer;
     transition: all 0.4s ease;
     border-radius: 1em;
     background-color: var(--blanco);
@@ -371,6 +368,54 @@ a{
   }
 
   .expand-svg{
+    cursor: pointer;
+    top: 92%;
     position: absolute;
-    height: 50px;
+    left: 23%;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.6);
+    filter: blur(0.8);
+    padding: 6px;
+    border-radius: 5px;
+  }
+
+  .expand100{
+    width: 100%;
+  }
+  
+  .carru500px{
+    width: 500px;
+  }
+
+  .carrousel100{
+    width: 100%;
+  }
+
+  .imgscarrou{
+    min-width: 500px;
+    min-height: 710px;
+    max-width: 500px;
+    max-height: 710px;
+  }
+
+  .imgsexpand{
+    min-width: 1200px;
+    min-height: 710px;
+    max-width: 1200px;
+    max-height: 710px;
+  }
+
+  .nodisplay{
+    display: none !important;
+  }
+
+  .sidisplay{
+    display: flex;
+  }
+
+  .svgexp{
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
   }
