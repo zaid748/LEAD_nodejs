@@ -27,12 +27,21 @@
                     <label for="descripcion" class="label-ctrl">Descripción de la casa</label>
                     <textarea name="descripcion" id="descripcion" cols="30" rows="10" class="campo-obligatorio" campo style="height: 150px;"></textarea>
                 </div>
-            </div>
-            <div class="form">
+                <div class="ctrl">
+                    <label for="Estatus" class="label-ctrl">Estatus</label>
+                    <select name="Estatus" id="Estatus" class="campo-obligatorio" campo>
+                        <option value="" disabled="" selected="">Seleciona el estatus</option>
+                        <option value="Vendida">Vendida</option>
+                        <option value="En venta">En venta</option>
+                        <option value="Apartada">Apartada</option>
+                    </select>
+                </div>
                 <div class="ctrl">
                     <label for="tipo" class="label-ctrl">Tipo de tramite</label>
                     <input id="tipo" name="tipo" type="text">
                 </div>
+            </div>
+            <div class="form">
                 <div class="ctrl">
                     <label for="Tipo_Credito" class="label-ctrl">Tipo de credito</label>
                     <input id="Tipo_Credito" name="Tipo_Credito" type="text" class="campo-obligatorio" campo>
@@ -43,7 +52,7 @@
                 </div>
                 <div class="ctrl">
                     <label for="Presio" class="label-ctrl">Precio de la casa</label>
-                    <input id="Presio" name="Presio" type="number" class="campo-obligatorio" campo>
+                    <input id="Presio" name="Presio" type="text" class="campo-obligatorio" campo>
                 </div>
                 <div class="ctrl">
                     <label for="Entrega" class="label-ctrl">Entrega</label>
@@ -58,12 +67,16 @@
                     <input id="Comision" name="Comision" type="text" class="campo-obligatorio" campo>
                 </div>
                 <div class="ctrl">
+                    <label for="Nombre_contacto" class="label-ctrl">Nombre del vendedor</label>
+                    <input id="Nombre_contacto" name="Nombre_contacto" type="text" class="campo-obligatorio" campo>
+                </div>
+                <div class="ctrl">
                     <label for="contacto" class="label-ctrl">Contacto</label>
                     <input id="contacto" name="contacto" type="tel" class="campo-obligatorio" campo>
                 </div>
                 <div class="ctrl">
                     <label for="file" class="label-ctrl">Foto</label>
-                    <input id="file" name="file" type="file" class="campo-obligatorio" campo style="border: 0;">
+                    <input id="file" name="file" multiple type="file" class="campo-obligatorio" campo style="border: 0;">
                 </div>
             </div>
         </div>

@@ -41,10 +41,16 @@ const CasaInventario = new Schema({
         type: String,
     },
     url:{
+        type: Array,
+    },
+    Nombre_contacto:{
         type: String,
     },
     Contacto:{
         type: String,
+    },
+    Estatus:{
+        type: String
     }
 });
 

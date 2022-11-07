@@ -5,6 +5,7 @@ const app = require('../server');
 const fs = require("fs");
 const path = require("path");
 const { upload, s3 } = require("../libs/multerImagenes");
+const { url } = require('inspector');
 
 const { BUCKET_NAME } = process.env;
 
@@ -14,6 +15,9 @@ InventarioCtrl.viewGetInventario = async(req, res)=>{
     const role = req.role;
     const token = req.token;
     const Inventario = await CasasInventario.find().lean();
+    Inventario.forEach(element => {
+        element.imagen = element.url[0];
+    });
     res.render('Inventarios/viewInventario', { Inventario, user, role, token, title });
 }
 
@@ -23,6 +27,7 @@ InventarioCtrl.viewGetFichaTecnica = async(req, res)=>{
     const role = req.role;
     const id = req.params.id;
     const Inventario = await CasasInventario.findById({_id:id}).lean();
+    Inventario.imagen = Inventario.url[0];
     res.render('Inventarios/viewFichaTecnica', { Inventario, title, role, user });
 } 
 
@@ -44,8 +49,12 @@ InventarioCtrl.viewEditInventario = async(req, res)=>{
 
 InventarioCtrl.updateInventario = async(req, res)=>{
     try{
-        const { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto } = req.body;
-        await CasasInventario.findByIdAndUpdate(req.params.id, { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto });
+        let Imagenes = [];
+        req.files.forEach(imagen => {
+            Imagenes.push(imagen.location);
+        });
+        const { Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto, Nombre_contacto, Estatus } = req.body;
+        await CasasInventario.findByIdAndUpdate(req.params.id, { url: Imagenes,Titulo, Tipo_Credito, Fraccionamiento, Tipo, Descripcion, numDeRecamaras, Presio, MtrTerreno, MtsDeCostruccion, Entrega, Avaluo, Comision, Contacto, Nombre_contacto, Estatus });
         res.redirect('/Inventario');
     }catch(err){
         console.log(err);
@@ -54,6 +63,10 @@ InventarioCtrl.updateInventario = async(req, res)=>{
 }
 
 InventarioCtrl.uploadFile = async (req, res) => {
+    let Imagenes = [];
+    req.files.forEach(imagen => {
+        Imagenes.push(imagen.location);
+    });
     const Inventario = new CasasInventario();
     Inventario.Titulo = req.body.Titulo;
     Inventario.Tipo_Credito = req.body.Tipo_Credito
@@ -64,12 +77,15 @@ InventarioCtrl.uploadFile = async (req, res) => {
     Inventario.numDeRecamaras = req.body.numDeRecamaras;
     Inventario.Presio = req.body.Presio;
     Inventario.MtrTerreno = req.body.MtrTerreno;
-    Inventario.MtsDeCostruccion = req.body.MtsDeCostruccion;
-    Inventario.url = req.file.location;
+    Inventario.MtsDeCostruccion = req.body.MtsDeCostruccion; 
+    Inventario.url = Imagenes;
     Inventario.Entrega = req.body.Entrega;
     Inventario.Avaluo = req.body.Avaluo;
     Inventario.Comision = req.body.Comision;
-    Inventario.contacto = req.body.contacto;
+    Inventario.Nombre_contacto = req.body.Nombre_contacto;
+    Inventario.Contacto = req.body.Contacto;
+    Inventario.Estatus = req.body.Estatus;
+    
 
     await Inventario.save();
   

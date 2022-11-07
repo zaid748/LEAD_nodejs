@@ -13,12 +13,12 @@ router.get('/Inventario/add', isAuthenticated, viewAddInventario);
 
 router.get('/Inventario/edit/:id', isAuthenticated, viewEditInventario);
 
-router.put('/Inventario/update/:id', isAuthenticated, updateInventario);
+router.put('/Inventario/update/:id', isAuthenticated, upload, updateInventario);
 
 router.get('/Inventario/:id', isAuthenticated, viewGetFichaTecnica);
 
 router.get('/Inventario/visit/:id', viewGetFichaTecnica);
 
-router.post('/Inventario/add', upload, uploadFile);
+router.post('/Inventario/add', isAuthenticated, upload, uploadFile);
 
 module.exports = router;

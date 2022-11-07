@@ -2,16 +2,64 @@
     label{
         margin-bottom: 0rem;
     }
+    .Estatus_Inventario{
+        width: 100%;
+        background-color: #ffb6b6;
+        text-align: center;
+    }
+    .Estatus_Inventario_Vendida{
+        width: 100%;
+        background-color: #fe8989;
+        text-align: center;
+    }
+    .Estatus_Inventario_venta{
+        width: 100%;
+        background-color: #b6ffb7;
+        text-align: center;
+    }
 </style>
 {{#if user}}
-<a href="/Inventario/edit/{{Inventario._id}}" class="fichas edit"><button class="btn-">Editar Ficha</button></a>
+    {{#if (equals Inventario.Estatus "Apartada")}}
+        <div class="Estatus_Inventario"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+    {{#if (equals Inventario.Estatus "Vendida")}}
+        <div class="Estatus_Inventario_Vendida"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+    {{#if (equals Inventario.Estatus "En venta")}}
+        <div class="Estatus_Inventario_venta"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+
+
+<a href="/Inventario/edit/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Editar Ficha</button></a>
 <div class="oh-flex oh-center wrapper" >
     <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 2rem;">
-        <div class="oh-flex oh-center oh-d-10">
-            <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
+        <div class="oh-flex oh-center oh-d-10" id="Carrousel">
+            <div class="carrousel carru500px" id="CarrFotos">
+                    <div class="grande">
+                        {{#each Inventario.url}}
+                            <img src="{{this}}" class="imgCarr imgscarrou" alt="imagen">
+                        {{/each}}
+                            <span id="expandSVG" class="expand-svg sidisplay" onclick="expandCarrousel()">
+                                <img id="imgexpin" class="svgexp" src="../img/expand.svg" alt="">
+                            </span>
+                            <span id="reduceSVG" class="expand-svg nodisplay" onclick="reduceCarrousel()">
+                                <img id="imgexpout" class="svgexp" src="../img/close.svg" alt="">
+                            </span>
+                    </div>
+                    <ul class="puntos">
+                        {{#each Inventario.url}}
+                            <li class="punto activoCarr"></li>
+                        {{/each}}
+                    </ul>
+                
+            </div>
         </div>
-        <div class="oh-flex oh-center oh-d-10">
-            <h1 class="oh-flex oh-left" style="color: #606f51;">{{Inventario.Titulo}}</h1>
+        
+        <!-- <div class="oh-flex oh-center oh-d-10">
+            <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
+        </div> -->
+        <div class="oh-flex oh-center oh-d-10" id="infoCasa">
+            <h1 class="oh-flex oh-left" style="color: #606f51; font-family: 'Tangerine'; font-size: 60px;">{{Inventario.Titulo}}</h1>
             <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                 <div class="oh-d-20">
                     <img class="svginv" src="../img/tipodecredito.svg" alt="">
@@ -87,65 +135,205 @@
     <!-- <a href="https://wa.me/+52{{Inventario.Contacto}}">Contactanos</a> -->
 </div>
 {{else}}
-<div>
+    {{#if (equals Inventario.Estatus "Apartada")}}
+        <div class="Estatus_Inventario"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+    {{#if (equals Inventario.Estatus "Vendida")}}
+        <div class="Estatus_Inventario_Vendida"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
+    {{#if (equals Inventario.Estatus "En venta")}}
+        <div class="Estatus_Inventario_venta"><h4>{{Inventario.Estatus}}</h4></div>
+    {{/if}}
     <div class="oh-flex oh-center wrapper" >
-        <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 4rem;">
-            <div class="oh-flex oh-center oh-d-10">
-                <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
+        <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 2rem;">
+            <div class="oh-flex oh-center oh-d-10" id="Carrousel">
+                <div class="carrousel carru500px" id="CarrFotos">
+                        <div class="grande">
+                            {{#each Inventario.url}}
+                                <img src="{{this}}" class="imgCarr imgscarrou" alt="imagen">
+                            {{/each}}
+                                <span id="expandSVG" class="expand-svg sidisplay" onclick="expandCarrousel()">
+                                    <img id="imgexpin" class="svgexp" src="../../img/expand.svg" alt="">
+                                </span>
+                                <span id="reduceSVG" class="expand-svg nodisplay" onclick="reduceCarrousel()">
+                                    <img id="imgexpout" class="svgexp" src="../../img/close.svg" alt="">
+                                </span>
+                        </div>
+                        <ul class="puntos">
+                            {{#each Inventario.url}}
+                                <li class="punto activoCarr"></li>
+                            {{/each}}
+                        </ul>
+                    
+                </div>
             </div>
-            <div class="oh-flex oh-center oh-d-10">
-                <h1 class="oh-flex oh-left" style="color: #606f51;">{{Inventario.Titulo}}</h1>
+            
+            <!-- <div class="oh-flex oh-center oh-d-10">
+                <img src="{{Inventario.url}}" alt="imagen" style="object-fit: cover; min-width: 500px; max-width: 500px; min-height: 500px; max-height: 500px;">
+            </div> -->
+            <div class="oh-flex oh-center oh-d-10" id="infoCasa">
+                <h1 class="oh-flex oh-left" style="color: #606f51; font-family: 'Tangerine'; font-size: 60px;">{{Inventario.Titulo}}</h1>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/tipodecredito.svg" alt="">
+                        <img class="svginv" src="../img/tipodecredito.svg" alt="">
                         <label class="fichaLabel" style="color: #454841;"><strong>Tipo de credito: </strong></label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.Tipo_Credito}}</label>
                 </div>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/direccion.svg" alt="">
-                        <label class="fichaLabel" style="color: #454841;">Dirección de la casa: </label>
+                        <img class="svginv" src="../img/tipodecredito.svg" alt="">
+                        <label class="fichaLabel" style="color: #454841;"><strong>Tipo de tramite: </strong></label>
+                    </div>
+                    <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.Tipo}}</label>
+                </div>
+                <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                    <div class="oh-d-20">
+                        <img class="svginv" src="../img/direccion.svg" alt="">
+                        <label class="fichaLabel" style="color: #454841;"><strong>Dirección de la casa:</strong> </label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.Direccion}}</label>
                 </div>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/descripcion.svg" alt="">
+                        <img class="svginv" src="../img/descripcion.svg" alt="">
                         <label class="fichaLabel" style="color: #454841;"><strong>Descripcion de la casa: </strong></label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.Descripcion}}</label>
                 </div>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/recamaras.svg" alt="">
+                        <img class="svginv" src="../img/recamaras.svg" alt="">
                         <label class="fichaLabel" style="color: #454841;"><strong>Numero de recamaras: </strong></label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.numDeRecamaras}}</label>
                 </div>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/precio.svg" alt="">
+                        <img class="svginv" src="../img/precio.svg" alt="">
                         <label class="fichaLabel" style="color: #454841;"><strong>Precio: </strong></label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.Presio}}</label>
                 </div>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/metros.svg" alt="">
+                        <img class="svginv" src="../img/metros.svg" alt="">
                         <label class="fichaLabel" style="color: #454841;"><strong>Metros Del Terreno: </strong></label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.MtrTerreno}}</label>
                 </div>
                 <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
                     <div class="oh-d-20">
-                        <img class="svginv" src="../../img/metrosdeconstruccion.svg" alt="">
+                        <img class="svginv" src="../img/metrosdeconstruccion.svg" alt="">
                         <label class="fichaLabel" style="color: #454841;"><strong>Metros De Construcción: </strong></label>
                     </div>
                     <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.MtsDeCostruccion}}</label>
                 </div>
+                <div class="oh-flex oh-center oh-d-20 t:left margin-v-05">
+                    <div class="oh-d-20">
+                        <img class="svginv" src="../img/tipodecredito.svg" alt="">
+                        <label class="fichaLabel" style="color: #454841;"><strong>Avaluo: </strong></label>
+                    </div>
+                    <label class="fichaLabel" style="margin-left: 2.1rem;">{{Inventario.Avaluo}}</label>
+                </div>
             </div>
         </div>
-        <!-- <a href="https://wa.me/+52{{Inventario.contacto}}">Contactanos</a> -->
+        <!-- <a href="https://wa.me/+52{{Inventario.Contacto}}">Contactanos</a> -->
     </div>
 {{/if}}
+
+
+<script>
+    const grande    = document.querySelector('.grande')
+    const punto     = document.querySelectorAll('.punto')
+
+    // Cuando CLICK en punto
+        // Saber la posición de ese punto
+        // Aplicar un transform translateX al grande
+        // QUITAR la clase activo de TODOS puntos
+        // AÑADIR la clase activo al punto que hemos hecho CLICK
+
+    // Recorrer TODOS los punto
+    punto.forEach( ( cadaPunto , i )=> {
+        // Asignamos un CLICK a cadaPunto
+        punto[i].addEventListener('click',()=>{
+
+            // Guardar la posición de ese PUNTO
+            let posicion  = i
+            // Calculando el espacio que debe DESPLAZARSE el GRANDE
+            let operacion = posicion * -50
+
+            // MOVEMOS el grand
+            grande.style.transform = `translateX(${ operacion }%)`
+
+            // Recorremos TODOS los punto
+            punto.forEach( ( cadaPunto , i )=>{
+                // Quitamos la clase ACTIVO a TODOS los punto
+                punto[i].classList.remove('activoCarr')
+            })
+            // Añadir la clase activo en el punto que hemos hecho CLICK
+            punto[i].classList.add('activoCarr')
+
+        })
+    })
+
+    function expandCarrousel(){
+        const Carr = document.getElementById('Carrousel');
+        const CarrFo = document.getElementById('CarrFotos');
+        const imgCa = document.getElementsByClassName('imgCarr');
+        const infoCasa = document.getElementById('infoCasa');
+        const expandSVG = document.getElementById('expandSVG');
+        const reduceSVG = document.getElementById('reduceSVG');
+        const imgexpin = document.getElementById('imgexpin');
+        const imgexpout = document.getElementById('imgexpout');
+
+        Carr.classList.add('expand100');
+        Carr.classList.remove('oh-d-10');
+        CarrFo.classList.add('carrousel100');
+        CarrFo.classList.remove('carru500px');
+        for(var i = 0; i < imgCa.length; i++){
+            imgCa[i].className += " imgsexpand";
+        }
+        infoCasa.classList.add('nodisplay');
+        infoCasa.classList.remove('sidisplay');
+        expandSVG.classList.add('nodisplay');
+        expandSVG.classList.remove('sidisplay');
+        imgexpin.classList.add('nodisplay');
+        imgexpin.classList.remove('sidisplay');
+        reduceSVG.classList.add('sidisplay');
+        reduceSVG.classList.remove('nodisplay');
+        imgexpout.classList.add('sidisplay');
+        imgexpout.classList.remove('nodisplay');
+        
+    }
+
+    function reduceCarrousel(){
+        const Carr = document.getElementById('Carrousel');
+        const CarrFo = document.getElementById('CarrFotos');
+        const imgCa = document.getElementsByClassName('imgCarr');
+        const infoCasa = document.getElementById('infoCasa');
+        const expandSVG = document.getElementById('expandSVG');
+        const reduceSVG = document.getElementById('reduceSVG');
+        const imgexpin = document.getElementById('imgexpin');
+        const imgexpout = document.getElementById('imgexpout');
+
+        Carr.classList.add('oh-d-10');
+        Carr.classList.remove('expand100');
+        CarrFo.classList.add('carru500px');
+        CarrFo.classList.remove('carrousel100');
+        for(var i = 0; i < imgCa.length; i++){
+            imgCa[i].classList.remove("imgsexpand");
+        }
+        infoCasa.classList.add('sidisplay');
+        infoCasa.classList.remove('nodisplay');
+        expandSVG.classList.add('sidisplay');
+        expandSVG.classList.remove('nodisplay');
+        imgexpin.classList.add('sidisplay');
+        imgexpin.classList.remove('nodisplay');
+        reduceSVG.classList.add('nodisplay');
+        reduceSVG.classList.remove('sidisplay');
+        imgexpout.classList.add('nodisplay');
+        imgexpout.classList.remove('sidisplay');
+        
+    }
+</script>
