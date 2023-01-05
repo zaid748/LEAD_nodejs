@@ -15,8 +15,8 @@
 .inv-maxh{
     max-height: 270px;
     min-height: 270px;
-    max-width: 350px;
-    min-width: 350px;
+    max-width: 100%;
+    min-width: 100%;
 }
 @media screen and (min-width: 1800px) {
     .inv-maxh {

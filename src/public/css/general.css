@@ -6,9 +6,13 @@
     font-family: 'Tangerine';
     src: local('Tangerine'), url(./fonts/Tangerine-Regular.ttf) format('truetype');
   }
+@font-face {
+font-family: 'Sacramento';
+src: local('Tangerine'), url(./fonts/Sacramento-Regular.ttf) format('truetype');
+}
 body, main{
     margin: 0;
-    background-color: #fff !important;
+    background-color: #fbfaf5 !important;
 }
 nav{
     min-height: 100px;
@@ -65,7 +69,7 @@ h1{
     border-radius: 10px;
     font-size: 20px;
     background-color: #e7efe0;
-    color: #b9ce46;
+    color: #616e52;
     width: 200px;
     height: 60px;
     margin-top: 20px;

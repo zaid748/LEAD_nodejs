@@ -1,4 +1,7 @@
-<div class="btn-contect">
+<div class="oh-flex oh-center">
+    <span style="font-family: Sacramento;margin-top: 1rem; font-size: 60px; color: #616e52;">Catalogo</h1>
+</div>
+<div class="oh-flex oh-right">
     {{#if user}}
         {{#if (equals role "administrator")}}
             <a href="/Inventario/add">
@@ -17,24 +20,64 @@
 
 {{#if user}}
     {{#each Inventario}}
-        <div class="contect-1 oh-flex oh-center oh-d-6 margin-w-15" style="position: relative; border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
-            <img src="{{imagen}}" alt="imagen" class="oh-100 inv-maxh" style="filter: brightness(0.8); object-fit: cover;">
-                <a href="/Inventario/{{_id}}" class="fichas" style="position: absolute;">
-                    <div><label style="cursor: pointer;  color: white ;
-                        font-weight: bold;
-                        text-decoration: underline;">{{Titulo}}</label></div>
-                </a>
+        <div class="contect-1 oh-flex oh-center oh-d-6 margin-w-15" style="padding: 7px; background-color: white;">
+            <a href="/Inventario/{{_id}}">
+                <img src="{{imagen}}" alt="imagen" class="oh-100 inv-maxh" style="object-fit: cover;"> 
+            </a>
+            <div class="oh-flex oh-center" style="background-color: white; padding-left: 0.5rem; padding-right: 0.5rem;">
+                <div class="oh-flex oh-center" style="margin-top: 0.5rem; height: 48px;">
+                    <span class="oh-flex oh-left oh-d-12" style="font-weight: bold; text-transform: uppercase;">{{Titulo}}</span>
+                    <div class="oh-flex oh-right oh-d-8">
+                        <img style="margin-right: 0.5rem;" src="../img/inventario/precio.svg" alt="">
+                        <span style="font-weight: bold; color: #5f784b;">{{Presio}}</span>
+                    </div>
+                </div>
+                <div class="oh-flex oh-left" style="margin-bottom: 0.5rem;">
+                    <img style="margin-right: 0.5rem;" src="../img/inventario/ubicacion.svg" alt="">
+                    <span>{{Direccion}}</span>
+                </div>
+                <div class="oh-flex oh-left" style="margin-bottom: 0.5rem;">
+                    <div>
+                        <img style="margin-right: 0.5rem;" src="../img/inventario/recamaras.svg" alt="">
+                        <span>{{numDeRecamaras}}</span>
+                    </div>
+                    <div style="margin-left: 1rem;">
+                        <img style="margin-right: 0.5rem;" src="../img/inventario/metrosdeconstruccion.svg" alt="">
+                        <span>{{MtsDeCostruccion}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     {{/each}}
 {{else}}
     {{#each Inventario}}
-    <div class="contect-1 oh-flex oh-center oh-d-6 margin-w-15" style="position: relative; border-radius: 10px; border-radius: 10px; background: rgba(255, 255, 255, .2); padding: 7px;">
-        <img src="{{imagen}}" alt="imagen" class="oh-100 inv-maxh" style="filter: brightness(0.8); object-fit: cover;">
-        <a href="/Inventario/visit/{{_id}}" class="fichas" style="position: absolute;">
-            <div><label style="cursor: pointer; color: white ;
-                font-weight: bold;
-                text-decoration: underline;">{{Titulo}}</label></div>
+    <div class="contect-1 oh-flex oh-center oh-d-6 margin-w-15" style="padding: 7px; background-color: white;">
+        <a href="/Inventario/{{_id}}">
+            <img src="{{imagen}}" alt="imagen" class="oh-100 inv-maxh" style="object-fit: cover;"> 
         </a>
+        <div class="oh-flex oh-center" style="background-color: white; padding-left: 0.5rem; padding-right: 0.5rem;">
+            <div class="oh-flex oh-center" style="margin-top: 0.5rem; height: 48px;">
+                <span class="oh-flex oh-left oh-d-12" style="font-weight: bold; text-transform: uppercase;">{{Titulo}}</span>
+                <div class="oh-flex oh-right oh-d-8">
+                    <img style="margin-right: 0.5rem;" src="../img/inventario/precio.svg" alt="">
+                    <span style="font-weight: bold; color: #5f784b;">{{Presio}}</span>
+                </div>
+            </div>
+            <div class="oh-flex oh-left" style="margin-bottom: 0.5rem;">
+                <img style="margin-right: 0.5rem;" src="../img/inventario/ubicacion.svg" alt="">
+                <span>{{Direccion}}</span>
+            </div>
+            <div class="oh-flex oh-left" style="margin-bottom: 0.5rem;">
+                <div>
+                    <img style="margin-right: 0.5rem;" src="../img/inventario/recamaras.svg" alt="">
+                    <span>{{numDeRecamaras}}</span>
+                </div>
+                <div style="margin-left: 1rem;">
+                    <img style="margin-right: 0.5rem;" src="../img/inventario/metrosdeconstruccion.svg" alt="">
+                    <span>{{MtsDeCostruccion}}</span>
+                </div>
+            </div>
+        </div>
     </div>
     {{/each}}
 {{/if}}
