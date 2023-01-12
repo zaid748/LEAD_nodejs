@@ -28,9 +28,15 @@
     {{#if (equals Inventario.Estatus "En venta")}}
         <div class="Estatus_Inventario_venta"><h4>{{Inventario.Estatus}}</h4></div>
     {{/if}}
-
-
-<a href="/Inventario/edit/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Editar Ficha</button></a>
+    <div class="oh-flex oh-end">
+        <div style="margin: 10px;">
+            <a href="/Inventario/edit/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Editar Ficha</button></a>
+        </div>
+        <div style="margin: 10px;">
+            <a href="/Inventario/Eliminar/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Eliminar Ficha</button></a>
+        </div>
+    </div>
+            
 <div class="oh-flex oh-center wrapper" >
     <div class="oh-flex oh-center oh-d-20" style="align-items: flex-start; margin-top: 2rem;">
         <div class="oh-flex oh-center oh-d-10" id="Carrousel">
