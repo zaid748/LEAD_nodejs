@@ -32,7 +32,7 @@ helpers.isAuthenticated = async(req, res, next) =>{
             res.render('users/signin');
         }
     }else{
-        res.render('users/signin');
+        return next();
         console.log('error no existe token');
     }
 }

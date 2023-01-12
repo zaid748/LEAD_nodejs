@@ -58,8 +58,7 @@ InventarioCtrl.updateInventario = async(req, res)=>{
         res.redirect('/Inventario');
     }catch(err){
         console.log(err);
-    }
-    
+    }    
 }
 
 InventarioCtrl.uploadFile = async (req, res) => {
@@ -88,9 +87,13 @@ InventarioCtrl.uploadFile = async (req, res) => {
     
 
     await Inventario.save();
-  
     // Redirect to the initial page
     res.redirect("/Inventario");
 };
 
+InventarioCtrl.deleteInventario = async(req, res) =>{
+    await CasasInventario.findByIdAndDelete(req.params.id);
+    req.flash('success_msg', 'Note Deleted Succssfully');
+    res.redirect('/Inventario');
+}
 module.exports = InventarioCtrl;
