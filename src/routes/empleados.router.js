@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { agregarEmpleadoView, agregarEmpleado, employedView, ViewInfo, Renuncia, CrearNominaView } = require('../controllers/empleados.contreller');
+const { agregarEmpleadoView, agregarEmpleado, employedView, ViewInfo, Renuncia, CrearNominaView, editViewEmployed, editarEmpleado } = require('../controllers/empleados.contreller');
 const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
 const { addNomina, nomina } = require('../controllers/nomina.controller');
 const { CrearPdfNomina } = require('../libs/PDF');
@@ -19,6 +19,10 @@ router.put('/empleado/renuncia/:id', isAuthenticated, isAustheAdministrator, Ren
 router.get('/empleados/:token', isAuthenticated, isAustheAdministrator, employedView);
 
 router.get('/empleado/nomina/:id', isAuthenticated, isAustheAdministrator, CrearNominaView);
+
+router.get('/empleado/edit/:id', isAuthenticated, isAustheAdministrator, editViewEmployed);
+
+router.put('/empleado/edit/:id', isAuthenticated, isAustheAdministrator, editarEmpleado);
 
 router.post('/CrearNomina/:token', isAuthenticated, isAustheAdministrator, addNomina, CrearPdfNomina, uploadObject);
 
