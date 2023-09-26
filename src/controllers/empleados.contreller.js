@@ -47,6 +47,42 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
     }
 };
 
+employedCtrl.editarEmpleado = async (req, res) => {
+    const { id } = req.params; // Suponemos que el ID del empleado se pasa en la URL
+    const { prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing } = req.body;
+
+    try {
+        // Utilizar findByIdAndUpdate para buscar y actualizar el empleado
+        const empleado = await Empleados.findByIdAndUpdate(id, {
+            prim_nom,
+            segun_nom,
+            apell_pa,
+            apell_ma,
+            pust,
+            fecha_na,
+            calle,
+            nun_in,
+            nun_ex,
+            codigo,
+            estado,
+            telefono,
+            email,
+            salario,
+            fecha_ing
+        }, { new: true }); // { new: true } devuelve el nuevo objeto actualizado
+
+        if (!empleado) {
+            return res.status(404).json({ error: 'Empleado no encontrado' });
+        }
+
+        res.redirect('/empleados'); // Redirigir a la página de empleados después de editar
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+
 employedCtrl.employedView = async(req, res)=>{
     const Employed = await Empleados.find().lean();
     const user = req.user;
@@ -59,7 +95,7 @@ employedCtrl.ViewInfo = async(req, res)=>{
     const empleado = await Empleados.findById(req.params.id).lean();
     const nomina = await Nominas.findOne({empleadoId:req.params.id}).sort({fecha:-1});
     const space = process.env.SPACESHOST;
-    const user = req.params.id;
+    const user = req.user;
     const token = req.token;
     const role = req.role;
     if(nomina){
@@ -75,11 +111,19 @@ employedCtrl.ViewInfo = async(req, res)=>{
     
 }
 
+employedCtrl.editViewEmployed = async(req, res)=>{
+    const empleado = await Empleados.findById(req.params.id).lean();
+    const token = req.token;
+    const role = req.role;
+    const user = req.user;
+    const department = await Departamentos.find().lean();
+    res.render('empleados/edit_employed', {department, empleado, user, role, token});
+}
+
 employedCtrl.Renuncia = async(req, res)=>{
     const { renuncia } = req.body;
     const empleado = await Empleados.findById(req.params.id).lean();
     await Empleados.findByIdAndUpdate(req.params.id,  { estado:renuncia} );
-    console.log(empleado, renuncia);
     res.redirect('/empleados');
 }
 

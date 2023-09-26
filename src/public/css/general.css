@@ -72,7 +72,7 @@ h1{
     color: #616e52;
     width: 200px;
     height: 60px;
-    margin-top: 20px;
+    margin: auto;
     transition: all 1s;
 }
 
