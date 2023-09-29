@@ -26,7 +26,6 @@ nominaCtrl.addNomina = async(req, res, next)=>{
 nominaCtrl.ViewNominas = async(req, res)=>{
     const empleadoId = req.params.id;
     const nominas = await Nomina.find({empleadoId}).lean();
-    console.log(empleadoId);
     const user = req.user;
     const role = req.role;
     const space = process.env.SPACESHOST;
@@ -37,7 +36,6 @@ nominaCtrl.ViewNominas = async(req, res)=>{
         nomina.link = link;
         console.log(nomina, link);
     });
-    console.log(nominas)
     res.render('nominas/viewnominas', {nominas, user, role, empleadoId})
 };
 
