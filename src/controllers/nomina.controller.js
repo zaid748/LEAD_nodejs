@@ -25,7 +25,7 @@ nominaCtrl.addNomina = async(req, res, next)=>{
 //para ver todas las nominas 
 nominaCtrl.ViewNominas = async(req, res)=>{
     const empleadoId = req.params.id;
-    const nominas = await Nomina.find({empleadoId}).lean();
+    const nominas = await Nomina.find({ empleadoId }).sort({ fecha: -1 }).lean(); // Ordena por fecha de la más reciente a la más antigua
     const user = req.user;
     const role = req.role;
     const space = process.env.SPACESHOST;
@@ -34,7 +34,6 @@ nominaCtrl.ViewNominas = async(req, res)=>{
         name = name.split(" ").join("");
         const link = (space+'Nominas/'+name+'.pdf');
         nomina.link = link;
-        console.log(nomina, link);
     });
     res.render('nominas/viewnominas', {nominas, user, role, empleadoId})
 };
