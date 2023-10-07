@@ -91,6 +91,14 @@ employedCtrl.employedView = async(req, res)=>{
     res.render('empleados/employedView', {Employed, user, role, token});
 }
 
+employedCtrl.getRenucias = async(req, res)=>{
+    const Employed = await Empleados.find().lean();
+    const user = req.user;
+    const token = req.token;
+    const role = req.role;
+    res.render('empleados/Renuncias', {Employed, user, role, token});
+}
+
 employedCtrl.ViewInfo = async(req, res)=>{
     const empleado = await Empleados.findById(req.params.id).lean();
     const nomina = await Nominas.findOne({empleadoId:req.params.id}).sort({fecha:-1});

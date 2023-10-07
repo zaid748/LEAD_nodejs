@@ -72,6 +72,16 @@ h1{
     color: #616e52;
     width: 200px;
     height: 60px;
+    margin: 10px 10px auto;
+    transition: all 1s;
+}
+.btn-form{
+    border-radius: 10px;
+    font-size: 20px;
+    background-color: #e7efe0;
+    color: #616e52;
+    width: 200px;
+    height: 60px;
     margin: auto;
     transition: all 1s;
 }

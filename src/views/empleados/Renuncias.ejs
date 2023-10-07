@@ -2,8 +2,8 @@
     <a href="/empleados/Agregar">
         <button class="btn-">Agregar Empleado</button>
     </a>
-    <a href="/empleados/Renuncias">
-        <button class="btn-">Renuncias</button>
+    <a href="/empleados">
+        <button class="btn-">Empleados</button>
     </a>
 </div>
 <div class="contect" style="border-radius: 10px; background: azure; padding: 7px;">
@@ -22,7 +22,7 @@
         </div>
     </div>
     {{#each Employed}}
-    {{#if (equals estado "Empleado")}}
+    {{#if (equals estado "Renuncia")}}
     <div class="setinfo">
         
         <div class="etiquetado">

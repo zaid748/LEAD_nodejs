@@ -37,11 +37,20 @@
                         <button type="none" class="btn-style">Descargar nomina</button>
                     </a>
                 </div> -->
+                {{#if (equals empleado.estado "Empleado")}}
                 <form action="/empleado/renuncia/{{empleado._id}}?_method=PUT" method="post">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="renuncia" value="Renuncia">
                     <div><button class="btn-style btn-ren">Renuncia o baja</button></div>
                 </form>
+                {{/if}}
+                {{#if (equals empleado.estado "Renuncia")}}
+                <form action="/empleado/renuncia/{{empleado._id}}?_method=PUT" method="post">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="renuncia" value="Empleado">
+                    <div><button class="btn-style">Dar de alta</button></div>
+                </form>
+                {{/if}}
             </div>
         </div>
     </div>
