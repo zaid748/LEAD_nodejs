@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { agregarEmpleadoView, agregarEmpleado, employedView, ViewInfo, Renuncia, CrearNominaView, editViewEmployed, editarEmpleado } = require('../controllers/empleados.contreller');
+const { agregarEmpleadoView, agregarEmpleado, employedView, ViewInfo, Renuncia, CrearNominaView, editViewEmployed, editarEmpleado, getRenucias } = require('../controllers/empleados.contreller');
 const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
-const { addNomina, nomina } = require('../controllers/nomina.controller');
+const { addNomina } = require('../controllers/nomina.controller');
 const { CrearPdfNomina } = require('../libs/PDF');
 const { uploadObject } = require('../libs/multer')
 
 router.get('/empleados/Agregar' , isAuthenticated, isAustheAdministrator , agregarEmpleadoView);
 
 router.post('/empleados/Agregar', isAuthenticated, isAustheAdministrator, agregarEmpleado);
+
+router.get('/empleados/Renuncias' , isAuthenticated, isAustheAdministrator , getRenucias);
 
 router.get('/empleados', isAuthenticated, isAustheAdministrator, employedView)
 

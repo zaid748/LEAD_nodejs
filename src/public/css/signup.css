@@ -92,6 +92,7 @@
 }
 .btn-contect{
     margin-left: 81%;
+    display: flex;
 }
 .btn-contect button{
     border-radius: 10px;
