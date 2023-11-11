@@ -412,12 +412,12 @@ a{
     max-height: 710px;
   }
 
-  .imgsexpand{
+  /* .imgsexpand{
     min-width: 1200px;
     min-height: 710px;
     max-width: 1200px;
     max-height: 710px;
-  }
+  } */
 
   .nodisplay{
     display: none !important;
