@@ -55,7 +55,6 @@ h1{
 .label-ctrl{
     color: #b9ce46;
     position: absolute;
-    background: #fff;
     top: -24px; 
     left: 3px;
 }
@@ -433,3 +432,113 @@ a{
     max-width: 30px;
     max-height: 30px;
   }
+
+#flecha1{
+    left: 7%; 
+    top: 67%;
+}
+
+#flecha2{
+    left: 44.5%; 
+    top: 67%;
+}
+#flecha1User{
+    left: 7%; 
+    top: 67%;
+}
+
+#flecha2User{
+    left: 44.5%; 
+    top: 67%;
+}
+
+footer{
+    background-color: #19270d;
+    color: #b9ce46;
+    min-height: 200px;
+    display: flex !important;
+}
+.ubicacion{
+    width: 600px;
+}
+/* Estilos generales para todos los dispositivos */
+.logoinicio{
+    width: 50%;
+}
+/* Estilos para móviles */
+@media only screen and (max-width: 450px) {
+    /* Agrega estilos específicos para pantallas de hasta 450px de ancho */
+    #navbarNavAltMarkup {
+        margin-left: -5px;
+    }
+    .carru500px {
+        width: 340px;
+    }
+    .imgscarrou {
+        min-width: 340px;
+        min-height: 300px;
+        max-width: 500px;
+        max-height: 710px;
+    }
+    #flecha2 {
+        left: 80%;
+        top: 38%;
+    }
+    #flecha1 {
+        top: 38%;
+    }
+    #flecha2User {
+        left: 80%;
+        top: 58%;
+    }
+    #flecha1User {
+        top: 58%;
+    }
+    .navbar-toggler{
+        margin-left: 10rem !important;
+    }
+    main{
+        margin: 0 !important;
+    }
+    .contect {
+        width: 50% !important;
+    }
+    .section{
+        width: 40% !important;
+    }
+    .ubicacion{
+        width: 350px;
+    }
+    footer{
+        display: block !important;
+    }
+    .logoinicio{
+        width: 100%;
+        margin-left: 6rem;
+    }
+    .btn- {
+        border-radius: 10px;
+        font-size: 18px;
+        background-color: #e7efe0;
+        color: #616e52;
+        width: 140px;
+        height: 60px;
+        margin: 10px 10px auto;
+        transition: all 1s;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    /* Agrega estilos específicos para pantallas de hasta 600px de ancho */
+}
+
+/* Estilos para tabletas */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+/* Agrega estilos específicos para pantallas de 601px a 1024px de ancho (tabletas) */
+}
+
+/* Estilos para laptops y pantallas más grandes */
+@media only screen and (min-width: 1025px) {
+/* Agrega estilos específicos para pantallas de 1025px en adelante (laptops y pantallas más grandes) */
+}
+  

@@ -44,6 +44,22 @@
         {{>messages}}
         {{{ body }}}
     </main>
+    <footer>
+        <div class="w700">
+            <h1>Contactanos</h1>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Patricia Alejo</strong></a></p>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Anahi Giner</strong></a></p>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Griselda Robles</strong></a></p>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Irene Rodríguez</strong></a></p>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Ivonne Rodríguez</strong></a></p>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Rosa Acosta</strong></a></p>
+            <p><a href="" style="color: #b9ce46 !important; cursor: pointer;" target="_blank"><strong>Beatriz Alvarado</strong></a></p>
+        </div>
+        <div class="w500">
+            <h1>Ubicación</h1>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3394.18146783849!2d-106.41275282438079!3d31.710937574127342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDQyJzM5LjQiTiAxMDbCsDI0JzM2LjYiVw!5e0!3m2!1ses!2smx!4v1700700476815!5m2!1ses!2smx" class="ubicacion" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>    
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -51,5 +67,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Get the button and the menu element
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarMenu = document.querySelector('#navbarNavAltMarkup');
+        
+            // Add click event listener to the button
+            navbarToggler.addEventListener('click', function() {
+                // Toggle the "collapse" class on the menu
+                navbarMenu.classList.toggle('collapse');
+            });
+        });
+    </script>
 </body>
 </html>
