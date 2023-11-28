@@ -71,7 +71,7 @@ h1{
     color: #616e52;
     width: 200px;
     height: 60px;
-    margin: 10px 10px auto;
+    margin: auto;
     transition: all 1s;
 }
 .btn-form{
@@ -523,7 +523,7 @@ footer{
         color: #616e52;
         width: 140px;
         height: 60px;
-        margin: 10px 10px auto;
+        margin: auto;
         transition: all 1s;
     }
 }
