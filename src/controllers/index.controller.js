@@ -5,6 +5,7 @@ const {SECRET} = process.env;
 
 indexCtrl.renderIndex = async(req, res) =>{
     const cookies = req.cookies;
+    const title = "Lead Inmobiliaria";
     const authorization  = cookies.Authorization;
     if(authorization){    
         const decoded = jwt.verify(authorization, SECRET);
@@ -16,18 +17,20 @@ indexCtrl.renderIndex = async(req, res) =>{
                 nombre: usuario.prim_nom, 
                 apellido_pa: usuario.apell_pa, 
                 apellido_ma: usuario.apell_ma,
-                role: usuario.role
+                role: usuario.role,
+                title
             });
         }else{
-            res.render('users/signin');
+            res.render('users/signin', {title});
         }
     }else{
-        res.render('users/signin');
+        res.render('users/signin', {title});
         console.log('error no existe token');
     }
 };
 indexCtrl.renderRegistra = (req, res) =>{
-    res.render('users/signup');
+    const title = "Lead Inmobiliaria";
+    res.render('users/signup', {title});
 };
 
 module.exports = indexCtrl;
