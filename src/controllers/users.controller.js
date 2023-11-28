@@ -10,7 +10,8 @@ userCtrl.renderSignUpForm = async(req, res)=>{
     department.forEach(departments => {
         department['departamentos'] = departments.departments;
     });
-    res.render('users/signup', {department: department['departamentos']});
+    const title = "Lead Inmobiliaria";
+    res.render('users/signup', {department: department['departamentos'], title});
 };
 
 userCtrl.signup = async (req, res) =>{
@@ -20,7 +21,7 @@ userCtrl.signup = async (req, res) =>{
     department.forEach(departments => {
         department['departamentos'] = departments.departments;
     });
-    
+    const title = "Lead Inmobiliaria";
     const emailUser = await user.findOne({email: email})
     if(emailUser){
         res.render('users/signup',{ 
@@ -38,7 +39,8 @@ userCtrl.signup = async (req, res) =>{
             role: role,
             error_msg: 'error',
             error2_msg: 'error_let',
-            department: department['departamentos']
+            department: department['departamentos'],
+            title
          });
     }else{
         const newUser = new user({prim_nom, segun_nom, apell_pa, apell_ma, pust, calle, telefono, fecha_na, nun_in, nun_ex, codigo, email, password });
@@ -75,7 +77,8 @@ userCtrl.signIn = async (req, res) =>{
 }
 
 userCtrl.renderSignInForm = (req, res)=>{
-    res.render('users/signin');
+    const title = "Lead Inmobiliaria";
+    res.render('users/signin', { title });
 };
 
 userCtrl.logout = (req, res) =>{
