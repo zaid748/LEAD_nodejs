@@ -4,6 +4,7 @@
     margin: 10px;
     margin-top: 50px;
     text-align: center;
+    margin-bottom: 11rem;
 }
 .contect-1{
     width: 100%;
@@ -91,8 +92,8 @@
     color: green;
 }
 .btn-contect{
-    margin-left: 81%;
     display: flex;
+    justify-content: flex-end;
 }
 .btn-contect button{
     border-radius: 10px;
