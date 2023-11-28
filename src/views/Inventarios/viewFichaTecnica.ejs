@@ -28,12 +28,13 @@
     {{#if (equals Inventario.Estatus "En venta")}}
         <div class="Estatus_Inventario_venta"><h4>{{Inventario.Estatus}}</h4></div>
     {{/if}}
+    <form action="/Inventario/Eliminar/{{Inventario._id}}?_method=DELETE" method="post"></form>
     <div class="oh-flex oh-end">
         <div style="margin: 10px;">
             <a href="/Inventario/edit/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Editar Ficha</button></a>
         </div>
         <div style="margin: 10px;">
-            <a href="/Inventario/Eliminar/{{Inventario._id}}" class="fichas oh-flex oh-right"><button class="btn-">Eliminar Ficha</button></a>
+            <a href="" class="fichas oh-flex oh-right"><button type="submit" class="btn-">Eliminar Ficha</button></a>
         </div>
     </div>
             
