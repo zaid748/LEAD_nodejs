@@ -21,6 +21,6 @@ router.get('/Inventario/visit/:id', viewGetFichaTecnica);
 
 router.post('/Inventario/add', isAuthenticated, upload, uploadFile);
 
-router.put('/Inventario/Eliminar/:id', isAuthenticated, isAustheAdministrator, deleteInventario);
+router.delete('/Inventario/Eliminar/:id', isAuthenticated, isAustheAdministrator, deleteInventario);
 
 module.exports = router;
