@@ -465,11 +465,69 @@ footer{
 .logoinicio{
     width: 50%;
 }
+#textHome{
+    text-align: center; 
+    font-size: 25px;
+}
+.titleHome{
+    text-align: center;  
+    font-size: 100px;
+    color: #0d1d00; 
+    font-family: 'Sacramento';
+}
+.imgHome{
+    max-height: 600px; 
+    width: 1050px; 
+    object-fit: cover;
+}
+.homeDiv{
+    height: 470px; 
+    width: 700px; 
+    z-index: 2; 
+    margin-right: 50%; 
+    background-color: #e9f1e2;
+    opacity: 0.88;
+}
 /* Estilos para móviles */
+@media only screen and (max-width: 400px) {
+    .w700 {
+        max-width: 350px;
+    }
+    .w500 {
+        max-width: 350px;
+    }
+    #textHome{
+        text-align: center; 
+        font-size: 12px;
+    }
+    .titleHome{
+        text-align: center;  
+        font-size: 30px;
+        color: #0d1d00; 
+        font-family: 'Sacramento';
+    }
+    .imgHome{
+        max-height: 600px; 
+        width: 370px; 
+        object-fit: cover;
+    }
+    .homeDiv{
+        height: 470px; 
+        width: 700px !important; 
+        z-index: 2; 
+        margin-right: 10%; 
+        background-color: #e9f1e2;
+        opacity: 0.88;
+    }
+}
 @media only screen and (max-width: 450px) {
+    
     /* Agrega estilos específicos para pantallas de hasta 450px de ancho */
     #navbarNavAltMarkup {
         margin-left: -5px;
+    }
+    body{
+        overflow-x: hidden !important; /* Oculta el desbordamiento horizontal */
     }
     .carru500px {
         width: 340px;
