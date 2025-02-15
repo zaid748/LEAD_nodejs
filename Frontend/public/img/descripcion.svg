@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.712" height="22.61" viewBox="0 0 16.712 22.61">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#5f784b"/>
+      <stop offset="0.569" stop-color="#5f784b"/>
+      <stop offset="1" stop-color="#102400"/>
+    </linearGradient>
+  </defs>
+  <path id="descripcion" d="M21.746,23.61H8.966A1.966,1.966,0,0,1,7,21.644V2.966A1.966,1.966,0,0,1,8.966,1h9.339a.484.484,0,0,1,.381.194l4.831,4.831a.482.482,0,0,1,.194.381V21.644A1.966,1.966,0,0,1,21.746,23.61ZM18.8,2.662V5.915H22.05ZM22.729,6.9H18.305a.492.492,0,0,1-.492-.492V1.983H8.966a.983.983,0,0,0-.983.983V21.644a.983.983,0,0,0,.983.983h12.78a.983.983,0,0,0,.983-.983ZM19.78,19.678H10.932a.492.492,0,0,1,0-.983H19.78a.492.492,0,0,1,0,.983Zm0-3.932H10.932a.492.492,0,0,1,0-.983H19.78a.492.492,0,0,1,0,.983Zm0-3.932H10.932a.492.492,0,0,1,0-.983H19.78a.492.492,0,0,1,0,.983Z" transform="translate(-7 -1)" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+</svg>
