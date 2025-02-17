@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -25,12 +25,26 @@ import {
   setOpenConfigurator,
   setOpenSidenav,
 } from "@/context";
+import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
 
 export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await axios.get('/api/logout', { withCredentials: true });
+      await logout(); // Actualiza el estado de autenticación en el contexto
+      navigate('/auth/sign-in');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
 
   return (
     <Navbar
@@ -83,23 +97,23 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <Link to="/auth/sign-in">
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex normal-case"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              Sign In
-            </Button>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              className="grid xl:hidden"
-            >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-            </IconButton>
-          </Link>
+          <Button
+            variant="text"
+            color="blue-gray"
+            className="hidden items-center gap-1 px-4 xl:flex normal-case"
+            onClick={handleLogout}
+          >
+            <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+            Logout
+          </Button>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="grid xl:hidden"
+            onClick={handleLogout}
+          >
+            <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+          </IconButton>
           <Menu>
             <MenuHandler>
               <IconButton variant="text" color="blue-gray">

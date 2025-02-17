@@ -3,48 +3,68 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const {SECRET} = process.env;
 
-helpers.isAuthenticated = async(req, res, next) =>{
-    const { token } = req.params;
-    const cookies = req.cookies;
-    const authorization  = cookies.Authorization;
-    if(authorization){
-        const decoded = jwt.verify(authorization, SECRET);
-        const  { _id } = decoded;
-        const usuario = await User.findById({ _id});
-        if (usuario){
+helpers.isAuthenticated = async(req, res, next) => {
+    try {
+        console.log('Cookies received:', req.cookies);
+        const authorization = req.cookies.Authorization;
+
+        if (!authorization) {
+            console.log('No authorization cookie found');
+            return res.status(401).json({
+                success: false,
+                message: 'No token provided'
+            });
+        }
+
+        try {
+            const decoded = jwt.verify(authorization, SECRET);
+            console.log('Token decoded:', decoded);
+            
+            const usuario = await User.findById(decoded._id);
+            
+            if (!usuario) {
+                console.log('No user found for token');
+                return res.status(401).json({
+                    success: false,
+                    message: 'Invalid token - no user found'
+                });
+            }
+
             req.token = authorization;
             req.user = usuario.id;
             req.role = usuario.role;
-            return next();
-        }else{
-            res.render('users/signin');
+            
+            console.log('User authenticated:', {
+                id: usuario.id,
+                role: usuario.role
+            });
+            
+            next();
+        } catch (jwtError) {
+            console.error('JWT verification failed:', jwtError);
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid token - verification failed'
+            });
         }
-    }else if(token){
-        const decoded = jwt.verify(token, SECRET);
-        const  { _id } = decoded;
-        const usuario = await User.findById({ _id});
-        if (usuario){
-            req.token = token;
-            req.user = usuario.id;
-            req.role = usuario.role;
-            return next();
-        }else{
-            res.render('users/signin');
-        }
-    }else{
-        return next();
-        console.log('error no existe token');
+    } catch (error) {
+        console.error('Authentication error:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Server error during authentication'
+        });
     }
-}
+};
 
-helpers.isAustheAdministrator = async(req, res, next)=>{
+helpers.isAustheAdministrator = async(req, res, next) => {
     const role = req.role;
-    const user = req.token;
-    if(role == "administrator" || role == "admin"){
+    if(role === "administrator" || role === "admin"){
         return next();
-    }else{
-        res.render('home', {role, user});
     }
+    return res.status(403).json({
+        success: false,
+        message: 'Requiere permisos de administrador'
+    });
 }
 
 module.exports = helpers;

@@ -14,76 +14,145 @@ userCtrl.renderSignUpForm = async(req, res)=>{
     res.render('users/signup', {department: department['departamentos'], title});
 };
 
-userCtrl.signup = async (req, res) =>{
-    const { prim_nom, segun_nom, apell_pa, telefono, fecha_na, apell_ma, pust, calle, nun_in, nun_ex, codigo, email, password, role } = req.body;
-    let fullname = prim_nom +' '+ segun_nom+' '+apell_pa+' '+apell_ma;
-    const department = await Departamentos.find();
-    department.forEach(departments => {
-        department['departamentos'] = departments.departments;
-    });
-    const title = "Lead Inmobiliaria";
-    const emailUser = await user.findOne({email: email})
-    if(emailUser){
-        res.render('users/signup',{ 
-            prim_nom: prim_nom, 
-            segun_nom: segun_nom, 
-            apell_pa: apell_pa, 
-            apell_ma: apell_ma, 
-            pust: pust,
-            fecha_na: fecha_na,
-            telefono: telefono,
-            calle: calle, 
-            nun_in: nun_in, 
-            nun_ex: nun_ex, 
-            codigo: codigo,
-            role: role,
-            error_msg: 'error',
-            error2_msg: 'error_let',
-            department: department['departamentos'],
-            title
-         });
-    }else{
-        const newUser = new user({prim_nom, segun_nom, apell_pa, apell_ma, pust, calle, telefono, fecha_na, nun_in, nun_ex, codigo, email, password });
+userCtrl.signup = async (req, res) => {
+    try {
+        const { 
+            prim_nom, segun_nom, apell_pa, telefono, 
+            fecha_na, apell_ma, pust, calle, 
+            nun_in, nun_ex, codigo, email, 
+            password, role 
+        } = req.body;
+
+        const emailUser = await user.findOne({email: email})
+        if(emailUser) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'El email ya está registrado' 
+            });
+        }
+
+        const newUser = new user({
+            prim_nom, segun_nom, apell_pa, apell_ma, 
+            pust, calle, telefono, fecha_na, 
+            nun_in, nun_ex, codigo, email, password
+        });
+
         newUser.password = await user.encryptPassword(password);
         await newUser.save();
-        const toke = jwt.sign({_id: newUser._id, pust: newUser.pust, email: newUser.email, role: newUser.role}, SECRET,{
-            expiresIn: 25000
+
+        const token = jwt.sign(
+            {
+                _id: newUser._id, 
+                pust: newUser.pust, 
+                email: newUser.email, 
+                role: newUser.role
+            }, 
+            SECRET,
+            { expiresIn: 25000 }
+        );
+
+        res.cookie('Authorization', token, { 
+            httpOnly: true, 
+            maxAge: 25000 * 1000,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV === 'production'
         });
-        res.cookie('Authorization', toke, { httpOnly: true, maxAge: 25000*1000 });
-        res.redirect('/users/signin');
+
+        return res.status(200).json({
+            success: true,
+            message: 'Usuario registrado exitosamente',
+            user: {
+                email: newUser.email,
+                role: newUser.role
+            }
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Error en el servidor',
+            error: error.message 
+        });
     }
 };
 
-userCtrl.signIn = async (req, res) =>{
-    const { email, password } = req.body;
-    const User = await user.findOne({email: email});
-    if(!User){
-        req.flash('message', 'Not User Found');
-        res.redirect('/users/signin');
-    }else{
-        //Match Password's user
-        const match = await user.matchPassword(password, User.password);
-        if(match){
-            const toke = jwt.sign({_id: User._id, pust: User.pust, email: User.email, role: User.role}, SECRET,{
-                expiresIn: 25000
+userCtrl.signIn = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const User = await user.findOne({email: email});
+        
+        if(!User) {
+            return res.status(404).json({ 
+                success: false, 
+                message: 'Usuario no encontrado' 
             });
-            res.cookie('Authorization', toke, { httpOnly: true, maxAge: 25000*1000 });
-            res.redirect('/');
-        }else{
-            req.flash('message', 'Incorrect Password');
-            res.redirect('/users/signin');
         }
+
+        const match = await user.matchPassword(password, User.password);
+        
+        if(match) {
+            const token = jwt.sign(
+                {
+                    _id: User._id, 
+                    pust: User.pust, 
+                    email: User.email, 
+                    role: User.role
+                }, 
+                SECRET,
+                { expiresIn: '24h' }
+            );
+
+            res.cookie('Authorization', token, { 
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
+                maxAge: 24 * 60 * 60 * 1000, // 24 horas
+                path: '/'
+            });
+
+            console.log('Cookie set:', token);
+
+            return res.status(200).json({
+                success: true,
+                message: 'Login exitoso',
+                user: {
+                    email: User.email,
+                    role: User.role
+                }
+            });
+        } else {
+            return res.status(401).json({ 
+                success: false, 
+                message: 'Contraseña incorrecta' 
+            });
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Error en el servidor',
+            error: error.message 
+        });
     }
-}
+};
 
 userCtrl.renderSignInForm = (req, res)=>{
     const title = "Lead Inmobiliaria";
     res.render('users/signin', { title });
 };
 
-userCtrl.logout = (req, res) =>{
-    res.cookie("Authorization", "", { maxAge: 1 });
-    req.flash('success_msg', 'Youare logged out now.');
-    res.redirect('/users/signin');
+userCtrl.logout = (req, res) => {
+    res.cookie("Authorization", "", { 
+        maxAge: 1,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/'
+    });
+    return res.status(200).json({
+        success: true,
+        message: 'Logout exitoso'
+    });
 };
+
 module.exports = userCtrl;

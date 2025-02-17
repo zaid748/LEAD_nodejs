@@ -1,16 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const { logout , signup, renderSignUpForm, signIn, renderSignInForm } = require('../controllers/users.controller');
-    router.get('/users/registrar', renderSignUpForm);
+const { logout, signup, signIn } = require('../controllers/users.controller');
+const { isAuthenticated } = require('../helpers/auth');
 
-    router.get('/users/signin', renderSignInForm);
+// Rutas de API
+router.get('/check-auth', isAuthenticated, (req, res) => {
+    if (req.user) {
+        res.json({
+            success: true,
+            user: {
+                id: req.user,
+                role: req.role
+            }
+        });
+    } else {
+        res.status(401).json({
+            success: false,
+            message: 'No autorizado'
+        });
+    }
+});
 
-    router.post('/users/signin', signIn, (req, res)=>{
-        //console.log(req.body);
-    });
-
-    router.post('/users/registrar', signup);
-    
-    router.get('/users/logout', logout);
+router.post('/signin', signIn);
+router.post('/signup', signup);
+router.get('/logout', logout);
 
 module.exports = router;
