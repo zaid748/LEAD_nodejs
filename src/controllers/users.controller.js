@@ -155,4 +155,54 @@ userCtrl.logout = (req, res) => {
     });
 };
 
+userCtrl.getUsers = async (req, res) => {
+    try {
+        const users = await user.find({}, {
+            prim_nom: 1,
+            segun_nom: 1,
+            apell_pa: 1,
+            apell_ma: 1,
+            email: 1,
+            pust: 1,
+            telefono: 1
+        });
+
+        return res.status(200).json({
+            success: true,
+            users
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al obtener usuarios',
+            error: error.message
+        });
+    }
+};
+
+userCtrl.getUserById = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const usuario = await user.findById(userId);
+        
+        if (!usuario) {
+            return res.status(404).json({
+                success: false,
+                message: 'Usuario no encontrado'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            user: usuario
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al obtener usuario',
+            error: error.message
+        });
+    }
+};
+
 module.exports = userCtrl;

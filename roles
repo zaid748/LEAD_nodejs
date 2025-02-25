@@ -1,0 +1,5 @@
+{"_id":{"$oid":"6219571c8b503e999ad081f6"},"name":"user"}
+{"_id":{"$oid":"6219571c8b503e999ad081f7"},"name":"supervisors"}
+{"_id":{"$oid":"6219571c8b503e999ad081f9"},"name":"admin"}
+{"_id":{"$oid":"6219571c8b503e999ad081fa"},"name":"administrator"}
+{"_id":{"$oid":"6219571c8b503e999ad081f8"},"name":"moderator"}

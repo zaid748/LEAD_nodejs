@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { logout, signup, signIn } = require('../controllers/users.controller');
+const { logout, signup, signIn, getUsers, getUserById } = require('../controllers/users.controller');
 const { isAuthenticated } = require('../helpers/auth');
 
 // Rutas de API
@@ -24,5 +24,7 @@ router.get('/check-auth', isAuthenticated, (req, res) => {
 router.post('/signin', signIn);
 router.post('/signup', signup);
 router.get('/logout', logout);
+router.get('/users', isAuthenticated, getUsers);
+router.get('/users/:id', isAuthenticated, getUserById);
 
 module.exports = router;
