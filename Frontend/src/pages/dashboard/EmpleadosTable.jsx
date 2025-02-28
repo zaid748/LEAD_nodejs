@@ -4,15 +4,19 @@ import {
   CardBody,
   Typography,
   IconButton,
+  Chip,
+  Button,
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserPlusIcon } from "@heroicons/react/24/outline";
 
-export function UsersTable() {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [selectedUserData, setSelectedUserData] = useState(null);
+export function EmpleadosTable() {
+  const [empleados, setEmpleados] = useState([]);
+  const [selectedEmpleado, setSelectedEmpleado] = useState(null);
+  const [selectedEmpleadoData, setSelectedEmpleadoData] = useState(null);
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const checkAdminAccess = async () => {
@@ -27,11 +31,13 @@ export function UsersTable() {
           const user = data.user || data;
           const userRole = user?.role || '';
           
-          const isAdminUser = userRole.toLowerCase().includes('administrator') || 
-                              userRole === 'Superadministrator';
+          const admin = userRole.toLowerCase().includes('administrator') || 
+                        userRole === 'Superadministrator';
+          
+          setIsAdmin(admin);
           
           // Redirigir si no es administrador
-          if (!isAdminUser) {
+          if (!admin) {
             navigate('/dashboard/home');
           }
         }
@@ -45,78 +51,76 @@ export function UsersTable() {
   }, [navigate]);
 
   useEffect(() => {
-    fetchUsers();
+    fetchEmpleados();
   }, []);
 
   useEffect(() => {
-    if (selectedUser) {
-      fetchUserDetails(selectedUser);
+    if (selectedEmpleado) {
+      fetchEmpleadoDetails(selectedEmpleado);
     } else {
-      setSelectedUserData(null);
+      setSelectedEmpleadoData(null);
     }
-  }, [selectedUser]);
+  }, [selectedEmpleado]);
 
-  const fetchUsers = async () => {
+  const fetchEmpleados = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch('http://localhost:4000/api/empleados-api', {
         credentials: 'include'
       });
       const data = await response.json();
       if (data.success) {
-        setUsers(data.users);
+        setEmpleados(data.empleados);
       }
     } catch (error) {
-      console.error("Error al obtener usuarios:", error);
+      console.error("Error al obtener empleados:", error);
     }
   };
 
-  const fetchUserDetails = async (userId) => {
+  const fetchEmpleadoDetails = async (empleadoId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+      const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
         credentials: 'include'
       });
       const data = await response.json();
       if (data.success) {
-        setSelectedUserData(data.user);
+        setSelectedEmpleadoData(data.empleado);
       }
     } catch (error) {
-      console.error("Error al obtener detalles del usuario:", error);
+      console.error("Error al obtener detalles del empleado:", error);
     }
   };
 
-  const handleRowClick = (userId) => {
-    setSelectedUser(userId);
+  const handleRowClick = (empleadoId) => {
+    setSelectedEmpleado(empleadoId);
   };
 
   const handleViewProfile = () => {
-    if (selectedUser && selectedUserData) {
-      // Almacenar datos del usuario seleccionado en sessionStorage para acceder en la página de perfil
-      sessionStorage.setItem('selectedUserProfile', JSON.stringify(selectedUserData));
-      navigate(`/dashboard/profile/${selectedUser}`);
+    if (selectedEmpleado && selectedEmpleadoData) {
+      sessionStorage.setItem('selectedEmpleadoProfile', JSON.stringify(selectedEmpleadoData));
+      navigate(`/dashboard/empleado-profile/${selectedEmpleado}`);
     }
   };
 
   const handleViewDocument = () => {
-    if (selectedUser) {
-      navigate(`/dashboard/documents/${selectedUser}`);
+    if (selectedEmpleado) {
+      navigate(`/dashboard/empleado-documents/${selectedEmpleado}`);
     }
   };
 
-  const handleDeleteUser = async () => {
-    if (selectedUser && window.confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+  const handleDeleteEmpleado = async () => {
+    if (selectedEmpleado && window.confirm('¿Estás seguro de que deseas eliminar este empleado?')) {
       try {
-        const response = await fetch(`http://localhost:4000/api/users/${selectedUser}`, {
+        const response = await fetch(`http://localhost:4000/api/empleados-api/${selectedEmpleado}`, {
           method: 'DELETE',
           credentials: 'include'
         });
         const data = await response.json();
         if (data.success) {
-          // Actualizar la lista de usuarios después de eliminar
-          fetchUsers();
-          setSelectedUser(null);
+          fetchEmpleados();
+          setSelectedEmpleado(null);
         }
       } catch (error) {
-        console.error("Error al eliminar usuario:", error);
+        console.error("Error al eliminar empleado:", error);
       }
     }
   };
@@ -127,14 +131,14 @@ export function UsersTable() {
         <CardHeader variant="gradient" color="gray" className="mb-8 p-6">
           <div className="flex justify-between items-center">
             <Typography variant="h6" color="white">
-              Tabla de Usuarios
+              Tabla de Empleados
             </Typography>
             <div className="flex gap-4">
               {/* Icono de documento */}
               <IconButton 
                 variant="text" 
                 color="white" 
-                disabled={!selectedUser}
+                disabled={!selectedEmpleado}
                 className="opacity-100 disabled:opacity-50"
                 onClick={handleViewDocument}
               >
@@ -146,7 +150,7 @@ export function UsersTable() {
               <IconButton 
                 variant="text" 
                 color="white"
-                disabled={!selectedUser}
+                disabled={!selectedEmpleado}
                 className="opacity-100 disabled:opacity-50"
                 onClick={handleViewProfile}
               >
@@ -158,9 +162,9 @@ export function UsersTable() {
               <IconButton 
                 variant="text" 
                 color="white"
-                disabled={!selectedUser}
+                disabled={!selectedEmpleado}
                 className="opacity-100 disabled:opacity-50"
-                onClick={handleDeleteUser}
+                onClick={handleDeleteEmpleado}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="w-7 h-7">
                   <path fill="currentColor" d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"/>
@@ -170,10 +174,25 @@ export function UsersTable() {
           </div>
         </CardHeader>
         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row mb-4">
+            <Typography variant="h5" color="blue-gray">
+              Lista de Empleados
+            </Typography>
+            {isAdmin && (
+              <Button 
+                color="blue" 
+                className="flex items-center gap-3"
+                onClick={() => navigate('/dashboard/empleados/crear')}
+              >
+                <UserPlusIcon strokeWidth={2} className="h-4 w-4" />
+                Nuevo Empleado
+              </Button>
+            )}
+          </div>
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["Nombre Completo", "Correo", "Puesto", "Teléfono", "Rol"].map((el) => (
+                {["Nombre Completo", "Correo", "Puesto", "Teléfono", "Estado", "Salario"].map((el) => (
                   <th
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -189,18 +208,19 @@ export function UsersTable() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => {
-                const isSelected = selectedUser === user._id;
+              {empleados.map((empleado) => {
+                const isSelected = selectedEmpleado === empleado._id;
                 const className = `py-3 px-5 border-b border-blue-gray-50 cursor-pointer transition-colors ${
                   isSelected ? "bg-blue-gray-50" : "hover:bg-blue-gray-50/50"
                 }`;
 
-                const nombreCompleto = `${user.prim_nom} ${user.segun_nom || ''} ${user.apell_pa} ${user.apell_ma}`.trim();
+                const nombreCompleto = `${empleado.prim_nom} ${empleado.segun_nom || ''} ${empleado.apell_pa} ${empleado.apell_ma}`.trim();
+                const isActive = empleado.estado === "activo";
 
                 return (
                   <tr 
-                    key={user._id}
-                    onClick={() => handleRowClick(user._id)}
+                    key={empleado._id}
+                    onClick={() => handleRowClick(empleado._id)}
                     className={className}
                   >
                     <td className={className}>
@@ -214,22 +234,33 @@ export function UsersTable() {
                     </td>
                     <td className={className}>
                       <Typography className="text-xs font-normal text-blue-gray-500">
-                        {user.email}
+                        {empleado.email}
                       </Typography>
                     </td>
                     <td className={className}>
                       <Typography className="text-xs font-semibold text-blue-gray-600">
-                        {user.pust}
+                        {empleado.pust}
                       </Typography>
                     </td>
                     <td className={className}>
                       <Typography className="text-xs font-normal text-blue-gray-500">
-                        {user.telefono}
+                        {empleado.telefono}
                       </Typography>
                     </td>
                     <td className={className}>
+                      <div className="w-max">
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          value={empleado.estado}
+                          color={empleado.estado === "Activo" ? "green" : "red"}
+                          className={empleado.estado === "Activo" ? "bg-green-100" : "bg-red-100"}
+                        />
+                      </div>
+                    </td>
+                    <td className={className}>
                       <Typography className="text-xs font-semibold text-blue-gray-600">
-                        {user.role || 'Usuario'}
+                        ${empleado.salario}
                       </Typography>
                     </td>
                   </tr>
@@ -243,4 +274,4 @@ export function UsersTable() {
   );
 }
 
-export default UsersTable; 
+export default EmpleadosTable; 

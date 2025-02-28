@@ -15,7 +15,9 @@ const EmpleadoSchema = new Schema({
     email: { type: String, unique: true},
     salario: { type: String, required: true},
     fecha_ing: { type: String, required: true},
-    estado: { type: String, required: true}
+    estado: { type: String, required: true},
+    foto_perfil: { type: String, default: '/img/user_icon.svg' },
+    userId: { type: Schema.Types.ObjectId, ref: 'Users', default: null }
 });
 
 module.exports = model('Empleados', EmpleadoSchema);

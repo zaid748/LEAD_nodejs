@@ -17,7 +17,8 @@ const usuario = new Schema({
     telefono: {type:String, required: true},
     email: { type: String, required: true, unique: true},
     password: { type: String, required: true},
-    role: { type: String, required:false }   
+    role: { type: String, default: 'user' },
+    foto_perfil: { type: String, default: '/img/user_icon.svg' }
 }, {
     timestamps: true
 });

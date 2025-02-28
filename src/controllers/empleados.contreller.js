@@ -4,6 +4,7 @@ const Empleados = require('../models/Empleados');
 const Departamentos = require('../models/Departamentos');
 const Nominas = require('../models/Nomina');
 const app = require('../server');
+const User = require('../models/user');
 
 employedCtrl.agregarEmpleadoView = async(req, res)=>{
     const department = await Departamentos.find().lean();
@@ -145,5 +146,155 @@ employedCtrl.CrearNominaView =  async(req, res) =>{
     role = req.role;
     res.render('empleados/crear_nomina',{ full_name, id, token, user, role });
 }
+
+// Obtener todos los empleados (para la tabla)
+employedCtrl.getEmpleados = async (req, res) => {
+    try {
+        const empleados = await Empleados.find({}, {
+            prim_nom: 1,
+            segun_nom: 1,
+            apell_pa: 1,
+            apell_ma: 1,
+            email: 1,
+            pust: 1,
+            telefono: 1,
+            estado: 1,
+            salario: 1
+        });
+
+        return res.status(200).json({
+            success: true,
+            empleados
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al obtener empleados',
+            error: error.message
+        });
+    }
+};
+
+// Obtener un empleado por su ID
+employedCtrl.getEmpleadoById = async (req, res) => {
+    try {
+        const empleadoId = req.params.id;
+        const empleado = await Empleados.findById(empleadoId);
+        
+        if (!empleado) {
+            return res.status(404).json({
+                success: false,
+                message: 'Empleado no encontrado'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            empleado
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al obtener empleado',
+            error: error.message
+        });
+    }
+};
+
+// Eliminar un empleado
+employedCtrl.deleteEmpleado = async (req, res) => {
+    try {
+        const empleadoId = req.params.id;
+        const empleado = await Empleados.findByIdAndDelete(empleadoId);
+        
+        if (!empleado) {
+            return res.status(404).json({
+                success: false,
+                message: 'Empleado no encontrado'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Empleado eliminado correctamente'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al eliminar empleado',
+            error: error.message
+        });
+    }
+};
+
+// Actualizar un empleado
+employedCtrl.updateEmpleado = async (req, res) => {
+    try {
+        const empleadoId = req.params.id;
+        const updates = req.body;
+        
+        const empleado = await Empleados.findByIdAndUpdate(empleadoId, updates, { new: true });
+        
+        if (!empleado) {
+            return res.status(404).json({
+                success: false,
+                message: 'Empleado no encontrado'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            empleado,
+            message: 'Empleado actualizado correctamente'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al actualizar empleado',
+            error: error.message
+        });
+    }
+};
+
+// Añadir un método para asociar un empleado con un usuario
+employedCtrl.asociarUsuario = async (req, res) => {
+  try {
+    const { empleadoId, userId } = req.body;
+    
+    // Verificar que el empleado existe
+    const empleado = await Empleados.findById(empleadoId);
+    if (!empleado) {
+      return res.status(404).json({
+        success: false,
+        message: 'Empleado no encontrado'
+      });
+    }
+    
+    // Verificar que el usuario existe
+    const usuario = await User.findById(userId);
+    if (!usuario) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
+    }
+    
+    // Actualizar el empleado con el ID del usuario
+    empleado.userId = userId;
+    await empleado.save();
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Usuario asociado correctamente con el empleado',
+      empleado
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error al asociar usuario con empleado',
+      error: error.message
+    });
+  }
+};
 
 module.exports = employedCtrl;

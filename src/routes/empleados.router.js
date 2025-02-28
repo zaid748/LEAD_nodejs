@@ -5,6 +5,21 @@ const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
 const { addNomina } = require('../controllers/nomina.controller');
 const { CrearPdfNomina } = require('../libs/PDF');
 const { uploadObject } = require('../libs/multer')
+const employedCtrl = require('../controllers/empleados.contreller');
+const multer = require('multer');
+
+// Reemplazar la configuración de CloudinaryStorage con almacenamiento local
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/public/uploads/profile_photos')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop())
+  }
+});
+
+const upload = multer({ storage: storage });
 
 router.get('/empleados/Agregar' , isAuthenticated, isAustheAdministrator , agregarEmpleadoView);
 
@@ -31,5 +46,53 @@ router.post('/CrearNomina/:token', isAuthenticated, isAustheAdministrator, addNo
 /* router.post('/pdf/:token', isAuthenticated, isAustheAdministrator, uploadObject, (req, res) =>{
     res.redirect('/empleados');
 }); */
+
+// Rutas API para la aplicación React
+router.get('/empleados-api', isAuthenticated, employedCtrl.getEmpleados);
+router.get('/empleados-api/:id', isAuthenticated, employedCtrl.getEmpleadoById);
+router.delete('/empleados-api/:id', isAuthenticated, isAustheAdministrator, employedCtrl.deleteEmpleado);
+router.put('/empleados-api/:id', isAuthenticated, isAustheAdministrator, employedCtrl.updateEmpleado);
+
+// Ruta para actualizar la foto de perfil de un empleado
+router.post('/empleados-api/:id/upload-photo', isAuthenticated, upload.single('foto_perfil'), 
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: 'No se proporcionó ninguna imagen'
+        });
+      }
+
+      const empleadoId = req.params.id;
+      const fotoUrl = req.file.path;
+
+      const empleado = await Empleado.findByIdAndUpdate(
+        empleadoId,
+        { foto_perfil: fotoUrl },
+        { new: true }
+      );
+
+      if (!empleado) {
+        return res.status(404).json({
+          success: false,
+          message: 'Empleado no encontrado'
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: 'Foto de perfil actualizada correctamente',
+        foto_perfil: fotoUrl
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Error al actualizar la foto de perfil',
+        error: error.message
+      });
+    }
+  }
+);
 
 module.exports = router;
