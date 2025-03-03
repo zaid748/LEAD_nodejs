@@ -2,6 +2,7 @@ const userCtrl = {};
 const user = require('../models/user');
 const Departamentos = require('../models/Departamentos');
 const  jwt  = require ('jsonwebtoken');
+const { sendUserCreationEmail } = require('../libs/emailService');
 
 const {SECRET} = process.env;
 
@@ -16,12 +17,24 @@ userCtrl.renderSignUpForm = async(req, res)=>{
 
 userCtrl.signup = async (req, res) => {
     try {
+        console.log("Datos recibidos:", req.body);
+        
         const { 
             prim_nom, segun_nom, apell_pa, telefono, 
             fecha_na, apell_ma, pust, calle, 
             nun_in, nun_ex, codigo, email, 
-            password, role 
+            password, role, empleado_id 
         } = req.body;
+
+        // Validar que todos los campos requeridos estén presentes
+        if (!prim_nom || !apell_pa || !apell_ma || !fecha_na || 
+            !pust || !calle || !nun_ex || !codigo || 
+            !telefono || !email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Todos los campos obligatorios deben ser completados'
+            });
+        }
 
         const emailUser = await user.findOne({email: email})
         if(emailUser) {
@@ -32,38 +45,75 @@ userCtrl.signup = async (req, res) => {
         }
 
         const newUser = new user({
-            prim_nom, segun_nom, apell_pa, apell_ma, 
-            pust, calle, telefono, fecha_na, 
-            nun_in, nun_ex, codigo, email, password
+            prim_nom, 
+            segun_nom, 
+            apell_pa, 
+            apell_ma, 
+            pust, 
+            calle, 
+            telefono, 
+            fecha_na, 
+            nun_in, 
+            nun_ex, 
+            codigo, 
+            email, 
+            password,
+            role: role || 'user',
+            empleado_id: empleado_id || null
         });
 
         newUser.password = await user.encryptPassword(password);
         await newUser.save();
 
-        const token = jwt.sign(
-            {
-                _id: newUser._id, 
-                pust: newUser.pust, 
-                email: newUser.email, 
-                role: newUser.role
-            }, 
-            SECRET,
-            { expiresIn: 25000 }
-        );
+        // Obtener información del creador si existe un token de autenticación
+        let creatorInfo = null;
+        if (req.cookies && req.cookies.Authorization) {
+            try {
+                const decoded = jwt.verify(req.cookies.Authorization, SECRET);
+                if (decoded._id) {
+                    creatorInfo = await user.findById(decoded._id);
+                }
+            } catch (error) {
+                console.log("No se pudo obtener información del creador:", error.message);
+            }
+        }
 
-        res.cookie('Authorization', token, { 
-            httpOnly: true, 
-            maxAge: 25000 * 1000,
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV === 'production'
-        });
+        // Enviar email de notificación
+        await sendUserCreationEmail(newUser, creatorInfo);
+
+        // Verificar si la petición viene del dashboard
+        const isFromDashboard = req.headers.referer && req.headers.referer.includes('/dashboard');
+
+        if (!isFromDashboard) {
+            // Solo establecer cookie si NO viene del dashboard
+            const token = jwt.sign(
+                {
+                    _id: newUser._id, 
+                    pust: newUser.pust, 
+                    email: newUser.email, 
+                    role: newUser.role,
+                    empleado_id: newUser.empleado_id
+                }, 
+                SECRET,
+                { expiresIn: 25000 }
+            );
+
+            res.cookie('Authorization', token, { 
+                httpOnly: true, 
+                maxAge: 25000 * 1000,
+                sameSite: 'strict',
+                secure: process.env.NODE_ENV === 'production'
+            });
+        }
 
         return res.status(200).json({
             success: true,
             message: 'Usuario registrado exitosamente',
             user: {
+                _id: newUser._id,
                 email: newUser.email,
-                role: newUser.role
+                role: newUser.role,
+                empleado_id: newUser.empleado_id
             }
         });
 

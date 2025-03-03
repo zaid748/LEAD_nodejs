@@ -64,24 +64,35 @@ export function Sidenav({ brandImg, brandName }) {
   // Si no estamos en auth y no es admin, filtrar las rutas
   let activePages = activeLayout?.pages || [];
   if (!isAuthPage) {
-    // IMPORTANTE: Eliminar explícitamente las opciones de crear y editar empleado
-    activePages = activePages.filter(page => 
-      !page.hideInSidebar && 
-      page.name !== "crear empleado" && 
-      page.name !== "editar empleado" &&
-      page.name !== "Editar Empleado" &&
-      page.name !== "Crear Empleado"
-    );
-    
-    // Filtrar rutas solo para administradores si el usuario no es admin
-    if (!isAdmin) {
-      activePages = activePages.filter(
-        page => page.name && 
+    // Aquí verificamos si el usuario tiene empleado_id para mostrar Mi Nómina
+    activePages = activePages.filter(page => {
+      // Si la página requiere empleado_id, verificar si el usuario lo tiene
+      if (page.requiresEmpleadoId) {
+        try {
+          const userFromStorage = JSON.parse(localStorage.getItem('user'));
+          return userFromStorage && userFromStorage.empleado_id;
+        } catch (e) {
+          return false;
+        }
+      }
+      
+      // Verificar si page.name existe antes de hacer comparaciones
+      if (!page.name) {
+        return !page.hideInSidebar;
+      }
+      
+      // Resto de tu lógica de filtrado existente
+      return !page.hideInSidebar && 
+        page.name !== "crear empleado" && 
+        page.name !== "editar empleado" &&
+        page.name !== "Editar Empleado" &&
+        page.name !== "Crear Empleado" &&
+        (isAdmin || (
           !page.name.includes("Usuarios") && 
           !page.name.includes("Empleados") &&
           !page.adminOnly
-      );
-    }
+        ));
+    });
   }
 
   return (
@@ -133,7 +144,7 @@ export function Sidenav({ brandImg, brandName }) {
             
             return (
               <li key={key}>
-                <NavLink to={`/${activeLayout.layout}${page.path}`}>
+                <NavLink to={`/dashboard${page.path}`}>
                   {({ isActive }) => (
                     <Button
                       variant={isActive ? "gradient" : "text"}

@@ -18,7 +18,8 @@ const usuario = new Schema({
     email: { type: String, required: true, unique: true},
     password: { type: String, required: true},
     role: { type: String, default: 'user' },
-    foto_perfil: { type: String, default: '/img/user_icon.svg' }
+    foto_perfil: { type: String, default: '/img/user_icon.svg' },
+    empleado_id: { type: Schema.Types.ObjectId, ref: 'Empleado', required: false }
 }, {
     timestamps: true
 });

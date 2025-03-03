@@ -297,4 +297,67 @@ employedCtrl.asociarUsuario = async (req, res) => {
   }
 };
 
+exports.getAllEmpleados = async (req, res) => {
+  try {
+    const empleados = await Empleados.find({});
+    
+    return res.status(200).json({
+      success: true,
+      count: empleados.length,
+      empleados
+    });
+  } catch (error) {
+    console.error("Error en getAllEmpleados:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener empleados',
+      error: error.message
+    });
+  }
+};
+
+// Modificar esta función para buscar en ambas direcciones
+employedCtrl.getEmpleadoByUserId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    console.log("Buscando empleado para usuario ID:", userId);
+    
+    // 1. Primero, intentar buscar un empleado con userId igual al ID proporcionado
+    let empleado = await Empleados.findOne({ userId: userId });
+    
+    // 2. Si no se encuentra, buscar el usuario y ver si tiene empleado_id
+    if (!empleado) {
+      console.log("No se encontró empleado con userId. Buscando usuario con empleado_id...");
+      
+      const User = require('../models/user'); // Cambiado a minúscula
+      
+      const usuario = await User.findById(userId);
+      
+      if (usuario && usuario.empleado_id) {
+        console.log("Usuario tiene empleado_id:", usuario.empleado_id);
+        empleado = await Empleados.findById(usuario.empleado_id);
+      }
+    }
+    
+    if (!empleado) {
+      return res.status(404).json({
+        success: false,
+        message: 'No se encontró un empleado asociado a este usuario'
+      });
+    }
+    
+    return res.status(200).json({
+      success: true,
+      empleado
+    });
+  } catch (error) {
+    console.error("Error al buscar empleado por usuario:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al buscar empleado',
+      error: error.message
+    });
+  }
+};
+
 module.exports = employedCtrl;

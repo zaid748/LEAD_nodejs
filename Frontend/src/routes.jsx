@@ -7,12 +7,14 @@ import {
   RectangleStackIcon,
   UserGroupIcon,
   PlusCircleIcon,
+  DocumentTextIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import { CrearEmpleado } from "@/pages/dashboard/CrearEmpleado";
 import { EditarEmpleado } from "@/pages/dashboard/EditarEmpleado";
 import { CrearNomina } from "@/pages/dashboard/CrearNomina";
+import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -94,6 +96,13 @@ export const routes = [
       {
         path: "/nomina/crear/:empleadoId",
         element: <CrearNomina />,
+      },
+      {
+        icon: <DocumentTextIcon {...icon} />,
+        name: "Mi Nómina",
+        path: "/nominas/mi-nomina",
+        element: <MiNominaPage />,
+        alwaysShow: true,
       },
     ],
   },

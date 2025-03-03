@@ -9,6 +9,7 @@ import {
 } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
+import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
 
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -35,13 +36,14 @@ export function Dashboard() {
           <Cog6ToothIcon className="h-5 w-5" />
         </IconButton>
         <Routes>
-          {routes.map(
-            ({ layout, pages }) =>
-              layout === "dashboard" &&
+          {routes
+            .filter((route) => route.layout === "dashboard")
+            .map(({ pages }) =>
               pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
+                <Route exact path={path} element={element} key={path} />
               ))
-          )}
+            )}
+          <Route path="/nominas/mi-nomina" element={<MiNominaPage />} />
         </Routes>
         <div className="text-blue-gray-600">
           <Footer />

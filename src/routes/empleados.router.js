@@ -7,6 +7,7 @@ const { CrearPdfNomina } = require('../libs/PDF');
 const { uploadObject } = require('../libs/multer')
 const employedCtrl = require('../controllers/empleados.contreller');
 const multer = require('multer');
+const Empleado = require('../models/Empleados');
 
 // Reemplazar la configuración de CloudinaryStorage con almacenamiento local
 const storage = multer.diskStorage({
@@ -94,5 +95,32 @@ router.post('/empleados-api/:id/upload-photo', isAuthenticated, upload.single('f
     }
   }
 );
+
+// Añadir esta ruta para obtener todos los empleados (si no existe)
+router.get('/empleados/all', isAuthenticated, async (req, res) => {
+  try {
+    console.log("Buscando empleados...");
+    // No limitar los campos a retornar para depuración
+    const empleados = await Empleado.find({});
+    
+    console.log("Empleados encontrados:", empleados.length);
+    
+    return res.status(200).json({
+      success: true,
+      count: empleados.length,
+      empleados
+    });
+  } catch (error) {
+    console.error("Error al obtener empleados:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener empleados',
+      error: error.message
+    });
+  }
+});
+
+// Ruta para obtener empleado por ID de usuario
+router.get('/empleados-api/by-user/:userId', employedCtrl.getEmpleadoByUserId);
 
 module.exports = router;

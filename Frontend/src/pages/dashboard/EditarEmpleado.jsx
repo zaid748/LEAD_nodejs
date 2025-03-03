@@ -180,6 +180,7 @@ export function EditarEmpleado() {
     try {
       console.log("Enviando datos actualizados:", formData);
       
+      // Guardar datos del empleado
       const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
         method: 'PUT',
         headers: {
@@ -190,20 +191,32 @@ export function EditarEmpleado() {
       });
       
       const data = await response.json();
-      console.log("Respuesta al actualizar:", data);
+      console.log("Respuesta al actualizar empleado:", data);
       
-      if (data.success) {
-        setSuccess(true);
-        // Esperar un momento para mostrar el mensaje de éxito antes de redirigir
-        setTimeout(() => {
-          navigate(`/dashboard/empleados/profile/${empleadoId}`);
-        }, 1500);
-      } else {
-        setError(data.message || "Error al actualizar el empleado");
+      // Si se actualizó el empleado correctamente y se cambió el usuario asociado
+      if (data.success && formData.userId) {
+        // Actualizar la asociación de usuario-empleado si hay un usuario seleccionado
+        const userResponse = await fetch(`http://localhost:4000/api/users/${formData.userId}/asociar-empleado`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({ empleado_id: empleadoId })
+        });
+        
+        const userData = await userResponse.json();
+        console.log("Respuesta al asociar usuario:", userData);
       }
+      
+      setSuccess(true);
+      // Esperar un momento para mostrar el mensaje de éxito antes de redirigir
+      setTimeout(() => {
+        navigate(`/dashboard/empleados/profile/${empleadoId}`);
+      }, 1500);
     } catch (error) {
-      console.error("Error:", error);
-      setError("Error al conectar con el servidor");
+      console.error("Error al actualizar empleado:", error);
+      setError("Error al guardar los datos. Por favor intente nuevamente.");
     } finally {
       setLoading(false);
     }
@@ -390,34 +403,44 @@ export function EditarEmpleado() {
                   required
                 />
                 
-                {isAdmin && (
-                  <div className="mt-6">
-                    <Typography variant="h6" color="blue-gray" className="mb-3">
-                      Asociar con Usuario
-                    </Typography>
-                    <Select
-                      label="Usuario"
+                <div className="mt-6">
+                  <Typography variant="h6" color="blue-gray" className="mb-3">
+                    Asociar con Usuario
+                  </Typography>
+                  
+                  <label className="text-sm text-blue-gray-700 font-medium">
+                    Usuario
+                  </label>
+                  
+                  <div className="relative">
+                    <select
                       value={formData.userId || ""}
-                      onChange={(value) => handleSelectChange("userId", value)}
+                      onChange={(e) => handleSelectChange("userId", e.target.value)}
+                      className="w-full h-11 px-3 py-2 border border-blue-gray-200 rounded-lg bg-white text-blue-gray-700 outline-none focus:border-gray-900 transition-all"
                     >
-                      <Option value="">Ninguno</Option>
+                      <option value="">Ninguno</option>
                       {usuarios.map((user) => (
-                        <Option key={user._id} value={user._id}>
+                        <option key={user._id} value={user._id}>
                           {user.prim_nom} {user.apell_pa} ({user.email})
-                        </Option>
+                        </option>
                       ))}
-                    </Select>
-                    
-                    {formData.userId && (
-                      <Typography variant="small" color="blue-gray" className="mt-2">
-                        Usuario seleccionado: {
-                          usuarios.find(u => u._id === formData.userId)?.email || 
-                          "Cargando información del usuario..."
-                        }
-                      </Typography>
-                    )}
+                    </select>
+                    <div className="absolute right-0 top-0 h-full flex items-center pr-3 pointer-events-none">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                      </svg>
+                    </div>
                   </div>
-                )}
+                  
+                  {formData.userId && (
+                    <Typography variant="small" color="blue-gray" className="mt-2">
+                      Usuario seleccionado: {
+                        usuarios.find(u => u._id === formData.userId)?.email || 
+                        "Cargando información del usuario..."
+                      }
+                    </Typography>
+                  )}
+                </div>
               </div>
               
               <div className="col-span-1 md:col-span-2 flex justify-end gap-4 mt-6">
