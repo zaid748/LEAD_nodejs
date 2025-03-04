@@ -8,6 +8,7 @@ import {
   UserGroupIcon,
   PlusCircleIcon,
   DocumentTextIcon,
+  UserPlusIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
@@ -31,6 +32,10 @@ export const routes = [
         element: <Home />,
       },
       {
+        path: "/",
+        element: <Home />,
+      },
+      {
         icon: <UserCircleIcon {...icon} />,
         name: "profile",
         path: "/profile",
@@ -49,15 +54,13 @@ export const routes = [
         element: <UsersTable />,
       },
       {
-        icon: <PlusCircleIcon {...icon} />,
-        name: "+ Usuario",
         path: "/users/crear",
         element: <SignUp dashboard={true} />,
-        adminOnly: true,
+        showInSidebar: false,
       },
       {
         path: "/profile/:userId",
-        element: <ProfileUsers />,
+        element: <Profile />,
       },
       {
         icon: <UserGroupIcon {...icon} />,
@@ -104,6 +107,10 @@ export const routes = [
         element: <MiNominaPage />,
         alwaysShow: true,
       },
+      {
+        path: "/user-profile/:userId",
+        element: <ProfileUsers />,
+      },
     ],
   },
   {
@@ -121,6 +128,7 @@ export const routes = [
         name: "sign up",
         path: "/sign-up",
         element: <SignUp />,
+        showInSidebar: false,
       },
     ],
   },

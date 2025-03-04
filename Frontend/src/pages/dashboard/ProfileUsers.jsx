@@ -20,10 +20,13 @@ import {
   MapPinIcon,
   CalendarDaysIcon,
   ArrowLeftIcon,
+  PencilIcon,
+  BriefcaseIcon,
 } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProfileInfoCard } from "@/widgets/cards";
+import axios from "axios";
 
 export function ProfileUsers() {
   const [userData, setUserData] = useState(null);
@@ -32,40 +35,43 @@ export function ProfileUsers() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Intentar obtener datos del sessionStorage primero
-    const storedUserData = sessionStorage.getItem('selectedUserProfile');
-    
-    if (storedUserData) {
-      setUserData(JSON.parse(storedUserData));
-      setLoading(false);
-    } else {
-      // Si no hay datos en sessionStorage, obtenerlos de la API
+    const fetchUserData = async () => {
+      try {
+        console.log("Obteniendo datos del usuario con ID:", userId);
+        const response = await axios.get(`http://localhost:4000/api/users/${userId}`, {
+          withCredentials: true
+        });
+        
+        if (response.data.success) {
+          // Si la API no devuelve foto_perfil_url, la construimos aquí
+          let userData = response.data.user;
+          if (userData.foto_perfil && !userData.foto_perfil_url) {
+            const baseUrl = window.location.origin;
+            userData.foto_perfil_url = `${baseUrl}${userData.foto_perfil}`;
+          }
+          setUserData(userData);
+        } else {
+          console.error("No se pudieron cargar los datos del usuario");
+        }
+      } catch (err) {
+        console.error("Error al obtener datos del usuario:", err);
+        setUserData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
       fetchUserData();
     }
   }, [userId]);
 
-  const fetchUserData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
-        credentials: 'include'
-      });
-      const data = await response.json();
-      
-      if (data.success) {
-        setUserData(data.user);
-      } else {
-        console.error("Error al obtener datos del usuario");
-      }
-    } catch (error) {
-      console.error("Error al obtener datos del usuario:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleGoBack = () => {
     navigate('/dashboard/users');
+  };
+
+  const handleEdit = () => {
+    navigate(`/dashboard/users/edit/${userId}`);
   };
 
   if (loading) {
@@ -109,17 +115,24 @@ export function ProfileUsers() {
           <Typography variant="h5" color="blue-gray">
             Información del Usuario
           </Typography>
-          <div className="w-6"></div> {/* Elemento vacío para mantener el equilibrio */}
+          <Button
+            color="blue"
+            size="sm"
+            variant="outlined"
+            className="flex items-center gap-2"
+            onClick={handleEdit}
+          >
+            <PencilIcon className="h-4 w-4" /> Editar
+          </Button>
         </CardHeader>
         <CardBody className="p-4">
           <div className="mb-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-6">
               <Avatar
-                src="/img/team-1.jpeg"
+                src={userData.foto_perfil_url || userData.foto_perfil || "/img/user_icon.svg"}
                 alt={nombreCompleto}
-                size="xl"
-                variant="rounded"
-                className="rounded-lg shadow-lg shadow-blue-gray-500/40"
+                size="xxl"
+                className="border border-blue-500 shadow-xl shadow-blue-900/20"
               />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
@@ -148,100 +161,151 @@ export function ProfileUsers() {
               </Tabs>
             </div>
           </div>
+
           <div className="grid grid-cols-1 gap-12 px-4 md:grid-cols-2">
-            <ProfileInfoCard
-              title="Información Personal"
-              details={{
-                "Nombre Completo": nombreCompleto,
-                "Puesto": userData.pust,
-                "Fecha de Nacimiento": userData.fecha_na,
-                "Correo Electrónico": userData.email,
-                "Dirección": direccionCompleta,
-                "Teléfono": userData.telefono
-              }}
-              action={
-                <Tooltip content="Editar Perfil">
-                  <Button 
-                    size="sm" 
-                    variant="outlined"
-                    onClick={() => navigate(`/dashboard/users/edit/${userId}`)}
-                  >
-                    Editar
-                  </Button>
-                </Tooltip>
-              }
-            />
+            {/* Información Personal en formato de tarjetas */}
             <div>
               <Typography variant="h6" color="blue-gray" className="mb-4">
-                Detalles Adicionales
+                Información Personal
               </Typography>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 p-4 border rounded-lg border-blue-gray-100">
-                  <div className="rounded-lg bg-gray-900/10 p-2">
-                    <IdentificationIcon className="h-6 w-6 text-blue-gray-700" />
+
+              <div className="space-y-6">
+                {/* Nombre Completo */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <UserCircleIcon className="h-6 w-6 text-blue-gray-500" />
                   </div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
-                      Rol
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Nombre Completo
                     </Typography>
-                    <Typography variant="small" color="blue-gray" className="font-normal">
-                      {userData.role || 'Usuario'}
-                    </Typography>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-4 p-4 border rounded-lg border-blue-gray-100">
-                  <div className="rounded-lg bg-gray-900/10 p-2">
-                    <EnvelopeIcon className="h-6 w-6 text-blue-gray-700" />
-                  </div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
-                      Correo Electrónico
-                    </Typography>
-                    <Typography variant="small" color="blue-gray" className="font-normal">
-                      {userData.email}
+                    <Typography variant="small" className="font-normal">
+                      {nombreCompleto}
                     </Typography>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-4 p-4 border rounded-lg border-blue-gray-100">
-                  <div className="rounded-lg bg-gray-900/10 p-2">
-                    <PhoneIcon className="h-6 w-6 text-blue-gray-700" />
+
+                {/* Puesto */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <BriefcaseIcon className="h-6 w-6 text-blue-gray-500" />
                   </div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
-                      Teléfono
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Puesto
                     </Typography>
-                    <Typography variant="small" color="blue-gray" className="font-normal">
-                      {userData.telefono}
+                    <Typography variant="small" className="font-normal">
+                      {userData.pust}
                     </Typography>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-4 p-4 border rounded-lg border-blue-gray-100">
-                  <div className="rounded-lg bg-gray-900/10 p-2">
-                    <MapPinIcon className="h-6 w-6 text-blue-gray-700" />
+
+                {/* Fecha de Nacimiento */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <CalendarDaysIcon className="h-6 w-6 text-blue-gray-500" />
                   </div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Fecha de Nacimiento
+                    </Typography>
+                    <Typography variant="small" className="font-normal">
+                      {userData.fecha_na}
+                    </Typography>
+                  </div>
+                </div>
+
+                {/* Dirección */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <MapPinIcon className="h-6 w-6 text-blue-gray-500" />
+                  </div>
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
                       Dirección
                     </Typography>
-                    <Typography variant="small" color="blue-gray" className="font-normal">
+                    <Typography variant="small" className="font-normal">
                       {direccionCompleta}
                     </Typography>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-4 p-4 border rounded-lg border-blue-gray-100">
-                  <div className="rounded-lg bg-gray-900/10 p-2">
-                    <CalendarDaysIcon className="h-6 w-6 text-blue-gray-700" />
+              </div>
+            </div>
+
+            {/* Detalles Adicionales */}
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <Typography variant="h6" color="blue-gray">
+                  Detalles Adicionales
+                </Typography>
+              </div>
+
+              <div className="space-y-6">
+                {/* Rol */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <IdentificationIcon className="h-6 w-6 text-blue-gray-500" />
                   </div>
-                  <div>
-                    <Typography variant="h6" color="blue-gray">
-                      Fecha de Nacimiento
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Rol
                     </Typography>
-                    <Typography variant="small" color="blue-gray" className="font-normal">
-                      {userData.fecha_na}
+                    <Typography variant="small" className="font-normal">
+                      {userData.role ? userData.role.charAt(0).toUpperCase() + userData.role.slice(1) : 'Usuario'}
+                    </Typography>
+                  </div>
+                </div>
+
+                {/* Correo Electrónico */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <EnvelopeIcon className="h-6 w-6 text-blue-gray-500" />
+                  </div>
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Correo Electrónico
+                    </Typography>
+                    <Typography variant="small" className="font-normal">
+                      {userData.email}
+                    </Typography>
+                  </div>
+                </div>
+
+                {/* Teléfono */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <PhoneIcon className="h-6 w-6 text-blue-gray-500" />
+                  </div>
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Teléfono
+                    </Typography>
+                    <Typography variant="small" className="font-normal">
+                      {userData.telefono}
+                    </Typography>
+                  </div>
+                </div>
+
+                {/* Empleado Vinculado */}
+                <div className="flex items-center space-x-4 p-4 rounded-lg border border-blue-gray-100">
+                  <div className="bg-blue-gray-50 p-3 rounded-lg">
+                    <BriefcaseIcon className="h-6 w-6 text-blue-gray-500" />
+                  </div>
+                  <div className="flex-1">
+                    <Typography variant="small" color="blue-gray" className="font-semibold">
+                      Empleado Vinculado
+                    </Typography>
+                    <Typography variant="small" className="font-normal">
+                      {userData.empleado_id ? (
+                        <Button 
+                          size="sm" 
+                          variant="text" 
+                          className="p-0 lowercase" 
+                          onClick={() => navigate(`/dashboard/empleado-profile/${userData.empleado_id}`)}
+                        >
+                          Ver empleado
+                        </Button>
+                      ) : "No vinculado a empleado"}
                     </Typography>
                   </div>
                 </div>

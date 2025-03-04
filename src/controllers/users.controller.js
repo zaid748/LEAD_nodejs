@@ -3,6 +3,7 @@ const user = require('../models/user');
 const Departamentos = require('../models/Departamentos');
 const  jwt  = require ('jsonwebtoken');
 const { sendUserCreationEmail } = require('../libs/emailService');
+const fs = require('fs');
 
 const {SECRET} = process.env;
 
@@ -65,7 +66,7 @@ userCtrl.signup = async (req, res) => {
         newUser.password = await user.encryptPassword(password);
         await newUser.save();
 
-        // Obtener información del creador si existe un token de autenticación
+        // Obtener información del creador
         let creatorInfo = null;
         if (req.cookies && req.cookies.Authorization) {
             try {
@@ -81,31 +82,7 @@ userCtrl.signup = async (req, res) => {
         // Enviar email de notificación
         await sendUserCreationEmail(newUser, creatorInfo);
 
-        // Verificar si la petición viene del dashboard
-        const isFromDashboard = req.headers.referer && req.headers.referer.includes('/dashboard');
-
-        if (!isFromDashboard) {
-            // Solo establecer cookie si NO viene del dashboard
-            const token = jwt.sign(
-                {
-                    _id: newUser._id, 
-                    pust: newUser.pust, 
-                    email: newUser.email, 
-                    role: newUser.role,
-                    empleado_id: newUser.empleado_id
-                }, 
-                SECRET,
-                { expiresIn: 25000 }
-            );
-
-            res.cookie('Authorization', token, { 
-                httpOnly: true, 
-                maxAge: 25000 * 1000,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV === 'production'
-            });
-        }
-
+        // Respuesta exitosa
         return res.status(200).json({
             success: true,
             message: 'Usuario registrado exitosamente',
@@ -116,7 +93,7 @@ userCtrl.signup = async (req, res) => {
                 empleado_id: newUser.empleado_id
             }
         });
-
+        
     } catch (error) {
         return res.status(500).json({ 
             success: false, 
@@ -214,6 +191,7 @@ userCtrl.getUsers = async (req, res) => {
             apell_ma: 1,
             email: 1,
             pust: 1,
+            role: 1,
             telefono: 1
         });
 
@@ -253,6 +231,142 @@ userCtrl.getUserById = async (req, res) => {
             error: error.message
         });
     }
+};
+
+userCtrl.deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        
+        // Verificar que el ID sea válido
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: 'ID de usuario no proporcionado'
+            });
+        }
+        
+        // Verificar que el usuario existe
+        const usuario = await user.findById(userId);
+        if (!usuario) {
+            return res.status(404).json({
+                success: false,
+                message: 'Usuario no encontrado'
+            });
+        }
+        
+        // Eliminar el usuario
+        await user.findByIdAndDelete(userId);
+        
+        return res.status(200).json({
+            success: true,
+            message: 'Usuario eliminado correctamente'
+        });
+    } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al eliminar usuario',
+            error: error.message
+        });
+    }
+};
+
+userCtrl.uploadProfilePhoto = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: 'No se proporcionó ninguna imagen'
+      });
+    }
+    
+    // Obtener datos del usuario para incluir identificadores en la carpeta
+    const usuario = await user.findById(userId);
+    if (!usuario) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
+    }
+    
+    // Crear carpeta específica para el usuario
+    const userFolder = `${userId}_${usuario.email.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    const uploadPath = `src/public/uploads/users/${userFolder}`;
+    
+    // Asegurar que la carpeta existe
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    
+    // Obtener información del archivo subido
+    const originalPath = req.file.path;
+    const fileName = req.file.filename;
+    
+    // Ruta de destino final específica para el usuario
+    const destPath = `${uploadPath}/${fileName}`;
+    
+    // Mover el archivo a la carpeta del usuario si no está ahí ya
+    if (originalPath !== destPath) {
+      fs.renameSync(originalPath, destPath);
+    }
+    
+    // Ruta relativa para guardar en la base de datos
+    const dbPath = `/uploads/users/${userFolder}/${fileName}`;
+    
+    // Actualizar la ruta de la foto en la base de datos
+    await user.findByIdAndUpdate(userId, { foto_perfil: dbPath });
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Foto de perfil actualizada correctamente',
+      foto_perfil: dbPath
+    });
+  } catch (error) {
+    console.error('Error al subir foto de perfil:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al procesar la foto de perfil',
+      error: error.message
+    });
+  }
+};
+
+// Función para obtener perfil de usuario con URL completa para la foto
+userCtrl.getUserWithPhoto = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const usuario = await user.findById(userId);
+    
+    if (!usuario) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
+    }
+    
+    // Crear URL completa para la foto de perfil
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const userDto = usuario.toObject();
+    
+    if (userDto.foto_perfil) {
+      userDto.foto_perfil_url = `${baseUrl}${userDto.foto_perfil}`;
+    } else {
+      userDto.foto_perfil_url = null;
+    }
+    
+    return res.status(200).json({
+      success: true,
+      user: userDto
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener datos del usuario',
+      error: error.message
+    });
+  }
 };
 
 module.exports = userCtrl;

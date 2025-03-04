@@ -14,6 +14,7 @@ import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
+import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
 
 // Configuración global de axios
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -43,6 +44,8 @@ export function SignUp({ dashboard = false }) {
   const [empleados, setEmpleados] = useState([]);
   const [loadingEmpleados, setLoadingEmpleados] = useState(false);
   const [useExistingEmployee, setUseExistingEmployee] = useState(true); // Estado para cambiar entre usar empleado existente o crear nuevo
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -61,7 +64,13 @@ export function SignUp({ dashboard = false }) {
           if (response.data && response.data.success) {
             console.log("Número de empleados:", response.data.count || 'no especificado');
             console.log("Primer empleado:", response.data.empleados[0]);
-            setEmpleados(response.data.empleados || []);
+            
+            // Filtrar solo empleados activos para la asignación
+            const empleadosActivos = response.data.empleados.filter(
+              empleado => empleado.estado === 'Activo'
+            );
+            
+            setEmpleados(empleadosActivos || []);
           } else {
             console.error("Error en la respuesta:", response.data);
             setEmpleados([]);
@@ -144,80 +153,39 @@ export function SignUp({ dashboard = false }) {
   };
 
   const handleEmpleadoChange = async (empleadoId) => {
-    console.log("Empleado seleccionado ID:", empleadoId);
-    
-    // Limpiar el error al cambiar de empleado
-    setError("");
-    
-    // Si se seleccionó un empleado, buscar sus datos para prellenar el formulario
-    if (empleadoId) {
+    setFormData({
+      ...formData,
+      empleado_id: empleadoId
+    });
+
+    // Si se seleccionó un empleado, cargamos sus datos en el formulario
+    if (empleadoId && useExistingEmployee) {
       try {
-        // Obtener datos completos del empleado directamente de la API
         const response = await axios.get(`/api/empleados-api/${empleadoId}`);
-        
         if (response.data && response.data.success) {
-          const selectedEmpleado = response.data.empleado;
-          console.log("Datos completos del empleado:", selectedEmpleado);
+          const empleado = response.data.empleado;
           
-          // Formatear la fecha si es necesario
-          let fechaNacimiento = selectedEmpleado.fecha_na || "";
-          
-          // Si la fecha viene en formato dd/mm/yyyy, convertirla a yyyy-mm-dd para el input date
-          if (fechaNacimiento && fechaNacimiento.includes('/')) {
-            const parts = fechaNacimiento.split('/');
-            if (parts.length === 3) {
-              fechaNacimiento = `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
-            }
-          }
-          
-          // Asegurarnos de que todos los campos obligatorios estén presentes
-          const updatedFormData = {
-            ...formData,
+          // Actualizar los campos del formulario con los datos del empleado
+          setFormData(prevState => ({
+            ...prevState,
             empleado_id: empleadoId,
-            prim_nom: selectedEmpleado.prim_nom || "",
-            segun_nom: selectedEmpleado.segun_nom || "",
-            apell_pa: selectedEmpleado.apell_pa || "",
-            apell_ma: selectedEmpleado.apell_ma || "",
-            fecha_na: fechaNacimiento || new Date().toISOString().split('T')[0], // Default a hoy si no hay fecha
-            pust: selectedEmpleado.pust || "",
-            telefono: selectedEmpleado.telefono || "",
-            calle: selectedEmpleado.calle || "Sin especificar", // Valor por defecto
-            num_in: selectedEmpleado.num_in || "",
-            nun_ex: selectedEmpleado.nun_ex || "S/N", // Valor por defecto
-            codigo: selectedEmpleado.codigo || "00000" // Valor por defecto
-          };
-          
-          setFormData(updatedFormData);
-          console.log("Formulario actualizado con datos completos:", updatedFormData);
+            prim_nom: empleado.prim_nom || '',
+            segun_nom: empleado.segun_nom || '',
+            apell_pa: empleado.apell_pa || '',
+            apell_ma: empleado.apell_ma || '',
+            fecha_na: empleado.fecha_na || '',
+            pust: empleado.pust || '',
+            calle: empleado.calle || '',
+            num_in: empleado.num_in || '',
+            nun_ex: empleado.nun_ex || '',
+            codigo: empleado.codigo || '',
+            telefono: empleado.telefono || '',
+            // No sobreescribimos email y password
+          }));
         }
       } catch (error) {
-        console.error("Error al obtener datos del empleado:", error);
-        // Continuar con los datos básicos del empleado
-        const basicEmpleado = empleados.find(emp => emp._id === empleadoId);
-        if (basicEmpleado) {
-          // Lógica similar pero con datos básicos...
-        }
+        console.error("Error al cargar datos del empleado:", error);
       }
-    } else {
-      // Si se deselecciona el empleado, mantener solo email, password y role
-      const { email, password, role } = formData;
-      setFormData({
-        prim_nom: "",
-        segun_nom: "",
-        apell_pa: "",
-        apell_ma: "",
-        fecha_na: "",
-        pust: "",
-        calle: "",
-        num_in: "",
-        nun_ex: "",
-        codigo: "",
-        telefono: "",
-        email,
-        password,
-        role,
-        empleado_id: ""
-      });
     }
   };
 
@@ -244,6 +212,20 @@ export function SignUp({ dashboard = false }) {
     });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      
+      // Crear una URL para previsualización
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreviewUrl(fileReader.result);
+      };
+      fileReader.readAsDataURL(file);
+    }
+  };
+
   const handleRegister = async () => {
     try {
       setError("");
@@ -264,6 +246,24 @@ export function SignUp({ dashboard = false }) {
       const response = await axios.post('/api/signup', formData);
       
       if (response.data.success) {
+        if (selectedFile) {
+          const userId = response.data.user._id;
+          const formData = new FormData();
+          formData.append('foto_perfil', selectedFile);
+          
+          try {
+            await axios.post(`/api/users/${userId}/upload-photo`, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            });
+            console.log('Foto de perfil subida correctamente');
+          } catch (photoError) {
+            console.error('Error al subir la foto de perfil:', photoError);
+            // No detenemos el flujo si falla la carga de la foto
+          }
+        }
+        
         if (dashboard) {
           // Si estamos en dashboard, mostrar mensaje de éxito
           setFormData({
@@ -361,11 +361,14 @@ export function SignUp({ dashboard = false }) {
                     >
                       <option value="">Seleccione un empleado</option>
                       {empleados && empleados.length > 0 ? (
-                        empleados.map(empleado => (
-                          <option key={empleado._id} value={empleado._id}>
-                            {`${empleado.prim_nom || 'Sin nombre'} ${empleado.apell_pa || ''} - ${empleado.pust || 'Sin puesto'}`}
-                          </option>
-                        ))
+                        empleados.map(empleado => {
+                          const nombreCompleto = `${empleado.prim_nom || ''} ${empleado.segun_nom || ''} ${empleado.apell_pa || ''} ${empleado.apell_ma || ''}`.trim();
+                          return (
+                            <option key={empleado._id} value={empleado._id}>
+                              {nombreCompleto} - {empleado.pust || 'Sin puesto'}
+                            </option>
+                          );
+                        })
                       ) : (
                         <option disabled value="">No hay empleados disponibles</option>
                       )}
@@ -377,14 +380,12 @@ export function SignUp({ dashboard = false }) {
                     </div>
                   </div>
                   
-                  <FieldDescription>
-                    {empleados && empleados.length > 0 
-                      ? "Al seleccionar un empleado existente, se completarán automáticamente los datos personales" 
-                      : "No se encontraron empleados registrados en el sistema"}
-                  </FieldDescription>
+                  <Typography variant="small" className="mt-2 text-gray-600 italic">
+                    * Solo se muestran empleados con estado Activo
+                  </Typography>
                 </div>
               )}
-      </div>
+            </div>
           ) : (
             <Typography variant="paragraph" color="gray" className="mb-4">
               Creando un usuario sin asociación a empleado existente
@@ -403,7 +404,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="prim_nom"
                 size="lg"
-                placeholder="Primer nombre"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.prim_nom}
                 onChange={handleChange}
@@ -418,7 +418,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="segun_nom"
                 size="lg"
-                placeholder="Segundo nombre (opcional)"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.segun_nom}
                 onChange={handleChange}
@@ -432,7 +431,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="apell_pa"
                 size="lg"
-                placeholder="Apellido paterno"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.apell_pa}
                 onChange={handleChange}
@@ -447,7 +445,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="apell_ma"
                 size="lg"
-                placeholder="Apellido materno"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.apell_ma}
                 onChange={handleChange}
@@ -463,7 +460,6 @@ export function SignUp({ dashboard = false }) {
                 name="fecha_na"
                 type="date"
                 size="lg"
-                placeholder="Fecha de nacimiento"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.fecha_na}
                 onChange={handleChange}
@@ -478,7 +474,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="telefono"
                 size="lg"
-                placeholder="Teléfono"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.telefono}
                 onChange={handleChange}
@@ -497,7 +492,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="pust"
                 size="lg"
-                placeholder="Puesto"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.pust}
                 onChange={handleChange}
@@ -516,7 +510,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="calle"
                 size="lg"
-                placeholder="Calle"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.calle}
                 onChange={handleChange}
@@ -531,7 +524,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="num_in"
                 size="lg"
-                placeholder="Número interior (opcional)"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.num_in}
                 onChange={handleChange}
@@ -545,7 +537,6 @@ export function SignUp({ dashboard = false }) {
               <Input
                 name="nun_ex"
                 size="lg"
-                placeholder="Número exterior"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.nun_ex}
                 onChange={handleChange}
@@ -560,7 +551,6 @@ export function SignUp({ dashboard = false }) {
             <Input
                 name="codigo"
               size="lg"
-                placeholder="Código postal"
                 className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.codigo}
                 onChange={handleChange}
@@ -582,7 +572,6 @@ export function SignUp({ dashboard = false }) {
             name="email"
             type="email"
             size="lg"
-            placeholder="Email"
             className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
             value={formData.email}
             onChange={handleChange}
@@ -597,7 +586,6 @@ export function SignUp({ dashboard = false }) {
             name="password"
             type="password"
             size="lg"
-            placeholder="Contraseña"
             className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
             value={formData.password}
             onChange={handleChange}
@@ -622,6 +610,60 @@ export function SignUp({ dashboard = false }) {
           </Select>
           <FieldDescription>Nivel de acceso y permisos en el sistema</FieldDescription>
         </div>
+
+        <Typography variant="h6" color="blue-gray" className="mt-4 mb-3 font-medium">
+          Foto de Perfil (Opcional)
+        </Typography>
+
+        <div className="mt-2 mb-6">
+          <div className="flex items-center justify-center w-full">
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
+            >
+              {previewUrl ? (
+                <div className="w-full h-full flex items-center justify-center">
+                  <img 
+                    src={previewUrl} 
+                    alt="Vista previa" 
+                    className="max-h-44 max-w-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <CloudArrowUpIcon className="w-8 h-8 mb-4 text-gray-500" />
+                  <p className="mb-2 text-sm text-gray-500">
+                    <span className="font-semibold">Haz clic para subir</span> o arrastra y suelta
+                  </p>
+                  <p className="text-xs text-gray-500">SVG, PNG, JPG o GIF (Máx. 2MB)</p>
+                </div>
+              )}
+              <input
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </label>
+          </div>
+          {selectedFile && (
+            <div className="flex justify-between items-center mt-2">
+              <p className="text-sm text-gray-500 truncate">{selectedFile.name}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedFile(null);
+                  setPreviewUrl(null);
+                }}
+                className="text-xs text-red-500 hover:text-red-700"
+              >
+                Eliminar
+              </button>
+            </div>
+          )}
+          <FieldDescription>Imagen para tu perfil de usuario (opcional)</FieldDescription>
+        </div>
       </div>
       
       <div className="mt-6">
@@ -644,36 +686,6 @@ export function SignUp({ dashboard = false }) {
           ¿Ya tienes una cuenta?
           <Link to="/auth/sign-in" className="text-blue-500 ml-1">Iniciar sesión</Link>
         </Typography>
-      )}
-
-      {/* Botón de depuración (solo visible en desarrollo) */}
-      {process.env.NODE_ENV !== 'production' && (
-        <div className="mt-4">
-          <Button 
-            size="sm" 
-            color="gray" 
-            className="mt-2" 
-            onClick={() => console.log("Estado actual del formulario:", formData)}
-          >
-            Debug Form State
-          </Button>
-        </div>
-      )}
-
-      {formData.empleado_id && (
-        <Button
-          size="sm"
-          color="light-blue"
-          className="mt-2"
-          onClick={async () => {
-            // Volver a cargar los datos del empleado seleccionado
-            if (formData.empleado_id) {
-              await handleEmpleadoChange(formData.empleado_id);
-            }
-          }}
-        >
-          Cargar todos los datos del empleado
-            </Button>
       )}
     </form>
   );

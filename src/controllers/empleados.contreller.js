@@ -149,30 +149,25 @@ employedCtrl.CrearNominaView =  async(req, res) =>{
 
 // Obtener todos los empleados (para la tabla)
 employedCtrl.getEmpleados = async (req, res) => {
-    try {
-        const empleados = await Empleados.find({}, {
-            prim_nom: 1,
-            segun_nom: 1,
-            apell_pa: 1,
-            apell_ma: 1,
-            email: 1,
-            pust: 1,
-            telefono: 1,
-            estado: 1,
-            salario: 1
-        });
-
-        return res.status(200).json({
-            success: true,
-            empleados
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: 'Error al obtener empleados',
-            error: error.message
-        });
-    }
+  try {
+    // Ordenamos primero por estado (Activo primero) y luego por nombre
+    const empleados = await Empleados.find({})
+      .collation({ locale: 'es' })
+      .sort({ estado: -1, prim_nom: 1 }); // -1 para estado pone 'Activo' antes que 'Inactivo'
+    
+    return res.status(200).json({
+      success: true,
+      count: empleados.length,
+      empleados
+    });
+  } catch (error) {
+    console.error("Error en getEmpleados:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener empleados',
+      error: error.message
+    });
+  }
 };
 
 // Obtener un empleado por su ID
@@ -355,6 +350,29 @@ employedCtrl.getEmpleadoByUserId = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'Error al buscar empleado',
+      error: error.message
+    });
+  }
+};
+
+// Agregar un nuevo método para obtener solo empleados activos
+employedCtrl.getEmpleadosActivos = async (req, res) => {
+  try {
+    // Buscar solo empleados con estado "Activo"
+    const empleados = await Empleados.find({ estado: 'Activo' })
+      .collation({ locale: 'es' })
+      .sort({ prim_nom: 1 });
+    
+    return res.status(200).json({
+      success: true,
+      count: empleados.length,
+      empleados
+    });
+  } catch (error) {
+    console.error("Error al obtener empleados activos:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener empleados activos',
       error: error.message
     });
   }

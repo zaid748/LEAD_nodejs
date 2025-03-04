@@ -123,4 +123,7 @@ router.get('/empleados/all', isAuthenticated, async (req, res) => {
 // Ruta para obtener empleado por ID de usuario
 router.get('/empleados-api/by-user/:userId', employedCtrl.getEmpleadoByUserId);
 
+// Agregar la nueva ruta
+router.get('/empleados-api/activos', isAuthenticated, employedCtrl.getEmpleadosActivos);
+
 module.exports = router;
