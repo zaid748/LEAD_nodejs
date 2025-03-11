@@ -17,7 +17,7 @@ import { useAuth } from "@/context/AuthContext";
 import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
 
 // Configuración global de axios
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 export function SignUp({ dashboard = false }) {
@@ -252,7 +252,7 @@ export function SignUp({ dashboard = false }) {
           formData.append('foto_perfil', selectedFile);
           
           try {
-            await axios.post(`/api/users/${userId}/upload-photo`, formData, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/users/${userId}/upload-photo`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -260,7 +260,6 @@ export function SignUp({ dashboard = false }) {
             console.log('Foto de perfil subida correctamente');
           } catch (photoError) {
             console.error('Error al subir la foto de perfil:', photoError);
-            // No detenemos el flujo si falla la carga de la foto
           }
         }
         

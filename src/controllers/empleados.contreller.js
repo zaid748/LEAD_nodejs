@@ -42,6 +42,15 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
             role
         });
     }else{
+        if (req.body.email) {
+            const emailRegex = /^\S+@\S+\.\S+$/;
+            if (!emailRegex.test(req.body.email)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Formato de correo electrónico inválido'
+                });
+            }
+        }
         const nuevoEmpleado = new Empleados({ prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing});
         await nuevoEmpleado.save();
         res.redirect('/empleados');
@@ -110,9 +119,7 @@ employedCtrl.ViewInfo = async(req, res)=>{
     if(nomina){
         let name = nomina.empleado+nomina.fecha;
         name = name.split(" ").join("");
-        console.log('hola');
         const link = (space+'Nominas/'+name+'.pdf');
-        console.log(nomina, link);
         res.render('empleados/viewInfo', {empleado, user, role, token, link});
     }else{
         res.render('empleados/viewInfo', {empleado, user, role, token});
@@ -140,7 +147,6 @@ employedCtrl.CrearNominaView =  async(req, res) =>{
     const empleado = await Empleados.findById({_id:req.params.id}).lean();
     const id = req.params.id;
     const full_name = empleado.prim_nom +' '+ empleado.segun_nom +' '+ empleado.apell_pa+' '+empleado.apell_ma;
-    console.log(empleado.pust);
     token = req.token;
     user = req.user;
     role = req.role;
@@ -315,7 +321,6 @@ exports.getAllEmpleados = async (req, res) => {
 employedCtrl.getEmpleadoByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
-    console.log("Buscando empleado para usuario ID:", userId);
     
     // 1. Primero, intentar buscar un empleado con userId igual al ID proporcionado
     let empleado = await Empleados.findOne({ userId: userId });

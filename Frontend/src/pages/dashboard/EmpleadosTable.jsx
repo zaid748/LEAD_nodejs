@@ -24,7 +24,7 @@ export function EmpleadosTable() {
   useEffect(() => {
     const checkAdminAccess = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/check-auth', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
           credentials: 'include'
         });
         
@@ -92,7 +92,7 @@ export function EmpleadosTable() {
 
   const fetchEmpleados = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/empleados-api', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -117,7 +117,7 @@ export function EmpleadosTable() {
 
   const fetchEmpleadoDetails = async (empleadoId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${empleadoId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -155,7 +155,7 @@ export function EmpleadosTable() {
     
     if (window.confirm("¿Está seguro de que desea eliminar este empleado? Esta acción no se puede deshacer.")) {
       try {
-        const response = await fetch(`http://localhost:4000/api/empleados-api/${selectedEmpleado}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${selectedEmpleado}`, {
           method: 'DELETE',
           credentials: 'include'
         });

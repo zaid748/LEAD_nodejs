@@ -60,7 +60,7 @@ export function EditarEmpleado() {
         // Si el usuario no está en la lista, cargarlo individualmente
         const fetchUsuario = async () => {
           try {
-            const response = await fetch(`http://localhost:4000/api/users/${formData.userId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${formData.userId}`, {
               credentials: 'include'
             });
             const data = await response.json();
@@ -87,7 +87,7 @@ export function EditarEmpleado() {
 
   const checkAdminStatus = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/check-auth', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
         credentials: 'include'
       });
       
@@ -113,7 +113,7 @@ export function EditarEmpleado() {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -131,7 +131,7 @@ export function EditarEmpleado() {
       setFetchingData(true);
       console.log("Cargando datos del empleado ID:", empleadoId);
       
-      const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${empleadoId}`, {
         credentials: 'include'
       });
       
@@ -181,7 +181,7 @@ export function EditarEmpleado() {
       console.log("Enviando datos actualizados:", formData);
       
       // Guardar datos del empleado
-      const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${empleadoId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -196,7 +196,7 @@ export function EditarEmpleado() {
       // Si se actualizó el empleado correctamente y se cambió el usuario asociado
       if (data.success && formData.userId) {
         // Actualizar la asociación de usuario-empleado si hay un usuario seleccionado
-        const userResponse = await fetch(`http://localhost:4000/api/users/${formData.userId}/asociar-empleado`, {
+        const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${formData.userId}/asociar-empleado`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -220,6 +220,15 @@ export function EditarEmpleado() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const validarFormulario = () => {
+    // Eliminar la validación obligatoria del email
+    if (!formData.prim_nom || !formData.apell_pa || !formData.telefono) {
+      setError("Por favor completa todos los campos obligatorios");
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -301,12 +310,13 @@ export function EditarEmpleado() {
                 />
                 
                 <Input
-                  type="email"
-                  label="Correo Electrónico"
                   name="email"
+                  type="email"
+                  size="lg"
+                  className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                   value={formData.email}
                   onChange={handleChange}
-                  required
+                  label="Correo electrónico (opcional)"
                 />
                 
                 <Input

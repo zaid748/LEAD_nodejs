@@ -75,10 +75,11 @@ app.use((req, res, next)=>{
 
 // Middleware para logging de cookies en cada request
 app.use((req, res, next) => {
-    console.log('Request path:', req.path);
-    console.log('Cookies en request:', req.cookies);
     next();
 });
+
+// Importar rutas de captaciones
+const captacionesRouter = require('./routes/captaciones.router');
 
 // Routes con prefijo /api
 app.use('/api', require('./routes/index.routes'));
@@ -87,6 +88,7 @@ app.use('/api', require('./routes/users.routes'));
 app.use('/api', require('./routes/empleados.router'));
 app.use('/api', require('./routes/nominas.router'));
 app.use('/api', require('./routes/Inventario.router'));
+app.use('/api/captaciones', captacionesRouter);
 
 // Manejo de errores 404
 app.use('/api/*', (req, res) => {

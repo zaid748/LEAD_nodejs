@@ -4,6 +4,7 @@ const Departamentos = require('../models/Departamentos');
 const  jwt  = require ('jsonwebtoken');
 const { sendUserCreationEmail } = require('../libs/emailService');
 const fs = require('fs');
+const path = require('path');
 
 const {SECRET} = process.env;
 
@@ -137,7 +138,6 @@ userCtrl.signIn = async (req, res) => {
                 path: '/'
             });
 
-            console.log('Cookie set:', token);
 
             return res.status(200).json({
                 success: true,
@@ -209,28 +209,34 @@ userCtrl.getUsers = async (req, res) => {
 };
 
 userCtrl.getUserById = async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const usuario = await user.findById(userId);
-        
-        if (!usuario) {
-            return res.status(404).json({
-                success: false,
-                message: 'Usuario no encontrado'
-            });
-        }
-
-        return res.status(200).json({
-            success: true,
-            user: usuario
-        });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: 'Error al obtener usuario',
-            error: error.message
-        });
+  console.log("Obteniendo usuario con ID:", req.params.id);
+  try {
+    const userId = req.params.id;
+    
+    console.log("Buscando usuario en la base de datos...");
+    const usuario = await user.findById(userId);
+    
+    if (!usuario) {
+      console.log("Usuario no encontrado");
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
     }
+    
+    console.log("Usuario encontrado:", usuario._id);
+    return res.status(200).json({
+      success: true,
+      user: usuario
+    });
+  } catch (error) {
+    console.error("Error al obtener usuario:", error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al obtener el usuario',
+      error: error.message
+    });
+  }
 };
 
 userCtrl.deleteUser = async (req, res) => {
@@ -273,61 +279,66 @@ userCtrl.deleteUser = async (req, res) => {
 
 userCtrl.uploadProfilePhoto = async (req, res) => {
   try {
-    const userId = req.params.id;
-    
     if (!req.file) {
       return res.status(400).json({
         success: false,
         message: 'No se proporcionó ninguna imagen'
       });
     }
+
+    console.log('Archivo recibido:', req.file);
     
-    // Obtener datos del usuario para incluir identificadores en la carpeta
+    const userId = req.params.id;
+    
+    // Crear la ruta donde se guardará permanentemente
+    const userUploadDir = path.join(__dirname, '../public/uploads/users');
+    if (!fs.existsSync(userUploadDir)) {
+      fs.mkdirSync(userUploadDir, { recursive: true });
+    }
+    
+    // Crear nombre de archivo único para evitar colisiones
+    const fileName = `profile_${userId}_${Date.now()}${path.extname(req.file.originalname)}`;
+    const finalDestination = path.join(userUploadDir, fileName);
+    
+    console.log('Guardando archivo en:', finalDestination);
+    
+    // Mover el archivo de la ubicación temporal a la final
+    fs.copyFileSync(req.file.path, finalDestination);
+    
+    // Eliminar el archivo temporal después de copiarlo
+    fs.unlinkSync(req.file.path);
+    
+    // Ruta relativa para guardar en la base de datos (SIN "/public" al principio)
+    const relativePath = `/uploads/users/${fileName}`;
+    
+    // Borrar la foto anterior si existe (excepto la imagen por defecto)
     const usuario = await user.findById(userId);
-    if (!usuario) {
-      return res.status(404).json({
-        success: false,
-        message: 'Usuario no encontrado'
-      });
+    if (usuario && usuario.foto_perfil && !usuario.foto_perfil.includes('user_icon.svg')) {
+      const oldPhotoPath = path.join(__dirname, '../public', usuario.foto_perfil);
+      if (fs.existsSync(oldPhotoPath)) {
+        console.log('Eliminando foto anterior:', oldPhotoPath);
+        fs.unlinkSync(oldPhotoPath);
+      }
     }
-    
-    // Crear carpeta específica para el usuario
-    const userFolder = `${userId}_${usuario.email.replace(/[^a-zA-Z0-9]/g, '_')}`;
-    const uploadPath = `src/public/uploads/users/${userFolder}`;
-    
-    // Asegurar que la carpeta existe
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-    
-    // Obtener información del archivo subido
-    const originalPath = req.file.path;
-    const fileName = req.file.filename;
-    
-    // Ruta de destino final específica para el usuario
-    const destPath = `${uploadPath}/${fileName}`;
-    
-    // Mover el archivo a la carpeta del usuario si no está ahí ya
-    if (originalPath !== destPath) {
-      fs.renameSync(originalPath, destPath);
-    }
-    
-    // Ruta relativa para guardar en la base de datos
-    const dbPath = `/uploads/users/${userFolder}/${fileName}`;
     
     // Actualizar la ruta de la foto en la base de datos
-    await user.findByIdAndUpdate(userId, { foto_perfil: dbPath });
+    const updatedUser = await user.findByIdAndUpdate(
+      userId,
+      { foto_perfil: relativePath },
+      { new: true }
+    );
     
     return res.status(200).json({
       success: true,
       message: 'Foto de perfil actualizada correctamente',
-      foto_perfil: dbPath
+      foto_perfil: relativePath,
+      user: updatedUser
     });
   } catch (error) {
-    console.error('Error al subir foto de perfil:', error);
+    console.error('Error al subir la foto de perfil:', error);
     return res.status(500).json({
       success: false,
-      message: 'Error al procesar la foto de perfil',
+      message: 'Error al subir la foto de perfil',
       error: error.message
     });
   }
@@ -364,6 +375,134 @@ userCtrl.getUserWithPhoto = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'Error al obtener datos del usuario',
+      error: error.message
+    });
+  }
+};
+
+// Actualizar un usuario existente
+userCtrl.updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    
+    // Extraer campos del cuerpo de la solicitud
+    const { 
+      prim_nom, segun_nom, apell_pa, apell_ma, 
+      fecha_na, pust, calle, num_in, nun_ex, 
+      codigo, telefono, email, role, empleado_id 
+    } = req.body;
+    
+    // Verificar que el usuario existe
+    const usuario = await user.findById(userId);
+    if (!usuario) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
+    }
+    
+    // Verificar permisos para cambiar roles (solo administradores)
+    if (role && role !== usuario.role) {
+      // Si no es administrador o superadministrador, no puede cambiar el rol
+      if (req.role !== 'administrator' && req.role !== 'Superadministrator') {
+        return res.status(403).json({
+          success: false,
+          message: 'No tienes permisos para cambiar el rol'
+        });
+      }
+    }
+    
+    // Crear objeto con datos actualizados
+    const updateData = {
+      prim_nom: prim_nom || usuario.prim_nom,
+      segun_nom: segun_nom !== undefined ? segun_nom : usuario.segun_nom,
+      apell_pa: apell_pa || usuario.apell_pa,
+      apell_ma: apell_ma || usuario.apell_ma,
+      fecha_na: fecha_na || usuario.fecha_na,
+      pust: pust || usuario.pust,
+      calle: calle || usuario.calle,
+      num_in: num_in !== undefined ? num_in : usuario.num_in,
+      nun_ex: nun_ex || usuario.nun_ex,
+      codigo: codigo || usuario.codigo,
+      telefono: telefono || usuario.telefono,
+      email: email || usuario.email
+    };
+    
+    // Si se proporciona un rol y tiene permisos, actualizarlo
+    if (role && (req.role === 'administrator' || req.role === 'Superadministrator')) {
+      updateData.role = role;
+    }
+    
+    // Si se proporciona un empleado_id, actualizarlo
+    if (empleado_id !== undefined) {
+      updateData.empleado_id = empleado_id || null;
+    }
+    
+    // Actualizar el usuario en la base de datos
+    const usuarioActualizado = await user.findByIdAndUpdate(
+      userId, 
+      updateData, 
+      { new: true, runValidators: true }
+    );
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Usuario actualizado correctamente',
+      user: usuarioActualizado
+    });
+  } catch (error) {
+    console.error('Error al actualizar usuario:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al actualizar el usuario',
+      error: error.message
+    });
+  }
+};
+
+// Agregar método para actualizar contraseña (opcional)
+userCtrl.updatePassword = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { currentPassword, newPassword } = req.body;
+    
+    // Verificar que el usuario existe
+    const usuario = await user.findById(userId);
+    if (!usuario) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuario no encontrado'
+      });
+    }
+    
+    // Verificar que la contraseña actual es correcta
+    const isMatch = await user.matchPassword(currentPassword, usuario.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: 'La contraseña actual es incorrecta'
+      });
+    }
+    
+    // Encriptar la nueva contraseña
+    const encryptedPassword = await user.encryptPassword(newPassword);
+    
+    // Actualizar solo la contraseña
+    const usuarioActualizado = await user.findByIdAndUpdate(
+      userId,
+      { password: encryptedPassword },
+      { new: true }
+    );
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Contraseña actualizada correctamente'
+    });
+  } catch (error) {
+    console.error('Error al actualizar contraseña:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al actualizar la contraseña',
       error: error.message
     });
   }

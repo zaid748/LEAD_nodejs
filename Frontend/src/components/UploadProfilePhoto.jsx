@@ -42,8 +42,8 @@ export function UploadProfilePhoto({ userId, userType, onPhotoUpdated }) {
     try {
       // Determinar la URL basada en el tipo de usuario
       const endpoint = userType === 'empleado' 
-        ? `http://localhost:4000/api/empleados-api/${userId}/upload-photo`
-        : `http://localhost:4000/api/users/${userId}/upload-photo`;
+        ? `${import.meta.env.VITE_API_URL}/api/empleados-api/${userId}/upload-photo`
+        : `${import.meta.env.VITE_API_URL}/api/users/${userId}/upload-photo`;
         
       const response = await fetch(endpoint, {
         method: 'POST',

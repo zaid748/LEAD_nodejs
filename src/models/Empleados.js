@@ -12,7 +12,11 @@ const EmpleadoSchema = new Schema({
     nun_ex: { type: String, required: true},
     codigo: { type: String, required: true},
     telefono: {type:String, required: true},
-    email: { type: String, unique: true},
+    email: {
+        type: String,
+        required: false,
+        trim: true
+    },
     salario: { type: String, required: true},
     fecha_ing: { type: String, required: true},
     estado: { type: String, required: true},

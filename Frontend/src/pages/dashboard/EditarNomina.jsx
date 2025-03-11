@@ -29,7 +29,7 @@ export function EditarNomina() {
   const fetchNominaData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:4000/api/nominas/${nominaId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/nominas/${nominaId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -58,7 +58,7 @@ export function EditarNomina() {
     e.preventDefault();
     
     try {
-      const response = await fetch(`http://localhost:4000/api/nominas/${nominaId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/nominas/${nominaId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

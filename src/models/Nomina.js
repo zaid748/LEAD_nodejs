@@ -5,7 +5,7 @@ const NominaScheme = new Schema({
     empleado: { type: String, required:true},
     url: { type: String},
     conceptoDePago: { type: String, required:true},
-    salario:{type: String, required:true},
+    salario: { type: String, required:true},
     fecha: { type: String }
 });
 

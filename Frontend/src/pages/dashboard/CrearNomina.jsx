@@ -32,7 +32,7 @@ export function CrearNomina() {
   useEffect(() => {
     const checkAdminAccess = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/check-auth', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
           credentials: 'include'
         });
         
@@ -67,7 +67,7 @@ export function CrearNomina() {
   useEffect(() => {
     const fetchEmpleado = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${empleadoId}`, {
           credentials: 'include'
         });
         
@@ -120,7 +120,7 @@ export function CrearNomina() {
       
       console.log("Enviando datos como application/x-www-form-urlencoded");
       
-      const response = await fetch(`/api/CrearNomina/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/CrearNomina/${empleadoId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -132,7 +132,7 @@ export function CrearNomina() {
       console.log("Respuesta del servidor:", response.status, response.statusText);
       
       if (response.redirected) {
-        const redirectUrl = response.url.replace('http://localhost:4000', '/dashboard');
+        const redirectUrl = response.url.replace(import.meta.env.VITE_API_URL, '/dashboard');
         navigate(redirectUrl);
         return;
       }

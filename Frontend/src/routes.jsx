@@ -9,6 +9,8 @@ import {
   PlusCircleIcon,
   DocumentTextIcon,
   UserPlusIcon,
+  BuildingOffice2Icon,
+  PlusIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
@@ -16,9 +18,22 @@ import { CrearEmpleado } from "@/pages/dashboard/CrearEmpleado";
 import { EditarEmpleado } from "@/pages/dashboard/EditarEmpleado";
 import { CrearNomina } from "@/pages/dashboard/CrearNomina";
 import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
+import { EditarUser } from "@/pages/dashboard/EditarUser";
+import { CrearCaptacion } from "@/pages/dashboard/CrearCaptacion";
+import { MisProyectos } from "@/pages/dashboard/MisProyectos";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
+};
+
+// Nueva función para determinar la ruta principal según el rol
+const getHomeRoute = (user) => {
+  if (!user) return null;
+  
+  const isAdmin = user.role?.toLowerCase().includes('administrator') || 
+                 user.role === 'Superadministrator';
+  
+  return isAdmin ? <Home /> : <Profile />;
 };
 
 export const routes = [
@@ -30,22 +45,19 @@ export const routes = [
         name: "dashboard",
         path: "/home",
         element: <Home />,
+        shouldRedirectToProfile: true
       },
       {
         path: "/",
         element: <Home />,
+        shouldRedirectToProfile: true
       },
       {
         icon: <UserCircleIcon {...icon} />,
         name: "profile",
         path: "/profile",
         element: <Profile />,
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
+        firstForNonAdmin: true
       },
       {
         icon: <TableCellsIcon {...icon} />,
@@ -56,6 +68,11 @@ export const routes = [
       {
         path: "/users/crear",
         element: <SignUp dashboard={true} />,
+        showInSidebar: false,
+      },
+      {
+        path: "/users/edit/:userId",
+        element: <EditarUser dashboard={true} />,
         showInSidebar: false,
       },
       {
@@ -72,12 +89,12 @@ export const routes = [
         path: "/empleado-profile/:empleadoId",
         element: <ProfileEmpleados />,
       },
-      {
+      /* {
         icon: <InformationCircleIcon {...icon} />,
         name: "notifications",
         path: "/notifications",
         element: <Notifications />,
-      },
+      }, */
       {
         path: "/empleado-documents/:empleadoId",
         element: <DocumentosEmpleado />,
@@ -88,7 +105,7 @@ export const routes = [
       },
       {
         name: "crear empleado",
-        path: "/dashboard/empleados/crear",
+        path: "/empleados/crear",
         element: <CrearEmpleado />,
       },
       {
@@ -110,6 +127,32 @@ export const routes = [
       {
         path: "/user-profile/:userId",
         element: <ProfileUsers />,
+      },
+      // Nuevas rutas para captaciones inmobiliarias
+      {
+        icon: <BuildingOffice2Icon {...icon} />,
+        name: "Proyectos",
+        path: "/captaciones",
+        element: <MisProyectos />,
+        alwaysShow: true, // Disponible para todos los roles
+      },
+      {
+        icon: <PlusIcon {...icon} />,
+        name: "Nueva Captación",
+        path: "/captaciones/nueva",
+        element: <CrearCaptacion />,
+        roleAccess: ["user", "administrator", "admin"], // Solo accesible para estos roles
+      },
+      // Rutas adicionales para captaciones (sin mostrar en sidebar)
+      {
+        path: "/captaciones/:id",
+        element: <MisProyectos />, // Reemplazar por un componente de Detalle cuando exista
+        showInSidebar: false,
+      },
+      {
+        path: "/captaciones/editar/:id",
+        element: <CrearCaptacion />, // Reutilizar el componente de creación para edición
+        showInSidebar: false,
       },
     ],
   },

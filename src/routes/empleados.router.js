@@ -121,7 +121,32 @@ router.get('/empleados/all', isAuthenticated, async (req, res) => {
 });
 
 // Ruta para obtener empleado por ID de usuario
-router.get('/empleados-api/by-user/:userId', employedCtrl.getEmpleadoByUserId);
+router.get('/empleados-api/by-user/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    const empleado = await Empleado.findOne({ userId });
+    
+    if (!empleado) {
+      return res.status(200).json({
+        success: false,
+        message: 'No se encontró un empleado asociado a este usuario'
+      });
+    }
+    
+    return res.status(200).json({
+      success: true,
+      empleado
+    });
+  } catch (error) {
+    console.error('Error al buscar empleado por userId:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al buscar empleado',
+      error: error.message
+    });
+  }
+});
 
 // Agregar la nueva ruta
 router.get('/empleados-api/activos', isAuthenticated, employedCtrl.getEmpleadosActivos);

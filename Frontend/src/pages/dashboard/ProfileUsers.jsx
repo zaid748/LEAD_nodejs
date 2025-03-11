@@ -38,16 +38,14 @@ export function ProfileUsers() {
     const fetchUserData = async () => {
       try {
         console.log("Obteniendo datos del usuario con ID:", userId);
-        const response = await axios.get(`http://localhost:4000/api/users/${userId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}`, {
           withCredentials: true
         });
         
         if (response.data.success) {
-          // Si la API no devuelve foto_perfil_url, la construimos aquí
           let userData = response.data.user;
           if (userData.foto_perfil && !userData.foto_perfil_url) {
-            const baseUrl = window.location.origin;
-            userData.foto_perfil_url = `${baseUrl}${userData.foto_perfil}`;
+            userData.foto_perfil_url = `${import.meta.env.VITE_MEDIA_URL}${userData.foto_perfil}`;
           }
           setUserData(userData);
         } else {

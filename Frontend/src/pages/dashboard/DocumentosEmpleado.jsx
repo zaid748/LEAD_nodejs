@@ -24,7 +24,7 @@ export function DocumentosEmpleado() {
 
   const fetchEmpleadoData = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${empleadoId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -42,7 +42,7 @@ export function DocumentosEmpleado() {
   const fetchDocumentos = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:4000/api/nominas-api/empleado/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/nominas-api/empleado/${empleadoId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -112,7 +112,7 @@ export function DocumentosEmpleado() {
                       <IconButton 
                         variant="text" 
                         color="blue-gray"
-                        onClick={() => window.open(doc.url, '_blank')}
+                        onClick={() => window.open(`${import.meta.env.VITE_API_URL}/api/nominas-api/descargar/${doc._id}`, '_blank')}
                       >
                         <DocumentArrowDownIcon className="h-6 w-6" />
                       </IconButton>

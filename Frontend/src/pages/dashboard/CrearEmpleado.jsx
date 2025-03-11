@@ -45,7 +45,7 @@ export function CrearEmpleado() {
     // Verificar si el usuario es admin
     const checkAdminStatus = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/check-auth', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
           credentials: 'include'
         });
         
@@ -72,7 +72,7 @@ export function CrearEmpleado() {
 
   const fetchUsuarios = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -100,7 +100,7 @@ export function CrearEmpleado() {
     setError("");
     
     try {
-      const response = await fetch('http://localhost:4000/api/empleados-api', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -203,12 +203,13 @@ export function CrearEmpleado() {
               />
               
               <Input
-                type="email"
-                label="Correo Electrónico"
                 name="email"
+                type="email"
+                size="lg" 
+                className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
                 value={formData.email}
                 onChange={handleChange}
-                required
+                label="Correo electrónico (opcional)"
               />
               
               <Input

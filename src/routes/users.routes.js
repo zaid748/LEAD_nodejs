@@ -29,7 +29,33 @@ router.post('/signin', signIn);
 router.post('/signup', signup);
 router.get('/logout', logout);
 router.get('/users', isAuthenticated, getUsers);
-router.get('/users/:id', isAuthenticated, getUserById);
+
+router.get('/users/:id', isAuthenticated, async (req, res) => {
+  try {
+    const { id } = req.params;
+ 
+    const user = await User.findOne({ _id: id });
+    
+    if (!user) {
+      return res.status(200).json({
+        success: false,
+        message: 'No se encontró un empleado asociado a este usuario'
+      });
+    }
+    
+    return res.status(200).json({
+      success: true,
+      user
+    });
+  } catch (error) {
+    console.error('Error al buscar empleado por userId:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al buscar empleado',
+      error: error.message
+    });
+  }
+});
 
 // Ruta para actualizar la foto de perfil de un usuario
 router.post('/users/:id/upload-photo', 
@@ -40,5 +66,17 @@ router.post('/users/:id/upload-photo',
 
 // Ruta para eliminar usuarios usando el middleware correcto
 router.delete('/users/:id', isAuthenticated, isAustheAdministrator, userCtrl.deleteUser);
+
+// Ruta para actualizar usuario
+router.put('/users/:id', 
+  isAuthenticated, 
+  userCtrl.updateUser
+);
+
+// Ruta para actualizar contraseña (opcional)
+router.put('/users/:id/password', 
+  isAuthenticated, 
+  userCtrl.updatePassword
+);
 
 module.exports = router;

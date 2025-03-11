@@ -89,7 +89,7 @@ export function ProfileEmpleados() {
     const checkAdminStatus = async () => {
       try {
         // Usar la ruta correcta que existe en tu aplicación
-        const response = await fetch('http://localhost:4000/api/check-auth', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
           credentials: 'include'
         });
         
@@ -130,7 +130,7 @@ export function ProfileEmpleados() {
       // Cargar usuarios disponibles para asociar
       const fetchUsuarios = async () => {
         try {
-          const response = await fetch('http://localhost:4000/api/users', {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
             credentials: 'include'
           });
           const data = await response.json();
@@ -150,7 +150,7 @@ export function ProfileEmpleados() {
   const fetchEmpleadoData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:4000/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/${empleadoId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -176,8 +176,8 @@ export function ProfileEmpleados() {
       // Agregar parámetros para limitar resultados si no hay filtros activos
       const hayFiltrosActivos = filtroDesde || filtroHasta;
       const url = hayFiltrosActivos 
-        ? `http://localhost:4000/api/nominas-api/empleado/${empleadoId}` 
-        : `http://localhost:4000/api/nominas-api/empleado/${empleadoId}?limite=20`;
+        ? `${import.meta.env.VITE_API_URL}/api/nominas-api/empleado/${empleadoId}` 
+        : `${import.meta.env.VITE_API_URL}/api/nominas-api/empleado/${empleadoId}?limite=20`;
       
       const response = await fetch(url, {
         credentials: 'include'
@@ -254,7 +254,7 @@ export function ProfileEmpleados() {
   const handleDeleteNomina = async (nominaId) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar esta nómina?')) {
       try {
-        const response = await fetch(`http://localhost:4000/api/nominas-api/${nominaId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/nominas-api/${nominaId}`, {
           method: 'DELETE',
           credentials: 'include'
         });

@@ -11,7 +11,7 @@ import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 
 // Configuración global de axios
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 axios.defaults.withCredentials = true;
 
 export function SignIn() {

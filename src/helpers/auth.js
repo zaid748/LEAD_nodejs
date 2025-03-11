@@ -1,11 +1,10 @@
-const helpers = {};
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const {SECRET} = process.env;
 
-helpers.isAuthenticated = async(req, res, next) => {
+// Middleware para autenticación con cookies
+const isAuthenticated = async(req, res, next) => {
     try {
-        console.log('Cookies received:', req.cookies);
         const authorization = req.cookies.Authorization;
 
         if (!authorization) {
@@ -18,7 +17,6 @@ helpers.isAuthenticated = async(req, res, next) => {
 
         try {
             const decoded = jwt.verify(authorization, SECRET);
-            console.log('Token decoded:', decoded);
             
             const usuario = await User.findById(decoded._id);
             
@@ -33,11 +31,7 @@ helpers.isAuthenticated = async(req, res, next) => {
             req.token = authorization;
             req.user = usuario.id;
             req.role = usuario.role;
-            
-            console.log('User authenticated:', {
-                id: usuario.id,
-                role: usuario.role
-            });
+          
             
             next();
         } catch (jwtError) {
@@ -56,7 +50,8 @@ helpers.isAuthenticated = async(req, res, next) => {
     }
 };
 
-helpers.isAustheAdministrator = async(req, res, next) => {
+// Verificar si es administrador
+const isAustheAdministrator = async(req, res, next) => {
     const role = req.role;
     if(role === "administrator" || role === "admin"){
         return next();
@@ -65,6 +60,94 @@ helpers.isAustheAdministrator = async(req, res, next) => {
         success: false,
         message: 'Requiere permisos de administrador'
     });
-}
+};
 
-module.exports = helpers;
+// Verificar JWT con x-auth-token
+const verificarToken = async (req, res, next) => {
+    try {
+        // Obtener token del header
+        const token = req.header('x-auth-token');
+        
+        if (!token) {
+            return res.status(401).json({ mensaje: 'No hay token, acceso denegado' });
+        }
+        
+        // Verificar token
+        const decodificado = jwt.verify(token, process.env.JWT_SECRET || SECRET);
+        
+        // Buscar usuario en base de datos
+        const usuario = await User.findById(decodificado.id).select('-password');
+        
+        if (!usuario) {
+            return res.status(401).json({ mensaje: 'Token inválido - usuario no encontrado' });
+        }
+        
+        // Añadir usuario a la request
+        req.user = usuario;
+        
+        next();
+    } catch (error) {
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ mensaje: 'Token inválido' });
+        }
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ mensaje: 'Token expirado' });
+        }
+        
+        console.error('Error de autenticación:', error);
+        res.status(500).json({ mensaje: 'Error interno del servidor' });
+    }
+};
+
+// Middleware para verificar si es administrador
+const esAdmin = (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ mensaje: 'Usuario no autenticado' });
+    }
+    
+    if (req.user.role !== 'administrator') {
+        return res.status(403).json({ mensaje: 'Acción permitida solo para administradores' });
+    }
+    
+    next();
+};
+
+// Middleware para verificar si es administrador o supervisor
+const esAdminOSupervisor = (req, res, next) => {
+    if (!req.user) {
+        return res.status(401).json({ mensaje: 'Usuario no autenticado' });
+    }
+    
+    if (req.user.role !== 'administrator' && req.user.role !== 'supervisor') {
+        return res.status(403).json({ mensaje: 'Acción permitida solo para administradores y supervisores' });
+    }
+    
+    next();
+};
+
+// Middleware para sanitizar entradas
+const sanitizarEntradas = (req, res, next) => {
+    // Esta función podría implementarse para limpiar datos de entrada
+    // Ejemplo básico: eliminar caracteres HTML peligrosos
+    if (req.body) {
+        Object.keys(req.body).forEach(key => {
+            if (typeof req.body[key] === 'string') {
+                req.body[key] = req.body[key]
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+            }
+        });
+    }
+    
+    next();
+};
+
+// Exportar todas las funciones correctamente
+module.exports = {
+    isAuthenticated,
+    isAustheAdministrator,
+    verificarToken,
+    esAdmin,
+    esAdminOSupervisor,
+    sanitizarEntradas
+};

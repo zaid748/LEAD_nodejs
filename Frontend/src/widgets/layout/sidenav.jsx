@@ -16,6 +16,7 @@ export function Sidenav({ brandImg, brandName }) {
   const { sidenavColor, sidenavType, openSidenav } = controller;
   const location = useLocation();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userData, setUserData] = useState(null);
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-blue-gray-800 to-blue-gray-900",
     white: "bg-white shadow-lg",
@@ -28,7 +29,7 @@ export function Sidenav({ brandImg, brandName }) {
     if (!location.pathname.includes("/auth/")) {
       const checkAdminStatus = async () => {
         try {
-          const response = await fetch('http://localhost:4000/api/check-auth', {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
             credentials: 'include'
           });
           
@@ -37,12 +38,18 @@ export function Sidenav({ brandImg, brandName }) {
           
           if (data.success) {
             const user = data.user;
+            setUserData(user);
             const userRole = user?.role || '';
             
             const admin = userRole.toLowerCase().includes('administrator') || 
                          userRole === 'Superadministrator';
             
             setIsAdmin(admin);
+            
+            // Redirigir a perfil si no es admin y está en home
+            if (!admin && location.pathname === "/dashboard/home") {
+              window.location.href = "/dashboard/profile";
+            }
           }
         } catch (error) {
           console.error("Error al verificar estado de admin:", error);
@@ -90,9 +97,22 @@ export function Sidenav({ brandImg, brandName }) {
         (isAdmin || (
           !page.name.includes("Usuarios") && 
           !page.name.includes("Empleados") &&
+          !page.name.includes("dashboard") &&
           !page.adminOnly
         ));
     });
+  }
+
+  // Reordenar páginas si no es administrador
+  if (!isAuthPage && !isAdmin && activePages.length > 0) {
+    // Encontrar la página de perfil
+    const profilePage = activePages.find(page => page.name === "profile");
+    const otherPages = activePages.filter(page => page.name !== "profile");
+    
+    // Poner el perfil como primera opción para usuarios no admin
+    if (profilePage) {
+      activePages = [profilePage, ...otherPages];
+    }
   }
 
   return (

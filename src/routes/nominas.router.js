@@ -16,6 +16,7 @@ const {
 const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
 const { CrearPdfNomina } = require('../libs/PDF');
 const { uploadObject } = require('../libs/multer');
+const Nomina = require('../models/Nomina');
 
 router.get('/nominas/views/:id', isAuthenticated, isAustheAdministrator, ViewNominas);
 
@@ -27,9 +28,10 @@ router.put('/CrearNomina/update/:token/:id', isAuthenticated, isAustheAdministra
 
 router.get('/nominas-api/empleado/:id', isAuthenticated, getNominasByEmpleado);
 router.delete('/nominas-api/:id', isAuthenticated, isAustheAdministrator, deleteNomina);
-router.get('/nominas/:id', isAuthenticated, getNominaById);
+//router.get('/nominas/:id', isAuthenticated, getNominaById);
 router.put('/nominas/:id', isAuthenticated, isAustheAdministrator, updateNominaApi);
 
 router.post('/CrearNomina/:token', isAuthenticated, isAustheAdministrator, addNomina, CrearPdfNomina, uploadObject);
+
 
 module.exports = router;

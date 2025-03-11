@@ -35,7 +35,7 @@ export function UsersTable() {
   useEffect(() => {
     const checkAdminAccess = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/check-auth', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/check-auth`, {
           credentials: 'include'
         });
         
@@ -103,13 +103,21 @@ export function UsersTable() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/users', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
         credentials: 'include'
       });
       const data = await response.json();
       if (data.success) {
+        // Agregar URLs completas a las fotos
+        const usuariosConFotos = data.users.map(user => {
+          if (user.foto_perfil && !user.foto_perfil.startsWith('http')) {
+            user.foto_perfil = `${import.meta.env.VITE_MEDIA_URL}${user.foto_perfil}`;
+          }
+          return user;
+        });
+        
         // Ordenar usuarios: primero administradores, luego usuarios normales
-        const usuariosOrdenados = [...data.users].sort((a, b) => {
+        const usuariosOrdenados = [...usuariosConFotos].sort((a, b) => {
           // Ordenar por rol (administradores primero)
           const isAdminA = (a.role || "").toLowerCase().includes("admin");
           const isAdminB = (b.role || "").toLowerCase().includes("admin");
@@ -131,7 +139,7 @@ export function UsersTable() {
 
   const fetchUserDetailsWithoutRedirect = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -147,7 +155,7 @@ export function UsersTable() {
 
   const fetchUserDetails = async (userId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/users/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}`, {
         credentials: 'include'
       });
       const data = await response.json();
@@ -190,7 +198,7 @@ export function UsersTable() {
         try {
           console.log("Intentando eliminar usuario con ID:", selectedUser);
           
-          const response = await fetch(`http://localhost:4000/api/users/${selectedUser}`, {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${selectedUser}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: {
