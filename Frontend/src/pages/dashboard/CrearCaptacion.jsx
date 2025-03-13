@@ -16,11 +16,13 @@ import {
   TabsBody,
   Tab,
   TabPanel,
+  Spinner
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { captacionesAPI } from "../../services/api"; // Importar el servicio API
 
 export function CrearCaptacion() {
   const navigate = useNavigate();
@@ -235,7 +237,7 @@ export function CrearCaptacion() {
             .string()
             .required("El teléfono es requerido")
             .matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos"),
-          parentesco: yup
+          relacion: yup
             .string()
             .required("El parentesco es requerido"),
           direccion: yup
@@ -264,55 +266,25 @@ export function CrearCaptacion() {
         .number()
         .transform(value => (isNaN(value) || value === null || value === '' ? undefined : value))
         .nullable()
-        .when('en_venta', {
-          is: true,
-          then: yup
-            .number()
-            .required("El precio de venta es requerido")
-            .positive("El precio debe ser mayor a 0")
-        }),
+        .optional(),
       tipo_credito: yup
         .string()
         .nullable()
-        .when('en_venta', {
-          is: true,
-          then: yup
-            .string()
-            .required("El tipo de crédito es requerido")
-            .oneOf(['Contado', 'INFONAVIT', 'Crédito Bancario'], "Seleccione un tipo de crédito válido")
-        }),
+        .optional(),
       en_venta: yup.boolean().default(false),
       comprador: yup.object().shape({
         nombre: yup
           .string()
           .nullable()
-          .when('..en_venta', {
-            is: true,
-            then: yup
-              .string()
-              .required("El nombre del comprador es requerido")
-              .min(3, "El nombre debe tener al menos 3 caracteres")
-          }),
+          .optional(),
         telefono: yup
           .string()
           .nullable()
-          .when('..en_venta', {
-            is: true,
-            then: yup
-              .string()
-              .required("El teléfono del comprador es requerido")
-              .matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos")
-          }),
+          .optional(),
         correo: yup
           .string()
           .nullable()
-          .when('..en_venta', {
-            is: true,
-            then: yup
-              .string()
-              .email("El formato del correo electrónico no es válido")
-              .optional()
-          }),
+          .optional(),
       }),
       documentos_entregados: yup.object().shape({
         contrato: yup.boolean().default(false),
@@ -330,33 +302,33 @@ export function CrearCaptacion() {
     datos_laborales: yup.object().shape({
       empresa: yup
         .string()
-        .required("La empresa es requerida"),
+        .optional(),
       direccion: yup.string().optional(),
       telefono: yup
         .string()
-        .required("El teléfono es requerido")
-        .matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos"),
+        .optional(),
       area: yup
         .string()
-        .required("El área o departamento es requerido"),
+        .optional(),
       puesto: yup
         .string()
-        .required("El puesto es requerido"),
+        .optional(),
       turno: yup
         .string()
-        .required("El turno es requerido"),
+        .optional(),
       registro_patronal: yup
         .string()
-        .required("El registro patronal es requerido")
-        .matches(/^\d{11}$/, "El registro patronal debe contener 11 dígitos numéricos"),
+        .optional(),
       antiguedad: yup
         .number()
-        .required("La antigüedad es requerida")
-        .positive("Debe ser un número positivo"),
+        .transform(value => (isNaN(value) || value === null || value === '' ? undefined : value))
+        .nullable()
+        .optional(),
       ingresos_mensuales: yup
         .number()
-        .required("Los ingresos mensuales son requeridos")
-        .positive("Debe ser un número positivo")
+        .transform(value => (isNaN(value) || value === null || value === '' ? undefined : value))
+        .nullable()
+        .optional()
     })
   });
 
@@ -487,31 +459,100 @@ export function CrearCaptacion() {
     const errorSummary = getErrorSummary();
     if (errorSummary && !error) {
       setError(`Corrija los siguientes errores antes de guardar: ${errorSummary.join('; ')}`);
+      
+      // Hacer que el mensaje de error desaparezca automáticamente después de 5 segundos
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 5000);
+      
+      // Limpiar el temporizador cuando el componente se desmonte o cuando cambie el error
+      return () => clearTimeout(timer);
     }
     
-    // Verificar campos obligatorios del propietario
-    const propietarioCompleto = 
-      formData.propietario.nombre.trim() !== '' && 
-      formData.propietario.telefono.trim() !== '';
-    
-    // Verificar campos obligatorios de la propiedad
-    const propiedadCompleta = 
-      formData.propiedad.tipo !== '' && 
-      formData.propiedad.direccion.calle.trim() !== '';
-    
-    // Verificar campos obligatorios de venta si se está vendiendo
-    const ventaCompleta = !formData.venta.en_venta || (
-      formData.venta.precio_venta !== '' && 
-      formData.venta.comprador.nombre.trim() !== '' &&
-      formData.venta.comprador.telefono.trim() !== '');
-    
-    // Determinar si el formulario está completo basado en los campos requeridos
-    setFormCompleto(propietarioCompleto && propiedadCompleta && ventaCompleta && isValid);
-  }, [formData, errors, isValid, error]);
+    try {
+      // Obtener valores actuales del formulario
+      const valores = getValues();
+      
+      // Logging para depuración
+      console.log("Estado actual del formulario:", {
+        propietario: valores.propietario,
+        propiedadDireccion: valores.propiedad?.direccion,
+        propiedadCaracteristicas: valores.propiedad?.caracteristicas,
+        referencias: valores.referencias_personales,
+        documentacion: valores.documentacion
+      });
+      
+      // Verificar SOLO los campos mínimos obligatorios
+      const propietarioCompleto = 
+        !!valores.propietario?.nombre && 
+        !!valores.propietario?.telefono &&
+        !!valores.propietario?.estado_civil;
+      
+      // Verificar campos obligatorios de la propiedad
+      const propiedadCompleta = 
+        !!valores.propiedad?.tipo && 
+        !!valores.propiedad?.direccion?.calle &&
+        !!valores.propiedad?.direccion?.numero &&
+        !!valores.propiedad?.direccion?.colonia &&
+        !!valores.propiedad?.direccion?.ciudad &&
+        !!valores.propiedad?.direccion?.estado &&
+        !!valores.propiedad?.direccion?.codigo_postal;
+      
+      // Verificar características básicas de la propiedad
+      const caracteristicasCompletas = 
+        Number(valores.propiedad?.caracteristicas?.m2_terreno) > 0 &&
+        Number(valores.propiedad?.caracteristicas?.m2_construccion) > 0 &&
+        valores.propiedad?.caracteristicas?.habitaciones !== undefined &&
+        valores.propiedad?.caracteristicas?.baños !== undefined;
+      
+      // Verificar referencias personales (al menos 2)
+      const referenciasCompletas = 
+        Array.isArray(valores.referencias_personales) && 
+        valores.referencias_personales.length >= 2 &&
+        valores.referencias_personales.every(ref => 
+          !!ref.nombre && 
+          !!ref.telefono && 
+          !!ref.relacion
+        );
+      
+      // Verificar documentación obligatoria
+      const documentacionCompleta = 
+        valores.documentacion?.ine === true && 
+        valores.documentacion?.escrituras === true;
+      
+      // La venta siempre se considera completa (no es obligatoria)
+      const ventaCompleta = true;
+      
+      // Determinar si el formulario está completo
+      const formularioCompleto = 
+        propietarioCompleto && 
+        propiedadCompleta && 
+        caracteristicasCompletas && 
+        referenciasCompletas && 
+        documentacionCompleta;
+      
+      setFormCompleto(formularioCompleto);
+      
+      // Log para depuración
+      console.log({
+        propietarioCompleto,
+        propiedadCompleta,
+        caracteristicasCompletas,
+        referenciasCompletas,
+        documentacionCompleta,
+        ventaCompleta,
+        formularioCompleto
+      });
+    } catch (e) {
+      console.error("Error al verificar completitud del formulario:", e);
+      setFormCompleto(false);
+    }
+  }, [getValues, error, watch]);  // Añadido watch para que reaccione a cambios en los valores
 
   // Manejar cambios en los campos
   const handleChange = (e, section, subsection, field) => {
     const { name, value, type, checked } = e.target;
+    const actualValue = type === 'checkbox' ? checked : value;
     
     if (section && subsection && field) {
       // Maneja campos anidados en 3 niveles (ej: propiedad.direccion.calle)
@@ -521,31 +562,43 @@ export function CrearCaptacion() {
           ...prev[section],
           [subsection]: {
             ...prev[section][subsection],
-            [field]: type === 'checkbox' ? checked : value
+            [field]: actualValue
           }
         }
       }));
+      
+      // Actualizar también en react-hook-form
+      setValue(`${section}.${subsection}.${field}`, actualValue);
     } else if (section && subsection) {
       // Maneja campos anidados en 2 niveles (ej: propietario.nombre)
       setFormData(prev => ({
         ...prev,
         [section]: {
           ...prev[section],
-          [subsection]: type === 'checkbox' ? checked : value
+          [subsection]: actualValue
         }
       }));
+      
+      // Actualizar también en react-hook-form
+      setValue(`${section}.${subsection}`, actualValue);
     } else if (section) {
       // Maneja campos con 1 nivel de anidación (ej: tipo_tramite)
       setFormData(prev => ({
         ...prev,
-        [section]: type === 'checkbox' ? checked : value
+        [section]: actualValue
       }));
+      
+      // Actualizar también en react-hook-form
+      setValue(section, actualValue);
     } else {
       // Maneja campos directos
       setFormData(prev => ({
         ...prev,
-        [name]: type === 'checkbox' ? checked : value
+        [name]: actualValue
       }));
+      
+      // Actualizar también en react-hook-form
+      setValue(name, actualValue);
     }
   };
 
@@ -558,6 +611,9 @@ export function CrearCaptacion() {
         tipo: value
       }
     }));
+    
+    // Actualizar también en react-hook-form
+    setValue('propiedad.tipo', value);
   };
   
   // Manejar selección de tipo de captación
@@ -569,6 +625,9 @@ export function CrearCaptacion() {
         tipo_captacion: value
       }
     }));
+    
+    // Actualizar también en react-hook-form
+    setValue('captacion.tipo_captacion', value); 
   };
   
   // Manejar selección de tipo de trámite
@@ -577,6 +636,9 @@ export function CrearCaptacion() {
       ...prev,
       tipo_tramite: value
     }));
+    
+    // Actualizar también en react-hook-form
+    setValue('tipo_tramite', value);
   };
 
   // Manejar selección de estado civil
@@ -588,6 +650,9 @@ export function CrearCaptacion() {
         estado_civil: value
       }
     }));
+    
+    // Actualizar también en react-hook-form
+    setValue('propietario.estado_civil', value);
   };
 
   // Manejar selección de tipo de crédito
@@ -599,6 +664,9 @@ export function CrearCaptacion() {
         tipo_credito: value
       }
     }));
+    
+    // Actualizar también en react-hook-form
+    setValue('venta.tipo_credito', value);
   };
 
   // Función para avanzar al siguiente tab
@@ -615,17 +683,29 @@ export function CrearCaptacion() {
     }
   };
 
-  // Funciones para manejar adeudos
+  // Función para manejar adeudos
   const handleAddAdeudo = () => {
-    appendAdeudo({ 
+    const nuevoAdeudo = { 
       tipo: "", 
       monto: "", 
       numero_referencia: "",
       descripcion: "" 
-    });
+    };
+    
+    appendAdeudo(nuevoAdeudo);
+    
+    // Actualizar también formData
+    setFormData(prev => ({
+      ...prev,
+      propiedad: {
+        ...prev.propiedad,
+        adeudos: [...prev.propiedad.adeudos, nuevoAdeudo]
+      }
+    }));
   };
 
   const handleUpdateAdeudo = (index, field, value) => {
+    // Actualizar formData
     setFormData(prev => {
       const updatedAdeudos = [...prev.propiedad.adeudos];
       updatedAdeudos[index] = {
@@ -640,9 +720,23 @@ export function CrearCaptacion() {
         }
       };
     });
+    
+    // Actualizar en react-hook-form
+    const adeudos = getValues('propiedad.adeudos') || [];
+    const updatedAdeudos = [...adeudos];
+    if (updatedAdeudos[index]) {
+      updatedAdeudos[index] = {
+        ...updatedAdeudos[index],
+        [field]: value
+      };
+      setValue('propiedad.adeudos', updatedAdeudos);
+    }
   };
 
   const handleRemoveAdeudo = (index) => {
+    removeAdeudo(index);
+    
+    // Actualizar también formData
     setFormData(prev => {
       const updatedAdeudos = prev.propiedad.adeudos.filter((_, i) => i !== index);
       return {
@@ -657,31 +751,27 @@ export function CrearCaptacion() {
 
   // Funciones para manejar referencias personales
   const handleAddReferencia = () => {
-    appendReferencia({ 
-      nombre: "", 
-      telefono: "", 
-      parentesco: "",
-      direccion: "" 
-    });
+    const nuevaReferencia = {
+      nombre: '',
+      relacion: '', // Usar directamente 'relacion' como requiere el backend
+      telefono: '',
+      direccion: ''
+    };
+    
+    appendReferencia(nuevaReferencia);
   };
 
   const handleUpdateReferencia = (index, field, value) => {
-    setFormData(prev => {
-      const updatedReferencias = [...prev.referencias_personales];
-      updatedReferencias[index] = {
-        ...updatedReferencias[index],
-        [field]: value
-      };
-      return {
-        ...prev,
-        referencias_personales: updatedReferencias
-      };
-    });
+    // Usar setValue de React Hook Form en lugar de setForm
+    setValue(`referencias_personales.${index}.${field}`, value);
   };
 
   const handleRemoveReferencia = (index) => {
+    removeReferencia(index);
+    
+    // Actualizar también formData
     setFormData(prev => {
-      const updatedReferencias = prev.referencias_personales.filter((_, i) => i !== index);
+      const updatedReferencias = (prev.referencias_personales || []).filter((_, i) => i !== index);
       return {
         ...prev,
         referencias_personales: updatedReferencias
@@ -828,25 +918,63 @@ export function CrearCaptacion() {
   };
 
   // Guardar captación
-  const handleSubmit = async (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError(null);
     
     try {
-      // Validaciones básicas
-      if (!formData.propietario.nombre || !formData.propietario.telefono) {
-        throw new Error("Los datos del propietario son obligatorios");
+      setIsLoading(true);
+
+      // Obtener valores del formulario usando getValues() de React Hook Form
+      const formData = getValues();
+      
+      // Corregir la estructura para los documentos entregados
+      // El backend espera 'documentos_entregados' pero tenemos 'documentacion'
+      if (formData.documentacion) {
+        formData.documentos_entregados = { ...formData.documentacion };
+        // Eliminar el campo original para no enviar datos duplicados
+        delete formData.documentacion;
       }
       
-      if (!formData.propiedad.tipo || !formData.propiedad.direccion.calle) {
-        throw new Error("Los datos de la propiedad son obligatorios");
+      // Mapear 'parentesco' a 'relacion' en cada referencia personal si es necesario
+      if (formData.referencias_personales && formData.referencias_personales.length > 0) {
+        formData.referencias_personales = formData.referencias_personales.map(referencia => {
+          // Crear una copia para no modificar el original
+          const referenciaActualizada = { ...referencia };
+          
+          // Eliminar el campo parentesco para no enviarlo al backend (ya tenemos relacion)
+          if (referenciaActualizada.parentesco) {
+            delete referenciaActualizada.parentesco;
+          }
+          
+          return referenciaActualizada;
+        });
       }
       
-      // Resto del código existente...
+      // Continuar con el resto de la función
+      console.log('Datos a enviar:', formData);
       
-    } catch (error) {
-      setError(error.message);
+      // Realizar la petición al servidor
+      const responseData = await captacionesAPI.create(formData);
+      
+      console.log("Respuesta del servidor:", responseData);
+      
+      // Mostrar mensaje de éxito
+      setSuccessMessage("Captación guardada exitosamente");
+      
+      // Redirigir después de un tiempo
+      setTimeout(() => {
+        navigate("/dashboard/captaciones");
+      }, 2000);
+    } catch (apiError) {
+      console.error("Error al enviar formulario:", apiError);
+      
+      // Manejar errores específicos de la API
+      if (apiError.errores && apiError.errores.length > 0) {
+        const mensajesError = apiError.errores.map(err => `${err.param}: ${err.msg}`).join('\n');
+        setError(mensajesError);
+      } else {
+        setError(apiError.message || "Error al guardar la captación");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -934,7 +1062,12 @@ export function CrearCaptacion() {
                         type="text"
                         label="Nombre del Propietario *"
                         error={!!errors.propietario?.nombre}
-                        {...field}
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                          // También actualizar formData
+                          handleChange(e, 'propietario', 'nombre');
+                        }}
                       />
                     )}
                   />
@@ -954,7 +1087,12 @@ export function CrearCaptacion() {
                         type="tel"
                         label="Teléfono *"
                         error={!!errors.propietario?.telefono}
-                        {...field}
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                          // También actualizar formData
+                          handleChange(e, 'propietario', 'telefono');
+                        }}
                       />
                     )}
                   />
@@ -974,7 +1112,12 @@ export function CrearCaptacion() {
                         type="email"
                         label="Correo Electrónico"
                         error={!!errors.propietario?.correo}
-                        {...field}
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                          // También actualizar formData
+                          handleChange(e, 'propietario', 'correo');
+                        }}
                       />
                     )}
                   />
@@ -993,7 +1136,12 @@ export function CrearCaptacion() {
                       <Input
                         type="text"
                         label="Dirección Particular"
-                        {...field}
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                          // También actualizar formData
+                          handleChange(e, 'propietario', 'direccion');
+                        }}
                       />
                     )}
                   />
@@ -1007,7 +1155,12 @@ export function CrearCaptacion() {
                       <Input
                         type="text"
                         label="Identificación"
-                        {...field}
+                        value={field.value || ""}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                          // También actualizar formData
+                          handleChange(e, 'propietario', 'identificacion');
+                        }}
                       />
                     )}
                   />
@@ -1020,8 +1173,12 @@ export function CrearCaptacion() {
                     render={({ field }) => (
                       <Select
                         label="Estado Civil *"
-                        value={field.value}
-                        onChange={(value) => field.onChange(value)}
+                        value={field.value || ""}
+                        onChange={(value) => {
+                          field.onChange(value);
+                          // También actualizar formData
+                          handleEstadoCivilChange(value);
+                        }}
                         error={!!errors.propietario?.estado_civil}
                       >
                         <Option value="Soltero">Soltero(a)</Option>
@@ -1722,20 +1879,23 @@ export function CrearCaptacion() {
                             
                             <div>
                               <Controller
-                                name={`referencias_personales.${index}.parentesco`}
+                                name={`referencias_personales.${index}.relacion`}
                                 control={control}
                                 render={({ field }) => (
                                   <Input
-                                    type="text"
                                     label="Parentesco o Relación *"
-                                    error={!!errors.referencias_personales?.[index]?.parentesco}
-                                    {...field}
+                                    error={!!errors?.referencias_personales?.[index]?.relacion}
+                                    value={field.value || ''}
+                                    onChange={(e) => {
+                                      field.onChange(e); // Para React Hook Form
+                                      handleUpdateReferencia(index, 'relacion', e.target.value); // Para actualización adicional si es necesaria
+                                    }}
                                   />
                                 )}
                               />
-                              {errors.referencias_personales?.[index]?.parentesco && (
+                              {errors.referencias_personales?.[index]?.relacion && (
                                 <div className="text-red-500 text-xs mt-1">
-                                  {errors.referencias_personales[index].parentesco.message}
+                                  {errors.referencias_personales[index].relacion.message}
                                 </div>
                               )}
                             </div>
@@ -1818,6 +1978,7 @@ export function CrearCaptacion() {
                           <Controller
                             name="documentacion.ine"
                             control={control}
+                            defaultValue={false}
                             render={({ field }) => (
                               <div className="flex items-center">
                                 <label htmlFor="ine-check" className="flex items-center cursor-pointer">
@@ -1825,8 +1986,18 @@ export function CrearCaptacion() {
                                     id="ine-check"
                                     type="checkbox"
                                     className={`w-5 h-5 mr-3 ${errors.documentacion?.ine ? 'border-red-500' : ''}`}
-                                    checked={field.value}
-                                    onChange={(e) => field.onChange(e.target.checked)}
+                                    checked={field.value === true}
+                                    onChange={(e) => {
+                                      field.onChange(e.target.checked);
+                                      // También actualizar formData
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        documentacion: {
+                                          ...prev.documentacion,
+                                          ine: e.target.checked
+                                        }
+                                      }));
+                                    }}
                                   />
                                   <span className="font-medium">Identificación oficial (INE) *</span>
                                 </label>
@@ -1844,6 +2015,7 @@ export function CrearCaptacion() {
                           <Controller
                             name="documentacion.escrituras"
                             control={control}
+                            defaultValue={false}
                             render={({ field }) => (
                               <div className="flex items-center">
                                 <label htmlFor="escrituras-check" className="flex items-center cursor-pointer">
@@ -1851,8 +2023,18 @@ export function CrearCaptacion() {
                                     id="escrituras-check"
                                     type="checkbox"
                                     className={`w-5 h-5 mr-3 ${errors.documentacion?.escrituras ? 'border-red-500' : ''}`}
-                                    checked={field.value}
-                                    onChange={(e) => field.onChange(e.target.checked)}
+                                    checked={field.value === true}
+                                    onChange={(e) => {
+                                      field.onChange(e.target.checked);
+                                      // También actualizar formData
+                                      setFormData(prev => ({
+                                        ...prev,
+                                        documentacion: {
+                                          ...prev.documentacion,
+                                          escrituras: e.target.checked
+                                        }
+                                      }));
+                                    }}
                                   />
                                   <span className="font-medium">Escrituras *</span>
                                 </label>
@@ -2267,73 +2449,44 @@ export function CrearCaptacion() {
         <CardFooter className="flex justify-between p-4">
           <Button 
             variant="outlined" 
-            color="blue-gray" 
-            onClick={handlePrevious}
-            disabled={activeTab === 0}
+            color="red" 
+            onClick={() => navigate("/dashboard/captaciones")}
           >
-            Anterior
+            Cancelar
           </Button>
 
-          {activeTab < tabs.length - 1 ? (
-            <Button 
-              variant="filled" 
-              color="blue" 
-              onClick={handleNext}
-            >
-              Siguiente
-            </Button>
-          ) : (
-            <div className="flex gap-2">
-              <Button 
-                variant="outlined" 
-                color="red" 
-                onClick={() => navigate("/dashboard/captaciones")}
-              >
-                Cancelar
-              </Button>
-              <Button 
-                variant="filled" 
-                color="green" 
-                onClick={handleSubmit}
-                disabled={!formCompleto || isLoading}
-                className="flex items-center gap-2"
-              >
-                {isLoading ? (
-                  <>
-                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeDasharray="30 30"
-                        strokeDashoffset="60"
-                      />
-                    </svg>
-                    Guardando...
-                  </>
-                ) : (
-                  <>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859M12 3v8.25m0 0l-3-3m3 3l3-3" />
-                    </svg>
-                    Guardar Captación
-                  </>
-                )}
-              </Button>
-            </div>
-          )}
+          <Button 
+            variant="filled" 
+            color="green" 
+            onClick={submitForm}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <Spinner size="sm" />
+                <span>Guardando...</span>
+              </div>
+            ) : "Guardar Captación"}
+          </Button>
         </CardFooter>
         
         {/* Mostrar errores */}
         {error && (
-          <div className="px-4 pb-4">
-            <Alert color="red" variant="filled" icon={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75a1.5 1.5 0 01-1.5 1.5 1.5 0 01-1.5-1.5 1.5 0 011.5-1.5z" />
-              </svg>
-            }>
+          <div className="px-4 pb-4 animate-fade-in">
+            <Alert 
+              color="red" 
+              variant="filled" 
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75a1.5 1.5 0 01-1.5 1.5 1.5 0 01-1.5-1.5 1.5 0 011.5-1.5z" />
+                </svg>
+              }
+              onClose={() => setError(null)}
+              animate={{
+                mount: { y: 0, opacity: 1 },
+                unmount: { y: 25, opacity: 0 },
+              }}
+            >
               {error}
             </Alert>
           </div>
@@ -2342,11 +2495,16 @@ export function CrearCaptacion() {
         {/* Mostrar mensaje de éxito */}
         {successMessage && (
           <div className="px-4 pb-4">
-            <Alert color="green" variant="filled" icon={
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            }>
+            <Alert 
+              color="green" 
+              variant="filled" 
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-5 w-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              }
+              onClose={() => setSuccessMessage("")}
+            >
               {successMessage}
             </Alert>
           </div>

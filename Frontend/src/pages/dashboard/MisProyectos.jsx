@@ -89,7 +89,7 @@ export function MisProyectos() {
         
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/captaciones?${params}`, {
           headers: {
-            'x-auth-token': token
+            'Authorization': token
           }
         });
         

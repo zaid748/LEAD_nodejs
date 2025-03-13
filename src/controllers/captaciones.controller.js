@@ -190,9 +190,8 @@ exports.createCaptacion = async (req, res) => {
         
         await nuevaCaptacion.save();
         
-        // Devolver la captación creada (con información poblada)
-        const captacionCreada = await CaptacionInmobiliaria.findById(nuevaCaptacion._id)
-            .populate('captacion.asesor', 'name email');
+        // Devolver la captación creada (sin información poblada)
+        const captacionCreada = await CaptacionInmobiliaria.findById(nuevaCaptacion._id);
         
         res.status(201).json(captacionCreada);
     } catch (error) {

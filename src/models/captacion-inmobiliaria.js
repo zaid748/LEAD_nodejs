@@ -97,7 +97,7 @@ const CaracteristicasSchema = new mongoose.Schema({
 const AdeudoSchema = new mongoose.Schema({
     tipo: { 
         type: String, 
-        enum: ['Predial', 'Agua', 'Hipoteca', 'Otro'],
+        enum: ['Predial', 'Agua', 'Hipoteca', 'CFE', 'Mantenimiento', 'Otro'],
         required: true
     },
     monto: { 
@@ -281,8 +281,8 @@ const DocumentosVentaSchema = new mongoose.Schema({
 // 📌 Información de la venta final (mejorada)
 const VentaSchema = new mongoose.Schema({
     comprador: {
-        nombre: { type: String, trim: true, required: true },
-        telefono: { type: String, required: true },
+        nombre: { type: String, trim: true},
+        telefono: { type: String},
         correo: { 
             type: String, 
             match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -291,7 +291,7 @@ const VentaSchema = new mongoose.Schema({
         identificacion: { type: String, trim: true }
     },
     fecha_venta: { type: Date },
-    monto_venta: { type: Number, min: 0, required: true },
+    monto_venta: { type: Number, min: 0 },
     estatus_venta: { 
         type: String, 
         enum: ['En proceso', 'Finalizada', 'Cancelada'],
@@ -300,7 +300,6 @@ const VentaSchema = new mongoose.Schema({
     tipo_de_pago: { 
         type: String, 
         enum: ['Contado', 'Crédito Bancario', 'INFONAVIT', 'FOVISSSTE', 'Mixto', 'Otro'],
-        required: true
     },
     documentos_entregados: DocumentosVentaSchema, // Reemplazamos documentos_venta con booleanos
     comision_total: { type: Number, min: 0 },
