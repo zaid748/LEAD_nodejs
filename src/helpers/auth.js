@@ -74,7 +74,6 @@ const verificarToken = async (req, res, next) => {
         
         // Verificar token
         const decodificado = jwt.verify(token, process.env.JWT_SECRET || SECRET);
-        console.log('Token decodificado:', decodificado);
         // Buscar usuario en base de datos
         const usuario = await User.findById(decodificado._id).select('-password');
         

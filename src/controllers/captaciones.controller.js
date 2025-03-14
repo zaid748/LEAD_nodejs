@@ -15,11 +15,15 @@ exports.getCaptaciones = async (req, res) => {
             estado,
             uso_actual,
             asesor,
+            supervisor,
             fecha_desde,
             fecha_hasta,
             estatus_venta,
+            search,
             page = 1, 
-            limit = 10 
+            limit = 10,
+            sort = "-updatedAt",
+            nopopulate = false
         } = req.query;
         
         // Construir filtros
@@ -41,53 +45,76 @@ exports.getCaptaciones = async (req, res) => {
         // Filtrar por asesor específico
         if (asesor) filtro['captacion.asesor'] = asesor;
         
-        // Filtrar por rango de fechas de captación
+        // Filtrar por supervisor específico
+        if (supervisor) filtro['captacion.supervisor'] = supervisor;
+        
+        // Filtrar por fechas
         if (fecha_desde || fecha_hasta) {
             filtro['captacion.fecha'] = {};
-            if (fecha_desde) {
-                filtro['captacion.fecha']['$gte'] = new Date(fecha_desde);
-            }
-            if (fecha_hasta) {
-                filtro['captacion.fecha']['$lte'] = new Date(fecha_hasta);
-            }
+            if (fecha_desde) filtro['captacion.fecha'].$gte = new Date(fecha_desde);
+            if (fecha_hasta) filtro['captacion.fecha'].$lte = new Date(fecha_hasta);
         }
         
         // Filtrar por estatus de venta
-        if (estatus_venta) filtro['venta.estatus_venta'] = estatus_venta;
+        if (estatus_venta) filtro['venta.estatus'] = estatus_venta;
         
-        // Filtrar por asesor (si no es administrador)
-        if (req.user.role !== 'administrator' && req.user.role !== 'supervisor') {
-            filtro['captacion.asesor'] = req.user._id;
+        // Búsqueda por término (nombre de propietario o dirección)
+        if (search) {
+            const searchRegex = new RegExp(search, 'i');
+            filtro.$or = [
+                { 'propietario.nombre': searchRegex },
+                { 'propiedad.direccion.completa': searchRegex },
+                { 'propiedad.direccion.ciudad': searchRegex },
+                { 'propiedad.direccion.estado': searchRegex }
+            ];
         }
         
-        // Calcular paginación
+        // Paginación
         const skip = (page - 1) * limit;
         
-        // Realizar consulta
+        // Construir la consulta base
+        let captacionesQuery = CaptacionInmobiliaria.find(filtro)
+            .sort(sort)
+            .skip(skip)
+            .limit(parseInt(limit))
+            .select('-historial_tramites -inversionistas -historial_estatus -referencias_personales');
+        
+        // Aplicar populate SOLO si no se indica evitarlo
+        // y envolver en try/catch para que no rompa la aplicación
+        if (nopopulate !== 'true') {
+            try {
+                // Intentar hacer populate, pero manejar posibles errores
+                captacionesQuery = captacionesQuery
+                    .populate('captacion.asesor', 'name email')
+                    .populate('remodelacion.supervisor', 'name email');
+            } catch (populateError) {
+                console.error("Error al hacer populate:", populateError);
+                // Continuar sin populate
+            }
+        }
+        
+        // Ejecutar consultas en paralelo
         const [captaciones, total] = await Promise.all([
-            CaptacionInmobiliaria.find(filtro)
-                .sort({ updatedAt: -1 })
-                .skip(skip)
-                .limit(parseInt(limit))
-                .populate('captacion.asesor', 'name email')
-                .populate('remodelacion.supervisor', 'name email')
-                .select('-historial_tramites -inversionistas -historial_estatus -referencias_personales'), // Excluir datos extensos
-            
+            captacionesQuery.exec(),
             CaptacionInmobiliaria.countDocuments(filtro)
         ]);
         
+        // Calcular paginación
+        const paginas = Math.ceil(total / limit) || 1;
+        
+        // Devolver resultados
         res.json({
             captaciones,
             paginacion: {
                 total,
-                paginas: Math.ceil(total / limit),
-                paginaActual: page,
-                porPagina: limit
+                pagina: parseInt(page),
+                paginas,
+                por_pagina: parseInt(limit)
             }
         });
     } catch (error) {
         console.error('Error al obtener captaciones:', error);
-        res.status(500).json({ mensaje: 'Error interno del servidor' });
+        res.status(500).json({ mensaje: 'Error al obtener las captaciones' });
     }
 };
 

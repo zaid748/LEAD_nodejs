@@ -311,4 +311,4 @@ export function MiNominaPage() {
   );
 }
 
-export default MiNominaPage; 
+export default MiNominaPage;
