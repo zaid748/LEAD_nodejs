@@ -348,37 +348,8 @@ export function CrearCaptacion() {
   });
 
   const [formData, setFormData] = useState(defaultValues);
-
-  // Estado para guardar los nombres de archivos cargados
-  const [nombreArchivos, setNombreArchivos] = useState({
-    ine: "",
-    curp: "",
-    rfc: "",
-    escrituras: "",
-    predial: "",
-    comprobante_domicilio: "",
-    otros: []
-  });
-
-  // Estado para documentos de venta
-  const [documentosVenta, setDocumentosVenta] = useState({
-    contrato: null,
-    identificacion_comprador: null,
-    constancia_credito: null,
-    otros: []
-  });
-  
-  // Estado para nombres de documentos de venta
-  const [nombresDocumentosVenta, setNombresDocumentosVenta] = useState({
-    contrato: "",
-    identificacion_comprador: "",
-    constancia_credito: "",
-    otros: []
-  });
-
   // Nuevo estado para controlar si el formulario está completo
   const [formCompleto, setFormCompleto] = useState(false);
-
   // Añadir una función para generar un resumen de los errores
   const getErrorSummary = () => {
     let summary = [];
@@ -420,7 +391,6 @@ export function CrearCaptacion() {
     
     return summary.length > 0 ? summary : null;
   };
-
   // Verificar autenticación y rol
   useEffect(() => {
     const checkAuth = async () => {
@@ -452,7 +422,6 @@ export function CrearCaptacion() {
     
     checkAuth();
   }, [navigate]);
-
   // Modificar useEffect para actualizar errores
   useEffect(() => {
     // Verificar si hay errores de formulario para mostrar
@@ -548,7 +517,6 @@ export function CrearCaptacion() {
       setFormCompleto(false);
     }
   }, [getValues, error, watch]);  // Añadido watch para que reaccione a cambios en los valores
-
   // Manejar cambios en los campos
   const handleChange = (e, section, subsection, field) => {
     const { name, value, type, checked } = e.target;
@@ -601,46 +569,6 @@ export function CrearCaptacion() {
       setValue(name, actualValue);
     }
   };
-
-  // Manejar selección de tipo de propiedad
-  const handleTipoChange = (value) => {
-    setFormData(prev => ({
-      ...prev,
-      propiedad: {
-        ...prev.propiedad,
-        tipo: value
-      }
-    }));
-    
-    // Actualizar también en react-hook-form
-    setValue('propiedad.tipo', value);
-  };
-  
-  // Manejar selección de tipo de captación
-  const handleTipoCaptacionChange = (value) => {
-    setFormData(prev => ({
-      ...prev,
-      captacion: {
-        ...prev.captacion,
-        tipo_captacion: value
-      }
-    }));
-    
-    // Actualizar también en react-hook-form
-    setValue('captacion.tipo_captacion', value); 
-  };
-  
-  // Manejar selección de tipo de trámite
-  const handleTipoTramiteChange = (value) => {
-    setFormData(prev => ({
-      ...prev,
-      tipo_tramite: value
-    }));
-    
-    // Actualizar también en react-hook-form
-    setValue('tipo_tramite', value);
-  };
-
   // Manejar selección de estado civil
   const handleEstadoCivilChange = (value) => {
     setFormData(prev => ({
@@ -654,35 +582,6 @@ export function CrearCaptacion() {
     // Actualizar también en react-hook-form
     setValue('propietario.estado_civil', value);
   };
-
-  // Manejar selección de tipo de crédito
-  const handleTipoCreditoChange = (value) => {
-    setFormData(prev => ({
-      ...prev,
-      venta: {
-        ...prev.venta,
-        tipo_credito: value
-      }
-    }));
-    
-    // Actualizar también en react-hook-form
-    setValue('venta.tipo_credito', value);
-  };
-
-  // Función para avanzar al siguiente tab
-  const handleNext = () => {
-    if (activeTab < tabs.length - 1) {
-      setActiveTab(activeTab + 1);
-    }
-  };
-
-  // Función para retroceder al tab anterior
-  const handlePrevious = () => {
-    if (activeTab > 0) {
-      setActiveTab(activeTab - 1);
-    }
-  };
-
   // Función para manejar adeudos
   const handleAddAdeudo = () => {
     const nuevoAdeudo = { 
@@ -704,51 +603,6 @@ export function CrearCaptacion() {
     }));
   };
 
-  const handleUpdateAdeudo = (index, field, value) => {
-    // Actualizar formData
-    setFormData(prev => {
-      const updatedAdeudos = [...prev.propiedad.adeudos];
-      updatedAdeudos[index] = {
-        ...updatedAdeudos[index],
-        [field]: value
-      };
-      return {
-        ...prev,
-        propiedad: {
-          ...prev.propiedad,
-          adeudos: updatedAdeudos
-        }
-      };
-    });
-    
-    // Actualizar en react-hook-form
-    const adeudos = getValues('propiedad.adeudos') || [];
-    const updatedAdeudos = [...adeudos];
-    if (updatedAdeudos[index]) {
-      updatedAdeudos[index] = {
-        ...updatedAdeudos[index],
-        [field]: value
-      };
-      setValue('propiedad.adeudos', updatedAdeudos);
-    }
-  };
-
-  const handleRemoveAdeudo = (index) => {
-    removeAdeudo(index);
-    
-    // Actualizar también formData
-    setFormData(prev => {
-      const updatedAdeudos = prev.propiedad.adeudos.filter((_, i) => i !== index);
-      return {
-        ...prev,
-        propiedad: {
-          ...prev.propiedad,
-          adeudos: updatedAdeudos
-        }
-      };
-    });
-  };
-
   // Funciones para manejar referencias personales
   const handleAddReferencia = () => {
     const nuevaReferencia = {
@@ -765,158 +619,6 @@ export function CrearCaptacion() {
     // Usar setValue de React Hook Form en lugar de setForm
     setValue(`referencias_personales.${index}.${field}`, value);
   };
-
-  const handleRemoveReferencia = (index) => {
-    removeReferencia(index);
-    
-    // Actualizar también formData
-    setFormData(prev => {
-      const updatedReferencias = (prev.referencias_personales || []).filter((_, i) => i !== index);
-      return {
-        ...prev,
-        referencias_personales: updatedReferencias
-      };
-    });
-  };
-
-  // Función para manejar carga de documentos
-  const handleDocumentoChange = (e, tipo) => {
-    const archivo = e.target.files[0];
-    
-    if (archivo) {
-      if (tipo === 'otros') {
-        setFormData(prev => ({
-          ...prev,
-          documentos: {
-            ...prev.documentos,
-            otros: [...prev.documentos.otros, archivo]
-          }
-        }));
-        
-        setNombreArchivos(prev => ({
-          ...prev,
-          otros: [...prev.otros, archivo.name]
-        }));
-      } else {
-        setFormData(prev => ({
-          ...prev,
-          documentos: {
-            ...prev.documentos,
-            [tipo]: archivo
-          }
-        }));
-        
-        setNombreArchivos(prev => ({
-          ...prev,
-          [tipo]: archivo.name
-        }));
-      }
-    }
-  };
-
-  // Función para eliminar documento
-  const handleEliminarDocumento = (tipo, index = null) => {
-    if (tipo === 'otros' && index !== null) {
-      // Eliminar un documento de "otros"
-      setFormData(prev => {
-        const nuevosOtros = [...prev.documentos.otros];
-        nuevosOtros.splice(index, 1);
-        return {
-          ...prev,
-          documentos: {
-            ...prev.documentos,
-            otros: nuevosOtros
-          }
-        };
-      });
-      
-      setNombreArchivos(prev => {
-        const nuevosNombres = [...prev.otros];
-        nuevosNombres.splice(index, 1);
-        return {
-          ...prev,
-          otros: nuevosNombres
-        };
-      });
-    } else {
-      // Eliminar un documento específico
-      setFormData(prev => ({
-        ...prev,
-        documentos: {
-          ...prev.documentos,
-          [tipo]: null
-        }
-      }));
-      
-      setNombreArchivos(prev => ({
-        ...prev,
-        [tipo]: ""
-      }));
-    }
-  };
-
-  // Función para manejar documentos de venta
-  const handleDocumentoVentaChange = (e, tipo) => {
-    const archivo = e.target.files[0];
-    
-    if (archivo) {
-      if (tipo === 'otros') {
-        setDocumentosVenta(prev => ({
-          ...prev,
-          otros: [...prev.otros, archivo]
-        }));
-        
-        setNombresDocumentosVenta(prev => ({
-          ...prev,
-          otros: [...prev.otros, archivo.name]
-        }));
-      } else {
-        setDocumentosVenta(prev => ({
-          ...prev,
-          [tipo]: archivo
-        }));
-        
-        setNombresDocumentosVenta(prev => ({
-          ...prev,
-          [tipo]: archivo.name
-        }));
-      }
-    }
-  };
-  
-  // Función para eliminar documento de venta
-  const handleEliminarDocumentoVenta = (tipo, index = null) => {
-    if (tipo === 'otros' && index !== null) {
-      setDocumentosVenta(prev => {
-        const nuevosOtros = [...prev.otros];
-        nuevosOtros.splice(index, 1);
-        return {
-          ...prev,
-          otros: nuevosOtros
-        };
-      });
-      
-      setNombresDocumentosVenta(prev => {
-        const nuevosNombres = [...prev.otros];
-        nuevosNombres.splice(index, 1);
-        return {
-          ...prev,
-          otros: nuevosNombres
-        };
-      });
-    } else {
-      setDocumentosVenta(prev => ({
-        ...prev,
-        [tipo]: null
-      }));
-      
-      setNombresDocumentosVenta(prev => ({
-        ...prev,
-        [tipo]: ""
-      }));
-    }
-  };
-
   // Guardar captación
   const submitForm = async (e) => {
     e.preventDefault();
@@ -979,7 +681,6 @@ export function CrearCaptacion() {
       setIsLoading(false);
     }
   };
-
   // Configurar useFieldArray para manejar los adeudos
   const { 
     fields: adeudosFields, 
@@ -989,7 +690,6 @@ export function CrearCaptacion() {
     control,
     name: "propiedad.adeudos"
   });
-
   // Configurar useFieldArray para manejar las referencias personales
   const { 
     fields: referenciasFields, 
@@ -999,7 +699,6 @@ export function CrearCaptacion() {
     control,
     name: "referencias_personales"
   });
-
   if (!user) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -1028,13 +727,13 @@ export function CrearCaptacion() {
 
           {/* Sistema de Tabs para navegación entre secciones */}
           <Tabs value={activeTab}>
-            <TabsHeader className="mb-6 flex flex-wrap h-auto py-2 gap-1 bg-blue-gray-50">
+            <TabsHeader className="mb-6 flex flex-wrap md:flex-nowrap h-auto md:h-12 py-2 gap-1 bg-blue-gray-50 overflow-x-auto md:overflow-x-auto hide-scrollbar">
               {tabs.map(({ label, value }) => (
                 <Tab
                   key={value}
                   value={value}
                   onClick={() => setActiveTab(value)}
-                  className={`py-2 px-3 rounded-md ${activeTab === value ? "bg-white shadow-sm font-medium" : ""}`}
+                  className={`py-2 px-3 whitespace-nowrap rounded-md transition-all ${activeTab === value ? "bg-white shadow-sm font-medium" : ""}`}
                 >
                   {label}
                 </Tab>
