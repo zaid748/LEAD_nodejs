@@ -106,62 +106,6 @@ export function MisProyectos() {
     }
   }
 
-  // Función para procesar los datos cuando llegan del servidor
-  function procesarYMostrarDatos(data) {
-    const captacionesProcessed = data.captaciones?.map(captacion => {
-      // Construir dirección completa
-      const direccionCompleta = captacion.propiedad?.direccion?.completa || 
-        [
-          captacion.propiedad?.direccion?.calle,
-          captacion.propiedad?.direccion?.colonia,
-          captacion.propiedad?.direccion?.ciudad,
-          captacion.propiedad?.direccion?.estado
-        ].filter(Boolean).join(', ');
-
-      // Intentar obtener nombre del asesor de la mejor manera posible
-      let asesorNombre = "No asignado";
-      if (captacion.captacion?.asesor) {
-        if (typeof captacion.captacion.asesor === 'object' && captacion.captacion.asesor.name) {
-          asesorNombre = captacion.captacion.asesor.name;
-        } else if (typeof captacion.captacion.asesor === 'string') {
-          // Si tenemos solo el ID, intentemos obtener el nombre del objeto global de usuario
-          if (user && user._id === captacion.captacion.asesor) {
-            asesorNombre = user.name || `Usuario actual`;
-          } else {
-            asesorNombre = `Asesor ID: ${captacion.captacion.asesor.substring(0, 6)}`;
-          }
-        }
-      }
-
-      return {
-        _id: captacion._id || `temp-${Math.random()}`,
-        propiedad: {
-          tipo: captacion.propiedad?.tipo || "Casa/Apartamento",
-          direccion: {
-            completa: direccionCompleta,
-            ciudad: captacion.propiedad?.direccion?.ciudad || "No especificado",
-            estado: captacion.propiedad?.direccion?.estado || ""
-          }
-        },
-        propietario: {
-          nombre: captacion.propietario?.nombre || "No especificado",
-          telefono: captacion.propietario?.telefono || "---"
-        },
-        estatus_actual: captacion.estatus_actual || "Pendiente",
-        captacion: {
-          fecha: captacion.captacion?.fecha || new Date().toISOString(),
-          asesor: { 
-            nombre: asesorNombre,
-            id: typeof captacion.captacion?.asesor === 'string' ? captacion.captacion.asesor : null
-          }
-        }
-      };
-    }) || [];
-    
-    setCaptaciones(captacionesProcessed);
-    setTotalPages(data.paginacion?.paginas || 1);
-  }
-
   // Cargar captaciones
   useEffect(() => {
     if (!user) return;
@@ -212,7 +156,7 @@ export function MisProyectos() {
         
         // Procesar captaciones con manejo cuidadoso de datos
         const captacionesProcesadas = data.captaciones.map(captacion => {
-          // Construir dirección completa
+          // Construir dirección completa con verificación segura de propiedades
           const direccionCompleta = captacion.propiedad?.direccion?.completa || 
             [
               captacion.propiedad?.direccion?.calle,
@@ -224,24 +168,61 @@ export function MisProyectos() {
           // Intentar obtener nombre del asesor de la mejor manera posible
           let asesorNombre = "No asignado";
           if (captacion.captacion?.asesor) {
+            
             if (typeof captacion.captacion.asesor === 'object' && captacion.captacion.asesor.name) {
               asesorNombre = captacion.captacion.asesor.name;
             } else if (typeof captacion.captacion.asesor === 'string') {
+        
               // Si tenemos solo el ID, intentemos obtener el nombre del objeto global de usuario
               if (user && user._id === captacion.captacion.asesor) {
-                asesorNombre = user.name || `Usuario actual`;
+                
+                // Construir nombre completo del usuario actual
+                asesorNombre = `${user.prim_nom || ''} ${user.segun_nom || ''} ${user.apell_pa || ''} ${user.apell_ma || ''}`.trim() || `Usuario actual`;
               } else {
+                try {
+                  console.log(captacion.captacion.asesor);
+                  // Hacemos una petición convencional a la API con fetch
+                  fetch(`${import.meta.env.VITE_API_URL}/api/users/${captacion.captacion.asesor}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                      'Accept': 'application/json'
+                    }
+                  })
+                  .then(response => response.json())
+                  .then(userData => {
+                    if (userData) {
+                      // Construir nombre completo usando los campos del modelo de usuario
+                      const nombreCompleto = `${userData.user.prim_nom || ''} ${userData.user.segun_nom || ''} ${userData.user.apell_pa || ''} ${userData.user.apell_ma || ''}`.trim();
+                      
+                      if (nombreCompleto) {
+                        // Actualizar el nombre del asesor en las captaciones
+                        setCaptaciones(prevCaptaciones => 
+                          prevCaptaciones.map(c => 
+                            c._id === captacion._id 
+                              ? {...c, captacion: {...c.captacion, asesor: {...c.captacion.asesor, nombre: nombreCompleto}}}
+                              : c
+                          )
+                        );
+                      }
+                    }
+                  })
+                  .catch(err => console.error("Error al obtener datos del asesor:", err));
+                } catch (error) {
+                  console.error("Error al procesar datos del asesor:", error);
+                }
                 asesorNombre = `Asesor ID: ${captacion.captacion.asesor.substring(0, 6)}`;
               }
             }
           }
 
+          // Crear objeto procesado con verificación cuidadosa para evitar errores de propiedades undefined
           return {
-            _id: captacion._id,
+            _id: captacion._id || `temp-${Math.random()}`,
             propiedad: {
-              tipo: captacion.propiedad?.tipo || "No especificado",
+              tipo: captacion.propiedad?.tipo || "Casa/Apartamento",
               direccion: {
-                completa: direccionCompleta,
+                completa: direccionCompleta || "Sin dirección",
                 ciudad: captacion.propiedad?.direccion?.ciudad || "No especificado",
                 estado: captacion.propiedad?.direccion?.estado || ""
               }

@@ -6,7 +6,7 @@ const {SECRET} = process.env;
 const isAuthenticated = async(req, res, next) => {
     try {
         const authorization = req.cookies.Authorization;
-
+        
         if (!authorization) {
             console.log('No authorization cookie found');
             return res.status(401).json({

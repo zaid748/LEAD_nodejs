@@ -20,7 +20,7 @@ export function Dashboard() {
       <Sidenav
         routes={routes}
         brandImg={
-          sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
+          sidenavType === "dark" ? "/img/leadimagen.jpeg" : "/img/leadimagen.jpeg"
         }
       />
       <div className="p-4 xl:ml-80">
@@ -33,7 +33,7 @@ export function Dashboard() {
           ripple={false}
           onClick={() => setOpenConfigurator(dispatch, true)}
         >
-          <Cog6ToothIcon className="h-5 w-5" />
+          <Cog6ToothIcon className="h-12 w-12" />
         </IconButton>
         <Routes>
           {routes

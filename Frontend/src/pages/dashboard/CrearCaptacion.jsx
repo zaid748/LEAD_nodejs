@@ -1028,13 +1028,13 @@ export function CrearCaptacion() {
 
           {/* Sistema de Tabs para navegación entre secciones */}
           <Tabs value={activeTab}>
-            <TabsHeader className="mb-6">
+            <TabsHeader className="mb-6 flex flex-wrap h-auto py-2 gap-1 bg-blue-gray-50">
               {tabs.map(({ label, value }) => (
                 <Tab
                   key={value}
                   value={value}
                   onClick={() => setActiveTab(value)}
-                  className={activeTab === value ? "font-bold" : ""}
+                  className={`py-2 px-3 rounded-md ${activeTab === value ? "bg-white shadow-sm font-medium" : ""}`}
                 >
                   {label}
                 </Tab>

@@ -127,7 +127,7 @@ export function Sidenav({ brandImg, brandName }) {
         }`}
       >
         <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar src={brandImg} size="sm" />
+          <Avatar src={brandImg} size="ms" />
           <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
@@ -135,17 +135,20 @@ export function Sidenav({ brandImg, brandName }) {
             {brandName}
           </Typography>
         </Link>
-        <IconButton
-          variant="text"
-          color="white"
-          size="sm"
-          ripple={false}
-          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
-          onClick={() => setOpenSidenav(dispatch, false)}
-        >
-          <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
-        </IconButton>
       </div>
+
+      {/* Botón de cierre posicionado absolutamente respecto al aside */}
+      <IconButton
+        variant="text"
+        color="gray"
+        size="sm"
+        ripple={true}
+        className="absolute right-0 top-0 z-50 rounded-none rounded-tr-xl xl:hidden"
+        onClick={() => setOpenSidenav(dispatch, false)}
+      >
+        <XMarkIcon strokeWidth={2} className="h-5 w-5" />
+      </IconButton>
+      
       <div className="m-4">
         {activeLayout?.title && (
           <div className="mx-3.5 mt-4 mb-2">
@@ -198,8 +201,8 @@ export function Sidenav({ brandImg, brandName }) {
 }
 
 Sidenav.defaultProps = {
-  brandImg: "/img/logo-ct.png",
-  brandName: "Material Tailwind React",
+  brandImg: "/img/logo-lead.png",
+  brandName: "LEAD Inmobiliaria",
 };
 
 Sidenav.propTypes = {
