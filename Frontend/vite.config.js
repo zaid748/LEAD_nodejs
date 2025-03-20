@@ -7,9 +7,24 @@ export default defineConfig({
     alias: [{ find: "@", replacement: "/src" }],
   },
   server: {
+    host: '0.0.0.0',
+    port: 5173,
+    watch: {
+      usePolling: true,
+      interval: 1000,
+    },
+    hmr: {
+      overlay: true
+    },
     proxy: {
-      '/api': 'http://localhost:4000',
-      '/CrearNomina': 'http://localhost:4000'
+      '/api': {
+        target: 'http://backend:4000',
+        changeOrigin: true
+      },
+      '/CrearNomina': {
+        target: 'http://backend:4000',
+        changeOrigin: true
+      }
     }
-  },
+  }
 });

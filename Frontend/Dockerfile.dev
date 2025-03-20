@@ -1,0 +1,21 @@
+# Utilizamos una imagen base de Node.js
+FROM node:16
+
+# Establecemos el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Copiamos los archivos de dependencias
+COPY package*.json ./
+
+# Instalamos todas las dependencias, incluyendo las de desarrollo
+RUN npm install
+
+# Copiamos el resto de archivos del proyecto
+COPY . .
+
+# Exponemos el puerto que utilizará React
+EXPOSE 3000
+
+# Modificamos el comando para usar el script de desarrollo correcto
+# Usa el script que sí existe en tu package.json
+CMD ["npm", "run", "dev"] 

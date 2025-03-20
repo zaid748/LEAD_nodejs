@@ -1,0 +1,23 @@
+# Utilizamos una imagen base de Node.js
+FROM node:16
+
+# Establecemos el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Copiamos los archivos de dependencias
+COPY package*.json ./
+
+# Instalamos todas las dependencias, incluyendo las de desarrollo
+RUN npm install -g nodemon
+RUN npm install
+
+# Copiamos el resto de archivos del proyecto
+COPY . .
+
+# Exponemos el puerto que utiliza la aplicación
+EXPOSE 4000
+# Exponemos el puerto para depuración
+EXPOSE 9229
+
+# Comando para iniciar la aplicación en modo desarrollo
+CMD ["nodemon", "--inspect=0.0.0.0:9229", "src/index.js"] 

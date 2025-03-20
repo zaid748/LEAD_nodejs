@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "6206a2bb0c657360714f4116"
+  },
+  "departments": [
+    "Ingenieria en sistemas",
+    "Administrador",
+    "Supervisor de obra",
+    "Coordinador de obro",
+    "Auxiliar de administracion",
+    "Gerente",
+    "Diseñador web",
+    "Captador",
+    "Contratista",
+    "Auxiliar de obra",
+    "Velador"
+  ]
+}]

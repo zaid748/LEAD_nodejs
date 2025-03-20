@@ -1,0 +1,676 @@
+[{
+  "_id": {
+    "$oid": "6214ff3f62021ac0e041db76"
+  },
+  "prim_nom": "Zaid",
+  "segun_nom": "",
+  "apell_pa": "Nevarez",
+  "apell_ma": "Alejo",
+  "fecha_na": "1997-12-06",
+  "pust": "Ingenieria en sistemas",
+  "calle": "viñedo galvan",
+  "nun_ex": "8638",
+  "codigo": "32696",
+  "telefono": "6563124104",
+  "email": "zaidnevarez7@gmail.com",
+  "password": "$2a$10$7Rph1K2dZ5ecXFgGbqCte.bnzUTr/T3zOU2G/SP6uWirQ/ALlmsjq",
+  "createdAt": {
+    "$date": "2022-02-22T15:20:31.913Z"
+  },
+  "updatedAt": {
+    "$date": "2022-02-22T15:20:31.913Z"
+  },
+  "__v": 0,
+  "role": "administrator"
+},
+{
+  "_id": {
+    "$oid": "623e284abd2963cc3f2f48bb"
+  },
+  "prim_nom": "Paty",
+  "segun_nom": "Alejo",
+  "apell_pa": "Alejo",
+  "apell_ma": "Duran",
+  "fecha_na": "2022-01-17",
+  "pust": "Administrativo",
+  "calle": "Vistas Ojo Laguna",
+  "nun_ex": "11",
+  "codigo": "32295",
+  "telefono": "6561698959",
+  "email": "patriciajr02@hotmail.com",
+  "password": "$2a$10$LnaHDCqUzFhkVOZ/KPABDuqwYSpk5W5oFZupBvqin12aSx3QuETcu",
+  "createdAt": {
+    "$date": "2022-03-25T20:38:34.464Z"
+  },
+  "updatedAt": {
+    "$date": "2022-03-25T20:38:34.464Z"
+  },
+  "__v": 0,
+  "role": "administrator"
+},
+{
+  "_id": {
+    "$oid": "62acfd9f121848e206ced153"
+  },
+  "prim_nom": "Laura",
+  "segun_nom": "Elena",
+  "apell_pa": "Alejo",
+  "apell_ma": "Duran",
+  "fecha_na": "1974-10-03",
+  "pust": "Gerente",
+  "calle": "Viñedo Galván",
+  "nun_ex": "8638",
+  "codigo": "32696",
+  "telefono": "6561937182",
+  "email": "lead.a@hotmail.com",
+  "password": "$2a$10$mO2qB3c5ObpuS.dbwhkvAeE.wgR5ZcfyfPDWLJF7QWIU2hMFziB5G",
+  "createdAt": {
+    "$date": "2022-06-17T22:18:07.249Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-17T22:18:07.249Z"
+  },
+  "__v": 0,
+  "role": "administrator"
+},
+{
+  "_id": {
+    "$oid": "65cfd3c43e6386210a8d4838"
+  },
+  "prim_nom": "Elizabeth",
+  "segun_nom": "",
+  "apell_pa": "Alvarado",
+  "apell_ma": "Guerrero",
+  "fecha_na": "1979-12-08",
+  "pust": "Administrativo",
+  "calle": "leonor arias ",
+  "nun_ex": "2846",
+  "codigo": "32575",
+  "telefono": "6565860419",
+  "email": "elizaalvarado228@gmail.com",
+  "password": "$2a$10$ammcR8x.xQsQBOspvpuVue/cvD4YKo0L1XCY/It1HMxWvPi3L3MqK",
+  "createdAt": {
+    "$date": "2024-02-16T21:29:41.104Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-16T21:29:41.104Z"
+  },
+  "__v": 0,
+  "role": "administrator"
+},
+{
+  "_id": {
+    "$oid": "67b8070d28f3bbe8d1570973"
+  },
+  "prim_nom": "EdMdIecl",
+  "segun_nom": "fkdYRWdcJrMkC",
+  "apell_pa": "hJUmPvbgcXigt",
+  "apell_ma": "aLZEmGYDzaLlob",
+  "fecha_na": "2025-02-21",
+  "pust": "Contratista",
+  "calle": "llYyjpzcvRGyFl",
+  "nun_ex": "GcsMLHGfO",
+  "codigo": "QQkAkVKbMMiZQpb",
+  "telefono": "3926309191",
+  "email": "mcfarlandnoa67@gmail.com",
+  "password": "$2a$10$JxHA/d14MB1ibBoUyrxnPe5NGHytX3lrGbatHXjfC3JYBcJSjaSye",
+  "createdAt": {
+    "$date": "2025-02-21T04:54:37.204Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-21T04:54:37.204Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b9073328f3bbe8d1570985"
+  },
+  "prim_nom": "TnlaVvhXzqYwLH",
+  "segun_nom": "jpkLEfEZ",
+  "apell_pa": "JiXUCFjdtT",
+  "apell_ma": "BHRtdbhYooUI",
+  "fecha_na": "2025-02-22",
+  "pust": "Contratista",
+  "calle": "fCeYjSkKg",
+  "nun_ex": "tnAqHmknqPp",
+  "codigo": "VzHuTTDUDGyRBv",
+  "telefono": "8700826753",
+  "email": "mckayfeob43@gmail.com",
+  "password": "$2a$10$SDxUEwq/biv5USULKrw/TeE1H5EDImz4/9FFVdiTt9PBQm3.azapW",
+  "createdAt": {
+    "$date": "2025-02-21T23:07:31.696Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-21T23:07:31.696Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ba51dc28f3bbe8d1570a20"
+  },
+  "prim_nom": "aKrwsxUKvQmlg",
+  "segun_nom": "lgNeGIrWhY",
+  "apell_pa": "abNqklIhuO",
+  "apell_ma": "qzIdHzVFiwz",
+  "fecha_na": "2025-02-23",
+  "pust": "Contratista",
+  "calle": "RwFdSaFcBjzs",
+  "nun_ex": "vVdkQfHtnWj",
+  "codigo": "qswCKdYat",
+  "telefono": "3064905754",
+  "email": "castroshanikya1984@gmail.com",
+  "password": "$2a$10$ZRDzY6T867q8A1rpgY9EguT9pgwUcWiN.XXQYG99AHPLxpkhKxkLe",
+  "createdAt": {
+    "$date": "2025-02-22T22:38:20.814Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-22T22:38:20.814Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bc42cc28f3bbe8d1570a3f"
+  },
+  "prim_nom": "XTcjAcnVJcc",
+  "segun_nom": "WuhDGKuv",
+  "apell_pa": "epKHQigXAKaTIVf",
+  "apell_ma": "SCFrnDZHU",
+  "fecha_na": "2025-02-24",
+  "pust": "Contratista",
+  "calle": "bEXcakUPj",
+  "nun_ex": "rOSZZMYOn",
+  "codigo": "OxBohJPznfT",
+  "telefono": "7287057828",
+  "email": "fablejade62io@gmail.com",
+  "password": "$2a$10$r1Akcl1IEBmaxgh7vsVfzu3JYxv2Rkkl1W4XKthj.hUpDpi5Yjbl6",
+  "createdAt": {
+    "$date": "2025-02-24T09:58:36.690Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-24T09:58:36.690Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bd9c8928f3bbe8d1570a59"
+  },
+  "prim_nom": "eNLzPfytILTtM",
+  "segun_nom": "JcoobYwIzVKmlOH",
+  "apell_pa": "oxKIHfAhIKl",
+  "apell_ma": "sWNyYipyBBJKW",
+  "fecha_na": "2025-02-25",
+  "pust": "Contratista",
+  "calle": "cxYekVpEAMES",
+  "nun_ex": "XKofOUYhmNol",
+  "codigo": "FgGKwghnduAt",
+  "telefono": "6033303442",
+  "email": "borealaeiris4@gmail.com",
+  "password": "$2a$10$izQ.QDM3ySQ.PSyq8A74juMd/35GMIvL9GJteNlMA862bXmQqbYCO",
+  "createdAt": {
+    "$date": "2025-02-25T10:33:45.455Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T10:33:45.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bf01f628f3bbe8d1570ad6"
+  },
+  "prim_nom": "qGGRRAXigTPOC",
+  "segun_nom": "JfBIewkNksAQQ",
+  "apell_pa": "FDMnjHAMumqi",
+  "apell_ma": "ztugZcixaA",
+  "fecha_na": "2025-02-26",
+  "pust": "Contratista",
+  "calle": "ZzoQiNZka",
+  "nun_ex": "hwYAbnlwyK",
+  "codigo": "qaFZlpQhb",
+  "telefono": "2342531422",
+  "email": "huffmankat31@gmail.com",
+  "password": "$2a$10$qpip/1E7aJV1iiNtL90CUOO1dJZyOXV4S1RInHNVcBBtRPo/FK6lK",
+  "createdAt": {
+    "$date": "2025-02-26T11:58:46.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-26T11:58:46.567Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c034f428f3bbe8d1570af6"
+  },
+  "prim_nom": "BCNVRtOvqEFddA",
+  "segun_nom": "XNoCqtznOFLgvg",
+  "apell_pa": "xxaaejLi",
+  "apell_ma": "bAcEoIbPEFz",
+  "fecha_na": "2025-02-27",
+  "pust": "Contratista",
+  "calle": "LuqPnfDATll",
+  "nun_ex": "iwriqpJNyWnVbTH",
+  "codigo": "GywefoisrZJWdL",
+  "telefono": "2405383409",
+  "email": "mimodonne40@gmail.com",
+  "password": "$2a$10$Y3sP4OKUUt2MdMyygEaSTeL4V9F8GUhx756eDesjWU6S4xiRvltcW",
+  "createdAt": {
+    "$date": "2025-02-27T09:48:36.710Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-27T09:48:36.710Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c1760c28f3bbe8d1570b11"
+  },
+  "prim_nom": "IbptBQcR",
+  "segun_nom": "xcMauFAJl",
+  "apell_pa": "vFcZSESnXPmMY",
+  "apell_ma": "VJnbKptXpfjEQ",
+  "fecha_na": "2025-02-28",
+  "pust": "Contratista",
+  "calle": "KzGVeQnUE",
+  "nun_ex": "gAxeFcwlpWhux",
+  "codigo": "cVyKtTDKy",
+  "telefono": "9508023591",
+  "email": "espadis2002@gmail.com",
+  "password": "$2a$10$CgtwfwmcRDbuEA1guJrY/OGI3tpfiVImbgFW7KaF9Welq8ji3LdOS",
+  "createdAt": {
+    "$date": "2025-02-28T08:38:36.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-28T08:38:36.201Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c276c528f3bbe8d1570d1e"
+  },
+  "prim_nom": "Iekwvsnwmemu",
+  "segun_nom": "jWlOZnBrUUuExZW",
+  "apell_pa": "SEllPkYGMsdiqr",
+  "apell_ma": "mAiqHflYv",
+  "fecha_na": "2025-03-01",
+  "pust": "Contratista",
+  "calle": "htoOpAaI",
+  "nun_ex": "jkcHIUSllGDwYRD",
+  "codigo": "brczhOtyNhAn",
+  "telefono": "8520323261",
+  "email": "tobiaspowersyw@gmail.com",
+  "password": "$2a$10$knk2Plbxp9xwtZ3mIB3OFebvoLsakn/QUbR7lrh24efv3m/Z7ALWe",
+  "createdAt": {
+    "$date": "2025-03-01T02:53:57.245Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-01T02:53:57.245Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c371ae28f3bbe8d1570d2f"
+  },
+  "prim_nom": "ozekaMDMFAVsu",
+  "segun_nom": "rmLeEaSTxdmVwI",
+  "apell_pa": "LyGdRdeQLoOk",
+  "apell_ma": "QanGVxolAUF",
+  "fecha_na": "2025-03-01",
+  "pust": "Velador",
+  "calle": "cpvsFUxS",
+  "nun_ex": "nwtAjXIUYeSH",
+  "codigo": "labGepDkqSOm",
+  "telefono": "4447745438",
+  "email": "klevlozano1987@gmail.com",
+  "password": "$2a$10$.XNMWN/JvNztGScPx27QjO02nHuRnWBV9mVOpGP44zGKRmr7DtFF6",
+  "createdAt": {
+    "$date": "2025-03-01T20:44:30.736Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-01T20:44:30.736Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c4721028f3bbe8d1570d3d"
+  },
+  "prim_nom": "iALHdYIajsXhz",
+  "segun_nom": "OgDnbJym",
+  "apell_pa": "cBdRkCZdEa",
+  "apell_ma": "PdzCBLjReKxY",
+  "fecha_na": "2025-03-02",
+  "pust": "Velador",
+  "calle": "ArgrTquyqDqLn",
+  "nun_ex": "mNfiiczKlF",
+  "codigo": "KBiQQvEYeZzPN",
+  "telefono": "2523580696",
+  "email": "terrymeritck1980@gmail.com",
+  "password": "$2a$10$2E1l96g5e35jGL3iel98m.Zfgsu9jClDv.UqlZyb7jUlxiYqHsQzm",
+  "createdAt": {
+    "$date": "2025-03-02T14:58:24.944Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-02T14:58:24.944Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c5544a28f3bbe8d1570d4c"
+  },
+  "prim_nom": "jEXyzyaB",
+  "segun_nom": "GOFjPzhz",
+  "apell_pa": "vDmXABarcF",
+  "apell_ma": "AsAyqfpc",
+  "fecha_na": "2025-03-03",
+  "pust": "Velador",
+  "calle": "FueLMPRamOhmiMb",
+  "nun_ex": "JnzoTeporRxw",
+  "codigo": "MbOSqfpyXUA",
+  "telefono": "7047807640",
+  "email": "betspetgu17@gmail.com",
+  "password": "$2a$10$FBgoq0GJ9HyyE8N1OcPrI.W3P8PWS.bicPjNuLEwQA.9TbTxpwMa.",
+  "createdAt": {
+    "$date": "2025-03-03T07:03:38.166Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-03T07:03:38.166Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c6ac6828f3bbe8d1570d79"
+  },
+  "prim_nom": "xqMQJSkPKtUxKqE",
+  "segun_nom": "FdVYeMFUvsqOIey",
+  "apell_pa": "NUQOVrumJSjLttg",
+  "apell_ma": "xQjdrciiY",
+  "fecha_na": "2025-03-04",
+  "pust": "Velador",
+  "calle": "OjEbVPRQrud",
+  "nun_ex": "PaReduRzEUAI",
+  "codigo": "ClJNEDuBYp",
+  "telefono": "5411261238",
+  "email": "djerriparrishf1982@gmail.com",
+  "password": "$2a$10$SUsjz/ceHF7a9lDtwJhj4ueU.co15CPQzh8u1eGih1P/j623sHpWO",
+  "createdAt": {
+    "$date": "2025-03-04T07:31:52.147Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-04T07:31:52.147Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c80f4828f3bbe8d1570d93"
+  },
+  "prim_nom": "zncgmGbjgraxvMp",
+  "segun_nom": "ySJNrHEQ",
+  "apell_pa": "XCGepcmrhvrBw",
+  "apell_ma": "CDYTTqduB",
+  "fecha_na": "2025-03-05",
+  "pust": "Velador",
+  "calle": "BHzHengwTGnwuL",
+  "nun_ex": "DEzzDxjDV",
+  "codigo": "ZrVsWrEi",
+  "telefono": "8279959893",
+  "email": "resparzae53@gmail.com",
+  "password": "$2a$10$.qMsZXedF.RNuk.TfJs5IeQMOgvOIJc.OVvQgFhnLq39rikIq4ZVC",
+  "createdAt": {
+    "$date": "2025-03-05T08:46:01.116Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-05T08:46:01.116Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c98c4e28f3bbe8d1570dbe"
+  },
+  "prim_nom": "fTzVpoyCzklo",
+  "segun_nom": "tZWvNCnFE",
+  "apell_pa": "ujmWqWkwCo",
+  "apell_ma": "cSKVfHQiAWYt",
+  "fecha_na": "2025-03-06",
+  "pust": "Velador",
+  "calle": "jcmkdZWKCzR",
+  "nun_ex": "GkmAKdVDJmWokIT",
+  "codigo": "AbWyTPtSMSLiIKo",
+  "telefono": "8914332846",
+  "email": "arobersonyp2002@gmail.com",
+  "password": "$2a$10$W7CJag/IRNBbLgwFogCLjuim.tCSMvl8hmFZqz5edUjBFlj38Hne.",
+  "createdAt": {
+    "$date": "2025-03-06T11:51:42.758Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-06T11:51:42.758Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cb7f9f28f3bbe8d1570e72"
+  },
+  "prim_nom": "OzzeAgjT",
+  "segun_nom": "pBqISuVBqowxO",
+  "apell_pa": "HUielcMGBzeGv",
+  "apell_ma": "LDTTaTpu",
+  "fecha_na": "2025-03-08",
+  "pust": "Velador",
+  "calle": "WJWpyLctkkbM",
+  "nun_ex": "TAIWZNiaEuR",
+  "codigo": "qrhYqKMphsQLj",
+  "telefono": "8816001701",
+  "email": "asparksr47@gmail.com",
+  "password": "$2a$10$ZtvlmnFWJx.FTGpcer4E2OYS/Fy5boOy87QMPnKTjmqt2TVS8XOhK",
+  "createdAt": {
+    "$date": "2025-03-07T23:22:07.921Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-07T23:22:07.921Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cc3bf428f3bbe8d1570fbd"
+  },
+  "prim_nom": "eZTnjxbqYYNK",
+  "segun_nom": "SRTJZBwwNL",
+  "apell_pa": "bqrxrgshfsSFz",
+  "apell_ma": "TKiRSufd",
+  "fecha_na": "2025-03-08",
+  "pust": "Velador",
+  "calle": "EBdzqtODJVeb",
+  "nun_ex": "VOKljiMjNIXISXb",
+  "codigo": "MEAjuKCF",
+  "telefono": "6795332434",
+  "email": "djadincje@gmail.com",
+  "password": "$2a$10$yBhXDXougw6ipKjPJ.51A.gRPQF0mFiyKqwihQpjeS49rciQ.jSse",
+  "createdAt": {
+    "$date": "2025-03-08T12:45:40.670Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-08T12:45:40.670Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cd6fdf28f3bbe8d1570fc8"
+  },
+  "prim_nom": "Jimmyfub",
+  "segun_nom": "GIAC",
+  "apell_pa": "JimmyfubOZ",
+  "apell_ma": "JimmyfubOZ",
+  "fecha_na": "1984-04-07",
+  "pust": "Gerente",
+  "calle": "Vincennes",
+  "nun_ex": "Jimmyfub",
+  "codigo": "84213695491",
+  "telefono": "84465421372",
+  "email": "hollin.gsworthwalkley@gmail.com ",
+  "password": "$2a$10$BttfygopyVxHOWpNZQQmxOTPc7OE01ZcZVl7yujzxyKeFaK66PCn6",
+  "createdAt": {
+    "$date": "2025-03-09T10:39:27.195Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-09T10:39:27.195Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67cd761328f3bbe8d1570fd1"
+  },
+  "prim_nom": "OrwJYsBh",
+  "segun_nom": "cmXorzAcWwDrUDI",
+  "apell_pa": "KEMZMxLnTQiud",
+  "apell_ma": "mUKOHPCILp",
+  "fecha_na": "2025-03-09",
+  "pust": "Velador",
+  "calle": "YQXBnhGkGPIU",
+  "nun_ex": "JCFYhlkUcTc",
+  "codigo": "kDxjxrKfxjvt",
+  "telefono": "2159702567",
+  "email": "konnilambs1983@gmail.com",
+  "password": "$2a$10$BEX/Aktxm7P2z3YI4ehVQuJxLT7joLAKhmohArAoZyoR18EBOh536",
+  "createdAt": {
+    "$date": "2025-03-09T11:05:55.173Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-09T11:05:55.173Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ce743a28f3bbe8d1570fe3"
+  },
+  "prim_nom": "Karla",
+  "segun_nom": "Lizbeth ",
+  "apell_pa": "Saldivar",
+  "apell_ma": "Gámez ",
+  "fecha_na": "2002-08-09",
+  "pust": "Auxiliar de administracion",
+  "calle": "M. Riva Palacio ",
+  "nun_ex": "2032",
+  "codigo": "32380",
+  "telefono": "6563629558",
+  "email": "saldivarkarla9@gmail.com",
+  "password": "$2a$10$PAjy3J3K03Og7kKY7nzGbONa9nYG960sbnE8Cggf3D92ePE5VyrC.",
+  "createdAt": {
+    "$date": "2025-03-10T05:10:18.280Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T05:10:18.280Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d20d7d28f3bbe8d1571043"
+  },
+  "prim_nom": "TBbLOzrndrph",
+  "segun_nom": "PNyiRyemmyfOtuA",
+  "apell_pa": "wSaJUBANm",
+  "apell_ma": "HOVIzSVHFBhe",
+  "fecha_na": "2025-03-13",
+  "pust": "Velador",
+  "calle": "cdjZpBcT",
+  "nun_ex": "FaqaZHwOzJI",
+  "codigo": "vPTwzYgXpK",
+  "telefono": "7160373873",
+  "email": "ebadpouruing@yahoo.com",
+  "password": "$2a$10$eCFNtfUmOW3d1XXZgQzSIuH6AruJtInXT/E9IJ3/q5gRn3KZEGZEi",
+  "createdAt": {
+    "$date": "2025-03-12T22:41:01.361Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-12T22:41:01.361Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d3c55a28f3bbe8d1571069"
+  },
+  "prim_nom": "IWBYCoBgyqQz",
+  "segun_nom": "ZdtJOYQdQo",
+  "apell_pa": "PYXSTVfeZ",
+  "apell_ma": "UouJClUmZAMYhy",
+  "fecha_na": "2025-03-14",
+  "pust": "Velador",
+  "calle": "LCvEypbb",
+  "nun_ex": "IrzAKpumdxi",
+  "codigo": "xklAwjyNVTDOa",
+  "telefono": "6443496027",
+  "email": "tirrellav5@gmail.com",
+  "password": "$2a$10$x3Qsl1b1mxt.j8bfKMepbOTuYGUa5xA95DZt.SwBJacpeu0pX9s0i",
+  "createdAt": {
+    "$date": "2025-03-14T05:57:46.303Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-14T05:57:46.303Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d6eebb28f3bbe8d157122b"
+  },
+  "prim_nom": "ROHShAZt",
+  "segun_nom": "YqHyPrAte",
+  "apell_pa": "iTsbgZpNuNQ",
+  "apell_ma": "OxjyVsqQrwvZ",
+  "fecha_na": "2025-03-16",
+  "pust": "Velador",
+  "calle": "CefenzkHdHgS",
+  "nun_ex": "YUtgWrxNQat",
+  "codigo": "ZxZistjaJmf",
+  "telefono": "5735954304",
+  "email": "freynikolasv@gmail.com",
+  "password": "$2a$10$mERFQauR6RB.OZd35EV7venw81mA.PtvufN6tlaqwAZFCRbIalBrK",
+  "createdAt": {
+    "$date": "2025-03-16T15:31:08.098Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-16T15:31:08.098Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d7d9ec28f3bbe8d1571254"
+  },
+  "prim_nom": "ZFjbFtzK",
+  "segun_nom": "POPdvcIarjjX",
+  "apell_pa": "QbSZOiiG",
+  "apell_ma": "htjGIEvrtOT",
+  "fecha_na": "2025-03-17",
+  "pust": "Velador",
+  "calle": "HsZwnJwHMLcGxm",
+  "nun_ex": "MYPflrsvgU",
+  "codigo": "QIsdzTknBLCotmh",
+  "telefono": "8151880484",
+  "email": "sevardhicksuk2004@gmail.com",
+  "password": "$2a$10$gSS/A38MmXGGNN6pqVCxNeLkW06Ja1fVLqp9g9XA2TYM4BJ28/JvK",
+  "createdAt": {
+    "$date": "2025-03-17T08:14:36.270Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-17T08:14:36.270Z"
+  },
+  "__v": 0
+}]

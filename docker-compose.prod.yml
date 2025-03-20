@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod  # Usaremos un Dockerfile específico para producción
+    container_name: lead-backend-prod
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongodb:27017/lead-db-prod
+    depends_on:
+      - mongodb
+    networks:
+      - lead-network-prod
+
+  mongodb:
+    image: mongo:latest
+    container_name: lead-mongodb-prod
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data_prod:/data/db
+      - .:/dump
+    environment:
+      - MONGODB_INITDB_DATABASE=lead-db-prod
+    command: >
+      bash -c "mongod --bind_ip_all --fork --logpath /var/log/mongodb.log && 
+      sleep 5 && 
+      cd /dump &&
+      echo 'Importando colecciones...' &&
+      mongoimport --db lead-db-prod --collection notes --file myFirstDatabase.notes.json --jsonArray &&
+      mongoimport --db lead-db-prod --collection roles --file myFirstDatabase.roles.json --jsonArray &&
+      mongoimport --db lead-db-prod --collection users --file myFirstDatabase.users.json --jsonArray &&
+      mongoimport --db lead-db-prod --collection departamentos --file myFirstDatabase.departamentos.json --jsonArray &&
+      mongoimport --db lead-db-prod --collection casainventarios --file myFirstDatabase.casainventarios.json --jsonArray &&
+      mongoimport --db lead-db-prod --collection empleados --file myFirstDatabase.empleados.json --jsonArray &&
+      mongoimport --db lead-db-prod --collection nominas --file myFirstDatabase.nominas.json --jsonArray &&
+      tail -f /dev/null"
+    networks:
+      - lead-network-prod
+
+networks:
+  lead-network-prod:
+    driver: bridge
+
+volumes:
+  mongodb_data_prod: 

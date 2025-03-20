@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: lead-backend-dev
+    restart: always
+    ports:
+      - "4000:4000"
+      - "9229:9229"  # Puerto para depuración de Node.js
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongodb:27017/lead-db-prueba
+    command: nodemon --legacy-watch src/index.js
+    depends_on:
+      - mongodb
+    networks:
+      - lead-network-dev
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile.dev
+    container_name: lead-frontend-dev
+    restart: always
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/usr/src/app:delegated
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://localhost:4000
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - backend
+    networks:
+      - lead-network-dev
+
+  mongodb:
+    image: mongo:latest
+    container_name: lead-mongodb-dev
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data_dev:/data/db
+      - .:/dump
+    environment:
+      - MONGODB_INITDB_DATABASE=lead-db-prueba
+    command: >
+      bash -c "mongod --bind_ip_all --fork --logpath /var/log/mongodb.log && 
+      sleep 5 && 
+      cd /dump &&
+      echo 'Importando colecciones...' &&
+      mongoimport --db lead-db-prueba --collection notes --file myFirstDatabase.notes.json --jsonArray &&
+      mongoimport --db lead-db-prueba --collection roles --file myFirstDatabase.roles.json --jsonArray &&
+      mongoimport --db lead-db-prueba --collection users --file myFirstDatabase.users.json --jsonArray &&
+      mongoimport --db lead-db-prueba --collection departamentos --file myFirstDatabase.departamentos.json --jsonArray &&
+      mongoimport --db lead-db-prueba --collection casainventarios --file myFirstDatabase.casainventarios.json --jsonArray &&
+      mongoimport --db lead-db-prueba --collection empleados --file myFirstDatabase.empleados.json --jsonArray &&
+      mongoimport --db lead-db-prueba --collection nominas --file myFirstDatabase.nominas.json --jsonArray &&
+      tail -f /dev/null"
+    networks:
+      - lead-network-dev
+
+networks:
+  lead-network-dev:
+    driver: bridge
+
+volumes:
+  mongodb_data_dev: 

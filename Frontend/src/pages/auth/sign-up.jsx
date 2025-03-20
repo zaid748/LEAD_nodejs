@@ -162,6 +162,7 @@ export function SignUp({ dashboard = false }) {
     if (empleadoId && useExistingEmployee) {
       try {
         const response = await axios.get(`/api/empleados-api/${empleadoId}`);
+        
         if (response.data && response.data.success) {
           const empleado = response.data.empleado;
           

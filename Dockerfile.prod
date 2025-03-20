@@ -1,0 +1,18 @@
+FROM node:16
+
+WORKDIR /usr/src/app
+
+# Copiamos los archivos de dependencias
+COPY package*.json ./
+
+# Instalamos solo las dependencias de producción
+RUN npm ci --only=production
+
+# Copiamos el resto de archivos del proyecto
+COPY . .
+
+# Exponemos el puerto que utiliza la aplicación
+EXPOSE 4000
+
+# Comando para iniciar la aplicación en modo producción
+CMD ["npm", "start"] 
