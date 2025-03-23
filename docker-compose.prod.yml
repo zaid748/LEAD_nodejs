@@ -8,7 +8,7 @@ services:
     container_name: lead-backend-prod
     restart: always
     ports:
-      - "localhost:4000:4000"
+      - "http://localhost:4000:4000"
     environment:
       - NODE_ENV=production
       - PORT=4000
@@ -23,7 +23,7 @@ services:
     container_name: lead-mongodb-prod
     restart: always
     ports:
-      - "localhost:27018:27017"
+      - "http://localhost:27018:27017"
     volumes:
       - mongodb_data_prod:/data/db
       - .:/dump
