@@ -8,7 +8,7 @@ services:
     container_name: lead-backend-prod
     restart: always
     ports:
-      - "127.0.0.1:4000:4000"
+      - "127.0.0.1:14000:4000"
     environment:
       - NODE_ENV=production
       - PORT=4000
