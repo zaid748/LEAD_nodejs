@@ -13,6 +13,8 @@ services:
       - NODE_ENV=production
       - PORT=4000
       - MONGODB_URI=mongodb://mongodb:27017/lead-db-prod
+    volumes:
+      - ./Frontend/dist:/usr/src/app/Frontend/dist
     depends_on:
       - mongodb
     networks:

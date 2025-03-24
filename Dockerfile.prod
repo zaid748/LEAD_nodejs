@@ -5,21 +5,11 @@ WORKDIR /usr/src/app
 # Copiamos los archivos de dependencias
 COPY package*.json ./
 
-# Instalamos todas las dependencias (incluidas las de desarrollo)
-RUN npm install
+# Instalamos solo las dependencias de producción
+RUN npm install --production
 
 # Copiamos el resto de archivos del proyecto
 COPY . .
-
-# Verificamos si existe el directorio Frontend y entramos a construirlo
-RUN if [ -d "Frontend" ]; then \
-    cd Frontend && \
-    npm install && \
-    npm run build && \
-    cd ..; \
-    else \
-    echo "Directorio Frontend no encontrado"; \
-    fi
 
 # Creamos el directorio Frontend/dist si no existe para evitar errores
 RUN mkdir -p Frontend/dist
