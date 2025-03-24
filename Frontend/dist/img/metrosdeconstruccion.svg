@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.576" height="28.576" viewBox="0 0 28.576 28.576">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#5f784b"/>
+      <stop offset="0.569" stop-color="#5f784b"/>
+      <stop offset="1" stop-color="#102400"/>
+    </linearGradient>
+  </defs>
+  <g id="metrosdeconstruccion" transform="translate(-1.424 -2)">
+    <path id="Path_32" data-name="Path 32" d="M8.488,20.512,5,24,1.512,20.512A.3.3,0,0,1,1.724,20H4V6H1.724a.3.3,0,0,1-.212-.512L5,2,8.488,5.488A.3.3,0,0,1,8.276,6H6V20H8.276A.3.3,0,0,1,8.488,20.512ZM26,13.116V20H21.5V14.5A.5.5,0,0,0,21,14H17a.5.5,0,0,0-.5.5V20H12V13.116l7-4.2Z" fill="url(#linear-gradient)"/>
+    <path id="Path_33" data-name="Path 33" d="M27.49,12.26,19,7.166l-8.485,5.091a1,1,0,0,1-1.029-1.715l9-5.4a1,1,0,0,1,1.029,0l9.005,5.4a1,1,0,1,1-1.03,1.715Zm-.978,11.252L30,27l-3.488,3.488A.3.3,0,0,1,26,30.276V28H12v2.276a.3.3,0,0,1-.512.212L8,27l3.488-3.488a.3.3,0,0,1,.512.212V26H26V23.724A.3.3,0,0,1,26.512,23.512Z" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
