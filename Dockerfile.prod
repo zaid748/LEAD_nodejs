@@ -11,6 +11,19 @@ RUN npm install
 # Copiamos el resto de archivos del proyecto
 COPY . .
 
+# Verificamos si existe el directorio Frontend y entramos a construirlo
+RUN if [ -d "Frontend" ]; then \
+    cd Frontend && \
+    npm install && \
+    npm run build && \
+    cd ..; \
+    else \
+    echo "Directorio Frontend no encontrado"; \
+    fi
+
+# Creamos el directorio Frontend/dist si no existe para evitar errores
+RUN mkdir -p Frontend/dist
+
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 4000
 
