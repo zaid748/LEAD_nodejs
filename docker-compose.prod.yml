@@ -7,27 +7,14 @@ services:
       dockerfile: Dockerfile.prod
     container_name: lead-backend-prod
     restart: always
-    expose:
-      - "4000"
+    ports:
+      - "127.0.0.1:4000:4000"
     environment:
       - NODE_ENV=production
       - PORT=4000
       - MONGODB_URI=mongodb://mongodb:27017/lead-db-prod
     depends_on:
       - mongodb
-    networks:
-      - lead-network-prod
-
-  nginx:
-    image: nginx:latest
-    container_name: lead-nginx-prod
-    restart: always
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - backend
     networks:
       - lead-network-prod
 
