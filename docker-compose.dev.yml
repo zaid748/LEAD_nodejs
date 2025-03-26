@@ -17,6 +17,9 @@ services:
       - NODE_ENV=development
       - PORT=4000
       - MONGODB_URI=mongodb://mongodb:27017/lead-db-prueba
+    user: "node"
+    security_opt:
+      - no-new-privileges:true
     command: nodemon --legacy-watch src/index.js
     depends_on:
       - mongodb
@@ -54,19 +57,7 @@ services:
       - .:/dump
     environment:
       - MONGODB_INITDB_DATABASE=lead-db-prueba
-    command: >
-      bash -c "mongod --bind_ip_all --fork --logpath /var/log/mongodb.log && 
-      sleep 5 && 
-      cd /dump &&
-      echo 'Importando colecciones...' &&
-      mongoimport --db lead-db-prueba --collection notes --file myFirstDatabase.notes.json --jsonArray &&
-      mongoimport --db lead-db-prueba --collection roles --file myFirstDatabase.roles.json --jsonArray &&
-      mongoimport --db lead-db-prueba --collection users --file myFirstDatabase.users.json --jsonArray &&
-      mongoimport --db lead-db-prueba --collection departamentos --file myFirstDatabase.departamentos.json --jsonArray &&
-      mongoimport --db lead-db-prueba --collection casainventarios --file myFirstDatabase.casainventarios.json --jsonArray &&
-      mongoimport --db lead-db-prueba --collection empleados --file myFirstDatabase.empleados.json --jsonArray &&
-      mongoimport --db lead-db-prueba --collection nominas --file myFirstDatabase.nominas.json --jsonArray &&
-      tail -f /dev/null"
+    command: mongod --bind_ip_all
     networks:
       - lead-network-dev
 

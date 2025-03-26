@@ -144,20 +144,6 @@ export function ProfileUsers() {
                 </Typography>
               </div>
             </div>
-            <div className="w-96">
-              <Tabs value="perfil">
-                <TabsHeader>
-                  <Tab value="perfil">
-                    <UserCircleIcon className="-mt-1 mr-2 inline-block h-5 w-5" />
-                    Perfil
-                  </Tab>
-                  <Tab value="contacto">
-                    <PhoneIcon className="-mt-0.5 mr-2 inline-block h-5 w-5" />
-                    Contacto
-                  </Tab>
-                </TabsHeader>
-              </Tabs>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-12 px-4 md:grid-cols-2">

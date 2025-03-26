@@ -111,7 +111,10 @@ export function SignIn() {
             </Typography>
           )}
         </div>
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-3/4" onSubmit={(e) => e.preventDefault()}>
+        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-3/4" onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}>
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
               Your email
@@ -136,27 +139,16 @@ export function SignIn() {
               className="bg-white !border-t-blue-gray-200 focus:!border-t-gray-900"
               value={formData.password}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleLogin();
+                }
+              }}
               required
             />
           </div>
-          <Checkbox
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center justify-start font-medium"
-              >
-                I agree the&nbsp;
-                <a
-                  href="#"
-                  className="font-normal text-black transition-colors hover:text-gray-900 underline"
-                >
-                  Terms and Conditions
-                </a>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-          />
+          
           <Button 
             onClick={handleLogin} 
             className="mt-6" 
@@ -165,10 +157,6 @@ export function SignIn() {
             Sign In
           </Button>
 
-          <Typography variant="paragraph" className="text-center text-blue-gray-500 font-medium mt-4">
-            Not registered?
-            <Link to="/auth/sign-up" className="text-gray-900 ml-1">Create account</Link>
-          </Typography>
         </form>
       </div>
     </section>

@@ -212,7 +212,7 @@ export function EditarEmpleado() {
       setSuccess(true);
       // Esperar un momento para mostrar el mensaje de éxito antes de redirigir
       setTimeout(() => {
-        navigate(`/dashboard/empleados/profile/${empleadoId}`);
+        navigate(`/dashboard/empleado-profile/${empleadoId}`);
       }, 1500);
     } catch (error) {
       console.error("Error al actualizar empleado:", error);
