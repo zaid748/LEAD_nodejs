@@ -1,12 +1,16 @@
-FROM node:16
+FROM node:20-bullseye
 
 WORKDIR /usr/src/app
 
 # Copiamos los archivos de dependencias
 COPY package*.json ./
 
-# Instalamos solo las dependencias de producción
-RUN npm ci --only=production
+# Instalamos dependencias con configuraciones de seguridad
+RUN npm install -g npm@latest && \
+    npm ci --only=production --no-audit && \
+    npm install ws@8.17.1 --save && \
+    npm install multer@1.4.4-lts.1 --save && \
+    npm audit fix --only=prod || true
 
 # Copiamos el resto de archivos del proyecto
 COPY . .

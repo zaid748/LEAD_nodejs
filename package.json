@@ -34,7 +34,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pdfkit": "^0.13.0",
-    "puppeteer": "^21.0.0"
+    "puppeteer": "^21.0.0",
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
@@ -44,6 +45,7 @@
     "dotenv": "^16.0.0",
     "handlebars": "^4.5.3",
     "nodemon": "^2.0.15",
-    "npm-check-updates": "^12.2.1"
+    "npm-check-updates": "^12.2.1",
+    "vite": "^5.0.12"
   }
 }
