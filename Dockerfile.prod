@@ -15,6 +15,9 @@ RUN npm install -g npm@latest && \
 # Copiamos el resto de archivos del proyecto
 COPY . .
 
+# Creamos el directorio Frontend/dist si no existe para evitar errores
+RUN mkdir -p Frontend/dist
+
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 4000
 

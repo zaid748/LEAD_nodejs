@@ -4,15 +4,17 @@ services:
   backend:
     build: 
       context: .
-      dockerfile: Dockerfile.prod  # Usaremos un Dockerfile específico para producción
+      dockerfile: Dockerfile.prod
     container_name: lead-backend-prod
     restart: always
     ports:
-      - "4000:4000"
+      - "127.0.0.1:14000:4000"
     environment:
       - NODE_ENV=production
       - PORT=4000
       - MONGODB_URI=mongodb://mongodb:27017/lead-db-prod
+    volumes:
+      - ./Frontend/dist:/usr/src/app/Frontend/dist
     depends_on:
       - mongodb
     networks:
@@ -23,7 +25,7 @@ services:
     container_name: lead-mongodb-prod
     restart: always
     ports:
-      - "27018:27017"
+      - "127.0.0.1:27018:27017"
     volumes:
       - mongodb_data_prod:/data/db
       - .:/dump
@@ -50,4 +52,4 @@ networks:
     driver: bridge
 
 volumes:
-  mongodb_data_prod: 
+  mongodb_data_prod:
