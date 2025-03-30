@@ -14,6 +14,11 @@ services:
       - PORT=4000
       - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prod?authSource=admin
       - ALLOWED_ORIGINS=https://tudominio.com
+      - BUCKET_NAME=lead-spaces
+      - AWS_ACCESS_KEY_ID=R26X7JJS3B7PTESEAUKG
+      - AWS_SECRET_ACCESS_KEY=poW5uZHFYxxcfkmvOEcHrDwsciUErYHyyejsBfsx+mI
+      - S3_ENDPOINT=sfo3.digitaloceanspaces.com
+      - USE_S3=true
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
     user: "node"
