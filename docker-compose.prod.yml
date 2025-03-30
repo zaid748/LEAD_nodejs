@@ -38,17 +38,6 @@ services:
       timeout: 10s
       retries: 3
 
-  frontend-build:
-    build:
-      context: ./Frontend
-      dockerfile: Dockerfile.prod
-    container_name: lead-frontend-build-prod
-    volumes:
-      - ./Frontend/dist:/usr/src/app/dist
-    command: sh -c "npm install && npm run build && cp -r dist/* /usr/src/app/dist/ && chown -R 1000:1000 /usr/src/app/dist/"
-    networks:
-      - lead-network-prod
-
   mongodb:
     image: mongo:latest
     container_name: lead-mongodb-prod
