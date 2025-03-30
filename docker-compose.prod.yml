@@ -15,7 +15,7 @@ services:
       - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prod?authSource=admin
       - ALLOWED_ORIGINS=https://tudominio.com
     volumes:
-      - ./Frontend/dist:/usr/src/app/Frontend/dist
+      - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
     user: "node"
     security_opt:
       - no-new-privileges:true
@@ -57,7 +57,7 @@ services:
       - "127.0.0.1:27018:27017"
     volumes:
       - mongodb_data_prod:/data/db
-      - .:/dump
+      - .:/dump:ro
     environment:
       - MONGODB_INITDB_DATABASE=lead-db-prod
       - MONGODB_INITDB_ROOT_USERNAME=admin_lead
@@ -71,6 +71,11 @@ services:
       - lead-network-prod
     security_opt:
       - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   lead-network-prod:
