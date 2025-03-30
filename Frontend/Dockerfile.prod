@@ -17,9 +17,9 @@ ENV NPM_CONFIG_PREFIX=/usr/src/app/.npm
 # Copiamos los archivos de dependencias
 COPY --chown=node:node package*.json ./
 
-# Instalamos dependencias
+# Usamos install en lugar de ci para actualizar el package-lock.json
 RUN npm install -g npm@latest && \
-    npm ci && \
+    npm install && \
     npm install esbuild@0.20.1 --save-exact
 
 # Copiamos el resto de archivos del proyecto

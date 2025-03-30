@@ -45,7 +45,7 @@ services:
     container_name: lead-frontend-build-prod
     volumes:
       - ./Frontend/dist:/usr/src/app/dist
-    command: sh -c "npm run build && cp -r dist/* /usr/src/app/dist/ && chown -R 1000:1000 /usr/src/app/dist/"
+    command: sh -c "npm install && npm run build && cp -r dist/* /usr/src/app/dist/ && chown -R 1000:1000 /usr/src/app/dist/"
     networks:
       - lead-network-prod
 
