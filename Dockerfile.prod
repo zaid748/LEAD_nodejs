@@ -19,6 +19,11 @@ RUN npm install -g npm@latest && \
 # Copiamos el resto de archivos del proyecto
 COPY . .
 
+# Crear directorios necesarios para uploads
+RUN mkdir -p src/public/uploads/profile_photos && \
+    chmod -R 755 src/public/uploads && \
+    chown -R node:node src/public/uploads
+
 # Creamos el directorio Frontend/dist si no existe para evitar errores
 RUN mkdir -p Frontend/dist && \
     # Configuramos permisos
