@@ -7,12 +7,8 @@ import {
 } from "@material-tailwind/react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "@/api/axios";
 import { useAuth } from "@/context/AuthContext";
-
-// Configuración global de axios
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
-axios.defaults.withCredentials = true;
 
 export function SignIn() {
   const [formData, setFormData] = useState({
@@ -28,7 +24,7 @@ export function SignIn() {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const response = await axios.get('/api/check-auth');
+        const response = await axiosInstance.get('/api/check-auth');
         if (response.data.success) {
           setIsAuthenticated(true);
         }
@@ -51,20 +47,31 @@ export function SignIn() {
 
   const handleLogin = async () => {
     setError("");
+    console.log('Iniciando login...');
+    console.log('URL API:', import.meta.env.VITE_API_URL);
 
     if (!formData.email || !formData.password) {
-      setError("Por favor, completa todos los campos.");
-      return;
+        setError("Por favor, completa todos los campos.");
+        return;
     }
 
     try {
-      const response = await axios.post('/api/signin', formData);
+        console.log('Enviando petición...');
+        const response = await axiosInstance.post('/api/signin', formData);
+        console.log('Respuesta recibida:', response);
 
-      if (response.data.success) {
-        navigate('/dashboard/home');
-      }
+        if (response.data.success) {
+            console.log('Login exitoso');
+            navigate('/dashboard/home');
+        }
     } catch (error) {
-      setError("El correo o la contraseña son incorrectos.");
+        console.error('Error detallado:', {
+            message: error.message,
+            response: error.response?.data,
+            status: error.response?.status,
+            headers: error.response?.headers
+        });
+        setError("El correo o la contraseña son incorrectos.");
     }
   };
 

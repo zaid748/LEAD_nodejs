@@ -9,6 +9,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
+    strictPort: true,
     watch: {
       usePolling: true,
       interval: 1000,
@@ -18,13 +19,20 @@ export default defineConfig({
     },
     proxy: {
       '/api': {
-        target: 'http://backend:4000',
-        changeOrigin: true
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false
       },
       '/CrearNomina': {
         target: 'http://backend:4000',
         changeOrigin: true
       }
+    }
+  },
+  build: {
+    minify: 'terser',
+    rollupOptions: {
+      external: ['esbuild']
     }
   }
 });

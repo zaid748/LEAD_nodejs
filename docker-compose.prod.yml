@@ -12,11 +12,40 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=4000
-      - MONGODB_URI=mongodb://mongodb:27017/lead-db-prod
+      - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prod?authSource=admin
+      - ALLOWED_ORIGINS=https://tudominio.com
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist
+    user: "node"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
     depends_on:
       - mongodb
+    networks:
+      - lead-network-prod
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend-build:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile.prod
+    container_name: lead-frontend-build-prod
+    volumes:
+      - ./Frontend/dist:/usr/src/app/dist
+    command: sh -c "npm run build && cp -r dist/* /usr/src/app/dist/ && chown -R 1000:1000 /usr/src/app/dist/"
     networks:
       - lead-network-prod
 
@@ -31,21 +60,17 @@ services:
       - .:/dump
     environment:
       - MONGODB_INITDB_DATABASE=lead-db-prod
-    command: >
-      bash -c "mongod --bind_ip_all --fork --logpath /var/log/mongodb.log && 
-      sleep 5 && 
-      cd /dump &&
-      echo 'Importando colecciones...' &&
-      mongoimport --db lead-db-prod --collection notes --file myFirstDatabase.notes.json --jsonArray &&
-      mongoimport --db lead-db-prod --collection roles --file myFirstDatabase.roles.json --jsonArray &&
-      mongoimport --db lead-db-prod --collection users --file myFirstDatabase.users.json --jsonArray &&
-      mongoimport --db lead-db-prod --collection departamentos --file myFirstDatabase.departamentos.json --jsonArray &&
-      mongoimport --db lead-db-prod --collection casainventarios --file myFirstDatabase.casainventarios.json --jsonArray &&
-      mongoimport --db lead-db-prod --collection empleados --file myFirstDatabase.empleados.json --jsonArray &&
-      mongoimport --db lead-db-prod --collection nominas --file myFirstDatabase.nominas.json --jsonArray &&
-      tail -f /dev/null"
+      - MONGODB_INITDB_ROOT_USERNAME=admin_lead
+      - MONGODB_INITDB_ROOT_PASSWORD=LeadPass2024
+    command: mongod --bind_ip_all --auth --tlsMode disabled
+    deploy:
+      resources:
+        limits:
+          memory: 1G
     networks:
       - lead-network-prod
+    security_opt:
+      - no-new-privileges:true
 
 networks:
   lead-network-prod:

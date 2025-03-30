@@ -1,30 +1,34 @@
-# Actualizamos a una versión más reciente y segura de Node
-FROM node:20-bullseye
+# Usar Alpine como base (mucho más pequeña y con menos vulnerabilidades)
+FROM node:20-alpine
 
 # Establecemos el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Copiamos los archivos de dependencias
+# Instalamos solo lo esencial (Alpine usa apk en lugar de apt-get)
+RUN apk add --no-cache curl ca-certificates
+
+# Copiamos package.json y package-lock.json
 COPY package*.json ./
 
-# Actualizamos npm primero e instalamos las dependencias con flags de seguridad
+# Instalamos dependencias
 RUN npm install -g npm@latest && \
-    npm install -g nodemon@latest --no-audit && \
-    npm install --no-audit && \
-    # Forzamos la actualización de dependencias críticas
+    npm install -g nodemon@3.1.0 && \
+    npm ci --include=dev && \
+    npm install multer@1.4.4-lts.1 semver@7.5.4 --save && \
+    npm install dotenv && \
     npm install ws@8.17.1 --save && \
-    npm install multer@1.4.4-lts.1 --save && \
-    npm install puppeteer@24.4.0 --save-dev && \
-    # Intentamos arreglar vulnerabilidades sin romper nada
-    npm audit fix --force || true
+    npm update ws --depth=100 && \
+    npm audit fix --production || true && \
+    npm cache clean --force
 
-# Copiamos el resto de archivos del proyecto
+# Copiamos el resto de archivos
 COPY . .
 
-# Exponemos el puerto que utiliza la aplicación
-EXPOSE 4000
-# Exponemos el puerto para depuración
-EXPOSE 9229
+# Configuramos permisos
+RUN chown -R node:node /usr/src/app
 
-# Comando para iniciar la aplicación en modo desarrollo
+EXPOSE 4000 9229
+
+USER node
+
 CMD ["nodemon", "--inspect=0.0.0.0:9229", "src/index.js"] 

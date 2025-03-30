@@ -16,15 +16,32 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=4000
-      - MONGODB_URI=mongodb://mongodb:27017/lead-db-prueba
+      - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prueba?authSource=admin
+      - ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4000
     user: "node"
     security_opt:
       - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
     command: nodemon --legacy-watch src/index.js
     depends_on:
       - mongodb
     networks:
       - lead-network-dev
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   frontend:
     build:
@@ -57,9 +74,19 @@ services:
       - .:/dump
     environment:
       - MONGODB_INITDB_DATABASE=lead-db-prueba
-    command: mongod --bind_ip_all
+      - MONGODB_INITDB_ROOT_USERNAME=admin_lead
+      - MONGODB_INITDB_ROOT_PASSWORD=LeadPass2024
+    command: mongod --bind_ip_all --auth --tlsMode disabled
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
     networks:
       - lead-network-dev
+    security_opt:
+      - no-new-privileges:true
 
 networks:
   lead-network-dev:

@@ -1,0 +1,610 @@
+[{
+  "_id": {
+    "$oid": "67d30383c5a7956de840715b"
+  },
+  "propietario": {
+    "nombre": "Zaid ALejo",
+    "telefono": "6563124104",
+    "correo": "zaidnevarez7@gmail.com",
+    "direccion": "viñedo galvan",
+    "identificacion": "",
+    "nss": "",
+    "rfc": "",
+    "curp": "",
+    "tiene_conyuge": false,
+    "_id": {
+      "$oid": "67d30383c5a7956de840715c"
+    }
+  },
+  "propiedad": {
+    "tipo": "Casa",
+    "direccion": {
+      "calle": "Viñedo galvan",
+      "numero": "8638",
+      "colonia": "Las Viñas",
+      "ciudad": "Ciudad Juarez",
+      "estado": "Chihuahua",
+      "codigo_postal": "32696",
+      "_id": {
+        "$oid": "67d30383c5a7956de840715e"
+      }
+    },
+    "caracteristicas": {
+      "m2_terreno": 200,
+      "m2_construccion": 200,
+      "habitaciones": 3,
+      "baños": 2,
+      "cocheras": 1,
+      "descripcion": "prueba",
+      "año_construccion": 4,
+      "_id": {
+        "$oid": "67d30383c5a7956de840715f"
+      }
+    },
+    "uso_actual": "Vivienda",
+    "adeudos": [],
+    "_id": {
+      "$oid": "67d30383c5a7956de840715d"
+    }
+  },
+  "estatus_actual": "Captación",
+  "captacion": {
+    "fecha": {
+      "$date": "2025-03-13T16:10:43.232Z"
+    },
+    "tipo_captacion": "Abierta",
+    "asesor": {
+      "$oid": "6214ff3f62021ac0e041db76"
+    },
+    "observaciones": "",
+    "_id": {
+      "$oid": "67d30383c5a7956de8407160"
+    }
+  },
+  "documentos_entregados": {
+    "ine": true,
+    "curp": false,
+    "rfc": false,
+    "escrituras": true,
+    "comprobante_domicilio": false,
+    "predial_pagado": false,
+    "libre_gravamen": false,
+    "_id": {
+      "$oid": "67d30383c5a7956de8407161"
+    }
+  },
+  "datos_laborales": {
+    "empresa": "",
+    "puesto": "",
+    "antiguedad": null,
+    "trabajo_estable": false,
+    "ingresos_mensuales": null,
+    "_id": {
+      "$oid": "67d30383c5a7956de8407162"
+    }
+  },
+  "referencias_personales": [
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Pruebas de captacion",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d30383c5a7956de8407163"
+      }
+    },
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Pruebas de captacion",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d30383c5a7956de8407164"
+      }
+    }
+  ],
+  "historial_estatus": [
+    {
+      "estatus": "Captación",
+      "fecha": {
+        "$date": "2025-03-13T16:10:43.232Z"
+      },
+      "notas": "Creación inicial de la captación",
+      "usuario": {
+        "$oid": "6214ff3f62021ac0e041db76"
+      },
+      "_id": {
+        "$oid": "67d30383c5a7956de8407165"
+      }
+    }
+  ],
+  "venta": {
+    "comprador": {
+      "nombre": "",
+      "telefono": "",
+      "correo": ""
+    },
+    "fecha_venta": null,
+    "estatus_venta": "En proceso",
+    "documentos_entregados": {
+      "contrato": false,
+      "identificacion": false,
+      "constancia_credito": false,
+      "avaluo": false,
+      "escritura_publica": false,
+      "_id": {
+        "$oid": "67d30383c5a7956de8407167"
+      }
+    },
+    "_id": {
+      "$oid": "67d30383c5a7956de8407166"
+    }
+  },
+  "historial_tramites": [],
+  "inversionistas": [],
+  "createdAt": {
+    "$date": "2025-03-13T16:10:43.251Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-13T16:10:43.251Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d303c1dfc350dc98cba031"
+  },
+  "propietario": {
+    "nombre": "Zaid ALejo",
+    "telefono": "6563124104",
+    "correo": "zaidnevarez7@gmail.com",
+    "direccion": "viñedo galvan",
+    "identificacion": "",
+    "nss": "",
+    "rfc": "",
+    "curp": "",
+    "tiene_conyuge": false,
+    "_id": {
+      "$oid": "67d303c1dfc350dc98cba032"
+    }
+  },
+  "propiedad": {
+    "tipo": "Casa",
+    "direccion": {
+      "calle": "Viñedo galvan",
+      "numero": "8638",
+      "colonia": "Las Viñas",
+      "ciudad": "Ciudad Juarez",
+      "estado": "Chihuahua",
+      "codigo_postal": "32696",
+      "_id": {
+        "$oid": "67d303c1dfc350dc98cba034"
+      }
+    },
+    "caracteristicas": {
+      "m2_terreno": 200,
+      "m2_construccion": 200,
+      "habitaciones": 3,
+      "baños": 2,
+      "cocheras": 1,
+      "descripcion": "prueba",
+      "año_construccion": 4,
+      "_id": {
+        "$oid": "67d303c1dfc350dc98cba035"
+      }
+    },
+    "uso_actual": "Vivienda",
+    "adeudos": [],
+    "_id": {
+      "$oid": "67d303c1dfc350dc98cba033"
+    }
+  },
+  "estatus_actual": "Captación",
+  "captacion": {
+    "fecha": {
+      "$date": "2025-03-13T16:11:45.682Z"
+    },
+    "tipo_captacion": "Abierta",
+    "asesor": {
+      "$oid": "6214ff3f62021ac0e041db76"
+    },
+    "observaciones": "",
+    "_id": {
+      "$oid": "67d303c1dfc350dc98cba036"
+    }
+  },
+  "documentos_entregados": {
+    "ine": true,
+    "curp": false,
+    "rfc": false,
+    "escrituras": true,
+    "comprobante_domicilio": false,
+    "predial_pagado": false,
+    "libre_gravamen": false,
+    "_id": {
+      "$oid": "67d303c1dfc350dc98cba037"
+    }
+  },
+  "datos_laborales": {
+    "empresa": "",
+    "puesto": "",
+    "antiguedad": null,
+    "trabajo_estable": false,
+    "ingresos_mensuales": null,
+    "_id": {
+      "$oid": "67d303c1dfc350dc98cba038"
+    }
+  },
+  "referencias_personales": [
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Pruebas de captacion",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d303c1dfc350dc98cba039"
+      }
+    },
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Pruebas de captacion",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d303c1dfc350dc98cba03a"
+      }
+    }
+  ],
+  "historial_estatus": [
+    {
+      "estatus": "Captación",
+      "fecha": {
+        "$date": "2025-03-13T16:11:45.682Z"
+      },
+      "notas": "Creación inicial de la captación",
+      "usuario": {
+        "$oid": "6214ff3f62021ac0e041db76"
+      },
+      "_id": {
+        "$oid": "67d303c1dfc350dc98cba03b"
+      }
+    }
+  ],
+  "venta": {
+    "comprador": {
+      "nombre": "",
+      "telefono": "",
+      "correo": ""
+    },
+    "fecha_venta": null,
+    "estatus_venta": "En proceso",
+    "documentos_entregados": {
+      "contrato": false,
+      "identificacion": false,
+      "constancia_credito": false,
+      "avaluo": false,
+      "escritura_publica": false,
+      "_id": {
+        "$oid": "67d303c1dfc350dc98cba03d"
+      }
+    },
+    "_id": {
+      "$oid": "67d303c1dfc350dc98cba03c"
+    }
+  },
+  "historial_tramites": [],
+  "inversionistas": [],
+  "createdAt": {
+    "$date": "2025-03-13T16:11:45.706Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-13T16:11:45.706Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d30a379d210b67fc82e9f4"
+  },
+  "propietario": {
+    "nombre": "Zaid ALejo",
+    "telefono": "6563124104",
+    "correo": "zaidnevarez7@gmail.com",
+    "direccion": "viñedo galvan",
+    "identificacion": "",
+    "nss": "",
+    "rfc": "",
+    "curp": "",
+    "tiene_conyuge": false,
+    "_id": {
+      "$oid": "67d30a379d210b67fc82e9f5"
+    }
+  },
+  "propiedad": {
+    "tipo": "Casa",
+    "direccion": {
+      "calle": "Viñedo galvan",
+      "numero": "8638",
+      "colonia": "Las Viñas",
+      "ciudad": "Ciudad Juarez",
+      "estado": "Chihuahua",
+      "codigo_postal": "32696",
+      "_id": {
+        "$oid": "67d30a379d210b67fc82e9f7"
+      }
+    },
+    "caracteristicas": {
+      "m2_terreno": 200,
+      "m2_construccion": 200,
+      "habitaciones": 3,
+      "baños": 2,
+      "cocheras": 1,
+      "descripcion": "prueba",
+      "año_construccion": 4,
+      "_id": {
+        "$oid": "67d30a379d210b67fc82e9f8"
+      }
+    },
+    "uso_actual": "Vivienda",
+    "adeudos": [],
+    "_id": {
+      "$oid": "67d30a379d210b67fc82e9f6"
+    }
+  },
+  "estatus_actual": "Captación",
+  "captacion": {
+    "fecha": {
+      "$date": "2025-03-13T16:39:19.102Z"
+    },
+    "tipo_captacion": "Abierta",
+    "asesor": {
+      "$oid": "6214ff3f62021ac0e041db76"
+    },
+    "observaciones": "",
+    "_id": {
+      "$oid": "67d30a379d210b67fc82e9f9"
+    }
+  },
+  "documentos_entregados": {
+    "ine": true,
+    "curp": false,
+    "rfc": false,
+    "escrituras": true,
+    "comprobante_domicilio": false,
+    "predial_pagado": false,
+    "libre_gravamen": false,
+    "_id": {
+      "$oid": "67d30a379d210b67fc82e9fa"
+    }
+  },
+  "datos_laborales": {
+    "empresa": "",
+    "puesto": "",
+    "antiguedad": null,
+    "trabajo_estable": false,
+    "ingresos_mensuales": null,
+    "_id": {
+      "$oid": "67d30a379d210b67fc82e9fb"
+    }
+  },
+  "referencias_personales": [
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Pruebas de captacion",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d30a379d210b67fc82e9fc"
+      }
+    },
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Pruebas de captacion",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d30a379d210b67fc82e9fd"
+      }
+    }
+  ],
+  "historial_estatus": [
+    {
+      "estatus": "Captación",
+      "fecha": {
+        "$date": "2025-03-13T16:39:19.102Z"
+      },
+      "notas": "Creación inicial de la captación",
+      "usuario": {
+        "$oid": "6214ff3f62021ac0e041db76"
+      },
+      "_id": {
+        "$oid": "67d30a379d210b67fc82e9fe"
+      }
+    }
+  ],
+  "venta": {
+    "comprador": {
+      "nombre": "",
+      "telefono": "",
+      "correo": ""
+    },
+    "fecha_venta": null,
+    "estatus_venta": "En proceso",
+    "documentos_entregados": {
+      "contrato": false,
+      "identificacion": false,
+      "constancia_credito": false,
+      "avaluo": false,
+      "escritura_publica": false,
+      "_id": {
+        "$oid": "67d30a379d210b67fc82ea00"
+      }
+    },
+    "_id": {
+      "$oid": "67d30a379d210b67fc82e9ff"
+    }
+  },
+  "historial_tramites": [],
+  "inversionistas": [],
+  "createdAt": {
+    "$date": "2025-03-13T16:39:19.138Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-13T16:39:19.138Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d314d1e3266bfcce452dd7"
+  },
+  "propietario": {
+    "nombre": "Zaid Alejo",
+    "telefono": "6563124104",
+    "correo": "zaidnevarez7@gmail.com",
+    "direccion": "viñedo galvan",
+    "identificacion": "",
+    "nss": "",
+    "rfc": "",
+    "curp": "",
+    "tiene_conyuge": false,
+    "_id": {
+      "$oid": "67d314d1e3266bfcce452dd8"
+    }
+  },
+  "propiedad": {
+    "tipo": "Casa",
+    "direccion": {
+      "calle": "Viñedo galvan",
+      "numero": "8638",
+      "colonia": "Las Viñas",
+      "ciudad": "Ciudad Juarez",
+      "estado": "Chihuahua",
+      "codigo_postal": "32696",
+      "_id": {
+        "$oid": "67d314d1e3266bfcce452dda"
+      }
+    },
+    "caracteristicas": {
+      "m2_terreno": 200,
+      "m2_construccion": 200,
+      "habitaciones": 2,
+      "baños": 1,
+      "cocheras": 1,
+      "descripcion": "",
+      "año_construccion": 3,
+      "_id": {
+        "$oid": "67d314d1e3266bfcce452ddb"
+      }
+    },
+    "uso_actual": "Vivienda",
+    "adeudos": [
+      {
+        "tipo": "CFE",
+        "monto": 500,
+        "estatus": "Pendiente",
+        "descripcion": "",
+        "_id": {
+          "$oid": "67d314d1e3266bfcce452ddc"
+        }
+      }
+    ],
+    "_id": {
+      "$oid": "67d314d1e3266bfcce452dd9"
+    }
+  },
+  "estatus_actual": "Captación",
+  "captacion": {
+    "fecha": {
+      "$date": "2025-03-13T17:24:33.706Z"
+    },
+    "tipo_captacion": "Abierta",
+    "asesor": {
+      "$oid": "6214ff3f62021ac0e041db76"
+    },
+    "observaciones": "",
+    "_id": {
+      "$oid": "67d314d1e3266bfcce452ddd"
+    }
+  },
+  "documentos_entregados": {
+    "ine": true,
+    "curp": false,
+    "rfc": false,
+    "escrituras": true,
+    "comprobante_domicilio": false,
+    "predial_pagado": false,
+    "libre_gravamen": false,
+    "_id": {
+      "$oid": "67d314d1e3266bfcce452dde"
+    }
+  },
+  "datos_laborales": {
+    "empresa": "Wiwynn",
+    "puesto": "Tecnico",
+    "antiguedad": 2,
+    "trabajo_estable": false,
+    "ingresos_mensuales": 20000,
+    "_id": {
+      "$oid": "67d314d1e3266bfcce452ddf"
+    }
+  },
+  "referencias_personales": [
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Madre",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d314d1e3266bfcce452de0"
+      }
+    },
+    {
+      "nombre": "Pruebas de captacion",
+      "relacion": "Padre",
+      "telefono": "6563124104",
+      "_id": {
+        "$oid": "67d314d1e3266bfcce452de1"
+      }
+    }
+  ],
+  "historial_estatus": [
+    {
+      "estatus": "Captación",
+      "fecha": {
+        "$date": "2025-03-13T17:24:33.706Z"
+      },
+      "notas": "Creación inicial de la captación",
+      "usuario": {
+        "$oid": "6214ff3f62021ac0e041db76"
+      },
+      "_id": {
+        "$oid": "67d314d1e3266bfcce452de2"
+      }
+    }
+  ],
+  "venta": {
+    "comprador": {
+      "nombre": "",
+      "telefono": "",
+      "correo": ""
+    },
+    "fecha_venta": null,
+    "estatus_venta": "En proceso",
+    "documentos_entregados": {
+      "contrato": false,
+      "identificacion": false,
+      "constancia_credito": false,
+      "avaluo": false,
+      "escritura_publica": false,
+      "_id": {
+        "$oid": "67d314d1e3266bfcce452de4"
+      }
+    },
+    "_id": {
+      "$oid": "67d314d1e3266bfcce452de3"
+    }
+  },
+  "historial_tramites": [],
+  "inversionistas": [],
+  "createdAt": {
+    "$date": "2025-03-13T17:24:33.738Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-13T17:24:33.738Z"
+  },
+  "__v": 0
+}]

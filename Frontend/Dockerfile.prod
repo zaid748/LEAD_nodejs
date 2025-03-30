@@ -1,0 +1,35 @@
+# Usar Alpine como base
+FROM node:20-alpine AS build
+
+# Establecemos el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Alpine usa apk - añadimos dependencias necesarias
+RUN apk add --no-cache curl ca-certificates git
+
+# Configuramos permisos
+RUN mkdir -p /usr/src/app/.npm && \
+    chown -R node:node /usr/src/app
+
+USER node
+ENV NPM_CONFIG_PREFIX=/usr/src/app/.npm
+
+# Copiamos los archivos de dependencias
+COPY --chown=node:node package*.json ./
+
+# Instalamos dependencias
+RUN npm install -g npm@latest && \
+    npm ci && \
+    npm install esbuild@0.20.1 --save-exact
+
+# Copiamos el resto de archivos del proyecto
+COPY --chown=node:node . .
+
+# Construimos la aplicación para producción
+RUN npm run build
+
+# No necesitamos exponer puertos ya que solo generaremos archivos estáticos
+# que serán servidos por el Nginx del servidor principal
+
+# Mantenemos el contenedor vivo (opcional, si necesitas mantenerlo corriendo)
+CMD ["tail", "-f", "/dev/null"] 

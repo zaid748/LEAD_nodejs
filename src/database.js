@@ -7,17 +7,30 @@ if (!MONGODB_URI) {
     process.exit(1);
 }
 
-console.log('Connecting to MongoDB:', MONGODB_URI);
+console.log('Attempting to connect to MongoDB...');
 
 mongoose.set('strictQuery', true);
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000, // Timeout de 30 segundos
+    serverSelectionTimeoutMS: 30000,
     socketTimeoutMS: 45000,
+    maxPoolSize: 10,
+    minPoolSize: 5,
+    connectTimeoutMS: 10000,
 })
-.then(db => console.log('Database is connected'))
-.catch(err => console.error('Error connecting to database:', err));
+.then(db => {
+    console.log('Database is connected');
+    mongoose.set('debug', true);
+    mongoose.set('debug', (collectionName, method, query, doc) => {
+        console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+    });
+})
+.catch(err => {
+    console.error('Error connecting to database:', err);
+    console.error('Error details:', err.message);
+    process.exit(1);
+});
 
 module.exports = mongoose;

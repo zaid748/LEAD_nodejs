@@ -1,21 +1,27 @@
-# Utilizamos una imagen base de Node.js
-FROM node:16
+# Usar Alpine como base
+FROM node:20-alpine
 
-# Establecemos el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Copiamos los archivos de dependencias
-COPY package*.json ./
+# Alpine usa apk - añadimos dependencias necesarias
+RUN apk add --no-cache curl ca-certificates git bash
 
-# Instalamos todas las dependencias, incluyendo las de desarrollo
-RUN npm install
+# Configurar permisos
+RUN mkdir -p /usr/src/app/.npm && \
+    chown -R node:node /usr/src/app/.npm && \
+    chown -R node:node /usr/src/app
 
-# Copiamos el resto de archivos del proyecto
-COPY . .
+USER node
+ENV NPM_CONFIG_PREFIX=/usr/src/app/.npm
 
-# Exponemos el puerto que utilizará React
-EXPOSE 3000
+# Instalar dependencias
+COPY --chown=node:node package*.json ./
+RUN npm install -g npm@latest && \
+    npm install && \
+    npm install esbuild@0.20.1 --save-exact
 
-# Modificamos el comando para usar el script de desarrollo correcto
-# Usa el script que sí existe en tu package.json
-CMD ["npm", "run", "dev"] 
+COPY --chown=node:node . .
+EXPOSE 5173
+
+# Probamos con un script explícito
+CMD ["sh", "-c", "NODE_ENV=development node_modules/.bin/vite --host 0.0.0.0"] 

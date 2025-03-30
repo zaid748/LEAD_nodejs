@@ -9,6 +9,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const corsFixMiddleware = require('./middleware/express-cors-fix');
 
 dotenv.config({ path: '.env' })
 
@@ -18,15 +19,24 @@ module.exports = {
     access_token_secret : process.env.SECRET
 };
 
-var corsOptions = {
-    origin: "http://localhost:5173",
-    optionsSuccessStatus: 200,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
-
 const app = express();
+
+// Configuración CORS simplificada
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:4000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Middleware para logging de cookies en cada request
+// app.use((req, res, next) => {
+//     console.log('Request URL:', req.url);
+//     console.log('Request Method:', req.method);
+//     console.log('Request Headers:', req.headers);
+//     next();
+// });
+
 // Settings 
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
@@ -42,27 +52,25 @@ handlebars.registerHelper('equals', (arg1, arg2, options) => {
     return arg1==arg2;
 });
 app.set('view engine', '.ejs');
+
 //Middlewares
-app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
 app.use(session({
     secret: 'secreto',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         httpOnly: true,
-        maxAge: 25000 * 1000
-    }
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/',
+        domain: 'localhost'
+    },
+    name: 'sessionId'
 }));
 app.use(flash());
 //Global variables 
@@ -70,11 +78,6 @@ app.use((req, res, next)=>{
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.user || null;
-    next();
-});
-
-// Middleware para logging de cookies en cada request
-app.use((req, res, next) => {
     next();
 });
 

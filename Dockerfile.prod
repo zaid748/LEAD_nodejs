@@ -1,6 +1,9 @@
-FROM node:20-bullseye
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
+
+# Alpine usa apk - añadimos dependencias necesarias
+RUN apk add --no-cache curl ca-certificates
 
 # Copiamos los archivos de dependencias
 COPY package*.json ./
@@ -9,17 +12,23 @@ COPY package*.json ./
 RUN npm install -g npm@latest && \
     npm ci --only=production --no-audit && \
     npm install ws@8.17.1 --save && \
-    npm install multer@1.4.4-lts.1 --save && \
-    npm audit fix --only=prod || true
+    npm install multer@1.4.4-lts.1 semver@7.5.4 --save && \
+    npm audit fix --only=prod || true && \
+    npm cache clean --force
 
 # Copiamos el resto de archivos del proyecto
 COPY . .
 
 # Creamos el directorio Frontend/dist si no existe para evitar errores
-RUN mkdir -p Frontend/dist
+RUN mkdir -p Frontend/dist && \
+    # Configuramos permisos
+    chown -R node:node /usr/src/app
 
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 4000
+
+# Cambiamos al usuario node por seguridad
+USER node
 
 # Comando para iniciar la aplicación en modo producción
 CMD ["npm", "start"] 

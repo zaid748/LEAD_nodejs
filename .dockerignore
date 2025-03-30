@@ -5,4 +5,8 @@ Dockerfile
 .git
 .gitignore
 docker-compose.yml
-.env 
+.env
+*.md
+test
+*.test.js
+coverage 
