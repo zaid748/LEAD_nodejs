@@ -11,6 +11,7 @@ services:
       - "127.0.0.1:14000:4000"
     environment:
       - NODE_ENV=production
+      - SECRET=erhgvbhbsfedbehbfd
       - PORT=4000
       - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prod?authSource=admin
       - ALLOWED_ORIGINS=https://tudominio.com
