@@ -32,8 +32,5 @@ RUN mkdir -p Frontend/dist && \
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 4000
 
-# Cambiamos al usuario node por seguridad
-USER node
-
 # Comando para iniciar la aplicación en modo producción
 CMD ["npm", "start"]
