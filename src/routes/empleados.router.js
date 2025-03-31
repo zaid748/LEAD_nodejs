@@ -26,6 +26,8 @@ router.get('/empleados/Agregar' , isAuthenticated, isAustheAdministrator , agreg
 
 router.post('/empleados/Agregar', isAuthenticated, isAustheAdministrator, agregarEmpleado);
 
+router.post('/empleados-api', isAuthenticated, isAustheAdministrator, agregarEmpleado);
+
 router.get('/empleados/Renuncias' , isAuthenticated, isAustheAdministrator , getRenucias);
 
 router.get('/empleados', isAuthenticated, isAustheAdministrator, employedView)
