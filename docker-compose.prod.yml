@@ -21,6 +21,7 @@ services:
       - USE_S3=true
     volumes:
       - ./Frontend:/usr/src/app/Frontend
+      - frontend_node_modules:/usr/src/app/Frontend/node_modules
     user: "node"
     security_opt:
       - no-new-privileges:true
@@ -77,3 +78,4 @@ networks:
 
 volumes:
   mongodb_data_prod:
+  frontend_node_modules:
