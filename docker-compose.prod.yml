@@ -20,13 +20,13 @@ services:
       - S3_ENDPOINT=sfo3.digitaloceanspaces.com
       - USE_S3=true
     volumes:
-      - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
+      - ./Frontend:/usr/src/app/Frontend
     user: "node"
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
-    read_only: true
+    read_only: false
     tmpfs:
       - /tmp
     depends_on:
