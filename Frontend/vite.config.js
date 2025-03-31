@@ -30,7 +30,7 @@ export default defineConfig({
     }
   },
   build: {
-    minify: 'terser',
+    minify: false,
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
       external: ['esbuild'],
