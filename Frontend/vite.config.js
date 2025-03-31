@@ -31,8 +31,24 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
+    chunkSizeWarningLimit: 1600,
     rollupOptions: {
-      external: ['esbuild']
+      external: ['esbuild'],
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
     }
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020'
+    }
+  },
+  esbuild: {
+    target: 'es2020'
   }
 });

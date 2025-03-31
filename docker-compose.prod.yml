@@ -20,7 +20,7 @@ services:
       - S3_ENDPOINT=sfo3.digitaloceanspaces.com
       - USE_S3=true
     volumes:
-      - ./Frontend:/usr/src/app/Frontend
+      - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
       - frontend_node_modules:/usr/src/app/Frontend/node_modules
     user: "node"
     security_opt:
