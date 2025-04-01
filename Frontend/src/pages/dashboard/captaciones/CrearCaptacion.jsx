@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { captacionesAPI } from "../../services/api"; // Importar el servicio API
+import { captacionesAPI } from "../../../services/api"; // Importar el servicio API
 
 export function CrearCaptacion() {
   const navigate = useNavigate();

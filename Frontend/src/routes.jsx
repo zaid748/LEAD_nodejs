@@ -14,13 +14,15 @@ import {
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
-import { CrearEmpleado } from "@/pages/dashboard/CrearEmpleado";
-import { EditarEmpleado } from "@/pages/dashboard/EditarEmpleado";
-import { CrearNomina } from "@/pages/dashboard/CrearNomina";
+import { CrearEmpleado } from "@/pages/dashboard/Empleados/CrearEmpleado";
+import { EditarEmpleado } from "@/pages/dashboard/Empleados/EditarEmpleado";
+import { CrearNomina } from "@/pages/dashboard/Empleados/CrearNomina";
 import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
-import { EditarUser } from "@/pages/dashboard/EditarUser";
-import { CrearCaptacion } from "@/pages/dashboard/CrearCaptacion";
-import { MisProyectos } from "@/pages/dashboard/MisProyectos";
+import { EditarUser } from "@/pages/dashboard/Users/EditarUser";
+
+import { CrearCaptacion } from '@/pages/dashboard/captaciones/CrearCaptacion';
+
+import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -45,7 +47,8 @@ export const routes = [
         name: "dashboard",
         path: "/home",
         element: <Home />,
-        shouldRedirectToProfile: true
+        shouldRedirectToProfile: true,
+        
       },
       {
         path: "/",
