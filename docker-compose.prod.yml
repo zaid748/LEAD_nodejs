@@ -40,10 +40,10 @@ services:
       resources:
         limits:
           memory: 2G
-          cpus: '2'
+          cpus: '0.90'
         reservations:
           memory: 1G
-          cpus: '1'
+          cpus: '0.50'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
       interval: 30s
@@ -61,9 +61,9 @@ services:
       - mongodb_data_prod:/data/db
       - .:/dump:ro
     environment:
-      - MONGODB_INITDB_DATABASE=lead-db-prod
       - MONGODB_INITDB_ROOT_USERNAME=admin_lead
       - MONGODB_INITDB_ROOT_PASSWORD=LeadPass2024
+      - MONGODB_INITDB_DATABASE=lead-db-prod
     command: mongod --bind_ip_all --auth --tlsMode disabled
     deploy:
       resources:
