@@ -1,9 +1,19 @@
-FROM node:20-alpine
+FROM node:24-slim
 
 WORKDIR /usr/src/app
 
-# Alpine usa apk - añadimos dependencias necesarias
-RUN apk add --no-cache curl ca-certificates
+# Instalamos dependencias necesarias para Ubuntu
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    chromium \
+    fonts-freefont-ttf \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configurar variables de entorno para puppeteer
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Copiamos los archivos de dependencias
 COPY package*.json ./
@@ -26,11 +36,12 @@ RUN mkdir -p src/public/uploads/profile_photos && \
 
 # Creamos el directorio Frontend/dist si no existe para evitar errores
 RUN mkdir -p Frontend/dist && \
-    # Configuramos permisos
     chown -R node:node /usr/src/app
 
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 4000
+
+USER node
 
 # Comando para iniciar la aplicación en modo producción
 CMD ["npm", "start"]

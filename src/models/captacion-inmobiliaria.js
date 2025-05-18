@@ -316,8 +316,8 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
         default: 'Captación'
     },
     captacion: CaptacionSchema,
-    documentos_entregados: DocumentosEntregadosSchema, // Nueva estructura para documentos entregados
-    datos_laborales: DatosLaboralesSchema, // Información laboral del propietario
+    documentos_entregados: DocumentosEntregadosSchema,
+    datos_laborales: DatosLaboralesSchema,
     referencias_personales: {
         type: [ReferenciaPersonalSchema],
         validate: [
@@ -329,11 +329,15 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
             }
         ]
     },
-    historial_tramites: [TramiteSchema], // Array de trámites
-    remodelacion: RemodelacionSchema, // Información de remodelación
-    inversionistas: [InversionistaSchema], // Lista de inversionistas
-    historial_estatus: [HistorialEstatusSchema], // Historial de cambios de estatus
-    venta: VentaSchema // Información de la venta (solo se llena al vender)
+    historial_tramites: [TramiteSchema],
+    remodelacion: RemodelacionSchema,
+    inversionistas: [InversionistaSchema],
+    historial_estatus: [HistorialEstatusSchema],
+    venta: VentaSchema,
+    pdf_url: {
+        type: String,
+        trim: true
+    }
 }, { timestamps: true });
 
 // Añadir índices para mejorar rendimiento en consultas frecuentes

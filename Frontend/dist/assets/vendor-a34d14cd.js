@@ -9002,6 +9002,28 @@ function useViewTransitionState(to, opts) {
   let nextPath = stripBasename(vtContext.nextLocation.pathname, basename) || vtContext.nextLocation.pathname;
   return matchPath(path.pathname, nextPath) != null || matchPath(path.pathname, currentPath) != null;
 }
+function ArrowDownTrayIcon({
+  title,
+  titleId,
+  ...props
+}, svgRef) {
+  return /* @__PURE__ */ reactExports.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef,
+    "aria-labelledby": titleId
+  }, props), title ? /* @__PURE__ */ reactExports.createElement("title", {
+    id: titleId
+  }, title) : null, /* @__PURE__ */ reactExports.createElement("path", {
+    fillRule: "evenodd",
+    d: "M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z",
+    clipRule: "evenodd"
+  }));
+}
+const ForwardRef$J = reactExports.forwardRef(ArrowDownTrayIcon);
+const ArrowDownTrayIcon$1 = ForwardRef$J;
 function ArrowLeftIcon({
   title,
   titleId,
@@ -51909,23 +51931,24 @@ export {
   _default as _,
   UserPlusIcon$3 as a,
   MagnifyingGlassIcon$3 as a0,
-  HomeIcon$1 as a1,
-  TableCellsIcon$1 as a2,
-  UserGroupIcon$1 as a3,
-  DocumentTextIcon$1 as a4,
-  BuildingOffice2Icon$1 as a5,
-  ServerStackIcon$1 as a6,
-  RectangleStackIcon$1 as a7,
-  useLocation as a8,
-  XMarkIcon$1 as a9,
-  NavLink as aa,
-  Bars3Icon$1 as ab,
-  Cog6ToothIcon$1 as ac,
-  Routes as ad,
-  Route as ae,
-  Outlet as af,
-  client as ag,
-  BrowserRouter as ah,
+  ArrowDownTrayIcon$1 as a1,
+  HomeIcon$1 as a2,
+  TableCellsIcon$1 as a3,
+  UserGroupIcon$1 as a4,
+  DocumentTextIcon$1 as a5,
+  BuildingOffice2Icon$1 as a6,
+  ServerStackIcon$1 as a7,
+  RectangleStackIcon$1 as a8,
+  useLocation as a9,
+  XMarkIcon$1 as aa,
+  NavLink as ab,
+  Bars3Icon$1 as ac,
+  Cog6ToothIcon$1 as ad,
+  Routes as ae,
+  Route as af,
+  Outlet as ag,
+  client as ah,
+  BrowserRouter as ai,
   BellIcon$1 as b,
   PlusCircleIcon$1 as c,
   CreditCardIcon$1 as d,

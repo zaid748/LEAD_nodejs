@@ -3,6 +3,8 @@ const router = express.Router();
 const { check } = require('express-validator');
 const captacionesController = require('../controllers/captaciones.controller');
 const { verificarToken, esAdmin, esAdminOSupervisor, sanitizarEntradas } = require('../helpers/auth');
+const { CrearPdfCaptacion } = require('../libs/PDF');
+const { uploadObject } = require('../libs/multer');
 
 // Middleware de autenticación para todas las rutas
 router.use(verificarToken);
@@ -22,7 +24,9 @@ router.post('/',
         check('propietario.nombre', 'El nombre del propietario es requerido').not().isEmpty(),
         check('propietario.telefono', 'El teléfono del propietario es requerido').not().isEmpty(),
     ],
-    captacionesController.createCaptacion
+    captacionesController.createCaptacion,
+    CrearPdfCaptacion,
+    uploadObject
 );
 
 // Actualizar captación
@@ -142,4 +146,7 @@ router.post('/:id/venta/documentos',
     captacionesController.addDocumentoVenta
 );
 
-module.exports = router; 
+// Añadir esta ruta para descargar PDF
+router.get('/:id/pdf', verificarToken, captacionesController.descargarPDF);
+
+module.exports = router;

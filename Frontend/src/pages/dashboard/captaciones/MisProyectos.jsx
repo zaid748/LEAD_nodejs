@@ -14,7 +14,7 @@ import {
   Input
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { PencilIcon, EyeIcon, PlusIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { PencilIcon, EyeIcon, PlusIcon, MagnifyingGlassIcon, ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { fetchAPI } from "@/services/api";
 
 export function MisProyectos() {
@@ -283,6 +283,49 @@ export function MisProyectos() {
     setPage(prev => Math.min(prev + 1, totalPages));
   };
 
+  // Añadir esta función de descarga
+  const descargarPDF = async (captacion) => {
+    try {
+      if (!captacion || !captacion._id) {
+        console.error("ID de captación no válido:", captacion);
+        alert("Error: ID de captación no válido");
+        return;
+      }
+
+      console.log("Descargando PDF de captación:", captacion._id);
+      
+      // Si tenemos una URL directa del PDF, intentar primero con ella
+      if (captacion.pdf_url) {
+        window.open(captacion.pdf_url, '_blank');
+        return;
+      }
+
+      // Si no hay URL directa, solicitar al backend que genere el PDF
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/captaciones/${captacion._id}/pdf`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al descargar el PDF');
+      }
+
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `captacion_${captacion._id}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+
+    } catch (error) {
+      console.error("Error al descargar el PDF:", error);
+      alert("Error al descargar el PDF. Por favor intente nuevamente.");
+    }
+  };
+
   // Renderizar estado de carga
   if (isLoading && !captaciones.length) {
     return (
@@ -460,6 +503,16 @@ export function MisProyectos() {
                             <Tooltip content="Ver Detalles">
                               <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/${_id}`)}>
                                 <EyeIcon className="h-5 w-5" />
+                              </IconButton>
+                            </Tooltip>
+
+                            <Tooltip content="Descargar PDF">
+                              <IconButton 
+                                variant="text" 
+                                color="blue-gray" 
+                                onClick={() => descargarPDF({ _id })}
+                              >
+                                <ArrowDownTrayIcon className="h-5 w-5" />
                               </IconButton>
                             </Tooltip>
                             

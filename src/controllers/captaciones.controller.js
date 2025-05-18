@@ -157,7 +157,7 @@ exports.getCaptacionById = async (req, res) => {
  * Crear una nueva captación
  * @route POST /api/captaciones
  */
-exports.createCaptacion = async (req, res) => {
+exports.createCaptacion = async (req, res, next) => {
     try {
         // Validar entrada
         const errors = validationResult(req);
@@ -215,12 +215,17 @@ exports.createCaptacion = async (req, res) => {
         // Validar el modelo antes de guardar
         await nuevaCaptacion.validate();
         
-        await nuevaCaptacion.save();
+        const captacionGuardada = await nuevaCaptacion.save();
         
-        // Devolver la captación creada (sin información poblada)
-        const captacionCreada = await CaptacionInmobiliaria.findById(nuevaCaptacion._id);
-        
-        res.status(201).json(captacionCreada);
+        // Preparar datos para la generación del PDF
+        req.id = captacionGuardada._id;
+        req.captacion = await CaptacionInmobiliaria.findById(captacionGuardada._id)
+            .populate('captacion.asesor', 'name email role')
+            .populate('remodelacion.supervisor', 'name email')
+            .lean();
+
+        // Si la respuesta es exitosa, continuar con la generación del PDF
+        next();
     } catch (error) {
         console.error('Error al crear captación:', error);
         
@@ -1092,5 +1097,63 @@ exports.addDocumento = async (req, res) => {
     } catch (error) {
         console.error('Error al actualizar documento:', error);
         res.status(500).json({ mensaje: 'Error interno del servidor' });
+    }
+};
+
+/**
+ * Descargar PDF de una captación
+ * @route GET /api/captaciones/:id/pdf
+ */
+exports.descargarPDF = async (req, res) => {
+    let browser = null;
+    try {
+        const captacion = await CaptacionInmobiliaria.findById(req.params.id);
+
+        if (!captacion) {
+            return res.status(404).json({ mensaje: 'Captación no encontrada' });
+        }
+
+        // Si ya existe una URL del PDF, redirigir a ella
+        if (captacion.pdf_url) {
+            return res.redirect(captacion.pdf_url);
+        }
+
+        req.captacion = captacion;
+        req.id = captacion._id;
+        
+        req.user = {
+            name: req.user.name || req.user.prim_nom || 'Usuario',
+            ...req.user
+        };
+
+        const { CrearPdfCaptacion } = require('../libs/PDF');
+
+        // Generar el PDF con manejo de timeout
+        await Promise.race([
+            CrearPdfCaptacion(req, res, (err) => {
+                if (err) {
+                    console.error('Error en CrearPdfCaptacion:', err);
+                    return res.status(500).json({ mensaje: 'Error al generar el PDF' });
+                }
+
+                if (!req.pdf) {
+                    return res.status(500).json({ mensaje: 'Error al generar el PDF' });
+                }
+
+                res.setHeader('Content-Type', 'application/pdf');
+                res.setHeader('Content-Disposition', `attachment; filename=captacion_${captacion._id}.pdf`);
+                res.send(req.pdf);
+            }),
+            new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Timeout al generar PDF')), 55000)
+            )
+        ]);
+
+    } catch (error) {
+        console.error('Error al descargar PDF:', error);
+        res.status(500).json({ 
+            mensaje: 'Error al generar el PDF',
+            error: error.message 
+        });
     }
 }; 

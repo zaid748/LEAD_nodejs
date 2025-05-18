@@ -18,6 +18,11 @@ services:
       - PORT=4000
       - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prueba?authSource=admin
       - ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4000
+      - S3_ENDPOINT=https://sfo3.digitaloceanspaces.com
+      - BUCKET_NAME=lead-spaces
+      - SPACESHOST=https://lead-spaces.sfo3.digitaloceanspaces.com/
+      - AWS_ACCESS_KEY_ID=R26X7JJS3B7PTESEAUKG
+      - AWS_SECRET_ACCESS_KEY=poW5uZHFYxxcfkmvOEcHrDwsciUErYHyyejsBfsx+mI
     user: "node"
     security_opt:
       - no-new-privileges:true

@@ -1,11 +1,21 @@
-# Usar Alpine como base (mucho más pequeña y con menos vulnerabilidades)
-FROM node:20-alpine
+# Usar imagen bookworm-slim como base (con golang/stdlib actualizado)
+FROM node:24-slim
 
 # Establecemos el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Instalamos solo lo esencial (Alpine usa apk en lugar de apt-get)
-RUN apk add --no-cache curl ca-certificates
+# Instalamos solo las dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    chromium \
+    fonts-freefont-ttf \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configurar variables de entorno para puppeteer
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Copiamos package.json y package-lock.json
 COPY package*.json ./
@@ -14,7 +24,7 @@ COPY package*.json ./
 RUN npm install -g npm@latest && \
     npm install -g nodemon@3.1.0 && \
     npm ci --include=dev && \
-    npm install multer@1.4.4-lts.1 semver@7.5.4 --save && \
+    npm install multer@1.4.4-lts.1 semver@7.5.4 axios@1.6.7 @aws-sdk/client-s3@3.525.0 --save && \
     npm install dotenv && \
     npm install ws@8.17.1 --save && \
     npm update ws --depth=100 && \

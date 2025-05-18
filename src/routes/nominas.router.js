@@ -10,7 +10,8 @@ const {
   getNominasByEmpleado,
   deleteNomina,
   getNominaById,
-  updateNominaApi
+  updateNominaApi,
+  downloadPDF
 } = require('../controllers/nomina.controller');
 
 const {isAuthenticated, isAustheAdministrator} = require('../helpers/auth');
@@ -33,5 +34,7 @@ router.put('/nominas/:id', isAuthenticated, isAustheAdministrator, updateNominaA
 
 router.post('/CrearNomina/:token', isAuthenticated, isAustheAdministrator, addNomina, CrearPdfNomina, uploadObject);
 
+// Nueva ruta para descargar PDF
+router.get('/nominas-api/download/:id', isAuthenticated, downloadPDF);
 
 module.exports = router;

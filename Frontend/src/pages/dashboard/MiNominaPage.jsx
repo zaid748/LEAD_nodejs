@@ -161,21 +161,39 @@ export function MiNominaPage() {
     }).format(salario);
   };
 
-  const verPDF = (nomina) => {
-    // Mostrar toda la información de la nómina para depurar
-    console.log("Información completa de la nómina:", nomina);
-    
-    if (nomina.url) {
-      console.log("Descargando PDF desde URL:", nomina.url);
-      window.open(nomina.url, '_blank');
-    } else {
-      // Para casos sin URL, intentar construir una
-      const empleadoName = nomina.empleado ? encodeURIComponent(nomina.empleado) : '';
-      const fecha = nomina.fecha ? encodeURIComponent(nomina.fecha) : '';
-      const altUrl = `${import.meta.env.VITE_API_URL}/nomina/download/${nomina._id}?name=${empleadoName}&fecha=${fecha}`;
+  const verPDF = async (nomina) => {
+    try {
+      console.log("Información completa de la nómina:", nomina);
       
-      console.log("URL alternativa generada:", altUrl);
-      window.open(altUrl, '_blank');
+      // Intentar primero la descarga directa a través del backend
+      const response = await axios({
+        url: `${import.meta.env.VITE_API_URL}/api/nominas-api/download/${nomina._id}`,
+        method: 'GET',
+        responseType: 'blob',
+        withCredentials: true
+      });
+
+      // Crear blob y URL
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const downloadUrl = window.URL.createObjectURL(blob);
+      
+      // Crear elemento para la descarga
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.setAttribute('download', `nomina-${nomina.fecha}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      
+      // Limpiar
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+
+    } catch (error) {
+      console.error("Error al descargar el PDF:", error);
+      // Si falla la descarga a través del backend, intentar directamente con la URL
+      if (nomina.url) {
+        window.open(nomina.url, '_blank');
+      }
     }
   };
 

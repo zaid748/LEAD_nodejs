@@ -23,6 +23,7 @@ services:
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
       - frontend_node_modules:/usr/src/app/Frontend/node_modules
+      - uploads:/usr/src/app/src/public/uploads
     user: "node"
     security_opt:
       - no-new-privileges:true
@@ -38,12 +39,17 @@ services:
     deploy:
       resources:
         limits:
+          memory: 2G
+          cpus: '2'
+        reservations:
           memory: 1G
+          cpus: '1'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 40s
 
   mongodb:
     image: mongo:latest
@@ -62,7 +68,11 @@ services:
     deploy:
       resources:
         limits:
+          memory: 2G
+          cpus: '2'
+        reservations:
           memory: 1G
+          cpus: '1'
     networks:
       - lead-network-prod
     security_opt:
@@ -72,6 +82,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 40s
 
 networks:
   lead-network-prod:
@@ -80,3 +91,4 @@ networks:
 volumes:
   mongodb_data_prod:
   frontend_node_modules:
+  uploads:

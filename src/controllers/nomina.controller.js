@@ -1,9 +1,10 @@
 const nominaCtrl = {};
-
 const Nomina = require('../models/Nomina');
 const Empleado = require('../models/Empleados');
 const app = require('../server');
 const numALetra = require('../helpers/numerosLetras');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
+const https = require('https');
 
 nominaCtrl.addNomina = async (req, res, next) => {
   try {
@@ -112,25 +113,6 @@ nominaCtrl.getNominasByEmpleado = async (req, res) => {
     const empleadoId = req.params.id;
     const limite = req.query.limite ? parseInt(req.query.limite) : 0;
     
-    // IMPORTANTE: Saltamos temporalmente la verificación para permitir el acceso
-    // Esto es para solucionar el problema inmediato mientras se investiga la causa raíz
-    
-    /*
-    console.log("Debug - Información de usuario:", {
-      id: req.user?.id,
-      role: req.user?.role,
-      lowerCaseRole: req.user?.role?.toLowerCase()
-    });
-    
-    // Verificación modificada para permitir acceso
-    const userRole = String(req.user?.role || '').toLowerCase();
-    const isAdmin = userRole.includes('admin');
-    
-    if (!isAdmin) {
-      // Esta parte se omite temporalmente
-    }
-    */
-    
     // Obtener total de registros para información
     const totalRegistros = await Nomina.countDocuments({ empleadoId });
     
@@ -141,13 +123,13 @@ nominaCtrl.getNominasByEmpleado = async (req, res) => {
     }
     
     const nominas = await query;
+    const space = process.env.SPACESHOST;
     
     // Procesar cada nómina para añadir URL de descarga
     const nominasConUrl = nominas.map(nomina => {
       let name = nomina.empleado + nomina.fecha;
       name = name.split(" ").join("");
-      const space = process.env.SPACESHOST || "";
-      const url = `${space}Nominas/${name}.pdf`;
+      const url = space + 'Nominas/' + name + '.pdf';
       
       return {
         _id: nomina._id,
@@ -256,6 +238,84 @@ nominaCtrl.updateNominaApi = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'Error al actualizar nómina',
+      error: error.message
+    });
+  }
+};
+
+// Controlador para descargar PDF
+nominaCtrl.downloadPDF = async (req, res) => {
+  try {
+    const nominaId = req.params.id;
+    const nomina = await Nomina.findOne({_id: nominaId});
+    console.log('nominas.findOne', {_id: nominaId}, nomina);
+    
+    if (!nomina) {
+      return res.status(404).json({
+        success: false,
+        message: 'Nómina no encontrada'
+      });
+    }
+
+    let name = nomina.empleado + nomina.fecha;
+    name = name.split(" ").join("");
+    const key = `Nominas/${name}.pdf`;
+
+    console.log('Intentando descargar archivo:', {
+      bucket: process.env.BUCKET_NAME,
+      key: key,
+      endpoint: process.env.S3_ENDPOINT
+    });
+
+    // Configurar el agente HTTPS con keepAlive y timeout
+    const agent = new https.Agent({
+      keepAlive: true,
+      keepAliveMsecs: 3000,
+      timeout: 10000,
+      rejectUnauthorized: false // Solo si es necesario
+    });
+
+    // Configurar el cliente S3
+    const s3Client = new S3Client({
+      forcePathStyle: false,
+      endpoint: process.env.S3_ENDPOINT,
+      region: "us-east-1",
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+      },
+      requestHandler: {
+        httpOptions: {
+          agent,
+          timeout: 10000 // 10 segundos de timeout
+        }
+      },
+      maxAttempts: 5, // Intentos de reconexión
+      retryMode: "adaptive" // Modo de reintento adaptativo
+    });
+
+    // Obtener el objeto de S3
+    const command = new GetObjectCommand({
+      Bucket: process.env.BUCKET_NAME,
+      Key: key
+    });
+
+    const response = await s3Client.send(command);
+    
+    // Configurar headers para la descarga
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=${name}.pdf`);
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Pragma', 'no-cache');
+
+    // Transmitir el contenido del PDF al cliente
+    response.Body.pipe(res);
+
+  } catch (error) {
+    console.error('Error al descargar el PDF:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error al descargar el PDF',
       error: error.message
     });
   }

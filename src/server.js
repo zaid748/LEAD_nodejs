@@ -21,12 +21,14 @@ module.exports = {
 
 const app = express();
 
-// Configuración CORS simplificada
+// Configuración CORS TEMPORALMENTE HARDCODIFICADA y movida al inicio
+console.log('[DEBUG] Aplicando configuración CORS hardcodificada.');
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:4000'],
+  origin: 'http://localhost:5173', // Hardcodeado para prueba
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204
 }));
 
 // Middleware para logging de cookies en cada request
@@ -58,12 +60,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use(cors({
-    origin: 'http://localhost:5173' || 'https://lead-inmobiliaria.com:4000',
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
 app.use(session({
     secret: 'secreto',
     resave: false,
