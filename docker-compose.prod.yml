@@ -63,7 +63,6 @@ services:
     environment:
       - MONGODB_INITDB_ROOT_USERNAME=admin_lead
       - MONGODB_INITDB_ROOT_PASSWORD=LeadPass2024
-      - MONGODB_INITDB_DATABASE=lead-db-prod
     command: mongod --bind_ip_all --auth --tlsMode disabled
     deploy:
       resources:
