@@ -8,13 +8,14 @@ if (!MONGODB_URI) {
 }
 
 console.log('Attempting to connect to MongoDB...');
+console.log('MONGODB_URI:', MONGODB_URI);
 
 mongoose.set('strictQuery', true);
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000,
+    serverSelectionTimeoutMS: 5000,
     socketTimeoutMS: 45000,
     maxPoolSize: 10,
     minPoolSize: 5,
