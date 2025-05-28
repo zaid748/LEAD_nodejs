@@ -21,10 +21,20 @@ module.exports = {
 
 const app = express();
 
-// Configuración CORS TEMPORALMENTE HARDCODIFICADA y movida al inicio
-console.log('[DEBUG] Aplicando configuración CORS hardcodificada.');
+// Configuración dinámica de CORS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://lead-inmobiliaria.com'
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Hardcodeado para prueba
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -65,12 +75,12 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        sameSite: 'lax',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 24 * 60 * 60 * 1000,
         path: '/',
-        domain: 'localhost'
+        domain: process.env.NODE_ENV === 'production' ? 'lead-inmobiliaria.com' : 'localhost'
     },
     name: 'sessionId'
 }));
