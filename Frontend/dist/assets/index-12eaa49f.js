@@ -765,7 +765,7 @@ function Home() {
     ] })
   ] });
 }
-axios.defaults.baseURL = "https://lead-inmobiliaria.com:4000";
+axios.defaults.baseURL = "https://lead-inmobiliaria.com";
 axios.defaults.withCredentials = true;
 const AuthContext = reactExports.createContext(null);
 const AuthProvider = ({ children }) => {
@@ -911,14 +911,14 @@ function Profile() {
       setLoading(true);
       setError("");
       console.log("Consultando usuario con ID:", user.id);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${user.id}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${user.id}`, {
         credentials: "include"
       });
       console.log("Respuesta status:", response.status);
       const data = await response.json();
       console.log(data.user.empleado_id);
       if (data.user.empleado_id === void 0 || data.user.empleado_id === null) {
-        const response2 = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/by-user/${user.id}`, {
+        const response2 = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/by-user/${user.id}`, {
           credentials: "include"
         });
         const empleadoData = await response2.json();
@@ -931,7 +931,7 @@ function Profile() {
       if (data.success) {
         setUserData(data.user);
         if (data.user.foto_perfil) {
-          const photoUrl = `${"https://lead-inmobiliaria.com:4000"}${data.user.foto_perfil}`;
+          const photoUrl = `${"https://lead-inmobiliaria.com"}${data.user.foto_perfil}`;
           console.log("URL de foto de perfil:", photoUrl);
           setProfilePhoto(photoUrl);
         }
@@ -950,7 +950,7 @@ function Profile() {
   };
   const loadNominas = async (empleadoId) => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/empleado/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/nominas-api/empleado/${empleadoId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -972,7 +972,7 @@ function Profile() {
     try {
       const formData = new FormData();
       formData.append("foto_perfil", file);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${user.id}/upload-photo`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${user.id}/upload-photo`, {
         method: "POST",
         credentials: "include",
         body: formData
@@ -993,7 +993,7 @@ function Profile() {
   const handlePhotoUpdated = (photoUrl) => {
     console.log("Foto actualizada:", photoUrl);
     if (!photoUrl.startsWith("http")) {
-      photoUrl = `${"https://lead-inmobiliaria.com:4000"}${photoUrl}`;
+      photoUrl = `${"https://lead-inmobiliaria.com"}${photoUrl}`;
     }
     setProfilePhoto(photoUrl);
   };
@@ -1139,7 +1139,7 @@ function Profile() {
                 "button",
                 {
                   onClick: () => {
-                    const url = nomina.url.startsWith("http") ? nomina.url : `${"https://lead-inmobiliaria.com:4000"}${nomina.url}`;
+                    const url = nomina.url.startsWith("http") ? nomina.url : `${"https://lead-inmobiliaria.com"}${nomina.url}`;
                     window.open(url, "_blank");
                   },
                   className: "text-gray-500 hover:text-gray-700 transition-colors",
@@ -1174,7 +1174,7 @@ function UsersTable() {
   reactExports.useEffect(() => {
     const checkAdminAccess = async () => {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -1222,14 +1222,14 @@ function UsersTable() {
   }, [searchTerm, users]);
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users`, {
         credentials: "include"
       });
       const data = await response.json();
       if (data.success) {
         const usuariosConFotos = data.users.map((user) => {
           if (user.foto_perfil && !user.foto_perfil.startsWith("http")) {
-            user.foto_perfil = `${"https://lead-inmobiliaria.com:4000"}${user.foto_perfil}`;
+            user.foto_perfil = `${"https://lead-inmobiliaria.com"}${user.foto_perfil}`;
           }
           return user;
         });
@@ -1252,7 +1252,7 @@ function UsersTable() {
   };
   const fetchUserDetailsWithoutRedirect = async (userId) => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${userId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${userId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -1285,7 +1285,7 @@ function UsersTable() {
       if (window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
         try {
           console.log("Intentando eliminar usuario con ID:", selectedUser);
-          const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${selectedUser}`, {
+          const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${selectedUser}`, {
             method: "DELETE",
             credentials: "include",
             headers: {
@@ -1441,13 +1441,13 @@ function ProfileUsers() {
     const fetchUserData = async () => {
       try {
         console.log("Obteniendo datos del usuario con ID:", userId);
-        const response = await axios.get(`${"https://lead-inmobiliaria.com:4000"}/api/users/${userId}`, {
+        const response = await axios.get(`${"https://lead-inmobiliaria.com"}/api/users/${userId}`, {
           withCredentials: true
         });
         if (response.data.success) {
           let userData2 = response.data.user;
           if (userData2.foto_perfil && !userData2.foto_perfil_url) {
-            userData2.foto_perfil_url = `${"https://lead-inmobiliaria.com:4000"}${userData2.foto_perfil}`;
+            userData2.foto_perfil_url = `${"https://lead-inmobiliaria.com"}${userData2.foto_perfil}`;
           }
           setUserData(userData2);
         } else {
@@ -1623,7 +1623,7 @@ function EmpleadosTable() {
   reactExports.useEffect(() => {
     const checkAdminAccess = async () => {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -1672,7 +1672,7 @@ function EmpleadosTable() {
   }, [searchTerm, empleados]);
   const fetchEmpleados = async () => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -1693,7 +1693,7 @@ function EmpleadosTable() {
   };
   const fetchEmpleadoDetails = async (empleadoId) => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${empleadoId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -1726,7 +1726,7 @@ function EmpleadosTable() {
       return;
     if (window.confirm("¿Está seguro de que desea eliminar este empleado? Esta acción no se puede deshacer.")) {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${selectedEmpleado}`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${selectedEmpleado}`, {
           method: "DELETE",
           credentials: "include"
         });
@@ -1969,7 +1969,7 @@ function ProfileEmpleados() {
   reactExports.useEffect(() => {
     const checkAdminStatus = async () => {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -1995,7 +1995,7 @@ function ProfileEmpleados() {
     if (isAdmin) {
       const fetchUsuarios = async () => {
         try {
-          const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users`, {
+          const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users`, {
             credentials: "include"
           });
           const data = await response.json();
@@ -2012,7 +2012,7 @@ function ProfileEmpleados() {
   const fetchEmpleadoData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${empleadoId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -2033,7 +2033,7 @@ function ProfileEmpleados() {
       setLoadingNominas(true);
       console.log("Obteniendo nóminas para el empleado:", empleadoId);
       const hayFiltrosActivos = filtroDesde || filtroHasta;
-      const url = hayFiltrosActivos ? `${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/empleado/${empleadoId}` : `${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/empleado/${empleadoId}?limite=20`;
+      const url = hayFiltrosActivos ? `${"https://lead-inmobiliaria.com"}/api/nominas-api/empleado/${empleadoId}` : `${"https://lead-inmobiliaria.com"}/api/nominas-api/empleado/${empleadoId}?limite=20`;
       const response = await fetch(url, {
         credentials: "include"
       });
@@ -2093,7 +2093,7 @@ function ProfileEmpleados() {
   const handleDeleteNomina = async (nominaId) => {
     if (window.confirm("¿Estás seguro de que deseas eliminar esta nómina?")) {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/${nominaId}`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/nominas-api/${nominaId}`, {
           method: "DELETE",
           credentials: "include"
         });
@@ -2412,7 +2412,7 @@ function EditarNomina() {
   const fetchNominaData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/nominas/${nominaId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/nominas/${nominaId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -2437,7 +2437,7 @@ function EditarNomina() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/nominas/${nominaId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/nominas/${nominaId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -2562,7 +2562,7 @@ function DocumentosEmpleado() {
   }, [empleadoId]);
   const fetchEmpleadoData = async () => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${empleadoId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -2578,7 +2578,7 @@ function DocumentosEmpleado() {
   const fetchDocumentos = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/empleado/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/nominas-api/empleado/${empleadoId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -2635,7 +2635,7 @@ function DocumentosEmpleado() {
         {
           variant: "text",
           color: "blue-gray",
-          onClick: () => window.open(`${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/descargar/${doc._id}`, "_blank"),
+          onClick: () => window.open(`${"https://lead-inmobiliaria.com"}/api/nominas-api/descargar/${doc._id}`, "_blank"),
           children: /* @__PURE__ */ jsxRuntimeExports.jsx(DocumentArrowDownIcon, { className: "h-6 w-6" })
         }
       )
@@ -2682,7 +2682,7 @@ function CrearEmpleado() {
     const checkAdminStatus = async () => {
       var _a;
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -2702,7 +2702,7 @@ function CrearEmpleado() {
   }, []);
   const fetchUsuarios = async () => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -2725,7 +2725,7 @@ function CrearEmpleado() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -3023,7 +3023,7 @@ function EditarEmpleado() {
       if (!userExists) {
         const fetchUsuario = async () => {
           try {
-            const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${formData.userId}`, {
+            const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${formData.userId}`, {
               credentials: "include"
             });
             const data = await response.json();
@@ -3045,7 +3045,7 @@ function EditarEmpleado() {
   }, [formData.userId, usuarios]);
   const checkAdminStatus = async () => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -3065,7 +3065,7 @@ function EditarEmpleado() {
   };
   const fetchUsuarios = async () => {
     try {
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -3080,7 +3080,7 @@ function EditarEmpleado() {
     try {
       setFetchingData(true);
       console.log("Cargando datos del empleado ID:", empleadoId);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${empleadoId}`, {
         credentials: "include"
       });
       const data = await response.json();
@@ -3118,7 +3118,7 @@ function EditarEmpleado() {
     setError("");
     try {
       console.log("Enviando datos actualizados:", formData);
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${empleadoId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -3129,7 +3129,7 @@ function EditarEmpleado() {
       const data = await response.json();
       console.log("Respuesta al actualizar empleado:", data);
       if (data.success && formData.userId) {
-        const userResponse = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${formData.userId}/asociar-empleado`, {
+        const userResponse = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${formData.userId}/asociar-empleado`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -3404,7 +3404,7 @@ function CrearNomina() {
   reactExports.useEffect(() => {
     const checkAdminAccess = async () => {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -3429,7 +3429,7 @@ function CrearNomina() {
   reactExports.useEffect(() => {
     const fetchEmpleado = async () => {
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/${empleadoId}`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/empleados-api/${empleadoId}`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -3472,7 +3472,7 @@ function CrearNomina() {
       params.append("fecha", formData.fecha);
       params.append("conceptoDePago", formData.concepto);
       console.log("Enviando datos como application/x-www-form-urlencoded");
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/CrearNomina/${empleadoId}`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/CrearNomina/${empleadoId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -3482,7 +3482,7 @@ function CrearNomina() {
       });
       console.log("Respuesta del servidor:", response.status, response.statusText);
       if (response.redirected) {
-        const redirectUrl = response.url.replace("https://lead-inmobiliaria.com:4000", "/dashboard");
+        const redirectUrl = response.url.replace("https://lead-inmobiliaria.com", "/dashboard");
         navigate(redirectUrl);
         return;
       }
@@ -3582,7 +3582,7 @@ function CrearNomina() {
   ] }) });
 }
 const axiosInstance = axios.create({
-  baseURL: "https://lead-inmobiliaria.com:4000",
+  baseURL: "https://lead-inmobiliaria.com",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json"
@@ -3651,7 +3651,7 @@ function SignIn() {
     var _a, _b, _c;
     setError("");
     console.log("Iniciando login...");
-    console.log("URL API:", "https://lead-inmobiliaria.com:4000");
+    console.log("URL API:", "https://lead-inmobiliaria.com");
     if (!formData.email || !formData.password) {
       setError("Por favor, completa todos los campos.");
       return;
@@ -3768,7 +3768,7 @@ function SignIn() {
     ] })
   ] });
 }
-axios.defaults.baseURL = "https://lead-inmobiliaria.com:4000";
+axios.defaults.baseURL = "https://lead-inmobiliaria.com";
 axios.defaults.withCredentials = true;
 function SignUp({ dashboard = false }) {
   const [formData, setFormData] = reactExports.useState({
@@ -3958,7 +3958,7 @@ function SignUp({ dashboard = false }) {
           const formData2 = new FormData();
           formData2.append("foto_perfil", selectedFile);
           try {
-            await axios.post(`${"https://lead-inmobiliaria.com:4000"}/api/users/${userId}/upload-photo`, formData2, {
+            await axios.post(`${"https://lead-inmobiliaria.com"}/api/users/${userId}/upload-photo`, formData2, {
               headers: {
                 "Content-Type": "multipart/form-data"
               }
@@ -4422,7 +4422,7 @@ function MiNominaPage() {
   reactExports.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userResponse = await axios.get(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const userResponse = await axios.get(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           withCredentials: true
         });
         console.log("Respuesta de check-auth:", userResponse.data);
@@ -4434,7 +4434,7 @@ function MiNominaPage() {
         const user = userResponse.data.user;
         console.log("Usuario autenticado completo:", user);
         try {
-          const empleadoResponse = await axios.get(`${"https://lead-inmobiliaria.com:4000"}/api/empleados-api/by-user/${user.id}`, {
+          const empleadoResponse = await axios.get(`${"https://lead-inmobiliaria.com"}/api/empleados-api/by-user/${user.id}`, {
             withCredentials: true
           });
           if (empleadoResponse.data.success && empleadoResponse.data.empleado) {
@@ -4447,7 +4447,7 @@ function MiNominaPage() {
             return;
           }
           if (!empleadoResponse.data.success) {
-            const User = await axios.get(`${"https://lead-inmobiliaria.com:4000"}/api/users/${user.id}`, {
+            const User = await axios.get(`${"https://lead-inmobiliaria.com"}/api/users/${user.id}`, {
               withCredentials: true
             });
             console.log("Respuesta de users:", User.data);
@@ -4491,7 +4491,7 @@ function MiNominaPage() {
       }
       console.log("Intentando obtener nóminas para empleado ID:", userData.empleado_id);
       try {
-        const url = `${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/empleado/${userData.empleado_id}`;
+        const url = `${"https://lead-inmobiliaria.com"}/api/nominas-api/empleado/${userData.empleado_id}`;
         console.log("Intentando URL:", url);
         const response = await axios.get(url, { withCredentials: true });
         console.log("Respuesta completa de nóminas:", response.data);
@@ -4537,7 +4537,7 @@ function MiNominaPage() {
     try {
       console.log("Información completa de la nómina:", nomina);
       const response = await axios({
-        url: `${"https://lead-inmobiliaria.com:4000"}/api/nominas-api/download/${nomina._id}`,
+        url: `${"https://lead-inmobiliaria.com"}/api/nominas-api/download/${nomina._id}`,
         method: "GET",
         responseType: "blob",
         withCredentials: true
@@ -4625,7 +4625,7 @@ function MiNominaPage() {
     ] }) }) }) }) })
   ] }) }) });
 }
-axios.defaults.baseURL = "https://lead-inmobiliaria.com:4000";
+axios.defaults.baseURL = "https://lead-inmobiliaria.com";
 axios.defaults.withCredentials = true;
 const FieldDescription = ({ children }) => /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "gray", className: "mt-1 font-normal", children });
 function EditarUser({ dashboard = false }) {
@@ -4664,7 +4664,7 @@ function EditarUser({ dashboard = false }) {
         if (response.data.success) {
           const userData = response.data.user;
           if (userData.foto_perfil) {
-            setPreviewUrl(`${"https://lead-inmobiliaria.com:4000"}${userData.foto_perfil}`);
+            setPreviewUrl(`${"https://lead-inmobiliaria.com"}${userData.foto_perfil}`);
           }
           if (userData.empleado_id) {
             setUseExistingEmployee(true);
@@ -4796,7 +4796,7 @@ function EditarUser({ dashboard = false }) {
     try {
       const formData2 = new FormData();
       formData2.append("foto_perfil", selectedFile);
-      const endpoint = `${"https://lead-inmobiliaria.com:4000"}/api/users/${userId}/upload-photo`;
+      const endpoint = `${"https://lead-inmobiliaria.com"}/api/users/${userId}/upload-photo`;
       console.log("Subiendo foto a:", endpoint);
       const response = await fetch(endpoint, {
         method: "POST",
@@ -5173,7 +5173,7 @@ function EditarUser({ dashboard = false }) {
     ] })
   ] }) });
 }
-const API_URL = "https://lead-inmobiliaria.com:4000";
+const API_URL = "https://lead-inmobiliaria.com";
 function logCookies() {
   console.log("Cookies disponibles:", document.cookie);
 }
@@ -5509,7 +5509,7 @@ function CrearCaptacion() {
     const checkAuth = async () => {
       var _a2;
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -7211,7 +7211,7 @@ function MisProyectos() {
     const checkAuth = async () => {
       var _a;
       try {
-        const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
           credentials: "include"
         });
         const data = await response.json();
@@ -7244,7 +7244,7 @@ function MisProyectos() {
       setIsLoading(true);
       setError(null);
       try {
-        let apiUrl = `${"https://lead-inmobiliaria.com:4000"}/api/captaciones?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}`;
+        let apiUrl = `${"https://lead-inmobiliaria.com"}/api/captaciones?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}`;
         if (user.role === "Supervisor") {
           apiUrl += `&supervisor=${user._id}`;
         }
@@ -7287,7 +7287,7 @@ function MisProyectos() {
               } else {
                 try {
                   console.log(captacion.captacion.asesor);
-                  fetch(`${"https://lead-inmobiliaria.com:4000"}/api/users/${captacion.captacion.asesor}`, {
+                  fetch(`${"https://lead-inmobiliaria.com"}/api/users/${captacion.captacion.asesor}`, {
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -7381,7 +7381,7 @@ function MisProyectos() {
         window.open(captacion.pdf_url, "_blank");
         return;
       }
-      const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/captaciones/${captacion._id}/pdf`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/captaciones/${captacion._id}/pdf`, {
         method: "GET",
         credentials: "include"
       });
@@ -7722,7 +7722,7 @@ function Sidenav({ brandImg, brandName }) {
     if (!location.pathname.includes("/auth/")) {
       const checkAdminStatus = async () => {
         try {
-          const response = await fetch(`${"https://lead-inmobiliaria.com:4000"}/api/check-auth`, {
+          const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
             credentials: "include"
           });
           const data = await response.json();
@@ -8354,7 +8354,7 @@ function Auth() {
   ) }) });
 }
 Auth.displayName = "/src/layout/Auth.jsx";
-axios.defaults.baseURL = "https://lead-inmobiliaria.com:4000";
+axios.defaults.baseURL = "https://lead-inmobiliaria.com";
 axios.defaults.withCredentials = true;
 const ProtectedRoute = ({ redirectTo = "/auth/sign-in", children }) => {
   const [isAuthenticated, setIsAuthenticated] = reactExports.useState(null);
