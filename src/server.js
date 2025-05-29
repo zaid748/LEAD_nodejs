@@ -24,7 +24,8 @@ const app = express();
 // Configuración dinámica de CORS
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://lead-inmobiliaria.com'
+  'https://lead-inmobiliaria.com',
+  'https://www.lead-inmobiliaria.com'
 ];
 
 app.use(cors({

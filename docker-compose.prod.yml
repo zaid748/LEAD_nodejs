@@ -18,7 +18,7 @@ services:
       - BUCKET_NAME=lead-spaces
       - AWS_ACCESS_KEY_ID=R26X7JJS3B7PTESEAUKG
       - AWS_SECRET_ACCESS_KEY=poW5uZHFYxxcfkmvOEcHrDwsciUErYHyyejsBfsx+mI
-      - S3_ENDPOINT=sfo3.digitaloceanspaces.com
+      - S3_ENDPOINT=https://sfo3.digitaloceanspaces.com
       - USE_S3=true
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
