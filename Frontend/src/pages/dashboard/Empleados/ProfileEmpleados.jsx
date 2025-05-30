@@ -36,6 +36,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ProfileInfoCard } from "@/widgets/cards";
 import { CustomAvatar } from "@/components/CustomAvatar";
+import axios from "axios";
 
 export function ProfileEmpleados() {
   const [empleadoData, setEmpleadoData] = useState(null);
@@ -277,6 +278,32 @@ export function ProfileEmpleados() {
     // Abrir el PDF de la nómina en una nueva pestaña
     if (nomina?.url) {
       window.open(nomina.url, '_blank');
+    }
+  };
+
+  // --- Agregar función para descargar PDF como blob ---
+  const descargarPDF = async (nomina) => {
+    try {
+      const response = await axios({
+        url: `${import.meta.env.VITE_API_URL}/api/nominas-api/download/${nomina._id}`,
+        method: 'GET',
+        responseType: 'blob',
+        withCredentials: true
+      });
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.setAttribute('download', `nomina-${nomina.fecha}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error("Error al descargar el PDF:", error);
+      if (nomina.url) {
+        window.open(nomina.url, '_blank');
+      }
     }
   };
 
@@ -593,7 +620,7 @@ export function ProfileEmpleados() {
                                               variant="text" 
                                               color="blue-gray"
                                               size="sm"
-                                              onClick={() => window.open(nomina.url, '_blank')}
+                                              onClick={() => descargarPDF(nomina)}
                                             >
                                               <DocumentArrowDownIcon className="h-4 w-4" />
                                             </IconButton>

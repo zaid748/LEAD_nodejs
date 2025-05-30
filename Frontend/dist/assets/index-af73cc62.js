@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as TableCellsIcon, a4 as UserGroupIcon, a5 as DocumentTextIcon, a6 as BuildingOffice2Icon, a7 as ServerStackIcon, a8 as RectangleStackIcon, a9 as useLocation, aa as XMarkIcon, ab as NavLink, ac as Bars3Icon, ad as Cog6ToothIcon, ae as Routes, af as Route, ag as Outlet, ah as client, ai as BrowserRouter } from "./vendor-a34d14cd.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as TableCellsIcon, a4 as UserGroupIcon, a5 as DocumentTextIcon, a6 as BuildingOffice2Icon, a7 as ServerStackIcon, a8 as RectangleStackIcon, a9 as useLocation, aa as XMarkIcon, ab as NavLink, ac as Bars3Icon, ad as Cog6ToothIcon, ae as Routes, af as Route, ag as Outlet, ah as client, ai as BrowserRouter } from "./vendor-f119d690.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -2113,6 +2113,30 @@ function ProfileEmpleados() {
       window.open(nomina.url, "_blank");
     }
   };
+  const descargarPDF = async (nomina) => {
+    try {
+      const response = await axios({
+        url: `${"https://lead-inmobiliaria.com"}/api/nominas-api/download/${nomina._id}`,
+        method: "GET",
+        responseType: "blob",
+        withCredentials: true
+      });
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", `nomina-${nomina.fecha}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      console.error("Error al descargar el PDF:", error);
+      if (nomina.url) {
+        window.open(nomina.url, "_blank");
+      }
+    }
+  };
   if (loading) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-full", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", children: "Cargando información del empleado..." }) });
   }
@@ -2352,7 +2376,7 @@ function ProfileEmpleados() {
                       variant: "text",
                       color: "blue-gray",
                       size: "sm",
-                      onClick: () => window.open(nomina.url, "_blank"),
+                      onClick: () => descargarPDF(nomina),
                       children: /* @__PURE__ */ jsxRuntimeExports.jsx(DocumentArrowDownIcon, { className: "h-4 w-4" })
                     }
                   ) }),
