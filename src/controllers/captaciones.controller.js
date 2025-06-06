@@ -133,7 +133,6 @@ exports.getCaptacionById = async (req, res) => {
         const captacion = await CaptacionInmobiliaria.findById(captacionId)
             .populate('captacion.asesor', 'name email role')
             .populate('remodelacion.supervisor', 'name email')
-            .populate('historial_tramites.supervisor', 'name email')
             .populate('historial_estatus.usuario', 'name email');
         
         if (!captacion) {
@@ -144,8 +143,7 @@ exports.getCaptacionById = async (req, res) => {
         if (req.user.role !== 'administrator' && req.user.role !== 'supervisor' && 
             captacion.captacion.asesor && captacion.captacion.asesor._id.toString() !== req.user._id.toString()) {
             return res.status(403).json({ mensaje: 'No tienes permiso para ver esta captación' });
-        }
-        
+        }   
         res.json(captacion);
     } catch (error) {
         console.error('Error al obtener captación:', error);

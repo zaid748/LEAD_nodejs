@@ -67,7 +67,8 @@ const PropietarioSchema = new mongoose.Schema({
         required: function() { 
             return this.tiene_conyuge === true; 
         }
-    }
+    },
+    estado_civil: { type: String, trim: true, required: true }
 });
 
 // 📌 Información de la dirección de la propiedad (mejorada con trim)
@@ -97,7 +98,7 @@ const CaracteristicasSchema = new mongoose.Schema({
 const AdeudoSchema = new mongoose.Schema({
     tipo: { 
         type: String, 
-        enum: ['Predial', 'Agua', 'Hipoteca', 'CFE', 'Mantenimiento', 'Otro'],
+        enum: ['Predial', 'Agua', 'Hipoteca', 'CFE', 'Mantenimiento', 'Gas', 'Otro'],
         required: true
     },
     monto: { 

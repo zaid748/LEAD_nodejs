@@ -46548,7 +46548,7 @@ function combineURLs(baseURL, relativeURL) {
 }
 function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
   let isRelativeUrl = !isAbsoluteURL(requestedURL);
-  if (baseURL && isRelativeUrl || allowAbsoluteUrls == false) {
+  if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
     return combineURLs(baseURL, requestedURL);
   }
   return requestedURL;
@@ -46635,7 +46635,7 @@ const resolveConfig = (config) => {
   const newConfig = mergeConfig({}, config);
   let { data: data2, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
   newConfig.headers = headers = AxiosHeaders$1.from(headers);
-  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config.params, config.paramsSerializer);
+  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config.params, config.paramsSerializer);
   if (auth) {
     headers.set(
       "Authorization",
@@ -47153,7 +47153,7 @@ function dispatchRequest(config) {
     return Promise.reject(reason);
   });
 }
-const VERSION = "1.8.2";
+const VERSION = "1.8.4";
 const validators$1 = {};
 ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i2) => {
   validators$1[type] = function validator2(thing) {

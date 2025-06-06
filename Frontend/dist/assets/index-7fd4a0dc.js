@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as TableCellsIcon, a4 as UserGroupIcon, a5 as DocumentTextIcon, a6 as BuildingOffice2Icon, a7 as ServerStackIcon, a8 as RectangleStackIcon, a9 as useLocation, aa as XMarkIcon, ab as NavLink, ac as Bars3Icon, ad as Cog6ToothIcon, ae as Routes, af as Route, ag as Outlet, ah as client, ai as BrowserRouter } from "./vendor-f119d690.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as TableCellsIcon, a4 as UserGroupIcon, a5 as DocumentTextIcon, a6 as BuildingOffice2Icon, a7 as ServerStackIcon, a8 as RectangleStackIcon, a9 as useLocation, aa as XMarkIcon, ab as NavLink, ac as Bars3Icon, ad as Cog6ToothIcon, ae as Routes, af as Route, ag as Outlet, ah as client, ai as BrowserRouter } from "./vendor-a34d14cd.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -5206,7 +5206,8 @@ const fetchAPI = async (endpoint, method = "GET", data = null) => {
     const url = `${API_URL}${endpoint}`;
     logCookies();
     const headers = {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Accept": "application/json"
     };
     const authCookie = document.cookie.split("; ").find((cookie) => cookie.startsWith("Authorization="));
     if (authCookie) {
@@ -5227,6 +5228,10 @@ const fetchAPI = async (endpoint, method = "GET", data = null) => {
     }
     console.log(`Realizando petición ${method} a ${url}`, options);
     const response = await fetch(url, options);
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("La respuesta del servidor no es JSON");
+    }
     const responseData = await response.json();
     if (!response.ok) {
       console.error("Error en respuesta API:", response.status, responseData);
@@ -7207,6 +7212,1641 @@ function CrearCaptacion() {
     ) })
   ] }) });
 }
+function EditarCaptacion() {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D;
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [activeTab, setActiveTab] = reactExports.useState(0);
+  const [isLoading, setIsLoading] = reactExports.useState(false);
+  const [error, setError] = reactExports.useState(null);
+  const [successMessage, setSuccessMessage] = reactExports.useState("");
+  const [user, setUser] = reactExports.useState(null);
+  const [initialData, setInitialData] = reactExports.useState(null);
+  const tabs = [
+    { label: "Propietario", value: 0 },
+    { label: "Propiedad", value: 1 },
+    { label: "Adeudos", value: 2 },
+    { label: "Datos Laborales", value: 3 },
+    { label: "Referencias", value: 4 },
+    { label: "Documentos", value: 5 },
+    { label: "Venta", value: 6 }
+  ];
+  const defaultValues = {
+    propietario: {
+      nombre: "",
+      telefono: "",
+      correo: "",
+      direccion: "",
+      identificacion: "",
+      nss: "",
+      rfc: "",
+      curp: "",
+      estado_civil: ""
+    },
+    propiedad: {
+      tipo: "",
+      direccion: {
+        calle: "",
+        numero: "",
+        colonia: "",
+        ciudad: "",
+        estado: "",
+        codigo_postal: ""
+      },
+      caracteristicas: {
+        m2_terreno: "",
+        m2_construccion: "",
+        habitaciones: "",
+        baños: "",
+        cocheras: "",
+        descripcion: ""
+      },
+      imagenes: [],
+      adeudos: []
+    },
+    datos_laborales: {
+      empresa: "",
+      direccion: "",
+      telefono: "",
+      area: "",
+      puesto: "",
+      turno: "",
+      registro_patronal: "",
+      antiguedad: "",
+      ingresos_mensuales: ""
+    },
+    referencias_personales: [],
+    documentos: {
+      ine: null,
+      curp: null,
+      rfc: null,
+      escrituras: null,
+      predial: null,
+      comprobante_domicilio: null,
+      otros: []
+    },
+    venta: {
+      precio_venta: "",
+      comision_venta: "",
+      fecha_venta: "",
+      estatus_venta: "En proceso",
+      en_venta: false,
+      comprador: {
+        nombre: "",
+        telefono: "",
+        correo: "",
+        direccion: ""
+      },
+      tipo_credito: "",
+      observaciones: "",
+      documentos_entregados: {
+        contrato: false,
+        identificacion: false,
+        constancia_credito: false
+      }
+    },
+    captacion: {
+      tipo_captacion: "Abierta",
+      observaciones: ""
+    },
+    documentacion: {
+      ine: false,
+      curp: false,
+      rfc: false,
+      escrituras: false,
+      predial_pagado: false,
+      libre_gravamen: false,
+      comprobante_domicilio: false
+    },
+    tipo_tramite: ""
+  };
+  const schema = create$3().shape({
+    propietario: create$3().shape({
+      nombre: create$6().required("El nombre del propietario es requerido").min(3, "El nombre debe tener al menos 3 caracteres"),
+      telefono: create$6().required("El teléfono es requerido").matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos"),
+      correo: create$6().email("El formato del correo electrónico no es válido").optional(),
+      direccion: create$6().optional(),
+      identificacion: create$6().optional(),
+      nss: create$6().optional().matches(/^\d{11}$/, "El NSS debe contener 11 dígitos numéricos"),
+      rfc: create$6().optional().matches(
+        /^[A-Z&Ñ]{3,4}[0-9]{6}[A-Z0-9]{3}$/,
+        "El formato de RFC no es válido (ej. ABCD123456XXX)"
+      ),
+      curp: create$6().optional().matches(
+        /^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$/,
+        "El formato de CURP no es válido"
+      ),
+      estado_civil: create$6().required("El estado civil es requerido")
+    }),
+    propiedad: create$3().shape({
+      tipo: create$6().required("El tipo de propiedad es requerido"),
+      direccion: create$3().shape({
+        calle: create$6().required("La calle es requerida"),
+        numero: create$6().required("El número es requerido"),
+        colonia: create$6().required("La colonia es requerida"),
+        ciudad: create$6().required("La ciudad es requerida"),
+        estado: create$6().required("El estado es requerido"),
+        codigo_postal: create$6().required("El código postal es requerido")
+      }),
+      caracteristicas: create$3().shape({
+        m2_terreno: create$5().transform((value) => isNaN(value) ? void 0 : value).required("Los metros cuadrados de terreno son requeridos").positive("Debe ser un número mayor a 0"),
+        m2_construccion: create$5().transform((value) => isNaN(value) ? void 0 : value).required("Los metros cuadrados de construcción son requeridos").positive("Debe ser un número mayor a 0"),
+        habitaciones: create$5().transform((value) => isNaN(value) ? void 0 : value).required("El número de recámaras es requerido").min(0, "No puede ser un número negativo"),
+        baños: create$5().transform((value) => isNaN(value) ? void 0 : value).required("El número de baños es requerido").min(0, "No puede ser un número negativo"),
+        cocheras: create$5().transform((value) => isNaN(value) ? void 0 : value).optional().min(0, "No puede ser un número negativo")
+      })
+    }),
+    referencias_personales: create$2().of(
+      create$3().shape({
+        nombre: create$6().required("El nombre es requerido").min(3, "El nombre debe tener al menos 3 caracteres"),
+        telefono: create$6().required("El teléfono es requerido").matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos"),
+        relacion: create$6().required("El parentesco es requerido"),
+        direccion: create$6().optional()
+      })
+    ).min(2, "Se requieren al menos 2 referencias personales").required("Las referencias personales son requeridas"),
+    documentacion: create$3().shape({
+      ine: create$7().oneOf([true], "La identificación oficial (INE) es obligatoria").required("La identificación oficial (INE) es obligatoria"),
+      escrituras: create$7().oneOf([true], "Las escrituras son obligatorias").required("Las escrituras son obligatorias"),
+      curp: create$7().optional(),
+      rfc: create$7().optional(),
+      comprobante_domicilio: create$7().optional()
+    }),
+    venta: create$3().shape({
+      precio_venta: create$5().transform((value) => isNaN(value) || value === null || value === "" ? void 0 : value).nullable().optional(),
+      tipo_credito: create$6().nullable().optional(),
+      en_venta: create$7().default(false),
+      comprador: create$3().shape({
+        nombre: create$6().nullable().optional(),
+        telefono: create$6().nullable().optional(),
+        correo: create$6().nullable().optional()
+      }),
+      documentos_entregados: create$3().shape({
+        contrato: create$7().default(false),
+        identificacion: create$7().default(false),
+        constancia_credito: create$7().default(false)
+      }),
+      observaciones: create$6().optional()
+    }),
+    captacion: create$3().shape({
+      tipo_captacion: create$6().required("El tipo de captación es requerido"),
+      observaciones: create$6().optional()
+    }),
+    datos_laborales: create$3().shape({
+      empresa: create$6().optional(),
+      direccion: create$6().optional(),
+      telefono: create$6().optional(),
+      area: create$6().optional(),
+      puesto: create$6().optional(),
+      turno: create$6().optional(),
+      registro_patronal: create$6().optional(),
+      antiguedad: create$5().transform((value) => isNaN(value) || value === null || value === "" ? void 0 : value).nullable().optional(),
+      ingresos_mensuales: create$5().transform((value) => isNaN(value) || value === null || value === "" ? void 0 : value).nullable().optional()
+    })
+  });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch
+  } = useForm({
+    resolver: o(schema),
+    defaultValues
+  });
+  const { fields: adeudosFields, append: appendAdeudo, remove: removeAdeudo } = useFieldArray({
+    control,
+    name: "propiedad.adeudos"
+  });
+  const { fields: referenciasFields, append: appendReferencia, remove: removeReferencia } = useFieldArray({
+    control,
+    name: "referencias_personales"
+  });
+  reactExports.useEffect(() => {
+    const checkAuth = async () => {
+      var _a2;
+      try {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
+          credentials: "include"
+        });
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.user);
+          const userRole = ((_a2 = data.user) == null ? void 0 : _a2.role) || "";
+          const isAuthorized = ["user", "administrator", "admin"].includes(userRole);
+          if (!isAuthorized) {
+            navigate("/dashboard/home");
+          }
+        } else {
+          navigate("/auth/sign-in");
+        }
+      } catch (error2) {
+        console.error("Error al verificar autenticación:", error2);
+        navigate("/auth/sign-in");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+  reactExports.useEffect(() => {
+    const loadInitialData = async () => {
+      var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2, _j2, _k2, _l2, _m2, _n2, _o2, _p2, _q2, _r2, _s2, _t2, _u2, _v2, _w2, _x2, _y2, _z2, _A2, _B2, _C2, _D2, _E, _F, _G, _H, _I;
+      try {
+        setIsLoading(true);
+        const data = await captacionesAPI.getById(id);
+        console.log("Datos recibidos:", data);
+        const formData = {
+          propietario: {
+            nombre: ((_a2 = data.propietario) == null ? void 0 : _a2.nombre) || "",
+            telefono: ((_b2 = data.propietario) == null ? void 0 : _b2.telefono) || "",
+            correo: ((_c2 = data.propietario) == null ? void 0 : _c2.correo) || "",
+            direccion: ((_d2 = data.propietario) == null ? void 0 : _d2.direccion) || "",
+            identificacion: ((_e2 = data.propietario) == null ? void 0 : _e2.identificacion) || "",
+            nss: ((_f2 = data.propietario) == null ? void 0 : _f2.nss) || "",
+            rfc: ((_g2 = data.propietario) == null ? void 0 : _g2.rfc) || "",
+            curp: ((_h2 = data.propietario) == null ? void 0 : _h2.curp) || "",
+            estado_civil: ((_i2 = data.propietario) == null ? void 0 : _i2.estado_civil) || ""
+          },
+          propiedad: {
+            tipo: ((_j2 = data.propiedad) == null ? void 0 : _j2.tipo) || "",
+            direccion: {
+              calle: ((_l2 = (_k2 = data.propiedad) == null ? void 0 : _k2.direccion) == null ? void 0 : _l2.calle) || "",
+              numero: ((_n2 = (_m2 = data.propiedad) == null ? void 0 : _m2.direccion) == null ? void 0 : _n2.numero) || "",
+              colonia: ((_p2 = (_o2 = data.propiedad) == null ? void 0 : _o2.direccion) == null ? void 0 : _p2.colonia) || "",
+              ciudad: ((_r2 = (_q2 = data.propiedad) == null ? void 0 : _q2.direccion) == null ? void 0 : _r2.ciudad) || "",
+              estado: ((_t2 = (_s2 = data.propiedad) == null ? void 0 : _s2.direccion) == null ? void 0 : _t2.estado) || "",
+              codigo_postal: ((_v2 = (_u2 = data.propiedad) == null ? void 0 : _u2.direccion) == null ? void 0 : _v2.codigo_postal) || ""
+            },
+            caracteristicas: {
+              m2_terreno: ((_x2 = (_w2 = data.propiedad) == null ? void 0 : _w2.caracteristicas) == null ? void 0 : _x2.m2_terreno) || "",
+              m2_construccion: ((_z2 = (_y2 = data.propiedad) == null ? void 0 : _y2.caracteristicas) == null ? void 0 : _z2.m2_construccion) || "",
+              habitaciones: ((_B2 = (_A2 = data.propiedad) == null ? void 0 : _A2.caracteristicas) == null ? void 0 : _B2.habitaciones) || "",
+              baños: ((_D2 = (_C2 = data.propiedad) == null ? void 0 : _C2.caracteristicas) == null ? void 0 : _D2.baños) || "",
+              cocheras: ((_F = (_E = data.propiedad) == null ? void 0 : _E.caracteristicas) == null ? void 0 : _F.cocheras) || "",
+              descripcion: ((_H = (_G = data.propiedad) == null ? void 0 : _G.caracteristicas) == null ? void 0 : _H.descripcion) || ""
+            },
+            adeudos: ((_I = data.propiedad) == null ? void 0 : _I.adeudos) || []
+          },
+          datos_laborales: data.datos_laborales ? {
+            empresa: data.datos_laborales.empresa || "",
+            direccion: data.datos_laborales.direccion || "",
+            telefono: data.datos_laborales.telefono || "",
+            area: data.datos_laborales.area || "",
+            puesto: data.datos_laborales.puesto || "",
+            turno: data.datos_laborales.turno || "",
+            registro_patronal: data.datos_laborales.registro_patronal || "",
+            antiguedad: data.datos_laborales.antiguedad || "",
+            ingresos_mensuales: data.datos_laborales.ingresos_mensuales || ""
+          } : defaultValues.datos_laborales,
+          referencias_personales: data.referencias_personales || [],
+          venta: data.venta ? {
+            precio_venta: data.venta.precio_venta || "",
+            comision_venta: data.venta.comision_venta || "",
+            fecha_venta: data.venta.fecha_venta || "",
+            estatus_venta: data.venta.estatus_venta || "En proceso",
+            en_venta: data.venta.en_venta || false,
+            comprador: data.venta.comprador ? {
+              nombre: data.venta.comprador.nombre || "",
+              telefono: data.venta.comprador.telefono || "",
+              correo: data.venta.comprador.correo || "",
+              direccion: data.venta.comprador.direccion || ""
+            } : defaultValues.venta.comprador,
+            tipo_credito: data.venta.tipo_credito || "",
+            observaciones: data.venta.observaciones || "",
+            documentos_entregados: data.venta.documentos_entregados ? {
+              contrato: data.venta.documentos_entregados.contrato || false,
+              identificacion: data.venta.documentos_entregados.identificacion || false,
+              constancia_credito: data.venta.documentos_entregados.constancia_credito || false
+            } : defaultValues.venta.documentos_entregados
+          } : defaultValues.venta,
+          captacion: data.captacion ? {
+            tipo_captacion: data.captacion.tipo_captacion || "Abierta",
+            observaciones: data.captacion.observaciones || ""
+          } : defaultValues.captacion,
+          documentacion: data.documentos_entregados ? {
+            ine: data.documentos_entregados.ine || false,
+            curp: data.documentos_entregados.curp || false,
+            rfc: data.documentos_entregados.rfc || false,
+            escrituras: data.documentos_entregados.escrituras || false,
+            predial_pagado: data.documentos_entregados.predial_pagado || false,
+            libre_gravamen: data.documentos_entregados.libre_gravamen || false,
+            comprobante_domicilio: data.documentos_entregados.comprobante_domicilio || false
+          } : defaultValues.documentacion
+        };
+        console.log("Datos mapeados:", formData);
+        setInitialData(formData);
+        reset(formData);
+      } catch (error2) {
+        console.error("Error al cargar datos:", error2);
+        setError("Error al cargar los datos de la captación");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (id) {
+      loadInitialData();
+    }
+  }, [id, reset]);
+  const onSubmit = async (data) => {
+    var _a2, _b2;
+    try {
+      setIsLoading(true);
+      await captacionesAPI.update(id, data);
+      setSuccessMessage("Captación actualizada exitosamente");
+      setTimeout(() => {
+        navigate("/dashboard/captaciones");
+      }, 2e3);
+    } catch (error2) {
+      setError(((_b2 = (_a2 = error2.response) == null ? void 0 : _a2.data) == null ? void 0 : _b2.message) || "Error al actualizar la captación");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  if (isLoading && !initialData) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-screen", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-12 w-12" }) });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Card, { className: "w-full", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.CardHeader, { variant: "gradient", color: "blue", className: "mb-8 p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "white", children: "Editar Captación" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.CardBody, { className: "px-0 pt-0 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleSubmit(onSubmit), className: "mt-12 mb-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Tabs, { value: activeTab, className: "w-full", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          react.TabsHeader,
+          {
+            className: "rounded-none border-b border-blue-gray-50 bg-transparent p-0",
+            indicatorProps: {
+              className: "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none"
+            },
+            children: tabs.map(({ label, value }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              react.Tab,
+              {
+                value,
+                onClick: () => setActiveTab(value),
+                className: activeTab === value ? "text-blue-500" : "",
+                children: label
+              },
+              value
+            ))
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabsBody, { animate: {
+          initial: { opacity: 0 },
+          mount: { opacity: 1 },
+          unmount: { opacity: 0 }
+        }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 0, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Información del Propietario" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Complete la información personal del propietario de la propiedad. Los campos marcados con * son obligatorios." }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propietario.nombre",
+                    control,
+                    render: ({ field }) => {
+                      var _a2;
+                      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "text",
+                          label: "Nombre Completo *",
+                          className: ((_a2 = errors.propietario) == null ? void 0 : _a2.nombre) ? "border-red-500" : "",
+                          ...field
+                        }
+                      );
+                    }
+                  }
+                ),
+                ((_a = errors.propietario) == null ? void 0 : _a.nombre) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.nombre.message }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propietario.telefono",
+                    control,
+                    render: ({ field }) => {
+                      var _a2;
+                      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "tel",
+                          label: "Teléfono *",
+                          className: ((_a2 = errors.propietario) == null ? void 0 : _a2.telefono) ? "border-red-500" : "",
+                          ...field
+                        }
+                      );
+                    }
+                  }
+                ),
+                ((_b = errors.propietario) == null ? void 0 : _b.telefono) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.telefono.message }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propietario.correo",
+                    control,
+                    render: ({ field }) => {
+                      var _a2;
+                      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "email",
+                          label: "Correo Electrónico",
+                          className: ((_a2 = errors.propietario) == null ? void 0 : _a2.correo) ? "border-red-500" : "",
+                          ...field
+                        }
+                      );
+                    }
+                  }
+                ),
+                ((_c = errors.propietario) == null ? void 0 : _c.correo) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.correo.message }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propietario.estado_civil",
+                    control,
+                    render: ({ field }) => {
+                      var _a2;
+                      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        react.Select,
+                        {
+                          label: "Estado Civil *",
+                          value: field.value,
+                          onChange: (value) => field.onChange(value),
+                          error: !!((_a2 = errors.propietario) == null ? void 0 : _a2.estado_civil),
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Soltero", children: "Soltero(a)" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Casado", children: "Casado(a)" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Divorciado", children: "Divorciado(a)" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Viudo", children: "Viudo(a)" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Unión Libre", children: "Unión Libre" })
+                          ]
+                        }
+                      );
+                    }
+                  }
+                ),
+                ((_d = errors.propietario) == null ? void 0 : _d.estado_civil) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.estado_civil.message })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-medium mb-2 text-blue-gray-500", children: "Documentos de Identificación" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propietario.identificacion",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "text",
+                          label: "Número de Identificación",
+                          ...field
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propietario.nss",
+                      control,
+                      render: ({ field }) => {
+                        var _a2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Número de Seguridad Social",
+                            className: ((_a2 = errors.propietario) == null ? void 0 : _a2.nss) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_e = errors.propietario) == null ? void 0 : _e.nss) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.nss.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propietario.rfc",
+                      control,
+                      render: ({ field }) => {
+                        var _a2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "RFC",
+                            className: ((_a2 = errors.propietario) == null ? void 0 : _a2.rfc) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_f = errors.propietario) == null ? void 0 : _f.rfc) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.rfc.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propietario.curp",
+                      control,
+                      render: ({ field }) => {
+                        var _a2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "CURP",
+                            className: ((_a2 = errors.propietario) == null ? void 0 : _a2.curp) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_g = errors.propietario) == null ? void 0 : _g.curp) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propietario.curp.message })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-medium mb-2 text-blue-gray-500", children: "Dirección del Propietario" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propietario.direccion",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Textarea,
+                      {
+                        label: "Dirección completa",
+                        ...field
+                      }
+                    )
+                  }
+                )
+              ] })
+            ] }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 1, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Información de la Propiedad" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Complete la información de la propiedad. Los campos marcados con * son obligatorios." }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propiedad.tipo",
+                    control,
+                    render: ({ field }) => {
+                      var _a2;
+                      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        react.Select,
+                        {
+                          label: "Tipo de Propiedad *",
+                          value: field.value,
+                          onChange: (value) => field.onChange(value),
+                          error: !!((_a2 = errors.propiedad) == null ? void 0 : _a2.tipo),
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Casa", children: "Casa" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Departamento", children: "Departamento" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Terreno", children: "Terreno" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Local Comercial", children: "Local Comercial" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Oficina", children: "Oficina" })
+                          ]
+                        }
+                      );
+                    }
+                  }
+                ),
+                ((_h = errors.propiedad) == null ? void 0 : _h.tipo) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.tipo.message })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-medium mb-2 text-blue-gray-500", children: "Dirección de la Propiedad" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.direccion.calle",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Calle *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b2.calle) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_j = (_i = errors.propiedad) == null ? void 0 : _i.direccion) == null ? void 0 : _j.calle) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.direccion.calle.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.direccion.numero",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Número *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b2.numero) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_l = (_k = errors.propiedad) == null ? void 0 : _k.direccion) == null ? void 0 : _l.numero) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.direccion.numero.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.direccion.colonia",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Colonia *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b2.colonia) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_n = (_m = errors.propiedad) == null ? void 0 : _m.direccion) == null ? void 0 : _n.colonia) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.direccion.colonia.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.direccion.ciudad",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Ciudad *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b2.ciudad) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_p = (_o = errors.propiedad) == null ? void 0 : _o.direccion) == null ? void 0 : _p.ciudad) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.direccion.ciudad.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.direccion.estado",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Estado *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b2.estado) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_r = (_q = errors.propiedad) == null ? void 0 : _q.direccion) == null ? void 0 : _r.estado) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.direccion.estado.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.direccion.codigo_postal",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Código Postal *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b2.codigo_postal) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_t = (_s = errors.propiedad) == null ? void 0 : _s.direccion) == null ? void 0 : _t.codigo_postal) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.direccion.codigo_postal.message })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-medium mb-2 text-blue-gray-500", children: "Características de la Propiedad" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.caracteristicas.m2_terreno",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "number",
+                            label: "Metros Cuadrados de Terreno *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.caracteristicas) == null ? void 0 : _b2.m2_terreno) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_v = (_u = errors.propiedad) == null ? void 0 : _u.caracteristicas) == null ? void 0 : _v.m2_terreno) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.caracteristicas.m2_terreno.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.caracteristicas.m2_construccion",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "number",
+                            label: "Metros Cuadrados de Construcción *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.caracteristicas) == null ? void 0 : _b2.m2_construccion) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_x = (_w = errors.propiedad) == null ? void 0 : _w.caracteristicas) == null ? void 0 : _x.m2_construccion) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.caracteristicas.m2_construccion.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.caracteristicas.habitaciones",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "number",
+                            label: "Número de Recámaras *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.caracteristicas) == null ? void 0 : _b2.habitaciones) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_z = (_y = errors.propiedad) == null ? void 0 : _y.caracteristicas) == null ? void 0 : _z.habitaciones) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.caracteristicas.habitaciones.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.caracteristicas.baños",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "number",
+                            label: "Número de Baños *",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.caracteristicas) == null ? void 0 : _b2.baños) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_B = (_A = errors.propiedad) == null ? void 0 : _A.caracteristicas) == null ? void 0 : _B.baños) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.caracteristicas.baños.message }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "propiedad.caracteristicas.cocheras",
+                      control,
+                      render: ({ field }) => {
+                        var _a2, _b2;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "number",
+                            label: "Número de Cocheras",
+                            className: ((_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.caracteristicas) == null ? void 0 : _b2.cocheras) ? "border-red-500" : "",
+                            ...field
+                          }
+                        );
+                      }
+                    }
+                  ),
+                  ((_D = (_C = errors.propiedad) == null ? void 0 : _C.caracteristicas) == null ? void 0 : _D.cocheras) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.caracteristicas.cocheras.message })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "propiedad.caracteristicas.descripcion",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Textarea,
+                      {
+                        label: "Descripción Adicional",
+                        ...field
+                      }
+                    )
+                  }
+                ) })
+              ] })
+            ] }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 2, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Adeudos de la Propiedad" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Registre los adeudos relacionados con la propiedad." }),
+              adeudosFields.map((field, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-4 border rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center mb-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", className: "font-medium", children: [
+                    "Adeudo ",
+                    index + 1
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    react.Button,
+                    {
+                      size: "sm",
+                      color: "red",
+                      variant: "text",
+                      onClick: () => removeAdeudo(index),
+                      children: "Eliminar"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: `propiedad.adeudos.${index}.tipo`,
+                      control,
+                      render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                        react.Select,
+                        {
+                          label: "Tipo de Adeudo",
+                          value: field2.value,
+                          onChange: (value) => field2.onChange(value),
+                          children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Predial", children: "Predial" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Agua", children: "Agua" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Hipoteca", children: "Hipoteca" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "CFE", children: "CFE (Luz)" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Mantenimiento", children: "Mantenimiento" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Gas", children: "Gas" }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Otro", children: "Otro" })
+                          ]
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: `propiedad.adeudos.${index}.monto`,
+                      control,
+                      render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "number",
+                          label: "Monto",
+                          ...field2
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: `propiedad.adeudos.${index}.referencia`,
+                      control,
+                      render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "text",
+                          label: "Número de Referencia",
+                          ...field2
+                        }
+                      )
+                    }
+                  )
+                ] })
+              ] }, field.id)),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                react.Button,
+                {
+                  size: "sm",
+                  color: "blue",
+                  variant: "outlined",
+                  onClick: () => appendAdeudo({ tipo: "", monto: "", referencia: "" }),
+                  className: "mt-4",
+                  children: "Agregar Adeudo"
+                }
+              )
+            ] }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 3, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Datos Laborales del Propietario" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Complete la información laboral del propietario." }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.empresa",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "text",
+                        label: "Nombre de la Empresa",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.direccion",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "text",
+                        label: "Dirección de la Empresa",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.telefono",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "tel",
+                        label: "Teléfono de la Empresa",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.area",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "text",
+                        label: "Área o Departamento",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.puesto",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "text",
+                        label: "Puesto",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.turno",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      react.Select,
+                      {
+                        label: "Turno",
+                        value: field.value,
+                        onChange: (value) => field.onChange(value),
+                        children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Matutino", children: "Matutino" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Vespertino", children: "Vespertino" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Nocturno", children: "Nocturno" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Mixto", children: "Mixto" })
+                        ]
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.registro_patronal",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "text",
+                        label: "Registro Patronal",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.antiguedad",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "text",
+                        label: "Antigüedad",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "datos_laborales.ingresos_mensuales",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "number",
+                        label: "Ingresos Mensuales",
+                        ...field
+                      }
+                    )
+                  }
+                )
+              ] })
+            ] }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 4, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Referencias Personales" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Agregue al menos dos referencias personales del propietario." }),
+              referenciasFields.map((field, index) => {
+                var _a2, _b2, _c2, _d2, _e2, _f2;
+                return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-4 border rounded-lg", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center mb-4", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", className: "font-medium", children: [
+                      "Referencia ",
+                      index + 1
+                    ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Button,
+                      {
+                        size: "sm",
+                        color: "red",
+                        variant: "text",
+                        onClick: () => removeReferencia(index),
+                        children: "Eliminar"
+                      }
+                    )
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      Controller,
+                      {
+                        name: `referencias_personales.${index}.nombre`,
+                        control,
+                        render: ({ field: field2 }) => {
+                          var _a3, _b3;
+                          return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                            react.Input,
+                            {
+                              type: "text",
+                              label: "Nombre Completo *",
+                              className: ((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.nombre) ? "border-red-500" : "",
+                              ...field2
+                            }
+                          );
+                        }
+                      }
+                    ),
+                    ((_b2 = (_a2 = errors.referencias_personales) == null ? void 0 : _a2[index]) == null ? void 0 : _b2.nombre) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].nombre.message }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      Controller,
+                      {
+                        name: `referencias_personales.${index}.telefono`,
+                        control,
+                        render: ({ field: field2 }) => {
+                          var _a3, _b3;
+                          return /* @__PURE__ */ jsxRuntimeExports.jsx(
+                            react.Input,
+                            {
+                              type: "tel",
+                              label: "Teléfono *",
+                              className: ((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.telefono) ? "border-red-500" : "",
+                              ...field2
+                            }
+                          );
+                        }
+                      }
+                    ),
+                    ((_d2 = (_c2 = errors.referencias_personales) == null ? void 0 : _c2[index]) == null ? void 0 : _d2.telefono) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].telefono.message }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      Controller,
+                      {
+                        name: `referencias_personales.${index}.relacion`,
+                        control,
+                        render: ({ field: field2 }) => {
+                          var _a3, _b3;
+                          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                            react.Select,
+                            {
+                              label: "Parentesco *",
+                              value: field2.value,
+                              onChange: (value) => field2.onChange(value),
+                              error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.relacion),
+                              children: [
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Familiar", children: "Familiar" }),
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Amigo", children: "Amigo" }),
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Vecino", children: "Vecino" }),
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Compañero de Trabajo", children: "Compañero de Trabajo" }),
+                                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Otro", children: "Otro" })
+                              ]
+                            }
+                          );
+                        }
+                      }
+                    ),
+                    ((_f2 = (_e2 = errors.referencias_personales) == null ? void 0 : _e2[index]) == null ? void 0 : _f2.relacion) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].relacion.message }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      Controller,
+                      {
+                        name: `referencias_personales.${index}.direccion`,
+                        control,
+                        render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          react.Input,
+                          {
+                            type: "text",
+                            label: "Dirección",
+                            ...field2
+                          }
+                        )
+                      }
+                    )
+                  ] })
+                ] }, field.id);
+              }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                react.Button,
+                {
+                  size: "sm",
+                  color: "blue",
+                  variant: "outlined",
+                  onClick: () => appendReferencia({ nombre: "", telefono: "", relacion: "", direccion: "" }),
+                  className: "mt-4",
+                  children: "Agregar Referencia"
+                }
+              )
+            ] }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 5, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Documentos Requeridos" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Marque los documentos que el propietario ha proporcionado." }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.ine",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "INE/IFE *" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.curp",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "CURP *" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.rfc",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "RFC *" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.escrituras",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Escrituras *" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.predial_pagado",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Predial Pagado *" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.libre_gravamen",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Libre de Gravamen *" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "documentacion.comprobante_domicilio",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Comprobante de Domicilio *" })
+                    ] })
+                  }
+                )
+              ] })
+            ] }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabPanel, { value: 6, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Información de Venta" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Complete la información relacionada con la venta de la propiedad." }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.en_venta",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        "input",
+                        {
+                          type: "checkbox",
+                          checked: field.value,
+                          onChange: (e) => field.onChange(e.target.checked),
+                          className: "mr-2"
+                        }
+                      ),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Propiedad en Venta" })
+                    ] })
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.precio_venta",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "number",
+                        label: "Precio de Venta",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.comision_venta",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "number",
+                        label: "Comisión de Venta (%)",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.fecha_venta",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      react.Input,
+                      {
+                        type: "date",
+                        label: "Fecha de Venta",
+                        ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.estatus_venta",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      react.Select,
+                      {
+                        label: "Estatus de Venta",
+                        value: field.value,
+                        onChange: (value) => field.onChange(value),
+                        children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "En proceso", children: "En proceso" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Vendida", children: "Vendida" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Cancelada", children: "Cancelada" })
+                        ]
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.tipo_credito",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      react.Select,
+                      {
+                        label: "Tipo de Crédito",
+                        value: field.value,
+                        onChange: (value) => field.onChange(value),
+                        children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Contado", children: "Contado" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Infonavit", children: "Infonavit" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Fovissste", children: "Fovissste" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Bancario", children: "Bancario" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Mixto", children: "Mixto" })
+                        ]
+                      }
+                    )
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-medium mb-2 text-blue-gray-500", children: "Información del Comprador" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.comprador.nombre",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "text",
+                          label: "Nombre del Comprador",
+                          ...field
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.comprador.telefono",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "tel",
+                          label: "Teléfono del Comprador",
+                          ...field
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.comprador.correo",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "email",
+                          label: "Correo del Comprador",
+                          ...field
+                        }
+                      )
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.comprador.direccion",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                        react.Input,
+                        {
+                          type: "text",
+                          label: "Dirección del Comprador",
+                          ...field
+                        }
+                      )
+                    }
+                  )
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-medium mb-2 text-blue-gray-500", children: "Documentos Entregados" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.documentos_entregados.contrato",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "input",
+                          {
+                            type: "checkbox",
+                            checked: field.value,
+                            onChange: (e) => field.onChange(e.target.checked),
+                            className: "mr-2"
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Contrato de Compra-Venta" })
+                      ] })
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.documentos_entregados.identificacion",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "input",
+                          {
+                            type: "checkbox",
+                            checked: field.value,
+                            onChange: (e) => field.onChange(e.target.checked),
+                            className: "mr-2"
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Identificación del Comprador" })
+                      ] })
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Controller,
+                    {
+                      name: "venta.documentos_entregados.constancia_credito",
+                      control,
+                      render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          "input",
+                          {
+                            type: "checkbox",
+                            checked: field.value,
+                            onChange: (e) => field.onChange(e.target.checked),
+                            className: "mr-2"
+                          }
+                        ),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { children: "Constancia de Crédito" })
+                      ] })
+                    }
+                  )
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Controller,
+                {
+                  name: "venta.observaciones",
+                  control,
+                  render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    react.Textarea,
+                    {
+                      label: "Observaciones",
+                      ...field
+                    }
+                  )
+                }
+              ) })
+            ] }) })
+          ] })
+        ] })
+      ] }),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsx(react.Alert, { color: "red", className: "mt-4", children: error }),
+      successMessage && /* @__PURE__ */ jsxRuntimeExports.jsx(react.Alert, { color: "green", className: "mt-4", children: successMessage }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end gap-4 mt-6", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          react.Button,
+          {
+            variant: "outlined",
+            color: "blue-gray",
+            onClick: () => navigate("/dashboard/captaciones"),
+            children: "Cancelar"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          react.Button,
+          {
+            type: "submit",
+            color: "blue",
+            disabled: isLoading,
+            children: isLoading ? "Guardando..." : "Guardar Cambios"
+          }
+        )
+      ] })
+    ] }) })
+  ] });
+}
 function MisProyectos() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = reactExports.useState(true);
@@ -7705,7 +9345,7 @@ const routes = [
       },
       {
         path: "/captaciones/editar/:id",
-        element: /* @__PURE__ */ jsxRuntimeExports.jsx(CrearCaptacion, {}),
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(EditarCaptacion, {}),
         // Reutilizar el componente de creación para edición
         showInSidebar: false
       }

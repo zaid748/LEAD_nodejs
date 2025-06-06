@@ -21,7 +21,7 @@ import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
 import { EditarUser } from "@/pages/dashboard/Users/EditarUser";
 
 import { CrearCaptacion } from '@/pages/dashboard/captaciones/CrearCaptacion';
-
+import { EditarCaptacion } from '@/pages/dashboard/captaciones/EditarCaptacion';
 import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
 
 const icon = {
@@ -154,7 +154,7 @@ export const routes = [
       },
       {
         path: "/captaciones/editar/:id",
-        element: <CrearCaptacion />, // Reutilizar el componente de creación para edición
+        element: <EditarCaptacion />, // Reutilizar el componente de creación para edición
         showInSidebar: false,
       },
     ],
