@@ -15,7 +15,11 @@ employedCtrl.agregarEmpleadoView = async(req, res)=>{
 
 employedCtrl.agregarEmpleado = async(req, res)=>{
     const { prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing } = req.body;
-    const emailEmployed = await Empleados.findOne({email: email}).lean();
+    // Solo validar unicidad si el email viene lleno
+    let emailEmployed = null;
+    if (email && email.trim() !== "") {
+        emailEmployed = await Empleados.findOne({email: email}).lean();
+    }
     const user = req.user;
     const role = req.role;
     const department = await Departamentos.find().lean();
