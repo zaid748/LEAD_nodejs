@@ -338,6 +338,16 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
     pdf_url: {
         type: String,
         trim: true
+    },
+    ultima_actualizacion: {
+        usuario: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        fecha: {
+            type: Date,
+            default: Date.now
+        }
     }
 }, { timestamps: true });
 

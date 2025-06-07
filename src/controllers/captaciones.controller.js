@@ -77,7 +77,7 @@ exports.getCaptaciones = async (req, res) => {
             .sort(sort)
             .skip(skip)
             .limit(parseInt(limit))
-            .select('-historial_tramites -inversionistas -historial_estatus -referencias_personales');
+            .select('-historial_tramites -inversionistas -referencias_personales');
         
         // Aplicar populate SOLO si no se indica evitarlo
         // y envolver en try/catch para que no rompa la aplicación
@@ -86,7 +86,9 @@ exports.getCaptaciones = async (req, res) => {
                 // Intentar hacer populate, pero manejar posibles errores
                 captacionesQuery = captacionesQuery
                     .populate('captacion.asesor', 'name email')
-                    .populate('remodelacion.supervisor', 'name email');
+                    .populate('remodelacion.supervisor', 'name email')
+                    .populate('ultima_actualizacion.usuario', 'name email')
+                    .populate('historial_estatus.usuario', 'prim_nom segun_nom apell_pa apell_ma nombre email');
             } catch (populateError) {
                 console.error("Error al hacer populate:", populateError);
                 // Continuar sin populate
@@ -103,6 +105,7 @@ exports.getCaptaciones = async (req, res) => {
         const paginas = Math.ceil(total / limit) || 1;
         
         // Devolver resultados
+        console.log('RESPUESTA captaciones:', JSON.stringify(captaciones, null, 2));
         res.json({
             captaciones,
             paginacion: {
@@ -320,7 +323,8 @@ exports.updateCaptacion = async (req, res) => {
             { new: true, runValidators: true }
         )
         .populate('captacion.asesor', 'name email')
-        .populate('remodelacion.supervisor', 'name email');
+        .populate('remodelacion.supervisor', 'name email')
+        .populate('ultima_actualizacion.usuario', 'name email');
         
         res.json(captacionActualizada);
     } catch (error) {

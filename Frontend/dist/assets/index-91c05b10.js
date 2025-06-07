@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as TableCellsIcon, a4 as UserGroupIcon, a5 as DocumentTextIcon, a6 as BuildingOffice2Icon, a7 as ServerStackIcon, a8 as RectangleStackIcon, a9 as useLocation, aa as XMarkIcon, ab as NavLink, ac as Bars3Icon, ad as Cog6ToothIcon, ae as Routes, af as Route, ag as Outlet, ah as client, ai as BrowserRouter } from "./vendor-a34d14cd.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as UserGroupIcon, a4 as DocumentTextIcon, a5 as ClipboardDocumentListIcon, a6 as TableCellsIcon, a7 as BuildingOffice2Icon, a8 as ServerStackIcon, a9 as RectangleStackIcon, aa as useLocation, ab as XMarkIcon, ac as NavLink, ad as Bars3Icon, ae as Cog6ToothIcon, af as Routes, ag as Route, ah as Outlet, ai as client, aj as BrowserRouter } from "./vendor-8568c12d.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -8915,7 +8915,6 @@ function MisProyectos() {
         if (searchTerm) {
           apiUrl += `&search=${encodeURIComponent(searchTerm)}`;
         }
-        apiUrl += "&nopopulate=true";
         console.log("Consultando API:", apiUrl);
         const response = await fetch(apiUrl, {
           credentials: "include",
@@ -8933,8 +8932,11 @@ function MisProyectos() {
           setTotalPages(0);
           return;
         }
-        const captacionesProcesadas = data.captaciones.map((captacion) => {
+        const captacionesProcesadas = data.captaciones.map((captacion, idx) => {
           var _a2, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t;
+          console.log(`
+--- Procesando captación #${idx + 1} ---`);
+          console.log("Raw captacion:", captacion);
           const direccionCompleta = ((_b = (_a2 = captacion.propiedad) == null ? void 0 : _a2.direccion) == null ? void 0 : _b.completa) || [
             (_d = (_c = captacion.propiedad) == null ? void 0 : _c.direccion) == null ? void 0 : _d.calle,
             (_f = (_e = captacion.propiedad) == null ? void 0 : _e.direccion) == null ? void 0 : _f.colonia,
@@ -8950,13 +8952,11 @@ function MisProyectos() {
                 asesorNombre = `${user.prim_nom || ""} ${user.segun_nom || ""} ${user.apell_pa || ""} ${user.apell_ma || ""}`.trim() || `Usuario actual`;
               } else {
                 try {
-                  console.log(captacion.captacion.asesor);
+                  console.log("Asesor solo ID:", captacion.captacion.asesor);
                   fetch(`${"https://lead-inmobiliaria.com"}/api/users/${captacion.captacion.asesor}`, {
                     method: "GET",
                     credentials: "include",
-                    headers: {
-                      "Accept": "application/json"
-                    }
+                    headers: { "Accept": "application/json" }
                   }).then((response2) => response2.json()).then((userData) => {
                     if (userData) {
                       const nombreCompleto = `${userData.user.prim_nom || ""} ${userData.user.segun_nom || ""} ${userData.user.apell_pa || ""} ${userData.user.apell_ma || ""}`.trim();
@@ -8976,7 +8976,16 @@ function MisProyectos() {
               }
             }
           }
-          return {
+          console.log("historial_estatus:", captacion.historial_estatus);
+          if (Array.isArray(captacion.historial_estatus)) {
+            captacion.historial_estatus.forEach((h, i) => {
+              console.log(`  Historial #${i + 1}:`, h);
+              if (h.usuario) {
+                console.log(`    Usuario:`, h.usuario);
+              }
+            });
+          }
+          const obj = {
             _id: captacion._id || `temp-${Math.random()}`,
             propiedad: {
               tipo: ((_l = captacion.propiedad) == null ? void 0 : _l.tipo) || "Casa/Apartamento",
@@ -8997,9 +9006,13 @@ function MisProyectos() {
                 nombre: asesorNombre,
                 id: typeof ((_t = captacion.captacion) == null ? void 0 : _t.asesor) === "string" ? captacion.captacion.asesor : null
               }
-            }
+            },
+            historial_estatus: captacion.historial_estatus || []
           };
+          console.log("Objeto procesado para tabla:", obj);
+          return obj;
         });
+        console.log("captacionesProcesadas FINAL:", captacionesProcesadas);
         setCaptaciones(captacionesProcesadas);
         setTotalPages(((_a = data.paginacion) == null ? void 0 : _a.paginas) || 1);
       } catch (error2) {
@@ -9111,7 +9124,7 @@ function MisProyectos() {
         )
       ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full min-w-[640px] table-auto", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["Propiedad", "Propietario", "Ubicación", "Asesor Asignado", "Estatus", "Fecha", "Acciones"].map((header) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["Propiedad", "Propietario", "Ubicación", "Última Actualización", "Estatus", "Fecha", "Acciones"].map((header) => /* @__PURE__ */ jsxRuntimeExports.jsx(
             "th",
             {
               className: "border-b border-blue-gray-50 py-3 px-5 text-left",
@@ -9126,7 +9139,7 @@ function MisProyectos() {
             },
             header
           )) }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion }, index) => {
+          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus }, index) => {
             var _a, _b, _c;
             const isLast = index === captaciones.length - 1;
             const classes = isLast ? "py-3 px-5" : "py-3 px-5 border-b border-blue-gray-50";
@@ -9135,7 +9148,7 @@ function MisProyectos() {
             const propietarioTelefono = (propietario == null ? void 0 : propietario.telefono) || "---";
             const ciudad = ((_a = propiedad == null ? void 0 : propiedad.direccion) == null ? void 0 : _a.ciudad) || "N/A";
             const estado = ((_b = propiedad == null ? void 0 : propiedad.direccion) == null ? void 0 : _b.estado) || "";
-            const asesorNombre = ((_c = captacion == null ? void 0 : captacion.asesor) == null ? void 0 : _c.nombre) || "No asignado";
+            ((_c = captacion == null ? void 0 : captacion.asesor) == null ? void 0 : _c.nombre) || "No asignado";
             let fechaFormateada = "Fecha desconocida";
             try {
               if (captacion == null ? void 0 : captacion.fecha) {
@@ -9143,6 +9156,26 @@ function MisProyectos() {
               }
             } catch (e) {
               console.error("Error al formatear fecha:", e);
+            }
+            let ultimaActualizacionNombre = "Nunca editado";
+            let ultimaActualizacionFecha = "";
+            const historial = historial_estatus || [];
+            if (historial.length > 0) {
+              const ultimo = historial[historial.length - 1];
+              if (ultimo.usuario) {
+                ultimaActualizacionNombre = ultimo.usuario.name || ultimo.usuario.nombre || [
+                  ultimo.usuario.prim_nom,
+                  ultimo.usuario.segun_nom,
+                  ultimo.usuario.apell_pa,
+                  ultimo.usuario.apell_ma
+                ].filter(Boolean).join(" ") || ultimo.usuario.email || "Sin nombre";
+                if (ultimo.fecha) {
+                  try {
+                    ultimaActualizacionFecha = new Date(ultimo.fecha).toLocaleDateString();
+                  } catch {
+                  }
+                }
+              }
             }
             return /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: classes, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
@@ -9160,7 +9193,10 @@ function MisProyectos() {
                 /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "text-xs font-semibold text-blue-gray-600", children: ciudad }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "text-xs font-normal text-blue-gray-500", children: estado })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: classes, children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "text-xs font-semibold text-blue-gray-600", children: asesorNombre }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: classes, children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "text-xs font-semibold text-blue-gray-600", children: ultimaActualizacionNombre }),
+                ultimaActualizacionFecha && /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "text-xs text-blue-gray-400", children: ultimaActualizacionFecha })
+              ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: classes, children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-max", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                 react.Chip,
                 {
@@ -9172,7 +9208,7 @@ function MisProyectos() {
               ) }) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: classes, children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "text-xs font-semibold text-blue-gray-600", children: fechaFormateada }) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: classes, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Tooltip, { content: "Ver Detalles", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.IconButton, { variant: "text", color: "blue-gray", onClick: () => navigate(`/dashboard/captaciones/${_id}`), children: /* @__PURE__ */ jsxRuntimeExports.jsx(EyeIcon$1, { className: "h-5 w-5" }) }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Tooltip, { content: "Ver Detalles", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.IconButton, { variant: "text", color: "blue-gray", onClick: () => navigate(`/dashboard/captaciones/${_id}/detalle`), children: /* @__PURE__ */ jsxRuntimeExports.jsx(EyeIcon$1, { className: "h-5 w-5" }) }) }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(react.Tooltip, { content: "Descargar PDF", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                   react.IconButton,
                   {
@@ -9219,6 +9255,566 @@ function MisProyectos() {
               children: "Siguiente"
             }
           )
+        ] })
+      ] })
+    ] })
+  ] }) });
+}
+function DetalleCaptacion() {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _A, _B, _C, _D, _E, _F, _G, _H, _I, _J, _K, _L, _M, _N, _O, _P, _Q, _R, _S, _T, _U, _V, _W, _X, _Y, _Z, __, _$, _aa, _ba, _ca, _da, _ea, _fa, _ga, _ha, _ia, _ja, _ka, _la, _ma, _na, _oa, _pa, _qa, _ra, _sa, _ta, _ua, _va, _wa, _xa, _ya, _za;
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = reactExports.useState(true);
+  const [error, setError] = reactExports.useState(null);
+  const [captacion, setCaptacion] = reactExports.useState(null);
+  const [activeTab, setActiveTab] = reactExports.useState("propietario");
+  reactExports.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const data = await captacionesAPI.getById(id);
+        setCaptacion(data);
+      } catch (err) {
+        setError("Error al cargar la información de la captación");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    if (id)
+      fetchData();
+  }, [id]);
+  if (isLoading) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-96", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-12 w-12" }) });
+  }
+  if (error) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-96", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Alert, { color: "red", children: error }) });
+  }
+  if (!captacion) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-96", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", children: "No se encontró la captación" }) });
+  }
+  const mostrarValor = (valor, def = "-") => valor !== void 0 && valor !== null && valor !== "" ? valor : def;
+  const mostrarBool = (valor) => valor ? "Sí" : "No";
+  const mostrarFecha = (fecha) => fecha ? new Date(fecha).toLocaleDateString() : "-";
+  const tabs = [
+    { label: "Propietario", value: "propietario", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(UserCircleIcon, { className: "h-5 w-5" }) },
+    { label: "Propiedad", value: "propiedad", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(HomeIcon, { className: "h-5 w-5" }) },
+    { label: "Adeudos", value: "adeudos", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(CurrencyDollarIcon, { className: "h-5 w-5" }) },
+    { label: "Datos Laborales", value: "laboral", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(BriefcaseIcon, { className: "h-5 w-5" }) },
+    { label: "Referencias", value: "referencias", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(UserGroupIcon, { className: "h-5 w-5" }) },
+    { label: "Documentos", value: "documentos", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(DocumentTextIcon, { className: "h-5 w-5" }) },
+    { label: "Venta", value: "venta", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(BuildingOfficeIcon, { className: "h-5 w-5" }) }
+  ];
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Card, { className: "mx-3 lg:mx-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.CardHeader, { color: "blue", variant: "gradient", className: "p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col md:flex-row md:items-center md:justify-between", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(BuildingOfficeIcon, { className: "h-8 w-8 text-white" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h5", color: "white", children: "Detalle de Captación Inmobiliaria" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", color: "white", className: "mt-1", children: [
+            "ID: ",
+            captacion._id
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 mt-4 md:mt-0", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          react.Button,
+          {
+            variant: "outlined",
+            color: "white",
+            className: "flex items-center gap-2",
+            onClick: () => navigate(`/dashboard/captaciones/editar/${id}`),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(PencilIcon, { className: "h-5 w-5" }),
+              "Editar"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          react.Button,
+          {
+            variant: "outlined",
+            color: "white",
+            className: "flex items-center gap-2",
+            onClick: () => navigate("/dashboard/captaciones"),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeftIcon, { className: "h-5 w-5" }),
+              "Volver"
+            ]
+          }
+        )
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(react.CardBody, { className: "p-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mb-6 p-4 bg-blue-gray-50 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          react.Avatar,
+          {
+            src: (_b = (_a = captacion.ultima_actualizacion) == null ? void 0 : _a.usuario) == null ? void 0 : _b.avatar,
+            alt: (_d = (_c = captacion.ultima_actualizacion) == null ? void 0 : _c.usuario) == null ? void 0 : _d.nombre,
+            size: "sm"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: [
+            "Última actualización por: ",
+            mostrarValor((_f = (_e = captacion.ultima_actualizacion) == null ? void 0 : _e.usuario) == null ? void 0 : _f.nombre)
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", color: "blue-gray", children: [
+            "Fecha: ",
+            mostrarFecha((_g = captacion.ultima_actualizacion) == null ? void 0 : _g.fecha)
+          ] })
+        ] })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Tabs, { value: activeTab, className: "w-full", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabsHeader, { className: "mb-6 flex flex-wrap md:flex-nowrap h-auto md:h-12 py-2 gap-1 bg-blue-gray-50 overflow-x-auto md:overflow-x-auto hide-scrollbar", children: tabs.map(({ label, value, icon: icon2 }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          react.Tab,
+          {
+            value,
+            onClick: () => setActiveTab(value),
+            className: `py-2 px-3 whitespace-nowrap rounded-md transition-all flex items-center gap-2 ${activeTab === value ? "bg-white shadow-sm font-medium" : ""}`,
+            children: [
+              icon2,
+              label
+            ]
+          },
+          value
+        )) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(react.TabsBody, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "propietario", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(UserCircleIcon, { className: "h-6 w-6" }),
+              "Información del Propietario"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Nombre:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_h = captacion.propietario) == null ? void 0 : _h.nombre) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Teléfono:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_i = captacion.propietario) == null ? void 0 : _i.telefono) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Correo:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_j = captacion.propietario) == null ? void 0 : _j.correo) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Dirección:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_k = captacion.propietario) == null ? void 0 : _k.direccion) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Identificación:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_l = captacion.propietario) == null ? void 0 : _l.identificacion) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "NSS:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_m = captacion.propietario) == null ? void 0 : _m.nss) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "RFC:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_n = captacion.propietario) == null ? void 0 : _n.rfc) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "CURP:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_o = captacion.propietario) == null ? void 0 : _o.curp) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Estado Civil:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_p = captacion.propietario) == null ? void 0 : _p.estado_civil) })
+              ] })
+            ] })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "propiedad", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(HomeIcon, { className: "h-6 w-6" }),
+              "Información de la Propiedad"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Tipo:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_q = captacion.propiedad) == null ? void 0 : _q.tipo) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg col-span-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Dirección:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: [
+                  (_s = (_r = captacion.propiedad) == null ? void 0 : _r.direccion) == null ? void 0 : _s.calle,
+                  (_u = (_t = captacion.propiedad) == null ? void 0 : _t.direccion) == null ? void 0 : _u.numero,
+                  (_w = (_v = captacion.propiedad) == null ? void 0 : _v.direccion) == null ? void 0 : _w.colonia,
+                  (_y = (_x = captacion.propiedad) == null ? void 0 : _x.direccion) == null ? void 0 : _y.ciudad,
+                  (_A = (_z = captacion.propiedad) == null ? void 0 : _z.direccion) == null ? void 0 : _A.estado,
+                  (_C = (_B = captacion.propiedad) == null ? void 0 : _B.direccion) == null ? void 0 : _C.codigo_postal
+                ].filter(Boolean).join(", ") })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg col-span-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Características:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4 mt-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Terreno:" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { children: [
+                      mostrarValor((_E = (_D = captacion.propiedad) == null ? void 0 : _D.caracteristicas) == null ? void 0 : _E.m2_terreno, "-"),
+                      " m²"
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Construcción:" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { children: [
+                      mostrarValor((_G = (_F = captacion.propiedad) == null ? void 0 : _F.caracteristicas) == null ? void 0 : _G.m2_construccion, "-"),
+                      " m²"
+                    ] })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Recámaras:" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: mostrarValor((_I = (_H = captacion.propiedad) == null ? void 0 : _H.caracteristicas) == null ? void 0 : _I.habitaciones, "-") })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Baños:" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: mostrarValor((_K = (_J = captacion.propiedad) == null ? void 0 : _J.caracteristicas) == null ? void 0 : _K.baños, "-") })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Cocheras:" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: mostrarValor((_M = (_L = captacion.propiedad) == null ? void 0 : _L.caracteristicas) == null ? void 0 : _M.cocheras, "-") })
+                  ] })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg col-span-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Descripción:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_O = (_N = captacion.propiedad) == null ? void 0 : _N.caracteristicas) == null ? void 0 : _O.descripcion) })
+              ] })
+            ] })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "adeudos", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(CurrencyDollarIcon, { className: "h-6 w-6" }),
+              "Adeudos de la Propiedad"
+            ] }),
+            ((_P = captacion.propiedad) == null ? void 0 : _P.adeudos) && captacion.propiedad.adeudos.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: captacion.propiedad.adeudos.map((adeudo, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-start mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: mostrarValor(adeudo.tipo) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  react.Chip,
+                  {
+                    value: mostrarValor(adeudo.estatus),
+                    className: "bg-blue-500",
+                    size: "sm"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Monto:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { children: [
+                    "$",
+                    mostrarValor(adeudo.monto)
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Descripción:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: mostrarValor(adeudo.descripcion) })
+                ] })
+              ] })
+            ] }, idx)) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center p-8 bg-blue-gray-50 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: "No hay adeudos registrados." }) })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "laboral", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(BriefcaseIcon, { className: "h-6 w-6" }),
+              "Datos Laborales del Propietario"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Empresa:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_Q = captacion.datos_laborales) == null ? void 0 : _Q.empresa) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Puesto:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_R = captacion.datos_laborales) == null ? void 0 : _R.puesto) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Área:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_S = captacion.datos_laborales) == null ? void 0 : _S.area) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Turno:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_T = captacion.datos_laborales) == null ? void 0 : _T.turno) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Antigüedad:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { className: "mt-1", children: [
+                  mostrarValor((_U = captacion.datos_laborales) == null ? void 0 : _U.antiguedad),
+                  " años"
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Ingresos Mensuales:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { className: "mt-1", children: [
+                  "$",
+                  mostrarValor((_V = captacion.datos_laborales) == null ? void 0 : _V.ingresos_mensuales)
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Teléfono del Trabajo:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_W = captacion.datos_laborales) == null ? void 0 : _W.telefono) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Dirección del Trabajo:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_X = captacion.datos_laborales) == null ? void 0 : _X.direccion) })
+              ] })
+            ] })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "referencias", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(UserGroupIcon, { className: "h-6 w-6" }),
+              "Referencias Personales"
+            ] }),
+            captacion.referencias_personales && captacion.referencias_personales.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: captacion.referencias_personales.map((ref, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  react.Avatar,
+                  {
+                    size: "sm",
+                    variant: "circular",
+                    src: ref.avatar,
+                    alt: ref.nombre
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: mostrarValor(ref.nombre) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: mostrarValor(ref.relacion) })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Teléfono:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: mostrarValor(ref.telefono) })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", children: "Dirección:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: mostrarValor(ref.direccion) })
+                ] })
+              ] })
+            ] }, idx)) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center p-8 bg-blue-gray-50 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { children: "No hay referencias registradas." }) })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "documentos", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(DocumentTextIcon, { className: "h-6 w-6" }),
+              "Documentos Entregados"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (_Y = captacion.documentos_entregados) == null ? void 0 : _Y.ine,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "INE" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (_Z = captacion.documentos_entregados) == null ? void 0 : _Z.curp,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "CURP" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (__ = captacion.documentos_entregados) == null ? void 0 : __.rfc,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "RFC" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (_$ = captacion.documentos_entregados) == null ? void 0 : _$.escrituras,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Escrituras" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (_aa = captacion.documentos_entregados) == null ? void 0 : _aa.comprobante_domicilio,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Comprobante Domicilio" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (_ba = captacion.documentos_entregados) == null ? void 0 : _ba.predial_pagado,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Predial Pagado" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    type: "checkbox",
+                    checked: (_ca = captacion.documentos_entregados) == null ? void 0 : _ca.libre_gravamen,
+                    readOnly: true,
+                    className: "w-4 h-4"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Libre Gravamen" })
+              ] }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg col-span-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Observaciones:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_da = captacion.documentos_entregados) == null ? void 0 : _da.observaciones) })
+              ] })
+            ] })
+          ] }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.TabPanel, { value: "venta", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(BuildingOfficeIcon, { className: "h-6 w-6" }),
+              "Información de Venta"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "En Venta:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  react.Chip,
+                  {
+                    value: mostrarBool((_ea = captacion.venta) == null ? void 0 : _ea.en_venta),
+                    className: ((_fa = captacion.venta) == null ? void 0 : _fa.en_venta) ? "bg-green-500" : "bg-red-500",
+                    size: "sm"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Precio de Venta:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { className: "mt-1", children: [
+                  "$",
+                  mostrarValor((_ga = captacion.venta) == null ? void 0 : _ga.precio_venta)
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Comisión de Venta:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { className: "mt-1", children: [
+                  "$",
+                  mostrarValor((_ha = captacion.venta) == null ? void 0 : _ha.comision_venta)
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Fecha de Venta:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarFecha((_ia = captacion.venta) == null ? void 0 : _ia.fecha_venta) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Estatus de Venta:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  react.Chip,
+                  {
+                    value: mostrarValor((_ja = captacion.venta) == null ? void 0 : _ja.estatus_venta),
+                    className: "bg-blue-500",
+                    size: "sm"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Tipo de Crédito:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_ka = captacion.venta) == null ? void 0 : _ka.tipo_credito) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg col-span-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Observaciones:" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_la = captacion.venta) == null ? void 0 : _la.observaciones) })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(UserCircleIcon, { className: "h-6 w-6" }),
+                "Datos del Comprador"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Nombre:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_na = (_ma = captacion.venta) == null ? void 0 : _ma.comprador) == null ? void 0 : _na.nombre) })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Teléfono:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_pa = (_oa = captacion.venta) == null ? void 0 : _oa.comprador) == null ? void 0 : _pa.telefono) })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Correo:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_ra = (_qa = captacion.venta) == null ? void 0 : _qa.comprador) == null ? void 0 : _ra.correo) })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Dirección:" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "mt-1", children: mostrarValor((_ta = (_sa = captacion.venta) == null ? void 0 : _sa.comprador) == null ? void 0 : _ta.direccion) })
+                ] })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ClipboardDocumentListIcon, { className: "h-6 w-6" }),
+                "Documentos de Venta"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "input",
+                    {
+                      type: "checkbox",
+                      checked: (_va = (_ua = captacion.venta) == null ? void 0 : _ua.documentos_entregados) == null ? void 0 : _va.contrato,
+                      readOnly: true,
+                      className: "w-4 h-4"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Contrato" })
+                ] }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "input",
+                    {
+                      type: "checkbox",
+                      checked: (_xa = (_wa = captacion.venta) == null ? void 0 : _wa.documentos_entregados) == null ? void 0 : _xa.identificacion,
+                      readOnly: true,
+                      className: "w-4 h-4"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Identificación" })
+                ] }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "input",
+                    {
+                      type: "checkbox",
+                      checked: (_za = (_ya = captacion.venta) == null ? void 0 : _ya.documentos_entregados) == null ? void 0 : _za.constancia_credito,
+                      readOnly: true,
+                      className: "w-4 h-4"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Constancia Crédito" })
+                ] }) })
+              ] })
+            ] })
+          ] }) })
         ] })
       ] })
     ] })
@@ -9347,6 +9943,12 @@ const routes = [
         path: "/captaciones/editar/:id",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(EditarCaptacion, {}),
         // Reutilizar el componente de creación para edición
+        showInSidebar: false
+      },
+      {
+        path: "/captaciones/:id/detalle",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(DetalleCaptacion, {}),
+        // Nueva vista de detalle
         showInSidebar: false
       }
     ]

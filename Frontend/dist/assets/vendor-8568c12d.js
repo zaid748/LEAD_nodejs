@@ -9022,8 +9022,8 @@ function ArrowDownTrayIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$J = reactExports.forwardRef(ArrowDownTrayIcon);
-const ArrowDownTrayIcon$1 = ForwardRef$J;
+const ForwardRef$K = reactExports.forwardRef(ArrowDownTrayIcon);
+const ArrowDownTrayIcon$1 = ForwardRef$K;
 function ArrowLeftIcon({
   title,
   titleId,
@@ -9044,8 +9044,8 @@ function ArrowLeftIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$I = reactExports.forwardRef(ArrowLeftIcon);
-const ArrowLeftIcon$1 = ForwardRef$I;
+const ForwardRef$J = reactExports.forwardRef(ArrowLeftIcon);
+const ArrowLeftIcon$1 = ForwardRef$J;
 function BanknotesIcon({
   title,
   titleId,
@@ -9070,8 +9070,8 @@ function BanknotesIcon({
     d: "M2.25 18a.75.75 0 000 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 00-.75-.75H2.25z"
   }));
 }
-const ForwardRef$H = reactExports.forwardRef(BanknotesIcon);
-const BanknotesIcon$1 = ForwardRef$H;
+const ForwardRef$I = reactExports.forwardRef(BanknotesIcon);
+const BanknotesIcon$1 = ForwardRef$I;
 function Bars3Icon({
   title,
   titleId,
@@ -9092,8 +9092,8 @@ function Bars3Icon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$G = reactExports.forwardRef(Bars3Icon);
-const Bars3Icon$1 = ForwardRef$G;
+const ForwardRef$H = reactExports.forwardRef(Bars3Icon);
+const Bars3Icon$1 = ForwardRef$H;
 function BellIcon({
   title,
   titleId,
@@ -9114,8 +9114,8 @@ function BellIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$F = reactExports.forwardRef(BellIcon);
-const BellIcon$1 = ForwardRef$F;
+const ForwardRef$G = reactExports.forwardRef(BellIcon);
+const BellIcon$1 = ForwardRef$G;
 function BriefcaseIcon({
   title,
   titleId,
@@ -9138,8 +9138,8 @@ function BriefcaseIcon({
     d: "M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z"
   }));
 }
-const ForwardRef$E = reactExports.forwardRef(BriefcaseIcon);
-const BriefcaseIcon$1 = ForwardRef$E;
+const ForwardRef$F = reactExports.forwardRef(BriefcaseIcon);
+const BriefcaseIcon$1 = ForwardRef$F;
 function BuildingOffice2Icon({
   title,
   titleId,
@@ -9160,8 +9160,8 @@ function BuildingOffice2Icon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$D = reactExports.forwardRef(BuildingOffice2Icon);
-const BuildingOffice2Icon$1 = ForwardRef$D;
+const ForwardRef$E = reactExports.forwardRef(BuildingOffice2Icon);
+const BuildingOffice2Icon$1 = ForwardRef$E;
 function BuildingOfficeIcon({
   title,
   titleId,
@@ -9182,8 +9182,8 @@ function BuildingOfficeIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$C = reactExports.forwardRef(BuildingOfficeIcon);
-const BuildingOfficeIcon$1 = ForwardRef$C;
+const ForwardRef$D = reactExports.forwardRef(BuildingOfficeIcon);
+const BuildingOfficeIcon$1 = ForwardRef$D;
 function CalendarDaysIcon({
   title,
   titleId,
@@ -9206,8 +9206,8 @@ function CalendarDaysIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$B = reactExports.forwardRef(CalendarDaysIcon);
-const CalendarDaysIcon$1 = ForwardRef$B;
+const ForwardRef$C = reactExports.forwardRef(CalendarDaysIcon);
+const CalendarDaysIcon$1 = ForwardRef$C;
 function ChartBarIcon({
   title,
   titleId,
@@ -9226,8 +9226,8 @@ function ChartBarIcon({
     d: "M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
   }));
 }
-const ForwardRef$A = reactExports.forwardRef(ChartBarIcon);
-const ChartBarIcon$1 = ForwardRef$A;
+const ForwardRef$B = reactExports.forwardRef(ChartBarIcon);
+const ChartBarIcon$1 = ForwardRef$B;
 function CheckCircleIcon({
   title,
   titleId,
@@ -9248,8 +9248,34 @@ function CheckCircleIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$z = reactExports.forwardRef(CheckCircleIcon);
-const CheckCircleIcon$1 = ForwardRef$z;
+const ForwardRef$A = reactExports.forwardRef(CheckCircleIcon);
+const CheckCircleIcon$1 = ForwardRef$A;
+function ClipboardDocumentListIcon({
+  title,
+  titleId,
+  ...props
+}, svgRef) {
+  return /* @__PURE__ */ reactExports.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef,
+    "aria-labelledby": titleId
+  }, props), title ? /* @__PURE__ */ reactExports.createElement("title", {
+    id: titleId
+  }, title) : null, /* @__PURE__ */ reactExports.createElement("path", {
+    fillRule: "evenodd",
+    d: "M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z",
+    clipRule: "evenodd"
+  }), /* @__PURE__ */ reactExports.createElement("path", {
+    fillRule: "evenodd",
+    d: "M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z",
+    clipRule: "evenodd"
+  }));
+}
+const ForwardRef$z = reactExports.forwardRef(ClipboardDocumentListIcon);
+const ClipboardDocumentListIcon$1 = ForwardRef$z;
 function ClockIcon({
   title,
   titleId,
@@ -51933,22 +51959,23 @@ export {
   MagnifyingGlassIcon$3 as a0,
   ArrowDownTrayIcon$1 as a1,
   HomeIcon$1 as a2,
-  TableCellsIcon$1 as a3,
-  UserGroupIcon$1 as a4,
-  DocumentTextIcon$1 as a5,
-  BuildingOffice2Icon$1 as a6,
-  ServerStackIcon$1 as a7,
-  RectangleStackIcon$1 as a8,
-  useLocation as a9,
-  XMarkIcon$1 as aa,
-  NavLink as ab,
-  Bars3Icon$1 as ac,
-  Cog6ToothIcon$1 as ad,
-  Routes as ae,
-  Route as af,
-  Outlet as ag,
-  client as ah,
-  BrowserRouter as ai,
+  UserGroupIcon$1 as a3,
+  DocumentTextIcon$1 as a4,
+  ClipboardDocumentListIcon$1 as a5,
+  TableCellsIcon$1 as a6,
+  BuildingOffice2Icon$1 as a7,
+  ServerStackIcon$1 as a8,
+  RectangleStackIcon$1 as a9,
+  useLocation as aa,
+  XMarkIcon$1 as ab,
+  NavLink as ac,
+  Bars3Icon$1 as ad,
+  Cog6ToothIcon$1 as ae,
+  Routes as af,
+  Route as ag,
+  Outlet as ah,
+  client as ai,
+  BrowserRouter as aj,
   BellIcon$1 as b,
   PlusCircleIcon$1 as c,
   CreditCardIcon$1 as d,

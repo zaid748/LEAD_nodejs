@@ -19,41 +19,83 @@ employedCtrl.agregarEmpleado = async(req, res)=>{
     const user = req.user;
     const role = req.role;
     const department = await Departamentos.find().lean();
+
+    // Detectar si la petición viene de la API REST
+    const isApiRequest = req.originalUrl.includes('/api/empleados-api');
+
     if(emailEmployed){
-        res.render('empleados/add_employed',{ 
-            department,
-            prim_nom: prim_nom, 
-            segun_nom: segun_nom, 
-            apell_pa: apell_pa, 
-            apell_ma: apell_ma, 
-            pust: pust, 
-            calle: calle,
-            fecha_na: fecha_na,
-            nun_in: nun_in, 
-            nun_ex: nun_ex, 
-            codigo: codigo,
-            estado: estado,
-            telefono: telefono,
-            salario: salario, 
-            fecha_ing: fecha_ing,
-            error_msg: 'error',
-            error2_msg: 'error_let',
-            user, 
-            role
-        });
+        if (isApiRequest) {
+            return res.status(400).json({
+                success: false,
+                message: 'El correo ya está registrado'
+            });
+        } else {
+            return res.render('empleados/add_employed',{ 
+                department,
+                prim_nom: prim_nom, 
+                segun_nom: segun_nom, 
+                apell_pa: apell_pa, 
+                apell_ma: apell_ma, 
+                pust: pust, 
+                calle: calle,
+                fecha_na: fecha_na,
+                nun_in: nun_in, 
+                nun_ex: nun_ex, 
+                codigo: codigo,
+                estado: estado,
+                telefono: telefono,
+                salario: salario, 
+                fecha_ing: fecha_ing,
+                error_msg: 'error',
+                error2_msg: 'error_let',
+                user, 
+                role
+            });
+        }
     }else{
         if (req.body.email) {
             const emailRegex = /^\S+@\S+\.\S+$/;
             if (!emailRegex.test(req.body.email)) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Formato de correo electrónico inválido'
-                });
+                if (isApiRequest) {
+                    return res.status(400).json({
+                        success: false,
+                        message: 'Formato de correo electrónico inválido'
+                    });
+                } else {
+                    return res.render('empleados/add_employed',{ 
+                        department,
+                        prim_nom: prim_nom, 
+                        segun_nom: segun_nom, 
+                        apell_pa: apell_pa, 
+                        apell_ma: apell_ma, 
+                        pust: pust, 
+                        calle: calle,
+                        fecha_na: fecha_na,
+                        nun_in: nun_in, 
+                        nun_ex: nun_ex, 
+                        codigo: codigo,
+                        estado: estado,
+                        telefono: telefono,
+                        salario: salario, 
+                        fecha_ing: fecha_ing,
+                        error_msg: 'Formato de correo electrónico inválido',
+                        user, 
+                        role
+                    });
+                }
             }
         }
         const nuevoEmpleado = new Empleados({ prim_nom, segun_nom, apell_pa, apell_ma, pust, fecha_na, calle, nun_in, nun_ex, codigo, estado, telefono, email, salario, fecha_ing});
         await nuevoEmpleado.save();
-        res.redirect('/empleados');
+        if (isApiRequest) {
+            return res.status(201).json({
+                success: true,
+                message: 'Empleado creado exitosamente',
+                empleado: nuevoEmpleado
+            });
+        } else {
+            return res.redirect('/empleados');
+        }
     }
 };
 

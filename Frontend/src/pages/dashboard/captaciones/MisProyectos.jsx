@@ -128,9 +128,6 @@ export function MisProyectos() {
           apiUrl += `&search=${encodeURIComponent(searchTerm)}`;
         }
         
-        // Añadir parámetro para evitar populate y el error de User
-        apiUrl += '&nopopulate=true';
-        
         console.log("Consultando API:", apiUrl);
         
         const response = await fetch(apiUrl, {
@@ -155,7 +152,10 @@ export function MisProyectos() {
         }
         
         // Procesar captaciones con manejo cuidadoso de datos
-        const captacionesProcesadas = data.captaciones.map(captacion => {
+        const captacionesProcesadas = data.captaciones.map((captacion, idx) => {
+          console.log(`\n--- Procesando captación #${idx + 1} ---`);
+          console.log('Raw captacion:', captacion);
+
           // Construir dirección completa con verificación segura de propiedades
           const direccionCompleta = captacion.propiedad?.direccion?.completa || 
             [
@@ -168,35 +168,24 @@ export function MisProyectos() {
           // Intentar obtener nombre del asesor de la mejor manera posible
           let asesorNombre = "No asignado";
           if (captacion.captacion?.asesor) {
-            
             if (typeof captacion.captacion.asesor === 'object' && captacion.captacion.asesor.name) {
               asesorNombre = captacion.captacion.asesor.name;
             } else if (typeof captacion.captacion.asesor === 'string') {
-        
-              // Si tenemos solo el ID, intentemos obtener el nombre del objeto global de usuario
               if (user && user._id === captacion.captacion.asesor) {
-                
-                // Construir nombre completo del usuario actual
                 asesorNombre = `${user.prim_nom || ''} ${user.segun_nom || ''} ${user.apell_pa || ''} ${user.apell_ma || ''}`.trim() || `Usuario actual`;
               } else {
                 try {
-                  console.log(captacion.captacion.asesor);
-                  // Hacemos una petición convencional a la API con fetch
+                  console.log('Asesor solo ID:', captacion.captacion.asesor);
                   fetch(`${import.meta.env.VITE_API_URL}/api/users/${captacion.captacion.asesor}`, {
                     method: 'GET',
                     credentials: 'include',
-                    headers: {
-                      'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                   })
                   .then(response => response.json())
                   .then(userData => {
                     if (userData) {
-                      // Construir nombre completo usando los campos del modelo de usuario
                       const nombreCompleto = `${userData.user.prim_nom || ''} ${userData.user.segun_nom || ''} ${userData.user.apell_pa || ''} ${userData.user.apell_ma || ''}`.trim();
-                      
                       if (nombreCompleto) {
-                        // Actualizar el nombre del asesor en las captaciones
                         setCaptaciones(prevCaptaciones => 
                           prevCaptaciones.map(c => 
                             c._id === captacion._id 
@@ -216,8 +205,19 @@ export function MisProyectos() {
             }
           }
 
-          // Crear objeto procesado con verificación cuidadosa para evitar errores de propiedades undefined
-          return {
+          // LOG HISTORIAL
+          console.log('historial_estatus:', captacion.historial_estatus);
+          if (Array.isArray(captacion.historial_estatus)) {
+            captacion.historial_estatus.forEach((h, i) => {
+              console.log(`  Historial #${i + 1}:`, h);
+              if (h.usuario) {
+                console.log(`    Usuario:`, h.usuario);
+              }
+            });
+          }
+
+          // Crear objeto procesado
+          const obj = {
             _id: captacion._id || `temp-${Math.random()}`,
             propiedad: {
               tipo: captacion.propiedad?.tipo || "Casa/Apartamento",
@@ -238,9 +238,13 @@ export function MisProyectos() {
                 nombre: asesorNombre,
                 id: typeof captacion.captacion?.asesor === 'string' ? captacion.captacion.asesor : null
               }
-            }
+            },
+            historial_estatus: captacion.historial_estatus || []
           };
+          console.log('Objeto procesado para tabla:', obj);
+          return obj;
         });
+        console.log('captacionesProcesadas FINAL:', captacionesProcesadas);
         
         setCaptaciones(captacionesProcesadas);
         setTotalPages(data.paginacion?.paginas || 1);
@@ -403,7 +407,7 @@ export function MisProyectos() {
               <table className="w-full min-w-[640px] table-auto">
                 <thead>
                   <tr>
-                    {["Propiedad", "Propietario", "Ubicación", "Asesor Asignado", "Estatus", "Fecha", "Acciones"].map((header) => (
+                    {["Propiedad", "Propietario", "Ubicación", "Última Actualización", "Estatus", "Fecha", "Acciones"].map((header) => (
                       <th
                         key={header}
                         className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -419,7 +423,7 @@ export function MisProyectos() {
                   </tr>
                 </thead>
                 <tbody>
-                  {captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion }, index) => {
+                  {captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus }, index) => {
                     const isLast = index === captaciones.length - 1;
                     const classes = isLast
                       ? "py-3 px-5"
@@ -441,6 +445,32 @@ export function MisProyectos() {
                       }
                     } catch (e) {
                       console.error("Error al formatear fecha:", e);
+                    }
+
+                    // Mostrar nombre y fecha de última actualización desde historial_estatus
+                    let ultimaActualizacionNombre = "Nunca editado";
+                    let ultimaActualizacionFecha = "";
+                    const historial = historial_estatus || [];
+                    if (historial.length > 0) {
+                        const ultimo = historial[historial.length - 1];
+                        if (ultimo.usuario) {
+                            ultimaActualizacionNombre =
+                                ultimo.usuario.name ||
+                                ultimo.usuario.nombre ||
+                                ([
+                                    ultimo.usuario.prim_nom,
+                                    ultimo.usuario.segun_nom,
+                                    ultimo.usuario.apell_pa,
+                                    ultimo.usuario.apell_ma
+                                ].filter(Boolean).join(' ')) ||
+                                ultimo.usuario.email ||
+                                "Sin nombre";
+                            if (ultimo.fecha) {
+                                try {
+                                    ultimaActualizacionFecha = new Date(ultimo.fecha).toLocaleDateString();
+                                } catch {}
+                            }
+                        }
                     }
 
                     return (
@@ -480,8 +510,13 @@ export function MisProyectos() {
                         </td>
                         <td className={classes}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {asesorNombre}
+                            {ultimaActualizacionNombre}
                           </Typography>
+                          {ultimaActualizacionFecha && (
+                            <Typography className="text-xs text-blue-gray-400">
+                              {ultimaActualizacionFecha}
+                            </Typography>
+                          )}
                         </td>
                         <td className={classes}>
                           <div className="w-max">
@@ -501,7 +536,7 @@ export function MisProyectos() {
                         <td className={classes}>
                           <div className="flex items-center gap-2">
                             <Tooltip content="Ver Detalles">
-                              <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/${_id}`)}>
+                              <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/${_id}/detalle`)}>
                                 <EyeIcon className="h-5 w-5" />
                               </IconButton>
                             </Tooltip>
