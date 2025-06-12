@@ -26,6 +26,7 @@ const fetchAPI = async (endpoint, method = 'GET', data = null) => {
     
     const headers = {
       'Content-Type': 'application/json',
+      'Accept': 'application/json'
     };
     
     // Como estamos usando credenciales: 'include', la cookie Authorization 
@@ -56,6 +57,13 @@ const fetchAPI = async (endpoint, method = 'GET', data = null) => {
     console.log(`Realizando petición ${method} a ${url}`, options);
     
     const response = await fetch(url, options);
+    
+    // Verificar si la respuesta es JSON
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('La respuesta del servidor no es JSON');
+    }
+    
     const responseData = await response.json();
     
     if (!response.ok) {

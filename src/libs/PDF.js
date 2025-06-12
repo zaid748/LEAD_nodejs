@@ -2,6 +2,7 @@ const PDF = {};
 const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
+const numeroALetras = require('../helpers/numerosLetras');
 
 PDF.CrearPdfNomina = async (req, res, next) => {
   try {
@@ -54,7 +55,13 @@ PDF.CrearPdfNomina = async (req, res, next) => {
     await page.setDefaultTimeout(60000);
     
     // Extraer el monto para mostrarlo en letras
-    const salarioEnLetras = "(TRES MIL PESOS )";
+    const salario = req.body?.salario || 3000;
+    const salarioEnLetras = numeroALetras(salario, {
+      plural: "PESOS",
+      singular: "PESO",
+      centPlural: "CENTAVOS",
+      centSingular: "CENTAVO"
+    });
     
     // Fecha formateada YYYY-MM-DD
     const fecha = req.fecha;
@@ -142,7 +149,7 @@ PDF.CrearPdfNomina = async (req, res, next) => {
             <div class="title">Recibo de Dinero</div>
             
             <div class="content">
-              <p>Recibo de: ${req.user}</p>
+              <p>Recibo de: Laura Elena Alejo Duran</p>
               <p>la cantidad de ($${req.body?.salario || '3000'}pesos) M.N.</p>
               <p>${salarioEnLetras}</p>
               <p>${req.body?.conceptoDePago || 'pago de la semana'}</p>
@@ -150,7 +157,7 @@ PDF.CrearPdfNomina = async (req, res, next) => {
             
             <div class="signature-line">
               <div class="firma-text">Firma</div>
-              <div>Zaid Nevarez Alejo</div>
+              <div>${req.user}</div>
             </div>
           </div>
         </body>

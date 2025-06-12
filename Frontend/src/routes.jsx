@@ -21,8 +21,9 @@ import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
 import { EditarUser } from "@/pages/dashboard/Users/EditarUser";
 
 import { CrearCaptacion } from '@/pages/dashboard/captaciones/CrearCaptacion';
-
+import { EditarCaptacion } from '@/pages/dashboard/captaciones/EditarCaptacion';
 import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
+import { DetalleCaptacion } from '@/pages/dashboard/captaciones/DetalleCaptacion';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -154,7 +155,12 @@ export const routes = [
       },
       {
         path: "/captaciones/editar/:id",
-        element: <CrearCaptacion />, // Reutilizar el componente de creación para edición
+        element: <EditarCaptacion />, // Reutilizar el componente de creación para edición
+        showInSidebar: false,
+      },
+      {
+        path: "/captaciones/:id/detalle",
+        element: <DetalleCaptacion />, // Nueva vista de detalle
         showInSidebar: false,
       },
     ],

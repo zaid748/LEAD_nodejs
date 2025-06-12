@@ -34,4 +34,4 @@ usuario.statics.matchPassword = async function (password, respassword){
     return await bcrypt.compare(password, respassword);
 }
 
-module.exports = model('user', usuario);
+module.exports = model('User', usuario);
