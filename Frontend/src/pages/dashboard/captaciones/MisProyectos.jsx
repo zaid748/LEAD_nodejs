@@ -559,6 +559,33 @@ export function MisProyectos() {
                                 </IconButton>
                               </Tooltip>
                             )}
+                            {/* Eliminar solo para Admin */}
+                            {isAdmin && (
+                              <Tooltip content="Eliminar">
+                                <IconButton
+                                  variant="text"
+                                  color="red"
+                                  onClick={async () => {
+                                    if (window.confirm('¿Estás seguro de que deseas eliminar esta captación? Esta acción no se puede deshacer.')) {
+                                      try {
+                                        setIsLoading(true);
+                                        setError(null);
+                                        await fetchAPI(`/api/captaciones/${_id}`, 'DELETE');
+                                        setCaptaciones(prev => prev.filter(c => c._id !== _id));
+                                      } catch (err) {
+                                        setError('Error al eliminar la captación');
+                                      } finally {
+                                        setIsLoading(false);
+                                      }
+                                    }
+                                  }}
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-5 w-5">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                  </svg>
+                                </IconButton>
+                              </Tooltip>
+                            )}
                           </div>
                         </td>
                       </tr>
