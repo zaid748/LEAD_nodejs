@@ -7542,7 +7542,7 @@ function MisProyectos() {
                     children: /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowDownTrayIcon, { className: "h-5 w-5" })
                   }
                 ) }),
-                (isAdmin || isAsesor) && /* @__PURE__ */ jsxRuntimeExports.jsx(react.Tooltip, { content: "Editar", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.IconButton, { variant: "text", color: "blue-gray", onClick: () => navigate(`/dashboard/captaciones/editar/${_id}`), children: /* @__PURE__ */ jsxRuntimeExports.jsx(PencilIcon, { className: "h-5 w-5" }) }) })
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Tooltip, { content: "Editar", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.IconButton, { variant: "text", color: "blue-gray", onClick: () => navigate(`/dashboard/captaciones/editar/${_id}`), children: /* @__PURE__ */ jsxRuntimeExports.jsx(PencilIcon, { className: "h-5 w-5" }) }) })
               ] }) })
             ] }, _id || index);
           }) })
