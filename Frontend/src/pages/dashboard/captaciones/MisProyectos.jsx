@@ -298,20 +298,21 @@ export function MisProyectos() {
 
       console.log("Descargando PDF de captación:", captacion._id);
       
-      // Si tenemos una URL directa del PDF, intentar primero con ella
-      if (captacion.pdf_url) {
-        window.open(captacion.pdf_url, '_blank');
-        return;
-      }
-
-      // Si no hay URL directa, solicitar al backend que genere el PDF
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/captaciones/${captacion._id}/pdf`, {
+      // Intentar descargar el PDF como blob
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/captaciones/download/${captacion._id}`, {
         method: 'GET',
         credentials: 'include',
       });
 
       if (!response.ok) {
-        throw new Error('Error al descargar el PDF');
+        const errorData = await response.json().catch(() => ({ message: 'Error desconocido' }));
+        throw new Error(errorData.message || `Error al descargar el PDF: ${response.status}`);
+      }
+
+      // Verificar que la respuesta es un PDF
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/pdf')) {
+        throw new Error('La respuesta no es un PDF válido');
       }
 
       const blob = await response.blob();
@@ -326,7 +327,7 @@ export function MisProyectos() {
 
     } catch (error) {
       console.error("Error al descargar el PDF:", error);
-      alert("Error al descargar el PDF. Por favor intente nuevamente.");
+      alert(error.message || "Error al descargar el PDF. Por favor intente nuevamente.");
     }
   };
 
@@ -545,7 +546,7 @@ export function MisProyectos() {
                               <IconButton 
                                 variant="text" 
                                 color="blue-gray" 
-                                onClick={() => descargarPDF({ _id })}
+                                onClick={() => descargarPDF({ _id: _id })}
                               >
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                               </IconButton>

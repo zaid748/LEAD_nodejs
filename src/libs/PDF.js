@@ -247,167 +247,115 @@ PDF.CrearPdfCaptacion = async (req, res, next) => {
     });
 
     // Crear el contenido HTML con el logo incrustado como base64
-    // --- DEBUG: Simplificar HTML ---
-    const simpleHtml = '<html><head><title>Test PDF</title></head><body><h1>PDF de Prueba Simple</h1><p>Si ves esto, la generación básica funciona.</p></body></html>';
-    await page.setContent(simpleHtml);
-    // --- FIN DEBUG ---
-    /*
+    // Utilidades para checks
+    const check = '<span style="font-size:18px;color:#3c5320;font-weight:bold;">✔</span>';
+    const uncheck = '<span style="font-size:18px;color:#bbb;">&#9633;</span>';
+    // Papelería a entregar
+    const papeleria = [
+      { label: 'FORMATO DE DATOS GENERALES.', key: null },
+      { label: 'ESCRITURAS.', key: 'escrituras' },
+      { label: 'ACTA ORIGINAL.', key: null },
+      { label: 'CURP.', key: 'curp' },
+      { label: 'RFC.', key: 'rfc' },
+      { label: 'INE (COPIA).', key: 'ine' },
+      { label: 'VALIDACION DE INE VIGENTE.', key: null },
+      { label: 'ADEUDO INFONAVIT.', key: null },
+      { label: 'ADEUDO DE AGUA.', key: null },
+      { label: 'ADEUDO DE LUZ.', key: null },
+      { label: 'ADEUDO DEL PREDIAL.', key: 'predial_pagado' },
+      { label: 'HOJA DE ZONA DE RIESGO.', key: null },
+      { label: 'INSCRIPCION DE HOJA NOTARIAL.', key: null },
+      { label: 'GRAVAMEN.', key: 'libre_gravamen' },
+      { label: 'COMPROBANTE DE DOMICILIO DONDE ACTUALMENTE VIVE (COPIA)', key: 'comprobante_domicilio' },
+    ];
+    const docEntregados = req.captacion.documentos_entregados || {};
+    // Datos auxiliares
+    const propietario = req.captacion.propietario || {};
+    const conyuge = propietario.conyuge || {};
+    const vivienda = req.captacion.propiedad || {};
+    const direccion = vivienda.direccion || {};
+    const caracteristicas = vivienda.caracteristicas || {};
+    const datosLaborales = req.captacion.datos_laborales || {};
+    const referencias = req.captacion.referencias_personales || [];
+    // Adeudos
+    const adeudos = vivienda.adeudos || [];
+    // HTML principal
     await page.setContent(`
       <html>
         <head>
           <style>
-            body {
-              font-family: Arial, sans-serif;
-              margin: 0;
-              padding: 0;
-            }
-            .container {
-              border: 2px solid #3c5320;
-              border-radius: 10px;
-              padding: 20px;
-              margin: 20px;
-              position: relative;
-            }
-            .logo-container {
-              width: 350px;
-              height: 210px;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              padding: 10px;
-            }
-            .logo-image {
-              max-width: 300px;
-              max-height: 180px;
-            }
-            .date {
-              position: absolute;
-              top: 20px;
-              right: 20px;
-              font-size: 18px;
-            }
-            .title {
-              text-align: center;
-              font-size: 24px;
-              margin-top: 20px;
-              margin-bottom: 20px;
-            }
-            .content {
-              margin: 20px;
-              font-size: 16px;
-              line-height: 1.6;
-            }
-            .section {
-              margin-bottom: 20px;
-            }
-            .section-title {
-              font-weight: bold;
-              margin-bottom: 10px;
-              color: #3c5320;
-            }
-            .property-details {
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 10px;
-            }
-            .detail-item {
-              margin-bottom: 5px;
-            }
-            .signature-line {
-              width: 350px;
-              margin: 50px auto 0;
-              border-top: 1px solid black;
-              text-align: center;
-              padding-top: 10px;
-            }
-            .firma-text {
-              text-align: center;
-              font-weight: bold;
-              margin-bottom: 5px;
-            }
+            body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+            .container { padding: 24px; }
+            .logo { width: 180px; margin-bottom: 10px; }
+            .titulo { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 8px; }
+            .subtitulo { text-align: center; font-size: 18px; font-weight: bold; margin-bottom: 16px; }
+            .seccion { margin-top: 18px; margin-bottom: 8px; font-weight: bold; font-size: 16px; }
+            .campo { margin-bottom: 4px; }
+            .papeleria-lista { margin-top: 10px; }
+            .papeleria-item { margin-bottom: 2px; font-size: 15px; }
+            .check { margin-right: 8px; }
+            .tabla { width: 100%; border-collapse: collapse; margin-top: 8px; }
+            .tabla th, .tabla td { border: 1px solid #bbb; padding: 4px 8px; font-size: 14px; }
+            .tabla th { background: #f3f3f3; }
           </style>
         </head>
         <body>
           <div class="container">
-            <div class="logo-container">
-              ${logoBase64 
-                ? `<img src="${logoBase64}" alt="Lead Inmobiliaria Logo" class="logo-image">`
-                : `<div style="text-align: center; color: #d3df23;">
-                     <div style="font-size: 35px; margin-bottom: 10px;">⌂</div>
-                     <div style="font-size: 24px; font-weight: bold;">LEAD INMOBILIARIA</div>
-                     <div style="font-size: 12px; margin-top: 5px;">LA MEJOR ASESORÍA PARA CONSEGUIR TU VIVIENDA</div>
-                   </div>`
-              }
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                ${logoBase64 ? `<img src="${logoBase64}" class="logo"/>` : '<b>LEAD INMOBILIARIA</b>'}
+                <div style="font-size:11px;">LA MEJOR ASESORÍA PARA CONSEGUIR TU VIVIENDA</div>
+              </div>
+              <div style="font-size:15px;">FECHA ${fecha}</div>
             </div>
-            
-            <div class="date">${fecha}</div>
-            
-            <div class="title">Ficha de Captación Inmobiliaria</div>
-            
-            <div class="content">
-              <div class="section">
-                <div class="section-title">Información del Propietario</div>
-                <div class="property-details">
-                  <div class="detail-item">Nombre: ${req.captacion.propietario.nombre}</div>
-                  <div class="detail-item">Teléfono: ${req.captacion.propietario.telefono}</div>
-                  ${req.captacion.propietario.correo ? `<div class="detail-item">Correo: ${req.captacion.propietario.correo}</div>` : ''}
-                </div>
-              </div>
-
-              <div class="section">
-                <div class="section-title">Información de la Propiedad</div>
-                <div class="property-details">
-                  <div class="detail-item">Tipo: ${req.captacion.propiedad.tipo}</div>
-                  <div class="detail-item">Uso Actual: ${req.captacion.propiedad.uso_actual}</div>
-                  <div class="detail-item">Dirección: ${req.captacion.propiedad.direccion.calle} ${req.captacion.propiedad.direccion.numero}</div>
-                  <div class="detail-item">Colonia: ${req.captacion.propiedad.direccion.colonia}</div>
-                  <div class="detail-item">Ciudad: ${req.captacion.propiedad.direccion.ciudad}</div>
-                  <div class="detail-item">Estado: ${req.captacion.propiedad.direccion.estado}</div>
-                  <div class="detail-item">C.P.: ${req.captacion.propiedad.direccion.codigo_postal}</div>
-                </div>
-              </div>
-
-              ${req.captacion.propiedad.caracteristicas ? `
-              <div class="section">
-                <div class="section-title">Características</div>
-                <div class="property-details">
-                  <div class="detail-item">Terreno: ${req.captacion.propiedad.caracteristicas.m2_terreno} m²</div>
-                  <div class="detail-item">Construcción: ${req.captacion.propiedad.caracteristicas.m2_construccion} m²</div>
-                  <div class="detail-item">Habitaciones: ${req.captacion.propiedad.caracteristicas.habitaciones}</div>
-                  <div class="detail-item">Baños: ${req.captacion.propiedad.caracteristicas.baños}</div>
-                  <div class="detail-item">Cocheras: ${req.captacion.propiedad.caracteristicas.cocheras}</div>
-                  <div class="detail-item">Niveles: ${req.captacion.propiedad.caracteristicas.niveles}</div>
-                </div>
-              </div>
-              ` : ''}
-
-              <div class="section">
-                <div class="section-title">Información de Captación</div>
-                <div class="property-details">
-                  <div class="detail-item">Fecha: ${new Date(req.captacion.captacion.fecha).toLocaleDateString('es-MX')}</div>
-                  <div class="detail-item">Tipo: ${req.captacion.captacion.tipo_captacion}</div>
-                  <div class="detail-item">Estatus: ${req.captacion.estatus_actual}</div>
-                </div>
-              </div>
-
-              ${req.captacion.captacion.observaciones ? `
-              <div class="section">
-                <div class="section-title">Observaciones</div>
-                <div style="white-space: pre-wrap;">${req.captacion.captacion.observaciones}</div>
-              </div>
-              ` : ''}
-            </div>
-            
-            <div class="signature-line">
-              <div class="firma-text">Asesor Responsable</div>
-              <div>${req.user.name || 'Nombre del Asesor'}</div>
+            <div class="titulo">FORMATO DE CAPTACION DE VIVIENDA</div>
+            <div class="campo">ASESOR ${req.captacion.captacion?.asesor?.name || ''} TEL ${req.captacion.captacion?.asesor?.telefono || ''}</div>
+            <div class="seccion">DATOS DEL PROPIETARIO</div>
+            <div class="campo">NOMBRE DEL TITULAR ${propietario.nombre || ''}</div>
+            <div class="campo">NSS ${propietario.nss || ''} RFC ${propietario.rfc || ''} CURP ${propietario.curp || ''} TEL ${propietario.telefono || ''}</div>
+            <div class="campo">ESTADO CIVIL: ${propietario.estado_civil || ''}</div>
+            <div class="campo">NOMBRE DEL CONYUGE ${conyuge.nombre || ''}</div>
+            <div class="campo">NSS ${conyuge.nss || ''} RFC ${conyuge.rfc || ''} TEL ${conyuge.telefono || ''}</div>
+            <div class="campo">TIPO DE CREDITO: ${propietario.tipo_credito || ''}</div>
+            <div class="seccion">DATOS DE LA VIVIENDA</div>
+            <div class="campo">FRACCIONAMIENTO O COLONIA ${direccion.colonia || ''}</div>
+            <div class="campo">CALLE ${direccion.calle || ''} NUM ${direccion.numero || ''}</div>
+            <div class="campo">RECAMARAS ${caracteristicas.habitaciones || ''} BAÑOS ${caracteristicas.baños || ''} REJAS _____ PISO DE CERAMICA _____</div>
+            <div class="campo">BARANDAL _____ BARDAS TRASERAS _____ BARDAS FRONTALES _____</div>
+            <div class="campo">AMPLIACIONES ${caracteristicas.descripcion || ''}</div>
+            <div class="campo">TERRENO ${caracteristicas.m2_terreno || ''} CONSTRUCCION ${caracteristicas.m2_construccion || ''}</div>
+            <div class="campo">PRECIO DE COMPRA $${req.captacion.venta?.monto_venta || ''}</div>
+            <div class="campo">CASA HABITADA _____ RENTADA _____ INVADIDA _____ TAPIA _____</div>
+            <div class="campo">FECHA DE COMPRA ${req.captacion.venta?.fecha_venta ? new Date(req.captacion.venta.fecha_venta).toLocaleDateString('es-MX') : ''} NOTARIA _____ RPP ESCRITURAS _____</div>
+            <div class="seccion">ADEUDOS DE LA VIVIENDA</div>
+            <table class="tabla">
+              <tr><th>Tipo</th><th>Monto</th><th>Estatus</th></tr>
+              ${adeudos.map(a => `<tr><td>${a.tipo}</td><td>$${a.monto}</td><td>${a.estatus}</td></tr>`).join('')}
+            </table>
+            <div class="campo">CUANTO PRETENDE EL PROPIETARIO $${req.captacion.cuanto_pretende || ''}</div>
+            <div class="campo">TOTAL DE ADEUDOS $${adeudos.reduce((acc, a) => acc + (a.monto || 0), 0)}</div>
+            <div class="seccion">DATOS ACTUALES DEL REGISTRAL DE LA VIVIENDA</div>
+            <div class="campo">Correo electrónico ${req.captacion.registral?.correo || ''} Teléfono ${req.captacion.registral?.telefono || ''}</div>
+            <div class="campo">Domicilio actual del registral: Calle ${req.captacion.registral?.calle || ''} numero ${req.captacion.registral?.numero || ''}</div>
+            <div class="campo">Colonia o fraccionamiento ${req.captacion.registral?.colonia || ''} C.P ${req.captacion.registral?.cp || ''}</div>
+            <div class="campo">CURP ${req.captacion.registral?.curp || ''} RFC ${req.captacion.registral?.rfc || ''}</div>
+            <div class="campo">Lugar de nacimiento ${req.captacion.registral?.lugar_nacimiento || ''}</div>
+            <div class="seccion">DATOS DE LA EMPRESA EN QUE LABORA</div>
+            <div class="campo">Nombre de la empresa ${datosLaborales.empresa || ''}</div>
+            <div class="campo">Dirección ${datosLaborales.direccion || ''}</div>
+            <div class="campo">Teléfono ${datosLaborales.telefono || ''} Ext ${datosLaborales.ext || ''}</div>
+            <div class="campo">Área ${datosLaborales.area || ''} Puesto ${datosLaborales.puesto || ''}</div>
+            <div class="campo">Turno ${datosLaborales.turno || ''} Registro patronal ${datosLaborales.registro_patronal || ''}</div>
+            <div class="seccion">REFERENCIAS PERSONALES</div>
+            ${referencias.map((r, i) => `<div class="campo">${i+1}.-Nombre completo ${r.nombre || ''} Dirección ${r.direccion || ''} Parentesco ${r.relacion || ''} Número de teléfono ${r.telefono || ''}</div>`).join('')}
+            <div class="seccion">PAPELERIA A ENTREGAR</div>
+            <div class="papeleria-lista">
+              ${papeleria.map(p => `<div class="papeleria-item">${p.key ? (docEntregados[p.key] ? check : uncheck) : uncheck}<span>${p.label}</span></div>`).join('')}
             </div>
           </div>
         </body>
       </html>
     `);
-    */
 
     const pdfBuffer = await page.pdf({
       format: 'A4',

@@ -146,7 +146,7 @@ router.post('/:id/venta/documentos',
     captacionesController.addDocumentoVenta
 );
 
-// Añadir esta ruta para descargar PDF
-router.get('/:id/pdf', verificarToken, captacionesController.descargarPDF);
+// Ruta para descargar PDF
+router.get('/download/:id', verificarToken, captacionesController.descargarPDF);
 
 module.exports = router;

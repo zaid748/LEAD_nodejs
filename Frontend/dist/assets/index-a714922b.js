@@ -9054,16 +9054,17 @@ function MisProyectos() {
         return;
       }
       console.log("Descargando PDF de captación:", captacion._id);
-      if (captacion.pdf_url) {
-        window.open(captacion.pdf_url, "_blank");
-        return;
-      }
-      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/captaciones/${captacion._id}/pdf`, {
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/captaciones/download/${captacion._id}`, {
         method: "GET",
         credentials: "include"
       });
       if (!response.ok) {
-        throw new Error("Error al descargar el PDF");
+        const errorData = await response.json().catch(() => ({ message: "Error desconocido" }));
+        throw new Error(errorData.message || `Error al descargar el PDF: ${response.status}`);
+      }
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/pdf")) {
+        throw new Error("La respuesta no es un PDF válido");
       }
       const blob = await response.blob();
       const downloadUrl = window.URL.createObjectURL(blob);
@@ -9076,7 +9077,7 @@ function MisProyectos() {
       window.URL.revokeObjectURL(downloadUrl);
     } catch (error2) {
       console.error("Error al descargar el PDF:", error2);
-      alert("Error al descargar el PDF. Por favor intente nuevamente.");
+      alert(error2.message || "Error al descargar el PDF. Por favor intente nuevamente.");
     }
   };
   if (isLoading && !captaciones.length) {

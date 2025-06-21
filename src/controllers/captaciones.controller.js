@@ -1,6 +1,8 @@
 const CaptacionInmobiliaria = require('../models/captacion-inmobiliaria');
 const { validationResult } = require('express-validator');
 const mongoose = require('mongoose');
+const https = require('https');
+const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 
 /**
  * Obtener todas las captaciones con filtros y paginación
@@ -1104,57 +1106,137 @@ exports.addDocumento = async (req, res) => {
 
 /**
  * Descargar PDF de una captación
- * @route GET /api/captaciones/:id/pdf
+ * @route GET /api/captaciones/download/:id
  */
 exports.descargarPDF = async (req, res) => {
-    let browser = null;
     try {
-        const captacion = await CaptacionInmobiliaria.findById(req.params.id);
-
-        if (!captacion) {
-            return res.status(404).json({ mensaje: 'Captación no encontrada' });
-        }
-
-        // Si ya existe una URL del PDF, redirigir a ella
-        if (captacion.pdf_url) {
-            return res.redirect(captacion.pdf_url);
-        }
-
-        req.captacion = captacion;
-        req.id = captacion._id;
+        const captacionId = req.params.id;
+        const captacion = await CaptacionInmobiliaria.findOne({_id: captacionId});
+        console.log('captacioninmobiliarias.findOne', {_id: captacionId}, captacion);
         
-        req.user = {
-            name: req.user.name || req.user.prim_nom || 'Usuario',
-            ...req.user
-        };
+        if (!captacion) {
+            return res.status(404).json({
+                success: false,
+                message: 'Captación no encontrada'
+            });
+        }
 
-        const { CrearPdfCaptacion } = require('../libs/PDF');
+        // Si ya existe una URL del PDF, intentar descargar de S3
+        if (captacion.pdf_url) {
+            let name = `captacion_${captacionId}`;
+            const key = `Captaciones/${name}.pdf`;
 
-        // Generar el PDF con manejo de timeout
-        await Promise.race([
-            CrearPdfCaptacion(req, res, (err) => {
-                if (err) {
-                    console.error('Error en CrearPdfCaptacion:', err);
-                    return res.status(500).json({ mensaje: 'Error al generar el PDF' });
+            console.log('Intentando descargar archivo:', {
+                bucket: process.env.BUCKET_NAME,
+                key: key,
+                endpoint: process.env.S3_ENDPOINT
+            });
+
+            // Configurar el agente HTTPS con keepAlive y timeout
+            const agent = new https.Agent({
+                keepAlive: true,
+                keepAliveMsecs: 3000,
+                timeout: 10000,
+                rejectUnauthorized: false
+            });
+
+            // Configurar el cliente S3
+            const s3Client = new S3Client({
+                forcePathStyle: false,
+                endpoint: process.env.S3_ENDPOINT,
+                region: "us-east-1",
+                credentials: {
+                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+                },
+                requestHandler: {
+                    httpOptions: {
+                        agent,
+                        timeout: 10000
+                    }
                 }
+            });
 
-                if (!req.pdf) {
-                    return res.status(500).json({ mensaje: 'Error al generar el PDF' });
-                }
+            try {
+                // Obtener el objeto de S3
+                const command = new GetObjectCommand({
+                    Bucket: process.env.BUCKET_NAME,
+                    Key: key
+                });
 
+                const response = await s3Client.send(command);
+                
+                // Configurar headers para la descarga
                 res.setHeader('Content-Type', 'application/pdf');
-                res.setHeader('Content-Disposition', `attachment; filename=captacion_${captacion._id}.pdf`);
-                res.send(req.pdf);
-            }),
-            new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Timeout al generar PDF')), 55000)
-            )
-        ]);
+                res.setHeader('Content-Disposition', `attachment; filename=${name}.pdf`);
+                res.setHeader('Cache-Control', 'no-cache');
+                res.setHeader('Pragma', 'no-cache');
 
+                // Transmitir el contenido del PDF al cliente
+                response.Body.pipe(res);
+            } catch (s3Error) {
+                console.error('Error al descargar de S3:', s3Error);
+                // Si falla S3, intentar generar nuevo PDF
+                await generarYEnviarPDF();
+            }
+        } else {
+            await generarYEnviarPDF();
+        }
+
+        async function generarYEnviarPDF() {
+            // Preparar datos para generar PDF
+            req.captacion = captacion;
+            req.id = captacion._id;
+            
+            req.user = {
+                name: req.user.name || req.user.prim_nom || 'Usuario',
+                ...req.user
+            };
+
+            const { CrearPdfCaptacion } = require('../libs/PDF');
+            const fs = require('fs');
+            const path = require('path');
+
+            // Generar el PDF
+            await new Promise((resolve, reject) => {
+                CrearPdfCaptacion(req, {}, async (err) => {
+                    if (err) {
+                        console.error('Error en CrearPdfCaptacion:', err);
+                        reject(err);
+                        return;
+                    }
+
+                    try {
+                        // Leer el archivo temporal
+                        const tempPdfPath = `/tmp/debug_captacion_${captacionId}.pdf`;
+                        console.log('Intentando leer archivo temporal:', tempPdfPath);
+                        
+                        if (fs.existsSync(tempPdfPath)) {
+                            const pdfContent = fs.readFileSync(tempPdfPath);
+                            
+                            // Enviar el PDF
+                            res.setHeader('Content-Type', 'application/pdf');
+                            res.setHeader('Content-Disposition', `attachment; filename=captacion_${captacionId}.pdf`);
+                            res.send(pdfContent);
+
+                            // Limpiar archivo temporal
+                            fs.unlinkSync(tempPdfPath);
+                            resolve();
+                        } else {
+                            reject(new Error('Archivo temporal no encontrado'));
+                        }
+                    } catch (fsError) {
+                        console.error('Error al leer/enviar archivo temporal:', fsError);
+                        reject(fsError);
+                    }
+                });
+            });
+        }
     } catch (error) {
         console.error('Error al descargar PDF:', error);
         res.status(500).json({ 
-            mensaje: 'Error al generar el PDF',
+            success: false,
+            message: 'Error al generar/descargar el PDF',
             error: error.message 
         });
     }
