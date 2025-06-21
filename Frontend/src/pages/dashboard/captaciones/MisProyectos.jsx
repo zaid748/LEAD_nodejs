@@ -551,15 +551,11 @@ export function MisProyectos() {
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                               </IconButton>
                             </Tooltip>
-                            
-                            {/* Editar sólo para Admin y Asesores */}
-                            {(isAdmin || isAsesor) && (
                               <Tooltip content="Editar">
                                 <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/editar/${_id}`)}>
                                   <PencilIcon className="h-5 w-5" />
                                 </IconButton>
                               </Tooltip>
-                            )}
                             {/* Eliminar solo para Admin */}
                             {isAdmin && (
                               <Tooltip content="Eliminar">
