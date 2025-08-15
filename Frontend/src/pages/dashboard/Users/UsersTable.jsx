@@ -229,7 +229,8 @@ export function UsersTable() {
   };
 
   return (
-    <div className="mt-12 mb-8 flex flex-col gap-6">
+    <div className="mt-12 mb-8 flex flex-col gap-6 h-screen overflow-hidden">
+      <div className="flex-1 overflow-y-auto">
       {/* Barra Superior - Similar a la de la imagen */}
       <Card className="bg-gray-900 shadow-lg rounded-lg">
         <CardBody className="p-4">
@@ -304,94 +305,97 @@ export function UsersTable() {
       </Typography>
 
       {/* Tabla de Usuarios */}
-      <Card className="overflow-hidden">
-        <table className="w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              {["", "NOMBRE COMPLETO", "CORREO", "PUESTO", "TELÉFONO", "ROL"].map((head) => (
-                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-bold leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user, index) => {
-                const isLast = index === filteredUsers.length - 1;
-                const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
-                const isAdmin = (user.role || "").toLowerCase().includes("admin");
-                const nombreCompleto = `${user.prim_nom || ""} ${user.segun_nom || ""} ${user.apell_pa || ""} ${user.apell_ma || ""}`.trim();
-                const avatarSrc = user.foto_perfil || "/img/user_icon.svg";
-
-                return (
-                  <tr 
-                    key={user._id} 
-                    className={`hover:bg-blue-gray-50 cursor-pointer ${selectedUser === user._id ? 'bg-blue-50' : ''}`}
-                    onClick={() => handleRowClick(user._id)}
-                  >
-                    <td className={classes}>
-                      <Avatar
-                        src={avatarSrc}
-                        alt={nombreCompleto}
-                        size="sm"
-                        className="border border-blue-500"
-                      />
-                    </td>
-                    <td className={classes}>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {nombreCompleto}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {user.email}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {user.pust}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {user.telefono}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          size="sm"
-                          variant={isAdmin ? "filled" : "outlined"}
-                          value={capitalizeRole(user.role || 'Usuario')}
-                          color={isAdmin ? "blue" : "blue-gray"}
-                          className={isAdmin 
-                            ? "bg-blue-500 text-white" 
-                            : "border-blue-gray-500 text-blue-gray-500"}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
+      <Card className="overflow-hidden sticky-top-header">
+        <div className="sticky-table-container">
+          <table className="w-full min-w-max table-auto text-left">
+            <thead className="sticky-table-header">
               <tr>
-                <td colSpan={5} className="p-4 text-center">
-                  <Typography variant="small" color="blue-gray" className="font-normal">
-                    No se encontraron usuarios con los criterios de búsqueda.
-                  </Typography>
-                </td>
+                {["", "NOMBRE COMPLETO", "CORREO", "PUESTO", "TELÉFONO", "ROL"].map((head) => (
+                  <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-bold leading-none opacity-70"
+                    >
+                      {head}
+                    </Typography>
+                  </th>
+                ))}
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user, index) => {
+                  const isLast = index === filteredUsers.length - 1;
+                  const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                  const isAdmin = (user.role || "").toLowerCase().includes("admin");
+                  const nombreCompleto = `${user.prim_nom || ""} ${user.segun_nom || ""} ${user.apell_pa || ""} ${user.apell_ma || ""}`.trim();
+                  const avatarSrc = user.foto_perfil || "/img/user_icon.svg";
+
+                  return (
+                    <tr 
+                      key={user._id} 
+                      className={`hover:bg-blue-gray-50 cursor-pointer ${selectedUser === user._id ? 'bg-blue-50' : ''}`}
+                      onClick={() => handleRowClick(user._id)}
+                    >
+                      <td className={classes}>
+                        <Avatar
+                          src={avatarSrc}
+                          alt={nombreCompleto}
+                          size="sm"
+                          className="border border-blue-500"
+                        />
+                      </td>
+                      <td className={classes}>
+                        <Typography variant="small" color="blue-gray" className="font-normal">
+                          {nombreCompleto}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography variant="small" color="blue-gray" className="font-normal">
+                          {user.email}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography variant="small" color="blue-gray" className="font-normal">
+                          {user.pust}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography variant="small" color="blue-gray" className="font-normal">
+                          {user.telefono}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <div className="w-max">
+                          <Chip
+                            size="sm"
+                            variant={isAdmin ? "filled" : "outlined"}
+                            value={capitalizeRole(user.role || 'Usuario')}
+                            color={isAdmin ? "blue" : "blue-gray"}
+                            className={isAdmin 
+                              ? "bg-blue-500 text-white" 
+                              : "border-blue-gray-500 text-blue-gray-500"}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="5" className="p-4 text-center">
+                    <Typography variant="small" color="blue-gray" className="font-normal">
+                      No se encontraron usuarios con los criterios de búsqueda.
+                    </Typography>
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </Card>
+      </div>
     </div>
   );
 }

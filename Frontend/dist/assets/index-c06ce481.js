@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as UserGroupIcon, a4 as DocumentTextIcon, a5 as ClipboardDocumentListIcon, a6 as TableCellsIcon, a7 as BuildingOffice2Icon, a8 as ServerStackIcon, a9 as RectangleStackIcon, aa as useLocation, ab as XMarkIcon, ac as NavLink, ad as Bars3Icon, ae as Cog6ToothIcon, af as Routes, ag as Route, ah as Outlet, ai as client, aj as BrowserRouter } from "./vendor-8568c12d.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as UserGroupIcon, a4 as DocumentTextIcon, a5 as ClipboardDocumentListIcon, a6 as TableCellsIcon, a7 as BuildingOffice2Icon, a8 as ServerStackIcon, a9 as RectangleStackIcon, aa as useLocation, ab as XMarkIcon, ac as NavLink, ad as Bars3Icon, ae as Cog6ToothIcon, af as Routes, ag as Route, ah as Outlet, ai as client, aj as BrowserRouter } from "./vendor-e24c7dba.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -1128,7 +1128,7 @@ function Profile() {
               /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "border-b border-blue-gray-100 bg-blue-gray-50 p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Monto" }) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "border-b border-blue-gray-100 bg-blue-gray-50 p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Acciones" }) })
             ] }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: nominas.map((nomina, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "even:bg-blue-gray-50/50", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: nominas.map((nomina, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "even:bg-blue-gray-50/50", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: formatDate(nomina.fecha) }) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal truncate max-w-[160px]", children: nomina.conceptoDePago }) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: [
@@ -1147,7 +1147,7 @@ function Profile() {
                   children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", className: "h-5 w-5", viewBox: "0 0 20 20", fill: "currentColor", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { fillRule: "evenodd", d: "M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z", clipRule: "evenodd" }) })
                 }
               ) }) })
-            ] }, index)) })
+            ] }, index2)) })
           ] }) })
         ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-16 bg-blue-gray-50/50 rounded-lg", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(IdentificationIcon, { className: "h-16 w-16 mx-auto text-blue-gray-300 mb-4" }),
@@ -1310,7 +1310,7 @@ function UsersTable() {
       alert("Por favor, selecciona un usuario primero.");
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-12 mb-8 flex flex-col gap-6", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-6 h-screen overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { className: "bg-gray-900 shadow-lg rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.CardBody, { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h5", color: "white", className: "font-bold", children: "Usuarios" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-4", children: [
@@ -1379,8 +1379,8 @@ function UsersTable() {
       users.length,
       " usuarios"
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { className: "overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full min-w-max table-auto text-left", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["", "NOMBRE COMPLETO", "CORREO", "PUESTO", "TELÉFONO", "ROL"].map((head) => /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "border-b border-blue-gray-100 bg-blue-gray-50 p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { className: "overflow-hidden sticky-top-header", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sticky-table-container", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full min-w-max table-auto text-left", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { className: "sticky-table-header", children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["", "NOMBRE COMPLETO", "CORREO", "PUESTO", "TELÉFONO", "ROL"].map((head) => /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "border-b border-blue-gray-100 bg-blue-gray-50 p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         react.Typography,
         {
           variant: "small",
@@ -1389,8 +1389,8 @@ function UsersTable() {
           children: head
         }
       ) }, head)) }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: filteredUsers.length > 0 ? filteredUsers.map((user, index) => {
-        const isLast = index === filteredUsers.length - 1;
+      /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: filteredUsers.length > 0 ? filteredUsers.map((user, index2) => {
+        const isLast = index2 === filteredUsers.length - 1;
         const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
         const isAdmin2 = (user.role || "").toLowerCase().includes("admin");
         const nombreCompleto = `${user.prim_nom || ""} ${user.segun_nom || ""} ${user.apell_pa || ""} ${user.apell_ma || ""}`.trim();
@@ -1428,9 +1428,9 @@ function UsersTable() {
           },
           user._id
         );
-      }) : /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: 5, className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "No se encontraron usuarios con los criterios de búsqueda." }) }) }) })
-    ] }) })
-  ] });
+      }) : /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: "5", className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "No se encontraron usuarios con los criterios de búsqueda." }) }) }) })
+    ] }) }) })
+  ] }) });
 }
 function ProfileUsers() {
   const [userData, setUserData] = reactExports.useState(null);
@@ -1744,7 +1744,7 @@ function EmpleadosTable() {
       }
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Card, { children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12 h-screen overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Card, { className: "sticky-top-header", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(react.CardHeader, { variant: "gradient", color: "gray", className: "mb-8 p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "white", children: "Empleados" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
@@ -1781,7 +1781,7 @@ function EmpleadosTable() {
       ] })
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(react.CardBody, { className: "overflow-x-scroll px-0 pt-0 pb-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col md:flex-row items-center justify-between gap-4 px-4 mb-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sticky-search-bar flex flex-col md:flex-row items-center justify-between gap-4 px-4 mb-4 py-3", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h5", color: "blue-gray", children: "Lista de Empleados" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col md:flex-row gap-4 items-center w-full md:w-auto", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "relative w-full md:w-72", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -1816,8 +1816,8 @@ function EmpleadosTable() {
         empleados.length,
         " empleados"
       ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full min-w-[640px] table-auto", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["Nombre Completo", "Correo", "Puesto", "Teléfono", "Estado", "Salario"].map((el) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sticky-table-container", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full min-w-[640px] table-auto", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { className: "sticky-table-header", children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["Nombre Completo", "Correo", "Puesto", "Teléfono", "Estado", "Salario"].map((el) => /* @__PURE__ */ jsxRuntimeExports.jsx(
           "th",
           {
             className: "border-b border-blue-gray-50 py-3 px-5 text-left",
@@ -1874,9 +1874,9 @@ function EmpleadosTable() {
             empleado._id
           );
         }) : /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: "6", className: "py-6 px-5 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "No se encontraron empleados con los criterios de búsqueda." }) }) }) })
-      ] })
+      ] }) })
     ] })
-  ] }) });
+  ] }) }) });
 }
 function CustomAvatar({ src, alt, size = "md", className = "" }) {
   const getDimensions = () => {
@@ -2839,8 +2839,7 @@ function CrearEmpleado() {
               label: "Fecha de Nacimiento",
               name: "fecha_na",
               value: formData.fecha_na,
-              onChange: handleChange,
-              required: true
+              onChange: handleChange
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -2924,8 +2923,7 @@ function CrearEmpleado() {
               label: "Calle",
               name: "calle",
               value: formData.calle,
-              onChange: handleChange,
-              required: true
+              onChange: handleChange
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
@@ -2936,8 +2934,7 @@ function CrearEmpleado() {
                 label: "Número Exterior",
                 name: "nun_ex",
                 value: formData.nun_ex,
-                onChange: handleChange,
-                required: true
+                onChange: handleChange
               }
             ),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -2958,8 +2955,7 @@ function CrearEmpleado() {
               label: "Código Postal",
               name: "codigo",
               value: formData.codigo,
-              onChange: handleChange,
-              required: true
+              onChange: handleChange
             }
           ),
           isAdmin && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6", children: [
@@ -3233,8 +3229,7 @@ function EditarEmpleado() {
               label: "Fecha de Nacimiento",
               name: "fecha_na",
               value: formData.fecha_na,
-              onChange: handleChange,
-              required: true
+              onChange: handleChange
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -3318,8 +3313,7 @@ function EditarEmpleado() {
               label: "Calle",
               name: "calle",
               value: formData.calle,
-              onChange: handleChange,
-              required: true
+              onChange: handleChange
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
@@ -3330,8 +3324,7 @@ function EditarEmpleado() {
                 label: "Número Exterior",
                 name: "nun_ex",
                 value: formData.nun_ex,
-                onChange: handleChange,
-                required: true
+                onChange: handleChange
               }
             ),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -3352,8 +3345,7 @@ function EditarEmpleado() {
               label: "Código Postal",
               name: "codigo",
               value: formData.codigo,
-              onChange: handleChange,
-              required: true
+              onChange: handleChange
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6", children: [
@@ -4623,7 +4615,7 @@ function MiNominaPage() {
           }
         ) })
       ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: "4", className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "Cargando datos..." }) }) }) : nominas.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: "4", className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "No se encontraron nóminas para este empleado" }) }) }) : nominas.map((nomina, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "even:bg-blue-gray-50/50", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: "4", className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "Cargando datos..." }) }) }) : nominas.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("td", { colSpan: "4", className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: "No se encontraron nóminas para este empleado" }) }) }) : nominas.map((nomina, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { className: "even:bg-blue-gray-50/50", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: formatFecha(nomina.fecha) }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "p-4 w-32 max-w-xs text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           react.Typography,
@@ -4645,7 +4637,7 @@ function MiNominaPage() {
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(DocumentArrowDownIcon, { className: "h-4 w-4" })
           }
         ) }) })
-      ] }, nomina._id || index)) })
+      ] }, nomina._id || index2)) })
     ] }) }) }) }) })
   ] }) }) });
 }
@@ -5676,8 +5668,8 @@ function CrearCaptacion() {
     };
     appendReferencia(nuevaReferencia);
   };
-  const handleUpdateReferencia = (index, field, value) => {
-    setValue(`referencias_personales.${index}.${field}`, value);
+  const handleUpdateReferencia = (index2, field, value) => {
+    setValue(`referencias_personales.${index2}.${field}`, value);
   };
   const submitForm = async (e) => {
     e.preventDefault();
@@ -6366,7 +6358,7 @@ function CrearCaptacion() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Adeudos de la Propiedad" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Registre los adeudos que tiene la propiedad (predial, agua, hipotecas, etc.)" }),
-              adeudosFields.map((field, index) => {
+              adeudosFields.map((field, index2) => {
                 var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i2;
                 return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-3 border rounded bg-white", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4 mb-2", children: [
@@ -6374,7 +6366,7 @@ function CrearCaptacion() {
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
                         {
-                          name: `propiedad.adeudos.${index}.tipo`,
+                          name: `propiedad.adeudos.${index2}.tipo`,
                           control,
                           render: ({ field: field2 }) => {
                             var _a3, _b3, _c3;
@@ -6384,7 +6376,7 @@ function CrearCaptacion() {
                                 label: "Tipo de Adeudo *",
                                 value: field2.value,
                                 onChange: (value) => field2.onChange(value),
-                                error: !!((_c3 = (_b3 = (_a3 = errors.propiedad) == null ? void 0 : _a3.adeudos) == null ? void 0 : _b3[index]) == null ? void 0 : _c3.tipo),
+                                error: !!((_c3 = (_b3 = (_a3 = errors.propiedad) == null ? void 0 : _a3.adeudos) == null ? void 0 : _b3[index2]) == null ? void 0 : _c3.tipo),
                                 children: [
                                   /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Predial", children: "Predial" }),
                                   /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Agua", children: "Agua" }),
@@ -6398,13 +6390,13 @@ function CrearCaptacion() {
                           }
                         }
                       ),
-                      ((_c2 = (_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.adeudos) == null ? void 0 : _b2[index]) == null ? void 0 : _c2.tipo) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.adeudos[index].tipo.message })
+                      ((_c2 = (_b2 = (_a2 = errors.propiedad) == null ? void 0 : _a2.adeudos) == null ? void 0 : _b2[index2]) == null ? void 0 : _c2.tipo) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.adeudos[index2].tipo.message })
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
                         {
-                          name: `propiedad.adeudos.${index}.monto`,
+                          name: `propiedad.adeudos.${index2}.monto`,
                           control,
                           render: ({ field: field2 }) => {
                             var _a3, _b3, _c3;
@@ -6414,7 +6406,7 @@ function CrearCaptacion() {
                                 type: "number",
                                 label: "Monto *",
                                 min: "0",
-                                className: ((_c3 = (_b3 = (_a3 = errors.propiedad) == null ? void 0 : _a3.adeudos) == null ? void 0 : _b3[index]) == null ? void 0 : _c3.monto) ? "border-red-500" : "",
+                                className: ((_c3 = (_b3 = (_a3 = errors.propiedad) == null ? void 0 : _a3.adeudos) == null ? void 0 : _b3[index2]) == null ? void 0 : _c3.monto) ? "border-red-500" : "",
                                 ...field2,
                                 onChange: (e) => field2.onChange(e.target.value === "" ? "" : Number(e.target.value))
                               }
@@ -6422,13 +6414,13 @@ function CrearCaptacion() {
                           }
                         }
                       ),
-                      ((_f2 = (_e2 = (_d2 = errors.propiedad) == null ? void 0 : _d2.adeudos) == null ? void 0 : _e2[index]) == null ? void 0 : _f2.monto) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.adeudos[index].monto.message })
+                      ((_f2 = (_e2 = (_d2 = errors.propiedad) == null ? void 0 : _d2.adeudos) == null ? void 0 : _e2[index2]) == null ? void 0 : _f2.monto) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.adeudos[index2].monto.message })
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
                         {
-                          name: `propiedad.adeudos.${index}.numero_referencia`,
+                          name: `propiedad.adeudos.${index2}.numero_referencia`,
                           control,
                           render: ({ field: field2 }) => {
                             var _a3, _b3, _c3;
@@ -6437,14 +6429,14 @@ function CrearCaptacion() {
                               {
                                 type: "text",
                                 label: "Número de Referencia *",
-                                className: ((_c3 = (_b3 = (_a3 = errors.propiedad) == null ? void 0 : _a3.adeudos) == null ? void 0 : _b3[index]) == null ? void 0 : _c3.numero_referencia) ? "border-red-500" : "",
+                                className: ((_c3 = (_b3 = (_a3 = errors.propiedad) == null ? void 0 : _a3.adeudos) == null ? void 0 : _b3[index2]) == null ? void 0 : _c3.numero_referencia) ? "border-red-500" : "",
                                 ...field2
                               }
                             );
                           }
                         }
                       ),
-                      ((_i2 = (_h2 = (_g2 = errors.propiedad) == null ? void 0 : _g2.adeudos) == null ? void 0 : _h2[index]) == null ? void 0 : _i2.numero_referencia) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.adeudos[index].numero_referencia.message })
+                      ((_i2 = (_h2 = (_g2 = errors.propiedad) == null ? void 0 : _g2.adeudos) == null ? void 0 : _h2[index2]) == null ? void 0 : _i2.numero_referencia) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.propiedad.adeudos[index2].numero_referencia.message })
                     ] })
                   ] }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -6453,7 +6445,7 @@ function CrearCaptacion() {
                       color: "red",
                       variant: "text",
                       size: "sm",
-                      onClick: () => removeAdeudo(index),
+                      onClick: () => removeAdeudo(index2),
                       children: "Eliminar"
                     }
                   ) })
@@ -6576,13 +6568,13 @@ function CrearCaptacion() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Referencias Personales" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Proporcione al menos dos referencias personales que puedan validar la información del propietario" }),
-              referenciasFields.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center p-4 bg-white rounded-lg border border-blue-gray-100", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "italic", children: "No hay referencias registradas. Se requieren al menos 2 referencias." }) }) : referenciasFields.map((field, index) => {
+              referenciasFields.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center p-4 bg-white rounded-lg border border-blue-gray-100", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "italic", children: "No hay referencias registradas. Se requieren al menos 2 referencias." }) }) : referenciasFields.map((field, index2) => {
                 var _a2, _b2, _c2, _d2, _e2, _f2;
                 return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-4 bg-white rounded-lg border border-blue-gray-100", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-start mb-4", children: [
                     /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "h6", color: "blue-gray", children: [
                       "Referencia #",
-                      index + 1
+                      index2 + 1
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       react.Button,
@@ -6590,7 +6582,7 @@ function CrearCaptacion() {
                         color: "red",
                         variant: "text",
                         size: "sm",
-                        onClick: () => removeReferencia(index),
+                        onClick: () => removeReferencia(index2),
                         children: "Eliminar"
                       }
                     )
@@ -6600,7 +6592,7 @@ function CrearCaptacion() {
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
                         {
-                          name: `referencias_personales.${index}.nombre`,
+                          name: `referencias_personales.${index2}.nombre`,
                           control,
                           render: ({ field: field2 }) => {
                             var _a3, _b3;
@@ -6609,20 +6601,20 @@ function CrearCaptacion() {
                               {
                                 type: "text",
                                 label: "Nombre Completo *",
-                                error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.nombre),
+                                error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index2]) == null ? void 0 : _b3.nombre),
                                 ...field2
                               }
                             );
                           }
                         }
                       ),
-                      ((_b2 = (_a2 = errors.referencias_personales) == null ? void 0 : _a2[index]) == null ? void 0 : _b2.nombre) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].nombre.message })
+                      ((_b2 = (_a2 = errors.referencias_personales) == null ? void 0 : _a2[index2]) == null ? void 0 : _b2.nombre) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index2].nombre.message })
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
                         {
-                          name: `referencias_personales.${index}.relacion`,
+                          name: `referencias_personales.${index2}.relacion`,
                           control,
                           render: ({ field: field2 }) => {
                             var _a3, _b3;
@@ -6630,24 +6622,24 @@ function CrearCaptacion() {
                               react.Input,
                               {
                                 label: "Parentesco o Relación *",
-                                error: !!((_b3 = (_a3 = errors == null ? void 0 : errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.relacion),
+                                error: !!((_b3 = (_a3 = errors == null ? void 0 : errors.referencias_personales) == null ? void 0 : _a3[index2]) == null ? void 0 : _b3.relacion),
                                 value: field2.value || "",
                                 onChange: (e) => {
                                   field2.onChange(e);
-                                  handleUpdateReferencia(index, "relacion", e.target.value);
+                                  handleUpdateReferencia(index2, "relacion", e.target.value);
                                 }
                               }
                             );
                           }
                         }
                       ),
-                      ((_d2 = (_c2 = errors.referencias_personales) == null ? void 0 : _c2[index]) == null ? void 0 : _d2.relacion) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].relacion.message })
+                      ((_d2 = (_c2 = errors.referencias_personales) == null ? void 0 : _c2[index2]) == null ? void 0 : _d2.relacion) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index2].relacion.message })
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
                         {
-                          name: `referencias_personales.${index}.telefono`,
+                          name: `referencias_personales.${index2}.telefono`,
                           control,
                           render: ({ field: field2 }) => {
                             var _a3, _b3;
@@ -6656,19 +6648,19 @@ function CrearCaptacion() {
                               {
                                 type: "tel",
                                 label: "Teléfono de Contacto *",
-                                error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.telefono),
+                                error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index2]) == null ? void 0 : _b3.telefono),
                                 ...field2
                               }
                             );
                           }
                         }
                       ),
-                      ((_f2 = (_e2 = errors.referencias_personales) == null ? void 0 : _e2[index]) == null ? void 0 : _f2.telefono) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].telefono.message })
+                      ((_f2 = (_e2 = errors.referencias_personales) == null ? void 0 : _e2[index2]) == null ? void 0 : _f2.telefono) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index2].telefono.message })
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                       Controller,
                       {
-                        name: `referencias_personales.${index}.direccion`,
+                        name: `referencias_personales.${index2}.direccion`,
                         control,
                         render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                           react.Input,
@@ -8066,11 +8058,11 @@ function EditarCaptacion() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Adeudos de la Propiedad" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Registre los adeudos relacionados con la propiedad." }),
-              adeudosFields.map((field, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-4 border rounded-lg", children: [
+              adeudosFields.map((field, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-4 border rounded-lg", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center mb-4", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", className: "font-medium", children: [
                     "Adeudo ",
-                    index + 1
+                    index2 + 1
                   ] }),
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     react.Button,
@@ -8078,7 +8070,7 @@ function EditarCaptacion() {
                       size: "sm",
                       color: "red",
                       variant: "text",
-                      onClick: () => removeAdeudo(index),
+                      onClick: () => removeAdeudo(index2),
                       children: "Eliminar"
                     }
                   )
@@ -8087,7 +8079,7 @@ function EditarCaptacion() {
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     Controller,
                     {
-                      name: `propiedad.adeudos.${index}.tipo`,
+                      name: `propiedad.adeudos.${index2}.tipo`,
                       control,
                       render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
                         react.Select,
@@ -8111,7 +8103,7 @@ function EditarCaptacion() {
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     Controller,
                     {
-                      name: `propiedad.adeudos.${index}.monto`,
+                      name: `propiedad.adeudos.${index2}.monto`,
                       control,
                       render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                         react.Input,
@@ -8126,7 +8118,7 @@ function EditarCaptacion() {
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     Controller,
                     {
-                      name: `propiedad.adeudos.${index}.referencia`,
+                      name: `propiedad.adeudos.${index2}.referencia`,
                       control,
                       render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                         react.Input,
@@ -8306,13 +8298,13 @@ function EditarCaptacion() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Referencias Personales" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Agregue al menos dos referencias personales del propietario." }),
-              referenciasFields.map((field, index) => {
+              referenciasFields.map((field, index2) => {
                 var _a2, _b2, _c2, _d2, _e2, _f2;
                 return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 p-4 border rounded-lg", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center mb-4", children: [
                     /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", className: "font-medium", children: [
                       "Referencia ",
-                      index + 1
+                      index2 + 1
                     ] }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       react.Button,
@@ -8320,7 +8312,7 @@ function EditarCaptacion() {
                         size: "sm",
                         color: "red",
                         variant: "text",
-                        onClick: () => removeReferencia(index),
+                        onClick: () => removeReferencia(index2),
                         children: "Eliminar"
                       }
                     )
@@ -8329,7 +8321,7 @@ function EditarCaptacion() {
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       Controller,
                       {
-                        name: `referencias_personales.${index}.nombre`,
+                        name: `referencias_personales.${index2}.nombre`,
                         control,
                         render: ({ field: field2 }) => {
                           var _a3, _b3;
@@ -8338,18 +8330,18 @@ function EditarCaptacion() {
                             {
                               type: "text",
                               label: "Nombre Completo *",
-                              className: ((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.nombre) ? "border-red-500" : "",
+                              className: ((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index2]) == null ? void 0 : _b3.nombre) ? "border-red-500" : "",
                               ...field2
                             }
                           );
                         }
                       }
                     ),
-                    ((_b2 = (_a2 = errors.referencias_personales) == null ? void 0 : _a2[index]) == null ? void 0 : _b2.nombre) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].nombre.message }),
+                    ((_b2 = (_a2 = errors.referencias_personales) == null ? void 0 : _a2[index2]) == null ? void 0 : _b2.nombre) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index2].nombre.message }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       Controller,
                       {
-                        name: `referencias_personales.${index}.telefono`,
+                        name: `referencias_personales.${index2}.telefono`,
                         control,
                         render: ({ field: field2 }) => {
                           var _a3, _b3;
@@ -8358,18 +8350,18 @@ function EditarCaptacion() {
                             {
                               type: "tel",
                               label: "Teléfono *",
-                              className: ((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.telefono) ? "border-red-500" : "",
+                              className: ((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index2]) == null ? void 0 : _b3.telefono) ? "border-red-500" : "",
                               ...field2
                             }
                           );
                         }
                       }
                     ),
-                    ((_d2 = (_c2 = errors.referencias_personales) == null ? void 0 : _c2[index]) == null ? void 0 : _d2.telefono) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].telefono.message }),
+                    ((_d2 = (_c2 = errors.referencias_personales) == null ? void 0 : _c2[index2]) == null ? void 0 : _d2.telefono) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index2].telefono.message }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       Controller,
                       {
-                        name: `referencias_personales.${index}.relacion`,
+                        name: `referencias_personales.${index2}.relacion`,
                         control,
                         render: ({ field: field2 }) => {
                           var _a3, _b3;
@@ -8379,7 +8371,7 @@ function EditarCaptacion() {
                               label: "Parentesco *",
                               value: field2.value,
                               onChange: (value) => field2.onChange(value),
-                              error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index]) == null ? void 0 : _b3.relacion),
+                              error: !!((_b3 = (_a3 = errors.referencias_personales) == null ? void 0 : _a3[index2]) == null ? void 0 : _b3.relacion),
                               children: [
                                 /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Familiar", children: "Familiar" }),
                                 /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Amigo", children: "Amigo" }),
@@ -8392,11 +8384,11 @@ function EditarCaptacion() {
                         }
                       }
                     ),
-                    ((_f2 = (_e2 = errors.referencias_personales) == null ? void 0 : _e2[index]) == null ? void 0 : _f2.relacion) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index].relacion.message }),
+                    ((_f2 = (_e2 = errors.referencias_personales) == null ? void 0 : _e2[index2]) == null ? void 0 : _f2.relacion) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.referencias_personales[index2].relacion.message }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx(
                       Controller,
                       {
-                        name: `referencias_personales.${index}.direccion`,
+                        name: `referencias_personales.${index2}.direccion`,
                         control,
                         render: ({ field: field2 }) => /* @__PURE__ */ jsxRuntimeExports.jsx(
                           react.Input,
@@ -8647,6 +8639,11 @@ function EditarCaptacion() {
                         onChange: (value) => field.onChange(value),
                         children: [
                           /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "En proceso", children: "En proceso" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Disponible para venta", children: "Disponible para venta" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "En proceso de venta", children: "En proceso de venta" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Remodelacion", children: "Remodelacion" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "En proceso de juicio", children: "En proceso de juicio" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "En desalojo", children: "En desalojo" }),
                           /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Vendida", children: "Vendida" }),
                           /* @__PURE__ */ jsxRuntimeExports.jsx(react.Option, { value: "Cancelada", children: "Cancelada" })
                         ]
@@ -9140,9 +9137,9 @@ function MisProyectos() {
             },
             header
           )) }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus }, index) => {
+          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus }, index2) => {
             var _a, _b, _c;
-            const isLast = index === captaciones.length - 1;
+            const isLast = index2 === captaciones.length - 1;
             const classes = isLast ? "py-3 px-5" : "py-3 px-5 border-b border-blue-gray-50";
             const propiedadTipo = (propiedad == null ? void 0 : propiedad.tipo) || "Sin especificar";
             const propietarioNombre = (propietario == null ? void 0 : propietario.nombre) || "Sin propietario";
@@ -9243,7 +9240,7 @@ function MisProyectos() {
                   }
                 ) })
               ] }) })
-            ] }, _id || index);
+            ] }, _id || index2);
           }) })
         ] }),
         totalPages > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-center gap-4 mt-6 mb-2", children: [
@@ -10703,6 +10700,7 @@ function App() {
   ] }) }) });
 }
 const tailwind = "";
+const index = "";
 client.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.ThemeProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(MaterialTailwindControllerProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(AuthProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) }) }) }) })
 );
