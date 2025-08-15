@@ -12,7 +12,7 @@ mongosh --eval "
   db = db.getSiblingDB('admin');
   db.createUser({
     user: 'admin_lead',
-    pwd: 'L3@d2024#SecureDB!',
+    pwd: 'LeadPass2024',
     roles: [
       { role: 'root', db: 'admin' },
       { role: 'readWrite', db: 'lead-db-prueba' }
@@ -21,14 +21,14 @@ mongosh --eval "
 "
 
 echo "Creating database and collection..."
-mongosh --username admin_lead --password 'L3@d2024#SecureDB!' --authenticationDatabase admin --eval "
+mongosh --username admin_lead --password 'LeadPass2024' --authenticationDatabase admin --eval "
   db = db.getSiblingDB('lead-db-prueba');
   db.createCollection('empleados');
 "
 
 echo "Importing data..."
 cd /dump
-mongoimport --username admin_lead --password 'L3@d2024#SecureDB!' --authenticationDatabase admin --db lead-db-prueba --collection empleados --file myFirstDatabase.empleados.json --jsonArray
+mongoimport --username admin_lead --password 'LeadPass2024' --authenticationDatabase admin --db lead-db-prueba --collection empleados --file myFirstDatabase.empleados.json --jsonArray
 
 echo "Shutting down MongoDB..."
 mongod --shutdown
