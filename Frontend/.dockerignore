@@ -39,15 +39,18 @@ Dockerfile*
 docker-compose*
 .dockerignore
 
-# Archivos de backup
-*.backup
-*.bak
+# Archivos de build
+dist
+build
+.next
+.nuxt
 
-# Archivos de datos
-myFirstDatabase/
-myFirstDatabase.*.json
-*.bson
-*.gz
+# Archivos de testing
+coverage
+.nyc_output
+.jest
 
-# Archivos de configuración local
-nodemon.json 
+# Archivos de cache
+.cache
+.parcel-cache
+.vite

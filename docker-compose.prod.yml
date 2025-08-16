@@ -20,11 +20,13 @@ services:
       - AWS_SECRET_ACCESS_KEY=poW5uZHFYxxcfkmvOEcHrDwsciUErYHyyejsBfsx+mI
       - S3_ENDPOINT=https://sfo3.digitaloceanspaces.com
       - USE_S3=true
+      - SESSION_SECRET=lead-prod-session-secret-2024
+      - LOG_LEVEL=info
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
       - frontend_node_modules:/usr/src/app/Frontend/node_modules
       - uploads:/usr/src/app/src/public/uploads
-    user: "node"
+    user: "nodejs"
     security_opt:
       - no-new-privileges:true
     cap_drop:
@@ -32,8 +34,10 @@ services:
     read_only: false
     tmpfs:
       - /tmp
+      - /usr/src/app/logs
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
     networks:
       - lead-network-prod
     deploy:
@@ -45,25 +49,26 @@ services:
           memory: 1G
           cpus: '0.50'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
   mongodb:
-    image: mongo:latest
+    image: mongo:8.0
     container_name: lead-mongodb-prod
     restart: always
     ports:
       - "127.0.0.1:27018:27017"
     volumes:
       - mongodb_data_prod:/data/db
-      - .:/dump:ro
+      - ./init-mongo-prod.sh:/docker-entrypoint-initdb.d/init-mongo-prod.sh:ro
     environment:
       - MONGODB_INITDB_ROOT_USERNAME=admin_lead
       - MONGODB_INITDB_ROOT_PASSWORD=LeadPass2024
-    command: mongod --bind_ip_all --auth --tlsMode disabled
+      - MONGODB_INITDB_DATABASE=lead-db-prod
+    command: mongod --bind_ip_all --auth
     deploy:
       resources:
         limits:
@@ -77,7 +82,7 @@ services:
     security_opt:
       - no-new-privileges:true
     healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      test: ["CMD", "mongosh", "--username", "admin_lead", "--password", "LeadPass2024", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
       interval: 30s
       timeout: 10s
       retries: 3

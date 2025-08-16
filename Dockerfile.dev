@@ -1,44 +1,51 @@
-# Usar imagen bookworm-slim como base (con golang/stdlib actualizado)
-FROM node:24-slim
+# Usar imagen base oficial de Node.js Alpine (más segura y ligera)
+FROM node:24-alpine
 
-# Establecemos el directorio de trabajo
+# Establecer directorio de trabajo
 WORKDIR /usr/src/app
 
-# Instalamos solo las dependencias necesarias
-RUN apt-get update && apt-get install -y \
-    curl \
-    ca-certificates \
+# Instalar dependencias del sistema necesarias
+RUN apk add --no-cache \
     chromium \
-    fonts-freefont-ttf \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    && rm -rf /var/cache/apk/*
 
-# Configurar variables de entorno para puppeteer
+# Configurar variables de entorno para Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    NODE_ENV=development
 
-# Copiamos package.json y package-lock.json
+# Crear usuario no-root para seguridad
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Copiar solo package.json primero para aprovechar cache de capas
 COPY package*.json ./
 
-# Instalamos dependencias
-RUN npm install -g npm@latest && \
-    npm install -g nodemon@3.1.0 && \
-    npm ci --include=dev && \
-    npm install multer@1.4.4-lts.1 semver@7.5.4 axios@1.6.7 @aws-sdk/client-s3@3.525.0 --save && \
-    npm install dotenv && \
-    npm install ws@8.17.1 --save && \
-    npm update ws --depth=100 && \
-    npm audit fix --production || true && \
+# Instalar dependencias de desarrollo
+RUN npm install && \
     npm cache clean --force
 
-# Copiamos el resto de archivos
+# Copiar código fuente
 COPY . .
 
-# Configuramos permisos
-RUN chown -R node:node /usr/src/app
+# Cambiar propietario de archivos
+RUN chown -R nodejs:nodejs /usr/src/app
 
+# Cambiar a usuario no-root
+USER nodejs
+
+# Exponer puertos necesarios
 EXPOSE 4000 9229
 
-USER node
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:4000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
 
-CMD ["nodemon", "--inspect=0.0.0.0:9229", "src/index.js"] 
+# Comando de desarrollo con nodemon
+CMD ["npx", "nodemon", "--inspect=0.0.0.0:9229", "src/index.js"] 

@@ -31,7 +31,8 @@ const profilePhotoStorage = multer.diskStorage({
 const profilePhotoUpload = multer({
   storage: profilePhotoStorage,
   limits: {
-    fileSize: 5 * 1024 * 1024 // Limitar a 5MB
+    fileSize: 5 * 1024 * 1024, // Limitar a 5MB
+    files: 1 // Solo un archivo por vez
   },
   fileFilter: function (req, file, cb) {
     // Verificar que es una imagen
@@ -39,11 +40,18 @@ const profilePhotoUpload = multer({
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     
-    if (mimetype && extname) {
-      return cb(null, true);
+    // Verificar que el mimetype sea realmente una imagen
+    if (!mimetype || !extname) {
+      return cb(new Error('Solo se permiten imágenes (jpeg, jpg, png, gif)'));
     }
     
-    cb(new Error('Solo se permiten imágenes (jpeg, jpg, png, gif)'));
+    // Verificar que el nombre del archivo no contenga caracteres peligrosos
+    const safeFilename = /^[a-zA-Z0-9._-]+$/;
+    if (!safeFilename.test(path.basename(file.originalname, path.extname(file.originalname)))) {
+      return cb(new Error('Nombre de archivo no válido'));
+    }
+    
+    cb(null, true);
   }
 });
 

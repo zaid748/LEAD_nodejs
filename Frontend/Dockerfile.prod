@@ -1,16 +1,15 @@
-# Usar Debian slim como base
-FROM node:20-bookworm-slim AS build
+# Usar Alpine como base (más segura y ligera)
+FROM node:24-alpine AS build
 
 # Establecemos el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Instalamos dependencias necesarias
-RUN apt-get update && apt-get install -y \
+# Instalamos dependencias necesarias para Alpine
+RUN apk add --no-cache \
     curl \
     ca-certificates \
     git \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/cache/apk/*
 
 # Configuramos permisos
 RUN mkdir -p /usr/src/app/.npm && \

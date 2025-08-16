@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   backend:
     build: 
@@ -23,17 +21,28 @@ services:
       - SPACESHOST=https://lead-spaces.sfo3.digitaloceanspaces.com/
       - AWS_ACCESS_KEY_ID=R26X7JJS3B7PTESEAUKG
       - AWS_SECRET_ACCESS_KEY=poW5uZHFYxxcfkmvOEcHrDwsciUErYHyyejsBfsx+mI
+      - SESSION_SECRET=lead-dev-session-secret-2024
+      - SECRET=lead-dev-secret-2024
+      - LOG_LEVEL=debug
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_DATABASE=lead-db-prueba
+      - MONGODB_USERNAME=admin_lead
+      - MONGODB_PASSWORD=LeadPass2024
+      - MONGODB_AUTH_SOURCE=admin
     user: "node"
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
-    read_only: true
+    # Removido read_only: true para permitir logs y archivos temporales
     tmpfs:
       - /tmp
-    command: nodemon --legacy-watch src/index.js
+      - /usr/src/app/logs
+    command: npx nodemon --inspect=0.0.0.0:9229 --legacy-watch src/index.js
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
     networks:
       - lead-network-dev
     deploy:
@@ -43,10 +52,11 @@ services:
         reservations:
           memory: 512M
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/api/health"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 40s
 
   frontend:
     build:
@@ -69,19 +79,19 @@ services:
       - lead-network-dev
 
   mongodb:
-    image: mongo:latest
+    image: mongo:8.0
     container_name: lead-mongodb-dev
     restart: always
     ports:
       - "27018:27017"
     volumes:
       - mongodb_data_dev:/data/db
-      - .:/dump
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
     environment:
       - MONGODB_INITDB_DATABASE=lead-db-prueba
       - MONGODB_INITDB_ROOT_USERNAME=admin_lead
       - MONGODB_INITDB_ROOT_PASSWORD=LeadPass2024
-    command: mongod --bind_ip_all --auth --tlsMode disabled
+    command: mongod --bind_ip_all --auth
     deploy:
       resources:
         limits:
@@ -94,6 +104,12 @@ services:
       - lead-network-dev
     security_opt:
       - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "mongosh", "--username", "admin_lead", "--password", "LeadPass2024", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 networks:
   lead-network-dev:

@@ -9,7 +9,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
-const corsFixMiddleware = require('./middleware/express-cors-fix');
+const { helmetConfig, limiter, mongoSanitize, xss, hpp } = require('./config/security');
 
 dotenv.config({ path: '.env' })
 
@@ -42,6 +42,13 @@ app.use(cors({
   optionsSuccessStatus: 204
 }));
 
+// Middleware de seguridad
+app.use(helmetConfig);
+app.use(limiter);
+app.use(mongoSanitize());
+app.use(xss());
+app.use(hpp());
+
 // Middleware para logging de cookies en cada request
 // app.use((req, res, next) => {
 //     console.log('Request URL:', req.url);
@@ -72,7 +79,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(session({
-    secret: 'secreto',
+    secret: process.env.SESSION_SECRET || process.env.SECRET || 'fallback-secret-change-in-production',
     resave: false,
     saveUninitialized: false,
     cookie: {

@@ -1,0 +1,134 @@
+# Configuración de Cursor para Dashboard Inmobiliario LEAD
+
+## CONTEXTO DEL PROYECTO
+- **Tipo**: Dashboard web para gestión inmobiliaria
+- **Backend**: Node.js + Express + MongoDB
+- **Frontend**: React + Vite + Tailwind CSS
+- **Funcionalidades**: Gestión de casas, empleados, nóminas, captaciones
+- **Objetivo**: Código seguro, mantenible y escalable
+- **Infraestructura**: Docker + Docker Compose (desarrollo y producción)
+- **Orquestación**: Contenedores independientes para Backend, Frontend, MongoDB
+
+## REGLAS DE DESARROLLO
+
+### 1. SEGURIDAD (PRIORIDAD MÁXIMA)
+- Implementar validación de entrada en TODOS los endpoints
+- Usar middleware de autenticación en rutas protegidas
+- Sanitizar datos antes de guardar en base de datos
+- Implementar rate limiting en endpoints críticos
+- Validar tipos de archivo en uploads
+- Usar variables de entorno para secretos
+- **DOCKER**: Nunca hardcodear secretos en Dockerfiles o docker-compose
+- **DOCKER**: Usar .env para variables sensibles y .dockerignore para excluir archivos
+
+### 2. ARQUITECTURA Y CÓDIGO
+- Seguir patrón MVC (Model-View-Controller)
+- Usar async/await en lugar de callbacks
+- Implementar manejo de errores consistente
+- Validar datos con express-validator
+- Usar middleware para funcionalidades comunes
+- Mantener separación de responsabilidades
+- **DOCKER**: Crear Dockerfiles multi-stage para optimizar tamaños de imagen
+- **DOCKER**: Usar .dockerignore para excluir node_modules y archivos innecesarios
+
+### 3. BASE DE DATOS
+- Validar esquemas de MongoDB
+- Implementar índices para consultas frecuentes
+- Usar transacciones cuando sea necesario
+- Sanitizar consultas para prevenir inyección
+- Implementar paginación en listas grandes
+- **DOCKER**: Usar volúmenes persistentes para datos de MongoDB
+- **DOCKER**: Implementar health checks para servicios críticos
+- **DOCKER**: Configurar networks personalizados para comunicación segura
+
+### 4. API REST
+- Usar códigos de estado HTTP apropiados
+- Implementar respuestas consistentes (success, message, data)
+- Validar parámetros de entrada
+- Implementar logging para debugging
+- Usar versionado de API (/api/v1/...)
+
+### 5. FRONTEND
+- Componentes reutilizables y modulares
+- Estado global con Context API o Redux
+- Validación de formularios en cliente
+- Manejo de errores de API
+- Diseño responsive con Tailwind CSS
+
+### 6. TESTING Y CALIDAD
+- Escribir tests unitarios para lógica crítica
+- Implementar linting con ESLint
+- Usar Prettier para formateo
+- Documentar funciones y APIs
+- Revisar vulnerabilidades con npm audit
+- **DOCKER**: Crear tests de integración que se ejecuten en contenedores
+- **DOCKER**: Implementar CI/CD con Docker para testing automatizado
+
+## CONVENCIONES DE NOMBRES
+- **Archivos**: camelCase (userController.js)
+- **Clases**: PascalCase (UserController)
+- **Funciones**: camelCase (getUserById)
+- **Variables**: camelCase (userName)
+- **Constantes**: UPPER_SNAKE_CASE (MAX_FILE_SIZE)
+- **Base de datos**: snake_case (user_name)
+- **DOCKER**: Dockerfile.dev, Dockerfile.prod, docker-compose.dev.yml
+- **DOCKER**: Imágenes: lead-backend:dev, lead-frontend:prod
+
+## ESTRUCTURA DE RESPUESTAS API
+```json
+{
+  "success": true/false,
+  "message": "Descripción del resultado",
+  "data": {}, // Datos de respuesta
+  "errors": [] // Errores de validación
+}
+```
+
+## PRIORIDADES DE REFACTORIZACIÓN
+1. **Seguridad**: Middleware de autenticación y validación
+2. **Validación**: Sanitización de entrada en todos los endpoints
+3. **Manejo de errores**: Implementar try-catch consistente
+4. **Código duplicado**: Extraer lógica común a middleware
+5. **Performance**: Optimizar consultas de base de datos
+6. **Testing**: Implementar tests unitarios
+7. **DOCKER**: Optimizar Dockerfiles y docker-compose
+8. **DOCKER**: Implementar health checks y logging centralizado
+
+## RECURSOS Y REFERENCIAS
+- Documentación oficial de Express.js
+- Mejores prácticas de seguridad OWASP
+- Patrones de diseño para Node.js
+- Guías de MongoDB para producción
+- **DOCKER**: Docker Best Practices para Node.js
+- **DOCKER**: Docker Compose para desarrollo y producción
+- **DOCKER**: Seguridad en contenedores Docker
+
+## REGLAS ESPECÍFICAS PARA DOCKER
+
+### 1. DOCKERFILES
+- Usar imágenes base oficiales de Node.js (node:18-alpine)
+- Implementar multi-stage builds para reducir tamaño final
+- Copiar solo package.json primero para aprovechar cache de capas
+- Usar usuario no-root (node) para seguridad
+- Exponer solo puertos necesarios
+
+### 2. DOCKER COMPOSE
+- Separar archivos para desarrollo y producción
+- Usar variables de entorno para configuraciones
+- Implementar health checks para todos los servicios
+- Configurar volúmenes persistentes para datos
+- Usar networks personalizados para aislamiento
+
+### 3. SEGURIDAD EN CONTENEDORES
+- Nunca ejecutar como root
+- Escanear imágenes con herramientas de seguridad
+- Mantener imágenes base actualizadas
+- Usar .dockerignore para excluir archivos sensibles
+- Implementar logging centralizado
+
+### 4. OPTIMIZACIÓN
+- Usar .dockerignore para excluir node_modules
+- Implementar cache de dependencias eficiente
+- Usar multi-stage builds para minimizar tamaño
+- Configurar variables de entorno apropiadas
+- Implementar graceful shutdown

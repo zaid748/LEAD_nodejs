@@ -1,19 +1,27 @@
-FROM node:24-slim
+FROM node:24-alpine
 
 WORKDIR /usr/src/app
 
-# Instalamos dependencias necesarias para Ubuntu
-RUN apt-get update && apt-get install -y \
+# Instalamos dependencias necesarias para Alpine
+RUN apk add --no-cache \
     curl \
     ca-certificates \
     chromium \
-    fonts-freefont-ttf \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    nss \
+    freetype \
+    freetype-dev \
+    harfbuzz \
+    ttf-freefont \
+    && rm -rf /var/cache/apk/*
 
 # Configurar variables de entorno para puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    NODE_ENV=production
+
+# Crear usuario no-root para seguridad
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
 
 # Copiamos los archivos de dependencias
 COPY package*.json ./
@@ -21,9 +29,6 @@ COPY package*.json ./
 # Instalamos dependencias con configuraciones de seguridad
 RUN npm install -g npm@latest && \
     npm ci --only=production --no-audit && \
-    npm install ws@8.17.1 --save && \
-    npm install multer@1.4.4-lts.1 semver@7.5.4 --save && \
-    npm audit fix --only=prod || true && \
     npm cache clean --force
 
 # Copiamos el resto de archivos del proyecto
@@ -32,16 +37,16 @@ COPY . .
 # Crear directorios necesarios para uploads
 RUN mkdir -p src/public/uploads/profile_photos && \
     chmod -R 755 src/public/uploads && \
-    chown -R node:node src/public/uploads
+    chown -R nodejs:nodejs src/public/uploads
 
 # Creamos el directorio Frontend/dist si no existe para evitar errores
 RUN mkdir -p Frontend/dist && \
-    chown -R node:node /usr/src/app
+    chown -R nodejs:nodejs /usr/src/app
 
 # Exponemos el puerto que utiliza la aplicación
 EXPOSE 4000
 
-USER node
+USER nodejs
 
 # Comando para iniciar la aplicación en modo producción
 CMD ["npm", "start"]

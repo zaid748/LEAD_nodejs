@@ -50,4 +50,21 @@ myFirstDatabase.*.json
 *.gz
 
 # Archivos de configuración local
-nodemon.json 
+nodemon.json
+package-lock.json
+
+# Archivos de desarrollo
+src/views/
+src/public/css/
+src/public/img/
+src/public/uploads/
+
+# Testing
+coverage
+.nyc_output
+.jest
+
+# Cache
+.cache
+.parcel-cache
+.vite

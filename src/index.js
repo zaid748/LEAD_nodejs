@@ -28,6 +28,16 @@ app.listen(app.get('port'), () => {
     console.log('server on port', app.get('port'));
 });
 
+// Health check para Docker
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 /* // Agregar al inicio de tu aplicación
 setInterval(() => {
   const used = process.memoryUsage();
