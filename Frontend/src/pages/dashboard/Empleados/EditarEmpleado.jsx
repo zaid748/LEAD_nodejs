@@ -306,7 +306,6 @@ export function EditarEmpleado() {
                   name="fecha_na"
                   value={formData.fecha_na}
                   onChange={handleChange}
-                  required
                 />
                 
                 <Input
@@ -382,7 +381,6 @@ export function EditarEmpleado() {
                   name="calle"
                   value={formData.calle}
                   onChange={handleChange}
-                  required
                 />
                 
                 <div className="grid grid-cols-2 gap-4">
@@ -392,7 +390,6 @@ export function EditarEmpleado() {
                     name="nun_ex"
                     value={formData.nun_ex}
                     onChange={handleChange}
-                    required
                   />
                   
                   <Input
@@ -410,7 +407,6 @@ export function EditarEmpleado() {
                   name="codigo"
                   value={formData.codigo}
                   onChange={handleChange}
-                  required
                 />
                 
                 <div className="mt-6">

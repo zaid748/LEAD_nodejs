@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos para encabezados fijos en tablas React */
+.sticky-table-container {
+  position: relative !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.sticky-table-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background-color: #f8fafc !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.sticky-table-header th {
+  background-color: #f8fafc !important;
+  font-weight: bold !important;
+  color: #475569 !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+/* Estilos para barras superiores fijas */
+.sticky-top-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  background-color: white !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+.sticky-search-bar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 15 !important;
+  background-color: white !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05) !important;
+}
+
+/* Mejorar la apariencia de los botones de acción */
+.action-buttons-container {
+  display: flex !important;
+  gap: 8px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+
+.action-button {
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  color: white !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+  min-width: 70px !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+.action-button.ver {
+  background-color: #3b82f6 !important;
+}
+
+.action-button.editar {
+  background-color: #10b981 !important;
+}
+
+.action-button.descargar {
+  background-color: #06b6d4 !important;
+}
+
+.action-button.eliminar {
+  background-color: #ef4444 !important;
+}
+
+.action-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* Responsive para encabezados fijos */
+@media only screen and (max-width: 768px) {
+  .sticky-table-container {
+    max-height: 60vh !important;
+  }
+  
+  .sticky-table-header th {
+    font-size: 12px !important;
+    padding: 8px 4px !important;
+  }
+  
+  .action-buttons-container {
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+  
+  .action-button {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    min-width: 60px !important;
+  }
+}

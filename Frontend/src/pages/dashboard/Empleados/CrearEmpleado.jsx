@@ -199,7 +199,6 @@ export function CrearEmpleado() {
                 name="fecha_na"
                 value={formData.fecha_na}
                 onChange={handleChange}
-                required
               />
               
               <Input
@@ -275,7 +274,6 @@ export function CrearEmpleado() {
                 name="calle"
                 value={formData.calle}
                 onChange={handleChange}
-                required
               />
               
               <div className="grid grid-cols-2 gap-4">
@@ -285,7 +283,6 @@ export function CrearEmpleado() {
                   name="nun_ex"
                   value={formData.nun_ex}
                   onChange={handleChange}
-                  required
                 />
                 
                 <Input
@@ -303,7 +300,6 @@ export function CrearEmpleado() {
                 name="codigo"
                 value={formData.codigo}
                 onChange={handleChange}
-                required
               />
               
               {isAdmin && (

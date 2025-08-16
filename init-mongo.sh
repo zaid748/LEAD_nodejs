@@ -21,13 +21,14 @@ echo "Creating database and collection..."
 mongosh --username admin_lead --password 'LeadPass2024' --authenticationDatabase admin --eval "
   db = db.getSiblingDB('lead-db-prueba');
   db.createCollection('empleados');
-  db.createCollection('users');
-  db.createCollection('departamentos');
-  db.createCollection('nominas');
-  db.createCollection('captaciones');
-  db.createCollection('casasInventario');
-  db.createCollection('notes');
-  db.createCollection('roles');
 "
 
-echo "MongoDB initialization completed successfully!" 
+echo "Importing data..."
+cd /dump
+mongoimport --username admin_lead --password 'L3@d2024#SecureDB!' --authenticationDatabase admin --db lead-db-prueba --collection empleados --file myFirstDatabase.empleados.json --jsonArray
+
+echo "Shutting down MongoDB..."
+mongod --shutdown
+
+echo "Starting MongoDB with authentication..."
+exec mongod --auth --bind_ip_all 

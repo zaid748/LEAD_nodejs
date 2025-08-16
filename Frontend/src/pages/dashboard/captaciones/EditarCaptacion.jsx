@@ -1532,6 +1532,11 @@ export function EditarCaptacion() {
                             onChange={(value) => field.onChange(value)}
                           >
                             <Option value="En proceso">En proceso</Option>
+                            <Option value="Disponible para venta">Disponible para venta</Option>
+                            <Option value="En proceso de venta">En proceso de venta</Option>
+                            <Option value="Remodelacion">Remodelacion</Option>
+                            <Option value="En proceso de juicio">En proceso de juicio</Option>
+                            <Option value="En desalojo">En desalojo</Option>
                             <Option value="Vendida">Vendida</Option>
                             <Option value="Cancelada">Cancelada</Option>
                           </Select>
