@@ -279,63 +279,116 @@ userCtrl.deleteUser = async (req, res) => {
 
 userCtrl.uploadProfilePhoto = async (req, res) => {
   try {
+    console.log('=== INICIO DE UPLOAD PROFILE PHOTO ===');
+    console.log('Request params:', req.params);
+    console.log('Request file:', req.file);
+    console.log('Request headers:', req.headers);
+    
     if (!req.file) {
+      console.log('ERROR: No se proporcionó ningún archivo');
       return res.status(400).json({
         success: false,
         message: 'No se proporcionó ninguna imagen'
       });
     }
 
-    console.log('Archivo recibido:', req.file);
+    console.log('Archivo recibido:', {
+      originalname: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+      path: req.file.path
+    });
     
     const userId = req.params.id;
+    console.log('ID del usuario:', userId);
     
     // Crear la ruta donde se guardará permanentemente
     const userUploadDir = path.join(__dirname, '../public/uploads/users');
+    console.log('Directorio de destino:', userUploadDir);
+    
     if (!fs.existsSync(userUploadDir)) {
+      console.log('Creando directorio de destino...');
       fs.mkdirSync(userUploadDir, { recursive: true });
     }
     
-    // Crear nombre de archivo único para evitar colisiones
+    // PRIMERO: Buscar y eliminar la foto anterior del usuario
+    try {
+      const usuario = await user.findById(userId);
+      if (usuario && usuario.foto_perfil) {
+        // No eliminar la imagen por defecto
+        if (!usuario.foto_perfil.includes('user_icon.svg')) {
+          const oldPhotoPath = path.join(__dirname, '../public', usuario.foto_perfil);
+          console.log('Verificando foto anterior:', oldPhotoPath);
+          
+          if (fs.existsSync(oldPhotoPath)) {
+            console.log('Eliminando foto anterior:', oldPhotoPath);
+            fs.unlinkSync(oldPhotoPath);
+            console.log('✅ Foto anterior eliminada exitosamente');
+          } else {
+            console.log('⚠️ Foto anterior no encontrada en el sistema de archivos');
+          }
+        } else {
+          console.log('ℹ️ Usuario tiene imagen por defecto, no se elimina');
+        }
+      } else {
+        console.log('ℹ️ Usuario no tiene foto de perfil previa');
+      }
+    } catch (deleteError) {
+      console.error('❌ Error al eliminar foto anterior:', deleteError);
+      // No fallar si no se puede eliminar la foto anterior
+    }
+    
+    // SEGUNDO: Crear nombre de archivo único para la nueva foto
     const fileName = `profile_${userId}_${Date.now()}${path.extname(req.file.originalname)}`;
     const finalDestination = path.join(userUploadDir, fileName);
     
-    console.log('Guardando archivo en:', finalDestination);
+    console.log('Guardando nueva foto en:', finalDestination);
     
-    // Mover el archivo de la ubicación temporal a la final
-    fs.copyFileSync(req.file.path, finalDestination);
-    
-    // Eliminar el archivo temporal después de copiarlo
-    fs.unlinkSync(req.file.path);
-    
-    // Ruta relativa para guardar en la base de datos (SIN "/public" al principio)
-    const relativePath = `/uploads/users/${fileName}`;
-    
-    // Borrar la foto anterior si existe (excepto la imagen por defecto)
-    const usuario = await user.findById(userId);
-    if (usuario && usuario.foto_perfil && !usuario.foto_perfil.includes('user_icon.svg')) {
-      const oldPhotoPath = path.join(__dirname, '../public', usuario.foto_perfil);
-      if (fs.existsSync(oldPhotoPath)) {
-        console.log('Eliminando foto anterior:', oldPhotoPath);
-        fs.unlinkSync(oldPhotoPath);
-      }
+    // TERCERO: Mover el archivo de la ubicación temporal a la final
+    try {
+      fs.copyFileSync(req.file.path, finalDestination);
+      console.log('✅ Nueva foto copiada exitosamente');
+    } catch (copyError) {
+      console.error('❌ Error al copiar archivo:', copyError);
+      throw new Error(`Error al copiar archivo: ${copyError.message}`);
     }
     
-    // Actualizar la ruta de la foto en la base de datos
+    // CUARTO: Eliminar el archivo temporal después de copiarlo
+    try {
+      fs.unlinkSync(req.file.path);
+      console.log('✅ Archivo temporal eliminado');
+    } catch (unlinkError) {
+      console.error('⚠️ Error al eliminar archivo temporal:', unlinkError);
+      // No fallar si no se puede eliminar el temporal
+    }
+    
+    // QUINTO: Ruta relativa para guardar en la base de datos (SIN "/public" al principio)
+    const relativePath = `/uploads/users/${fileName}`;
+    console.log('Ruta relativa para BD:', relativePath);
+    
+    // SEXTO: Actualizar la ruta de la foto en la base de datos
+    console.log('Actualizando usuario en BD...');
     const updatedUser = await user.findByIdAndUpdate(
       userId,
       { foto_perfil: relativePath },
       { new: true }
     );
     
+    console.log('✅ Usuario actualizado en BD:', updatedUser._id);
+    
+    console.log('=== FIN DE UPLOAD PROFILE PHOTO ===');
+    
     return res.status(200).json({
       success: true,
-      message: 'Foto de perfil actualizada correctamente',
+      message: 'Foto de perfil actualizada correctamente. La foto anterior ha sido eliminada.',
       foto_perfil: relativePath,
       user: updatedUser
     });
   } catch (error) {
-    console.error('Error al subir la foto de perfil:', error);
+    console.error('=== ERROR EN UPLOAD PROFILE PHOTO ===');
+    console.error('Error completo:', error);
+    console.error('Stack trace:', error.stack);
+    
     return res.status(500).json({
       success: false,
       message: 'Error al subir la foto de perfil',

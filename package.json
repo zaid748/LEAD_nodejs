@@ -12,7 +12,9 @@
     "security:check": "npm audit && npm audit fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "clean": "rm -rf node_modules package-lock.json && npm install"
+    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "cleanup-photos": "node src/utils/cleanup-orphaned-photos.js",
+    "cleanup-photos-simple": "node src/utils/cleanup-photos-simple.js"
   },
   "keywords": [],
   "author": "",

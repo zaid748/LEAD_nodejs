@@ -229,28 +229,42 @@ export function EditarUser({ dashboard = false }) {
       const formData = new FormData();
       formData.append('foto_perfil', selectedFile);
       
-      const endpoint = `${import.meta.env.VITE_API_URL}/api/users/${userId}/upload-photo`;
+      const endpoint = `/api/users/${userId}/upload-photo`;
       console.log('Subiendo foto a:', endpoint);
+      console.log('Archivo a subir:', selectedFile);
       
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        body: formData,
-        credentials: 'include'
+      const response = await axios.post(endpoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true,
+        timeout: 30000, // 30 segundos de timeout
       });
       
-      const data = await response.json();
-      console.log('Respuesta de subida de foto:', data);
+      console.log('Respuesta de subida de foto:', response.data);
       
-      if (data.success) {
-        return data.foto_perfil;
+      if (response.data.success) {
+        return response.data.foto_perfil;
       } else {
-        console.error('Error al subir foto:', data.message);
-        setError(`Error al subir la foto: ${data.message}`);
+        console.error('Error al subir foto:', response.data.message);
+        setError(`Error al subir la foto: ${response.data.message}`);
         return null;
       }
     } catch (error) {
       console.error('Error al subir la foto:', error);
-      setError('Error al subir la foto');
+      
+      if (error.response) {
+        console.error('Respuesta del servidor:', error.response.data);
+        console.error('Status:', error.response.status);
+        setError(`Error del servidor: ${error.response.data.message || 'Error desconocido'}`);
+      } else if (error.request) {
+        console.error('No se recibió respuesta del servidor');
+        setError('No se pudo conectar con el servidor. Verifica tu conexión.');
+      } else {
+        console.error('Error en la configuración:', error.message);
+        setError(`Error de configuración: ${error.message}`);
+      }
+      
       return null;
     }
   };

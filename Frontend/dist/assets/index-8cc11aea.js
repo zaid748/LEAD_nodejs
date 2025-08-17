@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as UserGroupIcon, a4 as DocumentTextIcon, a5 as ClipboardDocumentListIcon, a6 as TableCellsIcon, a7 as BuildingOffice2Icon, a8 as ServerStackIcon, a9 as RectangleStackIcon, aa as useLocation, ab as XMarkIcon, ac as NavLink, ad as Bars3Icon, ae as Cog6ToothIcon, af as Routes, ag as Route, ah as Outlet, ai as client, aj as BrowserRouter } from "./vendor-e24c7dba.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as react, _ as _default, B as BanknotesIcon, U as UsersIcon, a as UserPlusIcon, C as ChartBarIcon, b as BellIcon, c as PlusCircleIcon, S as ShoppingCartIcon, d as CreditCardIcon, L as LockOpenIcon, e as ClockIcon, f as CheckCircleIcon, E as EllipsisVerticalIcon, A as ArrowUpIcon, g as axios, h as reactExports, i as PencilSquareIcon, k as UserCircleIcon, l as CurrencyDollarIcon, I as IdentificationIcon, u as useNavigate, m as EyeIcon, T as TrashIcon, M as MagnifyingGlassIcon, n as UserPlusIcon$1, o as useParams, p as ArrowLeftIcon, q as PencilIcon, s as BriefcaseIcon, t as CalendarDaysIcon, v as MapPinIcon, w as EnvelopeIcon, x as PhoneIcon, y as BuildingOfficeIcon, z as EyeIcon$1, D as DocumentArrowDownIcon, F as TrashIcon$1, G as PlusIcon, N as Navigate, H as CloudArrowUpIcon, J as Link, K as create$3, O as create$6, Q as create$5, V as create$2, W as create$7, X as useForm, Y as useFieldArray, Z as Controller, $ as o, a0 as MagnifyingGlassIcon$1, a1 as ArrowDownTrayIcon, a2 as HomeIcon, a3 as UserGroupIcon, a4 as DocumentTextIcon, a5 as ClipboardDocumentListIcon, a6 as TableCellsIcon, a7 as BuildingOffice2Icon, a8 as ServerStackIcon, a9 as RectangleStackIcon, aa as useLocation, ab as XMarkIcon, ac as NavLink, ad as Bars3Icon, ae as Cog6ToothIcon, af as Routes, ag as Route, ah as Outlet, ai as client, aj as BrowserRouter } from "./vendor-8568c12d.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -875,6 +875,7 @@ function Profile() {
   const [userData, setUserData] = reactExports.useState(null);
   const [loading, setLoading] = reactExports.useState(true);
   const [error, setError] = reactExports.useState("");
+  const [success, setSuccess] = reactExports.useState("");
   const [profilePhoto, setProfilePhoto] = reactExports.useState("/img/user_icon.svg");
   const [isUpdatingPhoto, setIsUpdatingPhoto] = reactExports.useState(false);
   const fileInputRef = reactExports.useRef(null);
@@ -932,8 +933,21 @@ function Profile() {
         setUserData(data.user);
         if (data.user.foto_perfil) {
           const photoUrl = `${"https://lead-inmobiliaria.com"}${data.user.foto_perfil}`;
-          console.log("URL de foto de perfil:", photoUrl);
-          setProfilePhoto(photoUrl);
+          console.log("=== CARGA DE FOTO DE PERFIL ===");
+          console.log("Ruta en BD:", data.user.foto_perfil);
+          console.log("URL construida:", photoUrl);
+          console.log("VITE_API_URL:", "https://lead-inmobiliaria.com");
+          console.log("Estado actual de profilePhoto:", profilePhoto);
+          const finalPhotoUrl = await loadImageWithFallback(photoUrl);
+          console.log("🖼️ URL final de la foto:", finalPhotoUrl);
+          setProfilePhoto(finalPhotoUrl);
+          if (finalPhotoUrl.startsWith("data:")) {
+            console.log("✅ Imagen cargada usando base64 (fallback)");
+          } else {
+            console.log("✅ Imagen cargada usando URL directa");
+          }
+        } else {
+          console.log("ℹ️ Usuario no tiene foto de perfil configurada");
         }
         if (data.user.empleado_id) {
           await loadNominas(data.user.empleado_id);
@@ -961,6 +975,61 @@ function Profile() {
       console.error("Error al cargar nóminas:", error2);
     }
   };
+  const loadImageWithFallback = async (imageUrl) => {
+    try {
+      console.log("🖼️ Intentando cargar imagen:", imageUrl);
+      try {
+        const timestampedUrl = `${imageUrl}?t=${Date.now()}`;
+        console.log("🔄 Intentando carga directa con timestamp:", timestampedUrl);
+        const img = new Image();
+        const imageTest = await new Promise((resolve, reject) => {
+          img.onload = () => {
+            console.log("✅ Imagen cargada exitosamente (directo)");
+            console.log("Dimensiones:", img.width, "x", img.height);
+            resolve({ success: true, width: img.width, height: img.height, method: "directo" });
+          };
+          img.onerror = (e) => {
+            console.error("❌ Error al cargar imagen directamente:", e);
+            reject(new Error("No se pudo cargar la imagen directamente"));
+          };
+          img.src = timestampedUrl;
+          setTimeout(() => {
+            reject(new Error("Timeout al cargar imagen directamente"));
+          }, 5e3);
+        });
+        console.log("✅ Carga directa exitosa, usando URL original");
+        return imageUrl;
+      } catch (directError) {
+        console.log("⚠️ Carga directa falló, intentando con base64...");
+      }
+      console.log("🔄 Intentando carga con base64...");
+      const response = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      console.log("✅ Blob creado:", blob.size, "bytes, tipo:", blob.type);
+      const reader = new FileReader();
+      const base64Promise = new Promise((resolve, reject) => {
+        reader.onload = () => {
+          const base642 = reader.result;
+          console.log("✅ Base64 generado, longitud:", base642.length);
+          resolve(base642);
+        };
+        reader.onerror = () => reject(new Error("Error al convertir a base64"));
+      });
+      reader.readAsDataURL(blob);
+      const base64 = await base64Promise;
+      console.log("✅ Usando base64 como fallback");
+      return base64;
+    } catch (error2) {
+      console.error("❌ Error en carga de imagen con fallback:", error2);
+      return imageUrl;
+    }
+  };
   const handleChangeProfilePhoto = () => {
     fileInputRef.current.click();
   };
@@ -968,34 +1037,104 @@ function Profile() {
     if (!e.target.files || !e.target.files[0])
       return;
     const file = e.target.files[0];
+    console.log("=== INICIO DE SUBIDA DE FOTO ===");
+    console.log("Archivo seleccionado:", {
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      lastModified: new Date(file.lastModified).toISOString()
+    });
+    if (!file.type.startsWith("image/")) {
+      setError("Por favor selecciona una imagen válida");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError("La imagen debe ser menor a 5MB");
+      return;
+    }
     setIsUpdatingPhoto(true);
+    setError("");
     try {
       const formData = new FormData();
       formData.append("foto_perfil", file);
-      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users/${user.id}/upload-photo`, {
-        method: "POST",
-        credentials: "include",
-        body: formData
-      });
-      const data = await response.json();
-      if (data.success) {
-        const photoUrl = data.foto_perfil;
+      console.log("FormData creado:", formData);
+      console.log("Enviando foto al servidor...");
+      console.log("URL de envío:", `${"https://lead-inmobiliaria.com"}/api/users/${user.id}/upload-photo`);
+      console.log("ID del usuario:", user.id);
+      const response = await axios.post(
+        `/api/users/${user.id}/upload-photo`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          withCredentials: true,
+          timeout: 3e4
+          // 30 segundos de timeout
+        }
+      );
+      console.log("Respuesta del servidor:", response.data);
+      if (response.data.success) {
+        const photoUrl = response.data.foto_perfil;
+        console.log("Foto actualizada exitosamente:", photoUrl);
+        setSuccess("¡Foto de perfil actualizada correctamente!");
+        setError("");
         handlePhotoUpdated(photoUrl);
+        setTimeout(() => {
+          setSuccess("");
+        }, 3e3);
+        if (user && user.id === user.id) {
+          await refreshAuthStatus();
+        }
       } else {
-        console.error("Error al actualizar foto:", data.message);
+        console.error("Error al actualizar foto:", response.data.message);
+        setError(`Error al actualizar la foto: ${response.data.message}`);
+        setSuccess("");
       }
     } catch (error2) {
-      console.error("Error al subir la foto:", error2);
+      console.error("=== ERROR EN SUBIDA DE FOTO ===");
+      console.error("Error completo:", error2);
+      if (error2.response) {
+        console.error("Respuesta del servidor:", error2.response.data);
+        console.error("Status:", error2.response.status);
+        console.error("Headers:", error2.response.headers);
+        if (error2.response.status === 400) {
+          setError(`Error de validación: ${error2.response.data.message || "Archivo no válido"}`);
+        } else if (error2.response.status === 401) {
+          setError("No tienes permisos para realizar esta acción");
+        } else if (error2.response.status === 413) {
+          setError("El archivo es demasiado grande");
+        } else {
+          setError(`Error del servidor: ${error2.response.data.message || "Error desconocido"}`);
+        }
+      } else if (error2.request) {
+        console.error("No se recibió respuesta del servidor");
+        console.error("Request:", error2.request);
+        setError("No se pudo conectar con el servidor. Verifica tu conexión.");
+      } else {
+        console.error("Error en la configuración:", error2.message);
+        setError(`Error de configuración: ${error2.message}`);
+      }
     } finally {
       setIsUpdatingPhoto(false);
+      console.log("=== FIN DE SUBIDA DE FOTO ===");
     }
   };
-  const handlePhotoUpdated = (photoUrl) => {
-    console.log("Foto actualizada:", photoUrl);
+  const handlePhotoUpdated = async (photoUrl) => {
+    console.log("=== MANEJANDO FOTO ACTUALIZADA ===");
+    console.log("URL recibida:", photoUrl);
+    let fullPhotoUrl = photoUrl;
     if (!photoUrl.startsWith("http")) {
-      photoUrl = `${"https://lead-inmobiliaria.com"}${photoUrl}`;
+      fullPhotoUrl = `${"https://lead-inmobiliaria.com"}${photoUrl}`;
     }
-    setProfilePhoto(photoUrl);
+    console.log("URL completa construida:", fullPhotoUrl);
+    const finalPhotoUrl = await loadImageWithFallback(fullPhotoUrl);
+    console.log("🖼️ URL final de la nueva foto:", finalPhotoUrl);
+    setProfilePhoto(finalPhotoUrl);
+    setError("");
+    setTimeout(() => {
+      loadUserData();
+    }, 1e3);
   };
   const formatDate = (dateString) => {
     if (!dateString)
@@ -1006,7 +1145,7 @@ function Profile() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-auto my-10 max-w-screen-lg px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { className: "mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.CardBody, { className: "p-4", children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-center items-center p-8", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-12 w-12" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { className: "ml-4", children: "Cargando información..." })
-  ] }) : error ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-red-50 p-4 rounded-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "red", children: error }) }) : userData ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+  ] }) : error ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-red-50 p-4 rounded-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "red", children: error }) }) : success ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-green-50 p-4 rounded-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "paragraph", color: "green", children: success }) }) : userData ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col md:flex-row gap-6 items-center mb-8", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -1015,7 +1154,24 @@ function Profile() {
             src: profilePhoto,
             alt: userData.prim_nom || "Usuario",
             size: "xxl",
-            className: "border border-blue-gray-100 p-1"
+            className: "border border-blue-gray-100 p-1",
+            onError: (e) => {
+              console.error("❌ Error al cargar imagen de perfil:", profilePhoto);
+              console.error("Elemento de imagen:", e.target);
+              console.error("Tipo de URL:", profilePhoto.startsWith("data:") ? "base64" : "URL directa");
+              if (profilePhoto.startsWith("data:")) {
+                console.log("🔄 Reintentando carga de base64...");
+                setTimeout(() => {
+                  e.target.src = profilePhoto;
+                }, 1e3);
+              } else {
+                e.target.src = "/img/user_icon.svg";
+              }
+            },
+            onLoad: () => {
+              console.log("✅ Imagen de perfil cargada exitosamente:", profilePhoto);
+              console.log("Tipo de carga:", profilePhoto.startsWith("data:") ? "base64" : "URL directa");
+            }
           }
         ),
         isUpdatingPhoto ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-8 w-8 text-white" }) }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -1222,11 +1378,13 @@ function UsersTable() {
   }, [searchTerm, users]);
   const fetchUsers = async () => {
     try {
+      console.log("🔄 Cargando usuarios...");
       const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/users`, {
         credentials: "include"
       });
       const data = await response.json();
       if (data.success) {
+        console.log(`📊 Usuarios obtenidos: ${data.users.length}`);
         const usuariosConFotos = data.users.map((user) => {
           if (user.foto_perfil && !user.foto_perfil.startsWith("http")) {
             user.foto_perfil = `${"https://lead-inmobiliaria.com"}${user.foto_perfil}`;
@@ -1245,6 +1403,7 @@ function UsersTable() {
         });
         setUsers(usuariosOrdenados);
         setFilteredUsers(usuariosOrdenados);
+        console.log("✅ Usuarios cargados correctamente");
       }
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -1407,7 +1566,25 @@ function UsersTable() {
                   src: avatarSrc,
                   alt: nombreCompleto,
                   size: "sm",
-                  className: "border border-blue-500"
+                  className: "border border-blue-500",
+                  onError: (e) => {
+                    console.error("❌ Error al cargar imagen en tabla:", avatarSrc);
+                    console.error("Usuario:", nombreCompleto);
+                    console.error("Tipo de URL:", (avatarSrc == null ? void 0 : avatarSrc.startsWith("data:")) ? "base64" : "URL directa");
+                    if (avatarSrc == null ? void 0 : avatarSrc.startsWith("data:")) {
+                      console.log("🔄 Reintentando carga de base64 en tabla...");
+                      setTimeout(() => {
+                        e.target.src = avatarSrc;
+                      }, 1e3);
+                    } else {
+                      e.target.src = "/img/user_icon.svg";
+                    }
+                  },
+                  onLoad: () => {
+                    console.log("✅ Imagen cargada exitosamente en tabla:", avatarSrc.substring(0, 50) + "...");
+                    console.log("Usuario:", nombreCompleto);
+                    console.log("Tipo de carga:", (avatarSrc == null ? void 0 : avatarSrc.startsWith("data:")) ? "base64" : "URL directa");
+                  }
                 }
               ) }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: classes, children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: nombreCompleto }) }),
@@ -1446,8 +1623,18 @@ function ProfileUsers() {
         });
         if (response.data.success) {
           let userData2 = response.data.user;
-          if (userData2.foto_perfil && !userData2.foto_perfil_url) {
-            userData2.foto_perfil_url = `${"https://lead-inmobiliaria.com"}${userData2.foto_perfil}`;
+          if (userData2.foto_perfil) {
+            console.log("=== CARGA DE FOTO DE PERFIL EN PROFILEUSERS ===");
+            console.log("Ruta en BD:", userData2.foto_perfil);
+            let photoUrl = userData2.foto_perfil;
+            if (!photoUrl.startsWith("http")) {
+              photoUrl = `${"https://lead-inmobiliaria.com"}${photoUrl}`;
+            }
+            console.log("URL construida:", photoUrl);
+            userData2.foto_perfil_url = photoUrl;
+            console.log("✅ Foto de perfil configurada:", photoUrl);
+          } else {
+            console.log("ℹ️ Usuario no tiene foto de perfil configurada");
           }
           setUserData(userData2);
         } else {
@@ -1516,7 +1703,26 @@ function ProfileUsers() {
               src: userData.foto_perfil_url || userData.foto_perfil || "/img/user_icon.svg",
               alt: nombreCompleto,
               size: "xxl",
-              className: "border border-blue-500 shadow-xl shadow-blue-900/20"
+              className: "border border-blue-500 shadow-xl shadow-blue-900/20",
+              onError: (e) => {
+                var _a, _b;
+                console.error("❌ Error al cargar imagen de perfil en ProfileUsers:", userData.foto_perfil_url);
+                console.error("Elemento de imagen:", e.target);
+                console.error("Tipo de URL:", ((_a = userData.foto_perfil_url) == null ? void 0 : _a.startsWith("data:")) ? "base64" : "URL directa");
+                if ((_b = userData.foto_perfil_url) == null ? void 0 : _b.startsWith("data:")) {
+                  console.log("🔄 Reintentando carga de base64 en ProfileUsers...");
+                  setTimeout(() => {
+                    e.target.src = userData.foto_perfil_url;
+                  }, 1e3);
+                } else {
+                  e.target.src = "/img/user_icon.svg";
+                }
+              },
+              onLoad: () => {
+                var _a;
+                console.log("✅ Imagen de perfil cargada exitosamente en ProfileUsers:", userData.foto_perfil_url);
+                console.log("Tipo de carga:", ((_a = userData.foto_perfil_url) == null ? void 0 : _a.startsWith("data:")) ? "base64" : "URL directa");
+              }
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -4812,25 +5018,38 @@ function EditarUser({ dashboard = false }) {
     try {
       const formData2 = new FormData();
       formData2.append("foto_perfil", selectedFile);
-      const endpoint = `${"https://lead-inmobiliaria.com"}/api/users/${userId}/upload-photo`;
+      const endpoint = `/api/users/${userId}/upload-photo`;
       console.log("Subiendo foto a:", endpoint);
-      const response = await fetch(endpoint, {
-        method: "POST",
-        body: formData2,
-        credentials: "include"
+      console.log("Archivo a subir:", selectedFile);
+      const response = await axios.post(endpoint, formData2, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        withCredentials: true,
+        timeout: 3e4
+        // 30 segundos de timeout
       });
-      const data = await response.json();
-      console.log("Respuesta de subida de foto:", data);
-      if (data.success) {
-        return data.foto_perfil;
+      console.log("Respuesta de subida de foto:", response.data);
+      if (response.data.success) {
+        return response.data.foto_perfil;
       } else {
-        console.error("Error al subir foto:", data.message);
-        setError(`Error al subir la foto: ${data.message}`);
+        console.error("Error al subir foto:", response.data.message);
+        setError(`Error al subir la foto: ${response.data.message}`);
         return null;
       }
     } catch (error2) {
       console.error("Error al subir la foto:", error2);
-      setError("Error al subir la foto");
+      if (error2.response) {
+        console.error("Respuesta del servidor:", error2.response.data);
+        console.error("Status:", error2.response.status);
+        setError(`Error del servidor: ${error2.response.data.message || "Error desconocido"}`);
+      } else if (error2.request) {
+        console.error("No se recibió respuesta del servidor");
+        setError("No se pudo conectar con el servidor. Verifica tu conexión.");
+      } else {
+        console.error("Error en la configuración:", error2.message);
+        setError(`Error de configuración: ${error2.message}`);
+      }
       return null;
     }
   };
@@ -5188,6 +5407,527 @@ function EditarUser({ dashboard = false }) {
       renderForm()
     ] })
   ] }) });
+}
+function TestUpload() {
+  const [file, setFile] = reactExports.useState(null);
+  const [loading, setLoading] = reactExports.useState(false);
+  const [result, setResult] = reactExports.useState(null);
+  const [error, setError] = reactExports.useState(null);
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setError(null);
+    setResult(null);
+    if (selectedFile) {
+      console.log("=== ARCHIVO SELECCIONADO ===");
+      console.log("Nombre:", selectedFile.name);
+      console.log("Tipo:", selectedFile.type);
+      console.log("Tamaño:", (selectedFile.size / 1024 / 1024).toFixed(2), "MB");
+      console.log("Última modificación:", new Date(selectedFile.lastModified).toISOString());
+    }
+  };
+  const testUpload = async () => {
+    if (!file) {
+      setError("Por favor selecciona un archivo");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    setResult(null);
+    try {
+      const formData = new FormData();
+      formData.append("foto_perfil", file);
+      console.log("=== INICIANDO PRUEBA DE UPLOAD ===");
+      console.log("URL base:", "https://lead-inmobiliaria.com");
+      console.log("FormData creado:", formData);
+      console.log("Archivo en FormData:", formData.get("foto_perfil"));
+      const testUserId = "6214ff3f62021ac0e041db76";
+      const response = await axios.post(
+        `${"https://lead-inmobiliaria.com"}/api/users/${testUserId}/upload-photo`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          withCredentials: true,
+          timeout: 3e4
+        }
+      );
+      console.log("=== RESPUESTA EXITOSA ===");
+      console.log("Status:", response.status);
+      console.log("Data:", response.data);
+      setResult(response.data);
+    } catch (error2) {
+      console.error("=== ERROR EN LA PRUEBA ===");
+      console.error("Error completo:", error2);
+      if (error2.response) {
+        console.error("Respuesta del servidor:", error2.response.data);
+        console.error("Status:", error2.response.status);
+        console.error("Headers:", error2.response.headers);
+        setError(`Error del servidor: ${error2.response.status} - ${error2.response.data.message || "Error desconocido"}`);
+      } else if (error2.request) {
+        console.error("No se recibió respuesta del servidor");
+        console.error("Request:", error2.request);
+        setError("No se pudo conectar con el servidor. Verifica tu conexión.");
+      } else {
+        console.error("Error en la configuración:", error2.message);
+        setError(`Error de configuración: ${error2.message}`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-auto my-10 max-w-screen-lg px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.CardBody, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h4", className: "mb-4", children: "🧪 Prueba de Subida de Fotos" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "block text-sm font-medium text-gray-700 mb-2", children: "Selecciona una imagen para probar:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "file",
+            accept: "image/*",
+            onChange: handleFileChange,
+            className: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          }
+        )
+      ] }),
+      file && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 border border-blue-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue", className: "font-semibold mb-2", children: "📁 Archivo seleccionado:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-blue-800 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Nombre:" }),
+            " ",
+            file.name
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Tipo:" }),
+            " ",
+            file.type
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Tamaño:" }),
+            " ",
+            (file.size / 1024 / 1024).toFixed(2),
+            " MB"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Última modificación:" }),
+            " ",
+            new Date(file.lastModified).toLocaleString()
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        react.Button,
+        {
+          onClick: testUpload,
+          disabled: !file || loading,
+          className: "flex items-center gap-2",
+          color: "blue",
+          children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-4 w-4" }),
+            "Probando upload..."
+          ] }) : "🚀 Probar Upload"
+        }
+      ),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-red-50 border border-red-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "red", className: "font-semibold", children: "❌ Error:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "red", className: "text-sm", children: error })
+      ] }),
+      result && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-green-50 border border-green-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "green", className: "font-semibold", children: "✅ Éxito:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("pre", { className: "text-sm text-green-800 mt-2 bg-white p-2 rounded border", children: JSON.stringify(result, null, 2) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 border border-gray-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "gray", className: "font-semibold mb-2", children: "💡 Información de debugging:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xs text-gray-600 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "VITE_API_URL:" }),
+            " ",
+            "https://lead-inmobiliaria.com"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "User Agent:" }),
+            " ",
+            navigator.userAgent
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Cookies disponibles:" }),
+            " ",
+            document.cookie ? "Sí" : "No"
+          ] })
+        ] })
+      ] })
+    ] })
+  ] }) }) });
+}
+function TestImageDisplay() {
+  const [images, setImages] = reactExports.useState([]);
+  const [loading, setLoading] = reactExports.useState(false);
+  const [error, setError] = reactExports.useState(null);
+  const testImages = [
+    {
+      name: "Foto más reciente del usuario 6214ff3f62021ac0e041db76",
+      url: `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`,
+      expectedPath: "/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png"
+    },
+    {
+      name: "Foto del usuario 67c6fb2a18215ab2fbce7a65",
+      url: `${"https://lead-inmobiliaria.com"}/uploads/users/profile_67c6fb2a18215ab2fbce7a65_1741268375107.png`,
+      expectedPath: "/uploads/users/profile_67c6fb2a18215ab2fbce7a65_1741268375107.png"
+    }
+  ];
+  const testImageLoad = async (imageUrl) => {
+    try {
+      setLoading(true);
+      setError(null);
+      console.log("🧪 Probando carga de imagen:", imageUrl);
+      const img = new Image();
+      return new Promise((resolve, reject) => {
+        img.onload = () => {
+          console.log("✅ Imagen cargada exitosamente:", imageUrl);
+          resolve({ success: true, width: img.width, height: img.height });
+        };
+        img.onerror = () => {
+          console.error("❌ Error al cargar imagen:", imageUrl);
+          reject(new Error("No se pudo cargar la imagen"));
+        };
+        img.src = `${imageUrl}?t=${Date.now()}`;
+        setTimeout(() => {
+          reject(new Error("Timeout al cargar imagen"));
+        }, 1e4);
+      });
+    } catch (error2) {
+      console.error("Error en prueba de imagen:", error2);
+      throw error2;
+    } finally {
+      setLoading(false);
+    }
+  };
+  const runAllTests = async () => {
+    setImages([]);
+    setError(null);
+    const results = [];
+    for (const testImage of testImages) {
+      try {
+        console.log(`
+🧪 Probando: ${testImage.name}`);
+        const result = await testImageLoad(testImage.url);
+        results.push({
+          ...testImage,
+          ...result,
+          status: "success"
+        });
+      } catch (error2) {
+        console.error(`❌ Falló: ${testImage.name}`, error2);
+        results.push({
+          ...testImage,
+          error: error2.message,
+          status: "error"
+        });
+      }
+    }
+    setImages(results);
+  };
+  const checkImageDirectly = (imagePath) => {
+    const fullUrl = `${"https://lead-inmobiliaria.com"}${imagePath}`;
+    console.log("🔗 Abriendo imagen directamente:", fullUrl);
+    window.open(fullUrl, "_blank");
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-auto my-10 max-w-screen-lg px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.CardBody, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h4", className: "mb-4", children: "🧪 Prueba de Visualización de Imágenes" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 border border-blue-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue", className: "font-semibold mb-2", children: "💡 Información de configuración:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-blue-800 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "VITE_API_URL:" }),
+            " ",
+            "https://lead-inmobiliaria.com"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Navegador:" }),
+            " ",
+            navigator.userAgent
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Cookies:" }),
+            " ",
+            document.cookie ? "Disponibles" : "No disponibles"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        react.Button,
+        {
+          onClick: runAllTests,
+          disabled: loading,
+          className: "flex items-center gap-2",
+          color: "blue",
+          children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-4 w-4" }),
+            "Probando imágenes..."
+          ] }) : "🚀 Ejecutar Pruebas de Imágenes"
+        }
+      ),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-red-50 border border-red-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "red", className: "font-semibold", children: "❌ Error:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "red", className: "text-sm", children: error })
+      ] }),
+      images.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", children: "📊 Resultados de las Pruebas:" }),
+        images.map((image, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: `border rounded-md p-4 ${image.status === "success" ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`,
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-semibold mb-2", children: image.name }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm space-y-1", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "URL:" }),
+                    " ",
+                    image.url
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Ruta esperada:" }),
+                    " ",
+                    image.expectedPath
+                  ] }),
+                  image.status === "success" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Dimensiones:" }),
+                      " ",
+                      image.width,
+                      " x ",
+                      image.height
+                    ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-green-600", children: "✅ Imagen cargada correctamente" })
+                  ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-red-600", children: [
+                    "❌ Error: ",
+                    image.error
+                  ] })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  react.Button,
+                  {
+                    size: "sm",
+                    onClick: () => checkImageDirectly(image.expectedPath),
+                    color: "blue",
+                    children: "🔗 Abrir"
+                  }
+                ),
+                image.status === "success" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-20 h-20 border rounded overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "img",
+                  {
+                    src: `${image.url}?t=${Date.now()}`,
+                    alt: "Preview",
+                    className: "w-full h-full object-cover"
+                  }
+                ) })
+              ] })
+            ] })
+          },
+          index2
+        ))
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 border border-gray-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "gray", className: "font-semibold mb-2", children: "🔍 Instrucciones de debugging:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xs text-gray-600 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "1. Ejecuta las pruebas para ver el estado de cada imagen" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '2. Usa el botón "Abrir" para ver la imagen directamente en el navegador' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "3. Revisa la consola para logs detallados" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "4. Si las imágenes se abren directamente pero no en el componente, es un problema de CORS" })
+        ] })
+      ] })
+    ] })
+  ] }) }) });
+}
+function TestCORS$1() {
+  const [loading, setLoading] = reactExports.useState(false);
+  const [results, setResults] = reactExports.useState(null);
+  const [error, setError] = reactExports.useState(null);
+  const testCORS = async () => {
+    setLoading(true);
+    setError(null);
+    setResults(null);
+    try {
+      console.log("🧪 Probando CORS...");
+      console.log("VITE_API_URL:", "https://lead-inmobiliaria.com");
+      const corsResponse = await axios.get("/api/test-cors", {
+        withCredentials: true
+      });
+      console.log("✅ CORS test exitoso:", corsResponse.data);
+      const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+      console.log("🖼️ Probando carga de imagen:", imageUrl);
+      const img = new Image();
+      const imageTest = await new Promise((resolve, reject) => {
+        img.onload = () => {
+          console.log("✅ Imagen cargada exitosamente");
+          resolve({ success: true, width: img.width, height: img.height });
+        };
+        img.onerror = (e) => {
+          console.error("❌ Error al cargar imagen:", e);
+          reject(new Error("No se pudo cargar la imagen"));
+        };
+        img.src = imageUrl;
+      });
+      const fetchResponse = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      console.log("📡 Fetch response status:", fetchResponse.status);
+      console.log("📡 Fetch response headers:", Object.fromEntries(fetchResponse.headers.entries()));
+      setResults({
+        cors: corsResponse.data,
+        image: imageTest,
+        fetch: {
+          status: fetchResponse.status,
+          headers: Object.fromEntries(fetchResponse.headers.entries())
+        }
+      });
+    } catch (error2) {
+      console.error("❌ Error en prueba de CORS:", error2);
+      setError(error2.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const testImageInNewTab = () => {
+    const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+    console.log("🔗 Abriendo imagen en nueva pestaña:", imageUrl);
+    window.open(imageUrl, "_blank");
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-auto my-10 max-w-screen-lg px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(react.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(react.CardBody, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h4", className: "mb-4", children: "🧪 Prueba de Configuración CORS" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 border border-blue-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "blue", className: "font-semibold mb-2", children: "💡 Información de configuración:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-blue-800 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "VITE_API_URL:" }),
+            " ",
+            "https://lead-inmobiliaria.com"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Navegador:" }),
+            " ",
+            navigator.userAgent
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Cookies:" }),
+            " ",
+            document.cookie ? "Disponibles" : "No disponibles"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          react.Button,
+          {
+            onClick: testCORS,
+            disabled: loading,
+            className: "flex items-center gap-2",
+            color: "blue",
+            children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(react.Spinner, { className: "h-4 w-4" }),
+              "Probando CORS..."
+            ] }) : "🚀 Probar CORS"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          react.Button,
+          {
+            onClick: testImageInNewTab,
+            color: "green",
+            variant: "outlined",
+            children: "🔗 Abrir Imagen"
+          }
+        )
+      ] }),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-red-50 border border-red-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "red", className: "font-semibold", children: "❌ Error:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { color: "red", className: "text-sm", children: error })
+      ] }),
+      results && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "h6", color: "blue-gray", children: "📊 Resultados de las Pruebas:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "border border-green-200 bg-green-50 rounded-md p-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-semibold mb-2 text-green-800", children: "✅ Prueba CORS" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xs text-green-700 space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Origin:" }),
+                " ",
+                results.cors.origin
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Timestamp:" }),
+                " ",
+                results.cors.timestamp
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Message:" }),
+                " ",
+                results.cors.message
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `border rounded-md p-4 ${results.image.success ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(react.Typography, { variant: "small", className: "font-semibold mb-2", children: [
+              results.image.success ? "✅" : "❌",
+              " Prueba Imagen"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs space-y-1", children: results.image.success ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Dimensiones:" }),
+                " ",
+                results.image.width,
+                " x ",
+                results.image.height
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-green-600", children: "Imagen cargada correctamente" })
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-600", children: "Error al cargar imagen" }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "border border-blue-200 bg-blue-50 rounded-md p-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-semibold mb-2 text-blue-800", children: "📡 Prueba Fetch" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xs text-blue-700 space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Status:" }),
+                " ",
+                results.fetch.status
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Content-Type:" }),
+                " ",
+                results.fetch.headers["content-type"]
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "CORS:" }),
+                " ",
+                results.fetch.headers["access-control-allow-origin"]
+              ] })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 border border-gray-200 rounded-md p-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", className: "font-semibold mb-2", children: "📋 Detalles Completos:" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("pre", { className: "text-xs text-gray-700 bg-white p-2 rounded border overflow-x-auto", children: JSON.stringify(results, null, 2) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 border border-gray-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(react.Typography, { variant: "small", color: "gray", className: "font-semibold mb-2", children: "🔍 Instrucciones de debugging:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xs text-gray-600 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '1. Ejecuta "Probar CORS" para verificar la configuración' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '2. Usa "Abrir Imagen" para ver si se puede acceder directamente' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "3. Revisa la consola para logs detallados" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "4. Si CORS funciona pero la imagen no se muestra, es un problema de headers" })
+        ] })
+      ] })
+    ] })
+  ] }) }) });
 }
 const API_URL = "https://lead-inmobiliaria.com";
 function logCookies() {
@@ -9887,6 +10627,21 @@ const routes = [
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(Profile, {})
       },
       {
+        path: "/test-upload",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(TestUpload, {}),
+        showInSidebar: false
+      },
+      {
+        path: "/test-images",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(TestImageDisplay, {}),
+        showInSidebar: false
+      },
+      {
+        path: "/test-cors",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(TestCORS$1, {}),
+        showInSidebar: false
+      },
+      {
         icon: /* @__PURE__ */ jsxRuntimeExports.jsx(UserGroupIcon, { ...icon }),
         name: "Empleados",
         path: "/empleados",
@@ -10676,6 +11431,482 @@ const ProtectedRoute = ({ redirectTo = "/auth/sign-in", children }) => {
   }
   return children ? children : /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {});
 };
+function TestCORS() {
+  const [loading, setLoading] = reactExports.useState(false);
+  const [results, setResults] = reactExports.useState(null);
+  const [error, setError] = reactExports.useState(null);
+  const testCORS = async () => {
+    setLoading(true);
+    setError(null);
+    setResults(null);
+    try {
+      console.log("🧪 Probando CORS...");
+      console.log("VITE_API_URL:", "https://lead-inmobiliaria.com");
+      console.log("📡 Probando /api/test-cors...");
+      const corsResponse = await fetch(`${"https://lead-inmobiliaria.com"}/api/test-cors`, {
+        method: "GET",
+        credentials: "include"
+      });
+      console.log("✅ CORS test status:", corsResponse.status);
+      const corsData = await corsResponse.json();
+      console.log("✅ CORS test data:", corsData);
+      console.log("📡 Probando /api/test-image-access...");
+      const imageAccessResponse = await fetch(`${"https://lead-inmobiliaria.com"}/api/test-image-access`, {
+        method: "GET",
+        credentials: "include"
+      });
+      console.log("🖼️ Image access test status:", imageAccessResponse.status);
+      const imageAccessData = await imageAccessResponse.json();
+      console.log("🖼️ Image access test data:", imageAccessData);
+      const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+      console.log("🖼️ Probando fetch de imagen:", imageUrl);
+      const fetchResponse = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      console.log("📡 Fetch response status:", fetchResponse.status);
+      console.log("📡 Fetch response headers:", Object.fromEntries(fetchResponse.headers.entries()));
+      let imageTest = { success: false, error: "No se pudo verificar" };
+      if (fetchResponse.ok) {
+        const contentType = fetchResponse.headers.get("content-type");
+        if (contentType && contentType.startsWith("image/")) {
+          imageTest = {
+            success: true,
+            width: "N/A (solo verificación de headers)",
+            height: "N/A (solo verificación de headers)",
+            contentType
+          };
+        } else {
+          imageTest = {
+            success: false,
+            error: `Content-Type no válido: ${contentType}`
+          };
+        }
+      } else {
+        imageTest = {
+          success: false,
+          error: `HTTP ${fetchResponse.status}: ${fetchResponse.statusText}`
+        };
+      }
+      setResults({
+        cors: corsData,
+        imageAccess: imageAccessData,
+        image: imageTest,
+        fetch: {
+          status: fetchResponse.status,
+          headers: Object.fromEntries(fetchResponse.headers.entries())
+        }
+      });
+    } catch (error2) {
+      console.error("❌ Error en prueba de CORS:", error2);
+      setError(error2.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const testImageInNewTab = () => {
+    const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+    console.log("🔗 Abriendo imagen en nueva pestaña:", imageUrl);
+    window.open(imageUrl, "_blank");
+  };
+  const testImageFetch = async () => {
+    try {
+      const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+      console.log("📡 Probando fetch directo a imagen:", imageUrl);
+      const response = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      console.log("📡 Status:", response.status);
+      console.log("📡 Headers:", Object.fromEntries(response.headers.entries()));
+      if (response.ok) {
+        const blob = await response.blob();
+        console.log("✅ Imagen descargada como blob:", blob.size, "bytes");
+        alert(`✅ Imagen descargada exitosamente: ${blob.size} bytes`);
+      } else {
+        console.error("❌ Error en fetch:", response.status, response.statusText);
+        alert(`❌ Error en fetch: ${response.status} ${response.statusText}`);
+      }
+    } catch (error2) {
+      console.error("❌ Error en fetch:", error2);
+      alert(`❌ Error en fetch: ${error2.message}`);
+    }
+  };
+  const testImageLoad = async () => {
+    try {
+      const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+      console.log("🖼️ Probando carga de imagen en elemento img:", imageUrl);
+      const timestampedUrl = `${imageUrl}?t=${Date.now()}`;
+      console.log("🖼️ URL con timestamp:", timestampedUrl);
+      try {
+        const img2 = new Image();
+        const imageTest2 = await new Promise((resolve, reject) => {
+          img2.onload = () => {
+            console.log("✅ Imagen cargada exitosamente en elemento img (directo)");
+            console.log("Dimensiones:", img2.width, "x", img2.height);
+            resolve({ success: true, width: img2.width, height: img2.height, method: "directo" });
+          };
+          img2.onerror = (e) => {
+            console.error("❌ Error al cargar imagen directamente:", e);
+            reject(new Error("No se pudo cargar la imagen directamente"));
+          };
+          img2.src = timestampedUrl;
+          setTimeout(() => {
+            reject(new Error("Timeout al cargar imagen directamente"));
+          }, 5e3);
+        });
+        alert(`✅ Imagen cargada exitosamente (directo): ${imageTest2.width} x ${imageTest2.height}`);
+        return;
+      } catch (directError) {
+        console.log("⚠️ Carga directa falló, intentando con base64...");
+      }
+      console.log("🔄 Intentando carga con base64...");
+      const response = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      console.log("✅ Blob creado:", blob.size, "bytes, tipo:", blob.type);
+      const reader = new FileReader();
+      const base64Promise = new Promise((resolve, reject) => {
+        reader.onload = () => {
+          const base642 = reader.result;
+          console.log("✅ Base64 generado, longitud:", base642.length);
+          resolve(base642);
+        };
+        reader.onerror = () => reject(new Error("Error al convertir a base64"));
+      });
+      reader.readAsDataURL(blob);
+      const base64 = await base64Promise;
+      const img = new Image();
+      const imageTest = await new Promise((resolve, reject) => {
+        img.onload = () => {
+          console.log("✅ Imagen cargada exitosamente desde base64 (fallback)");
+          console.log("Dimensiones:", img.width, "x", img.height);
+          resolve({ success: true, width: img.width, height: img.height, method: "base64-fallback" });
+        };
+        img.onerror = (e) => {
+          console.error("❌ Error al cargar imagen desde base64:", e);
+          reject(new Error("No se pudo cargar la imagen desde base64"));
+        };
+        img.src = base64;
+        setTimeout(() => {
+          reject(new Error("Timeout al cargar imagen desde base64"));
+        }, 5e3);
+      });
+      alert(`✅ Imagen cargada exitosamente (base64 fallback): ${imageTest.width} x ${imageTest.height}`);
+    } catch (error2) {
+      console.error("❌ Error en carga de imagen:", error2);
+      alert(`❌ Error en carga de imagen: ${error2.message}`);
+    }
+  };
+  const testImageLoadAlternative = async () => {
+    try {
+      const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+      console.log("🖼️ Probando carga alternativa de imagen:", imageUrl);
+      const response = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      console.log("✅ Blob creado:", blob.size, "bytes, tipo:", blob.type);
+      const blobUrl = URL.createObjectURL(blob);
+      console.log("✅ Blob URL creada:", blobUrl);
+      const img = new Image();
+      const imageTest = await new Promise((resolve, reject) => {
+        img.onload = () => {
+          console.log("✅ Imagen cargada desde blob exitosamente");
+          console.log("Dimensiones:", img.width, "x", img.height);
+          URL.revokeObjectURL(blobUrl);
+          resolve({ success: true, width: img.width, height: img.height, method: "blob" });
+        };
+        img.onerror = (e) => {
+          console.error("❌ Error al cargar imagen desde blob:", e);
+          URL.revokeObjectURL(blobUrl);
+          reject(new Error("No se pudo cargar la imagen desde blob"));
+        };
+        img.src = blobUrl;
+        setTimeout(() => {
+          URL.revokeObjectURL(blobUrl);
+          reject(new Error("Timeout al cargar imagen desde blob"));
+        }, 1e4);
+      });
+      alert(`✅ Imagen cargada desde blob exitosamente: ${imageTest.width} x ${imageTest.height}`);
+    } catch (error2) {
+      console.error("❌ Error en carga alternativa de imagen:", error2);
+      alert(`❌ Error en carga alternativa: ${error2.message}`);
+    }
+  };
+  const testImageLoadBase64 = async () => {
+    try {
+      const imageUrl = `${"https://lead-inmobiliaria.com"}/uploads/users/profile_6214ff3f62021ac0e041db76_1755436024267.png`;
+      console.log("🖼️ Probando carga con base64:", imageUrl);
+      const response = await fetch(imageUrl, {
+        method: "GET",
+        credentials: "include"
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      console.log("✅ Blob creado:", blob.size, "bytes, tipo:", blob.type);
+      const reader = new FileReader();
+      const base64Promise = new Promise((resolve, reject) => {
+        reader.onload = () => {
+          const base642 = reader.result;
+          console.log("✅ Base64 generado, longitud:", base642.length);
+          resolve(base642);
+        };
+        reader.onerror = () => reject(new Error("Error al convertir a base64"));
+      });
+      reader.readAsDataURL(blob);
+      const base64 = await base64Promise;
+      const img = new Image();
+      const imageTest = await new Promise((resolve, reject) => {
+        img.onload = () => {
+          console.log("✅ Imagen cargada desde base64 exitosamente");
+          console.log("Dimensiones:", img.width, "x", img.height);
+          resolve({ success: true, width: img.width, height: img.height, method: "base64" });
+        };
+        img.onerror = (e) => {
+          console.error("❌ Error al cargar imagen desde base64:", e);
+          reject(new Error("No se pudo cargar la imagen desde base64"));
+        };
+        img.src = base64;
+        setTimeout(() => {
+          reject(new Error("Timeout al cargar imagen desde base64"));
+        }, 1e4);
+      });
+      alert(`✅ Imagen cargada desde base64 exitosamente: ${imageTest.width} x ${imageTest.height}`);
+    } catch (error2) {
+      console.error("❌ Error en carga con base64:", error2);
+      alert(`❌ Error en carga con base64: ${error2.message}`);
+    }
+  };
+  const testEndpointDirectly = async (endpoint) => {
+    try {
+      console.log(`🧪 Probando endpoint directamente: ${endpoint}`);
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}${endpoint}`, {
+        method: "GET",
+        credentials: "include"
+      });
+      console.log(`📡 ${endpoint} - Status:`, response.status);
+      console.log(`📡 ${endpoint} - Headers:`, Object.fromEntries(response.headers.entries()));
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`✅ ${endpoint} - Data:`, data);
+        alert(`✅ ${endpoint} funcionando: ${data.message}`);
+      } else {
+        console.error(`❌ ${endpoint} - Error:`, response.status, response.statusText);
+        alert(`❌ ${endpoint} error: ${response.status} ${response.statusText}`);
+      }
+    } catch (error2) {
+      console.error(`❌ ${endpoint} - Error:`, error2);
+      alert(`❌ ${endpoint} error: ${error2.message}`);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-4xl mx-auto p-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-3xl font-bold mb-6", children: "🧪 Prueba de Configuración CORS" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 border border-blue-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-lg font-semibold text-blue-800 mb-2", children: "💡 Información de configuración:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-blue-800 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "VITE_API_URL:" }),
+            " ",
+            "https://lead-inmobiliaria.com"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Navegador:" }),
+            " ",
+            navigator.userAgent
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Cookies:" }),
+            " ",
+            document.cookie ? "Disponibles" : "No disponibles"
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-4 flex-wrap", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: testCORS,
+            disabled: loading,
+            className: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50",
+            children: loading ? "Probando..." : "🚀 Probar CORS"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: testImageInNewTab,
+            className: "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600",
+            children: "🔗 Abrir Imagen"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: testImageFetch,
+            className: "px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600",
+            children: "📡 Fetch Imagen"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-4 flex-wrap", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => testEndpointDirectly("/api/test-cors"),
+            className: "px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600",
+            children: "🧪 Test CORS Directo"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => testEndpointDirectly("/api/test-image-access"),
+            className: "px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600",
+            children: "🧪 Test Image Access Directo"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: () => testEndpointDirectly("/api/"),
+            className: "px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600",
+            children: "🧪 Test API Root"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: testImageLoad,
+            className: "px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600",
+            children: "🖼️ Test Carga Imagen"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: testImageLoadAlternative,
+            className: "px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600",
+            children: "🖼️ Test Carga Alternativa"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            onClick: testImageLoadBase64,
+            className: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600",
+            children: "🖼️ Test Carga Base64"
+          }
+        )
+      ] }),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-red-50 border border-red-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-red-800 font-semibold", children: "❌ Error:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-700", children: error })
+      ] }),
+      results && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-xl font-semibold", children: "📊 Resultados de las Pruebas:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "border border-green-200 bg-green-50 rounded-md p-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-semibold text-green-800 mb-2", children: "✅ Prueba CORS" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-green-700 space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Origin:" }),
+                " ",
+                results.cors.origin
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Message:" }),
+                " ",
+                results.cors.message
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "border border-blue-200 bg-blue-50 rounded-md p-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-semibold text-blue-800 mb-2", children: "🖼️ Acceso a Imagen" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-blue-700 space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Origin:" }),
+                " ",
+                results.imageAccess.origin
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Message:" }),
+                " ",
+                results.imageAccess.message
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `border rounded-md p-4 ${results.image.success ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"}`, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "font-semibold mb-2", children: [
+              results.image.success ? "✅" : "❌",
+              " Prueba Imagen"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm space-y-1", children: results.image.success ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Dimensiones:" }),
+                " ",
+                results.image.width,
+                " x ",
+                results.image.height
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-green-600", children: "Imagen cargada correctamente" })
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-red-600", children: "Error al cargar imagen" }) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "border border-purple-200 bg-purple-50 rounded-md p-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-semibold text-purple-800 mb-2", children: "📡 Prueba Fetch" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-sm text-purple-700 space-y-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Status:" }),
+                " ",
+                results.fetch.status
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Content-Type:" }),
+                " ",
+                results.fetch.headers["content-type"]
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "CORS:" }),
+                " ",
+                results.fetch.headers["access-control-allow-origin"]
+              ] })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 border border-gray-200 rounded-md p-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-semibold mb-2", children: "📋 Detalles Completos:" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("pre", { className: "text-xs text-gray-700 bg-white p-2 rounded border overflow-x-auto", children: JSON.stringify(results, null, 2) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-gray-50 border border-gray-200 rounded-md p-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "font-semibold mb-2", children: "🔍 Instrucciones de debugging:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xs text-gray-600 space-y-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '1. Ejecuta "Probar CORS" para verificar la configuración completa' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '2. Usa "Abrir Imagen" para ver si se puede acceder directamente' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '3. Usa "Fetch Imagen" para probar descarga programática' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "4. Usa los botones individuales para probar cada endpoint por separado" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '5. Usa "Test Carga Imagen" para probar carga directa en elemento img' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '6. Usa "Test Carga Alternativa" para probar carga desde blob' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: '7. Usa "Test Carga Base64" para probar carga con base64 (evita CORS)' }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "8. Revisa la consola para logs detallados" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "9. Si CORS funciona pero la imagen no se muestra, es un problema de headers" })
+        ] })
+      ] })
+    ] })
+  ] });
+}
 const AuthLoader = ({ children }) => {
   const { loading, authChecked } = useAuth();
   if (loading && !authChecked) {
@@ -10688,6 +11919,7 @@ const AuthLoader = ({ children }) => {
 };
 function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AuthProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(AuthLoader, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/test-cors", element: /* @__PURE__ */ jsxRuntimeExports.jsx(TestCORS, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Route,
       {

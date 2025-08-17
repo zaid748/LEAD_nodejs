@@ -21,8 +21,6 @@ const capitalizeRole = (role) => {
   return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
 };
 
-
-
 export function UsersTable() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -103,22 +101,25 @@ export function UsersTable() {
 
   const fetchUsers = async () => {
     try {
+      console.log('🔄 Cargando usuarios...');
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
         credentials: 'include'
       });
       const data = await response.json();
+      
       if (data.success) {
-        // Agregar URLs completas a las fotos
+        console.log(`📊 Usuarios obtenidos: ${data.users.length}`);
+        
+        // Procesar todas las fotos de perfil normalmente
         const usuariosConFotos = data.users.map(user => {
           if (user.foto_perfil && !user.foto_perfil.startsWith('http')) {
-            user.foto_perfil = `${import.meta.env.VITE_MEDIA_URL}${user.foto_perfil}`;
+            user.foto_perfil = `${import.meta.env.VITE_API_URL}${user.foto_perfil}`;
           }
           return user;
         });
         
         // Ordenar usuarios: primero administradores, luego usuarios normales
         const usuariosOrdenados = [...usuariosConFotos].sort((a, b) => {
-          // Ordenar por rol (administradores primero)
           const isAdminA = (a.role || "").toLowerCase().includes("admin");
           const isAdminB = (b.role || "").toLowerCase().includes("admin");
           
@@ -131,6 +132,7 @@ export function UsersTable() {
         
         setUsers(usuariosOrdenados);
         setFilteredUsers(usuariosOrdenados);
+        console.log('✅ Usuarios cargados correctamente');
       }
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -344,6 +346,28 @@ export function UsersTable() {
                           alt={nombreCompleto}
                           size="sm"
                           className="border border-blue-500"
+                          onError={(e) => {
+                            console.error('❌ Error al cargar imagen en tabla:', avatarSrc);
+                            console.error('Usuario:', nombreCompleto);
+                            console.error('Tipo de URL:', avatarSrc?.startsWith('data:') ? 'base64' : 'URL directa');
+                            
+                            // Si es base64 y falla, intentar recargar
+                            if (avatarSrc?.startsWith('data:')) {
+                              console.log('🔄 Reintentando carga de base64 en tabla...');
+                              // Forzar recarga después de un breve delay
+                              setTimeout(() => {
+                                e.target.src = avatarSrc;
+                              }, 1000);
+                            } else {
+                              // Fallback a imagen por defecto para URLs directas
+                              e.target.src = '/img/user_icon.svg';
+                            }
+                          }}
+                          onLoad={() => {
+                            console.log('✅ Imagen cargada exitosamente en tabla:', avatarSrc.substring(0, 50) + '...');
+                            console.log('Usuario:', nombreCompleto);
+                            console.log('Tipo de carga:', avatarSrc?.startsWith('data:') ? 'base64' : 'URL directa');
+                          }}
                         />
                       </td>
                       <td className={classes}>

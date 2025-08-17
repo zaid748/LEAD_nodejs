@@ -19,6 +19,9 @@ import { EditarEmpleado } from "@/pages/dashboard/Empleados/EditarEmpleado";
 import { CrearNomina } from "@/pages/dashboard/Empleados/CrearNomina";
 import { MiNominaPage } from "@/pages/dashboard/MiNominaPage";
 import { EditarUser } from "@/pages/dashboard/Users/EditarUser";
+import { TestUpload } from "@/pages/dashboard/Users/TestUpload";
+import { TestImageDisplay } from "@/pages/dashboard/Users/TestImageDisplay";
+import { TestCORS } from "@/pages/dashboard/Users/TestCORS";
 
 import { CrearCaptacion } from '@/pages/dashboard/captaciones/CrearCaptacion';
 import { EditarCaptacion } from '@/pages/dashboard/captaciones/EditarCaptacion';
@@ -82,6 +85,21 @@ export const routes = [
       {
         path: "/profile/:userId",
         element: <Profile />,
+      },
+      {
+        path: "/test-upload",
+        element: <TestUpload />,
+        showInSidebar: false,
+      },
+      {
+        path: "/test-images",
+        element: <TestImageDisplay />,
+        showInSidebar: false,
+      },
+      {
+        path: "/test-cors",
+        element: <TestCORS />,
+        showInSidebar: false,
       },
       {
         icon: <UserGroupIcon {...icon} />,

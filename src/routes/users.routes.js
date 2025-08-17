@@ -7,6 +7,53 @@ const fs = require('fs');
 const User = require('../models/user');
 const userCtrl = require('../controllers/users.controller');
 
+// Middleware para manejar errores de multer
+const handleMulterError = (error, req, res, next) => {
+  console.log('=== ERROR DE MULTER CAPTURADO ===');
+  console.log('Error:', error.message);
+  
+  if (error.code === 'LIMIT_FILE_SIZE') {
+    return res.status(400).json({
+      success: false,
+      message: 'El archivo es demasiado grande. Máximo 5MB permitido.'
+    });
+  }
+  
+  if (error.code === 'LIMIT_FILE_COUNT') {
+    return res.status(400).json({
+      success: false,
+      message: 'Demasiados archivos. Solo se permite 1 archivo por vez.'
+    });
+  }
+  
+  if (error.message.includes('Solo se permiten imágenes')) {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  }
+  
+  if (error.message.includes('caracteres no permitidos')) {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  }
+  
+  if (error.message.includes('demasiado largo')) {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  }
+  
+  // Error genérico de multer
+  return res.status(400).json({
+    success: false,
+    message: `Error en el archivo: ${error.message}`
+  });
+};
+
 // Rutas de API
 router.get('/check-auth', isAuthenticated, (req, res) => {
     if (req.user) {
@@ -61,6 +108,7 @@ router.get('/users/:id', isAuthenticated, async (req, res) => {
 router.post('/users/:id/upload-photo', 
   isAuthenticated, 
   profilePhotoUpload.single('foto_perfil'),
+  handleMulterError, // Agregar el middleware de manejo de errores
   userCtrl.uploadProfilePhoto
 );
 

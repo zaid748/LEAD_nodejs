@@ -44,9 +44,27 @@ export function ProfileUsers() {
         
         if (response.data.success) {
           let userData = response.data.user;
-          if (userData.foto_perfil && !userData.foto_perfil_url) {
-            userData.foto_perfil_url = `${import.meta.env.VITE_MEDIA_URL}${userData.foto_perfil}`;
+          
+          // Procesar la foto de perfil normalmente
+          if (userData.foto_perfil) {
+            console.log("=== CARGA DE FOTO DE PERFIL EN PROFILEUSERS ===");
+            console.log("Ruta en BD:", userData.foto_perfil);
+            
+            // Construir URL completa
+            let photoUrl = userData.foto_perfil;
+            if (!photoUrl.startsWith('http')) {
+              photoUrl = `${import.meta.env.VITE_API_URL}${photoUrl}`;
+            }
+            
+            console.log("URL construida:", photoUrl);
+            
+            // Usar la URL directamente sin procesamiento complejo
+            userData.foto_perfil_url = photoUrl;
+            console.log("✅ Foto de perfil configurada:", photoUrl);
+          } else {
+            console.log("ℹ️ Usuario no tiene foto de perfil configurada");
           }
+          
           setUserData(userData);
         } else {
           console.error("No se pudieron cargar los datos del usuario");
@@ -131,6 +149,27 @@ export function ProfileUsers() {
                 alt={nombreCompleto}
                 size="xxl"
                 className="border border-blue-500 shadow-xl shadow-blue-900/20"
+                onError={(e) => {
+                  console.error('❌ Error al cargar imagen de perfil en ProfileUsers:', userData.foto_perfil_url);
+                  console.error('Elemento de imagen:', e.target);
+                  console.error('Tipo de URL:', userData.foto_perfil_url?.startsWith('data:') ? 'base64' : 'URL directa');
+                  
+                  // Si es base64 y falla, intentar recargar
+                  if (userData.foto_perfil_url?.startsWith('data:')) {
+                    console.log('🔄 Reintentando carga de base64 en ProfileUsers...');
+                    // Forzar recarga después de un breve delay
+                    setTimeout(() => {
+                      e.target.src = userData.foto_perfil_url;
+                    }, 1000);
+                  } else {
+                    // Fallback a imagen por defecto para URLs directas
+                    e.target.src = '/img/user_icon.svg';
+                  }
+                }}
+                onLoad={() => {
+                  console.log('✅ Imagen de perfil cargada exitosamente en ProfileUsers:', userData.foto_perfil_url);
+                  console.log('Tipo de carga:', userData.foto_perfil_url?.startsWith('data:') ? 'base64' : 'URL directa');
+                }}
               />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
