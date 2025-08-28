@@ -51,6 +51,19 @@ const CasaInventario = new Schema({
     },
     Estatus:{
         type: String
+    },
+    // Campos adicionales para marketing
+    precioOferta: {
+        type: String,
+        default: null
+    },
+    descripcionMarketing: {
+        type: String,
+        default: null
+    },
+    imagenesMarketing: {
+        type: Array,
+        default: []
     }
 });
 

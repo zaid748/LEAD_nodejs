@@ -1,0 +1,279 @@
+/* ===== ESTILOS PARA IMÁGENES DE PROPIEDADES - LEAD INMOBILIARIA ===== */
+
+/* ===== CONTENEDOR PRINCIPAL DE IMÁGENES ===== */
+.property-thumbnail {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.property-thumbnail:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== IMAGEN PRINCIPAL ===== */
+.property-thumbnail img {
+    width: 100%;
+    height: 300px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Mantener proporción y cubrir el contenedor */
+    object-position: center; /* Centrar la imagen */
+    transition: transform 0.3s ease;
+    background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.property-thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .property-thumbnail img {
+        height: 250px; /* Altura menor en móviles */
+    }
+}
+
+@media (max-width: 576px) {
+    .property-thumbnail img {
+        height: 200px; /* Altura aún menor en móviles pequeños */
+    }
+}
+
+/* ===== ESTADOS DE CARGA ===== */
+.property-thumbnail.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ===== PLACEHOLDER PARA IMÁGENES QUE FALLAN ===== */
+.property-thumbnail img[src*="placeholder"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px;
+}
+
+.property-thumbnail img[src*="placeholder"]::before {
+    content: "🏠 Imagen no disponible";
+    display: block;
+}
+
+/* ===== BADGES DE TIPO DE OFERTA ===== */
+.offer-type-wrap {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+}
+
+.offer-type {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== BOTÓN DE FAVORITOS ===== */
+.property-favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.property-favorite:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.property-favorite.active {
+    background: #dc3545;
+    color: white;
+}
+
+.property-favorite.active:hover {
+    background: #c82333;
+}
+
+/* ===== ICONOS EN LOS BOTONES ===== */
+.property-favorite .icon-heart-o,
+.property-favorite .icon-heart {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ===== ANIMACIONES DE ENTRADA ===== */
+.property-entry {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== ESTADOS DE ERROR ===== */
+.property-thumbnail.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.property-thumbnail.error::before {
+    content: "❌ Error al cargar imagen";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #721c24;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* ===== OPTIMIZACIONES PARA PERFORMANCE ===== */
+.property-thumbnail img {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* ===== ESTILOS PARA IMÁGENES EN DETALLE ===== */
+.property-detail-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== GALERÍA DE IMÁGENES ===== */
+.property-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.property-gallery img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.property-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== LIGHTBOX PARA IMÁGENES ===== */
+.property-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.property-lightbox.active {
+    display: flex;
+}
+
+.property-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* ===== BOTONES DE NAVEGACIÓN DEL LIGHTBOX ===== */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+

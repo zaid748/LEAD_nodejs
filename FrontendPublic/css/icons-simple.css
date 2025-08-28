@@ -1,0 +1,18 @@
+/* ===== ICONOS SIMPLES PARA FRONTEND PÚBLICO ===== */
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('/publico/fonts/icomoon/fonts/icomoon.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-close2:before { content: "\e5cd"; font-family: 'icomoon'; }
+.icon-menu:before { content: "\e5d2"; font-family: 'icomoon'; }
+.icon-heart-o:before { content: "\f08a"; font-family: 'icomoon'; }
+.icon-room:before { content: "\e8b4"; font-family: 'icomoon'; }
+.icon-facebook:before { content: "\f09a"; font-family: 'icomoon'; }
+.icon-twitter:before { content: "\f099"; font-family: 'icomoon'; }
+.icon-instagram:before { content: "\f16d"; font-family: 'icomoon'; }
+.icon-linkedin:before { content: "\f0e1"; font-family: 'icomoon'; }
+.icon-heart:before { content: "\f004"; font-family: 'icomoon'; }

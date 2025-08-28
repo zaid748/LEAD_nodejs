@@ -1,0 +1,139 @@
+/* ===== ESTILOS PARA IMÁGENES DEL HERO CAROUSEL ===== */
+
+/* Contenedor principal del hero */
+#hero-carousel .site-blocks-cover {
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Imagen de fondo optimizada */
+#hero-carousel .hero-background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 105% !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  z-index: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Overlay para mejorar la legibilidad del texto */
+#hero-carousel .site-blocks-cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Contenedor del contenido (debe estar por encima del overlay) */
+#hero-carousel .site-blocks-cover .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ajustes responsivos para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  #hero-carousel .site-blocks-cover {
+    min-height: 500px;
+    background-position: center 30% !important;
+  }
+}
+
+@media (max-width: 576px) {
+  #hero-carousel .site-blocks-cover {
+    min-height: 400px;
+    background-position: center 25% !important;
+  }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1200px) {
+  #hero-carousel .site-blocks-cover {
+    min-height: 700px;
+  }
+}
+
+/* Mejoras para el texto sobre las imágenes */
+#hero-carousel .site-blocks-cover h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+#hero-carousel .site-blocks-cover p {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Badges con mejor contraste */
+#hero-carousel .badge {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #333 !important;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+/* Botón con mejor contraste */
+#hero-carousel .btn-white {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Animación suave para las transiciones */
+#hero-carousel .site-blocks-cover {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect para mejor interactividad */
+#hero-carousel .site-blocks-cover:hover {
+  transform: scale(1.01);
+}
+
+/* Optimización para imágenes de propiedades */
+#hero-carousel .hero-background-image {
+  background-attachment: fixed !important;
+}
+
+/* Fallback para dispositivos que no soportan background-attachment: fixed */
+@media (max-width: 768px) {
+  #hero-carousel .hero-background-image {
+    background-attachment: scroll !important;
+  }
+}
+
+/* Mejoras específicas para el hero */
+#hero-carousel .hero-property-slide {
+  position: relative;
+}
+
+/* Ajuste de proporción para imágenes de casas */
+#hero-carousel .hero-background-image {
+  /* Mantener proporción 16:9 para mejor visualización */
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Efecto hover para zoom sutil */
+#hero-carousel .hero-property-slide:hover .hero-background-image {
+  transform: scale(1.02);
+}
+
+/* Ajustes responsivos para diferentes proporciones */
+@media (max-width: 768px) {
+  #hero-carousel .hero-background-image {
+    aspect-ratio: 4/3;
+  }
+}
+
+@media (max-width: 576px) {
+  #hero-carousel .hero-background-image {
+    aspect-ratio: 1/1;
+  }
+}

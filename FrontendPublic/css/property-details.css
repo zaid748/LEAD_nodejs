@@ -1,0 +1,132 @@
+/* ===== ESTILOS PARA PÁGINA DE DETALLES DE PROPIEDAD ===== */
+
+/* ===== CARRUSEL DE IMÁGENES ===== */
+#property-images-carousel {
+  min-height: 400px;
+  position: relative;
+}
+
+/* Asegurar que las imágenes del carrusel mantengan su tamaño */
+#property-images-carousel .owl-item img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover !important;
+  max-height: 500px !important;
+  min-height: 400px !important;
+}
+
+/* Mantener el contenedor del carrusel con dimensiones consistentes */
+#property-images-carousel .owl-stage {
+  height: 100%;
+}
+
+/* Asegurar que los slides mantengan su estructura */
+#property-images-carousel .owl-item > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Controles del carrusel */
+#property-images-carousel .owl-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  pointer-events: none;
+}
+
+#property-images-carousel .owl-nav button {
+  position: absolute;
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 20px !important;
+  transition: all 0.3s ease;
+}
+
+#property-images-carousel .owl-nav button:hover {
+  background: rgba(0, 0, 0, 0.8) !important;
+  transform: scale(1.1);
+}
+
+#property-images-carousel .owl-nav .owl-prev {
+  left: 20px;
+}
+
+#property-images-carousel .owl-nav .owl-next {
+  right: 20px;
+}
+
+/* Indicadores del carrusel */
+#property-images-carousel .owl-dots {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#property-images-carousel .owl-dot {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+#property-images-carousel .owl-dot span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ccc;
+  transition: all 0.3s ease;
+}
+
+#property-images-carousel .owl-dot.active span {
+  background: #007bff;
+  transform: scale(1.2);
+}
+
+/* ===== HERO SECTION ===== */
+#hero-property-details {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  #property-images-carousel {
+    min-height: 300px;
+  }
+  
+  #property-images-carousel .owl-item img {
+    min-height: 300px !important;
+    max-height: 400px !important;
+  }
+  
+  #property-images-carousel .owl-nav button {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  #property-images-carousel {
+    min-height: 250px;
+  }
+  
+  #property-images-carousel .owl-item img {
+    min-height: 250px !important;
+    max-height: 350px !important;
+  }
+  
+  #property-images-carousel .owl-nav button {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 14px !important;
+  }
+}

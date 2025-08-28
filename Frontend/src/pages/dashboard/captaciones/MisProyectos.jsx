@@ -32,6 +32,7 @@ export function MisProyectos() {
     limit: 10,
     sort: "-captacion.fecha" // Ordenar por fecha más reciente primero
   });
+  const [refreshKey, setRefreshKey] = useState(0); // Para forzar actualizaciones
 
   // Mapa de colores para estados
   const statusColors = {
@@ -39,7 +40,8 @@ export function MisProyectos() {
     'En trámite legal': 'purple',
     'En remodelación': 'amber',
     'En venta': 'green',
-    'Vendida': 'green',
+    'Disponible para venta': 'green',
+    'Vendida': 'gray',
     'Cancelada': 'red'
   };
 
@@ -231,7 +233,7 @@ export function MisProyectos() {
               nombre: captacion.propietario?.nombre || "No especificado",
               telefono: captacion.propietario?.telefono || "---"
             },
-            estatus_actual: captacion.estatus_actual || "Pendiente",
+            estatus_actual: captacion.venta?.estatus_venta || captacion.estatus_actual || "Pendiente",
             captacion: {
               fecha: captacion.captacion?.fecha || new Date().toISOString(),
               asesor: { 
@@ -276,8 +278,13 @@ export function MisProyectos() {
     };
     
     fetchCaptaciones();
-  }, [user, page, searchParams, searchTerm]);
+  }, [user, page, searchParams, searchTerm, refreshKey]);
   
+  // Función para refrescar datos
+  const refreshData = () => {
+    setRefreshKey(prev => prev + 1);
+  };
+
   // Manejar paginación
   const handlePrevPage = () => {
     setPage(prev => Math.max(prev - 1, 1));
@@ -349,18 +356,34 @@ export function MisProyectos() {
               Mis Proyectos de Captación
             </Typography>
             
-            {/* Botón para crear nueva captación (solo admin, asesores y usuarios) */}
-            {(isAdmin || isAsesor || user?.role === 'User') && (
+            <div className="flex gap-2">
+              {/* Botón para refrescar datos */}
               <Button 
                 size="sm" 
                 className="flex items-center gap-2" 
                 color="white"
-                onClick={() => navigate('/dashboard/captaciones/nueva')}
+                variant="outlined"
+                onClick={refreshData}
               >
-                <PlusIcon strokeWidth={2} className="h-4 w-4" />
-                Nueva Captación
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0112.719-3.986" />
+                </svg>
+                Refrescar
               </Button>
-            )}
+              
+              {/* Botón para crear nueva captación (solo admin, asesores y usuarios) */}
+              {(isAdmin || isAsesor || user?.role === 'User') && (
+                <Button 
+                  size="sm" 
+                  className="flex items-center gap-2" 
+                  color="white"
+                  onClick={() => navigate('/dashboard/captaciones/nueva')}
+                >
+                  <PlusIcon strokeWidth={2} className="h-4 w-4" />
+                  Nueva Captación
+                </Button>
+              )}
+            </div>
           </div>
         </CardHeader>
         <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">

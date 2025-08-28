@@ -394,6 +394,10 @@ export function EditarCaptacion() {
         setIsLoading(true);
         const data = await captacionesAPI.getById(id);
         console.log("Datos recibidos:", data);
+        console.log("Propietario:", data.propietario);
+        console.log("Propiedad:", data.propiedad);
+        console.log("Venta:", data.venta);
+        console.log("Documentos:", data.documentos_entregados);
         
         // Mapear los datos a la estructura del formulario, solo incluyendo los campos que existen
         const formData = {
@@ -441,19 +445,19 @@ export function EditarCaptacion() {
           } : defaultValues.datos_laborales,
           referencias_personales: data.referencias_personales || [],
           venta: data.venta ? {
-            precio_venta: data.venta.precio_venta || "",
-            comision_venta: data.venta.comision_venta || "",
+            precio_venta: data.venta.monto_venta || data.venta.precio_venta || "",
+            comision_venta: data.venta.comision_total || data.venta.comision_venta || "",
             fecha_venta: data.venta.fecha_venta || "",
             estatus_venta: data.venta.estatus_venta || "En proceso",
-            en_venta: data.venta.en_venta || false,
+            en_venta: data.venta.estatus_venta === "Disponible para venta" || false,
             comprador: data.venta.comprador ? {
               nombre: data.venta.comprador.nombre || "",
               telefono: data.venta.comprador.telefono || "",
               correo: data.venta.comprador.correo || "",
               direccion: data.venta.comprador.direccion || ""
             } : defaultValues.venta.comprador,
-            tipo_credito: data.venta.tipo_credito || "",
-            observaciones: data.venta.observaciones || "",
+            tipo_credito: data.venta.tipo_de_pago || data.venta.tipo_credito || "",
+            observaciones: data.venta.notas_adicionales || data.venta.observaciones || "",
             documentos_entregados: data.venta.documentos_entregados ? {
               contrato: data.venta.documentos_entregados.contrato || false,
               identificacion: data.venta.documentos_entregados.identificacion || false,
@@ -493,14 +497,27 @@ export function EditarCaptacion() {
 
   const onSubmit = async (data) => {
     try {
+      console.log("=== INICIANDO ENVÍO DEL FORMULARIO ===");
+      console.log("Datos del formulario a enviar:", data);
+      console.log("ID de la captación:", id);
+      
       setIsLoading(true);
-      await captacionesAPI.update(id, data);
+      setError(null);
+      
+      console.log("Llamando a captacionesAPI.update...");
+      const response = await captacionesAPI.update(id, data);
+      console.log("Respuesta del servidor:", response);
+      
       setSuccessMessage("Captación actualizada exitosamente");
       setTimeout(() => {
         navigate("/dashboard/captaciones");
       }, 2000);
     } catch (error) {
-      setError(error.response?.data?.message || "Error al actualizar la captación");
+      console.error("=== ERROR AL ACTUALIZAR ===");
+      console.error("Error completo:", error);
+      console.error("Error response:", error.response);
+      console.error("Error message:", error.message);
+      setError(error.message || "Error al actualizar la captación");
     } finally {
       setIsLoading(false);
     }
@@ -522,7 +539,11 @@ export function EditarCaptacion() {
         </Typography>
       </CardHeader>
       <CardBody className="px-0 pt-0 pb-2">
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-12 mb-2">
+        <form onSubmit={handleSubmit((data) => {
+          console.log("=== FORMULARIO ENVIADO ===");
+          console.log("Datos del formulario:", data);
+          onSubmit(data);
+        })} className="mt-12 mb-2">
           <Tabs value={activeTab} className="w-full">
             <TabsHeader
               className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"

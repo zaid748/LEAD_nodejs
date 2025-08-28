@@ -5,6 +5,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Spinner } from "@material-tailwind/react";
 import { TestCORS } from "./pages/TestCORS";
+import { VistaPublicaMarketing } from "./pages/publico/VistaPublicaMarketing";
 
 const AuthLoader = ({ children }) => {
   const { loading, authChecked } = useAuth();
@@ -30,6 +31,9 @@ function App() {
         <Routes>
           {/* Ruta pública para pruebas de CORS */}
           <Route path="/test-cors" element={<TestCORS />} />
+          
+          {/* Ruta pública para marketing (sin autenticación) */}
+          <Route path="/publico/marketing/:id" element={<VistaPublicaMarketing />} />
           
           <Route 
             path="/dashboard/*" 

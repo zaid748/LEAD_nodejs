@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LEAD INMOBILIARIA &mdash; Detalles de Propiedad</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Georgia+Pro:400,500,600,700&display=swap"> 
+        <link rel="stylesheet" href="fonts/icomoon/style.css">
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <style>
+      /* Tipografía principal - Georgia Pro */
+      body, html {
+        font-family: 'Georgia Pro', Georgia, serif !important;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Georgia Pro', Georgia, serif !important;
+      }
+      
+      .text-white, .text-black, .text-success, .text-danger {
+        font-family: 'Georgia Pro', Georgia, serif !important;
+      }
+    </style>
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/mediaelementplayer.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/fl-bigmug-line.css">
+    
+  
+    <link rel="stylesheet" href="css/aos.css">
+
+      <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/icons-simple.css">
+  <link rel="stylesheet" href="css/custom-colors.css">
+  
+  <!-- ===== ESTILOS PARA MEJORAR LA VISUALIZACIÓN ===== -->
+  <style>
+    /* Mejorar la visualización de la imagen del hero */
+    #hero-property-details {
+      background-size: 100% !important;
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      min-height: 500px !important;
+    }
+    
+    /* Asegurar que el carrusel funcione correctamente */
+    .slide-one-item.home-slider.owl-carousel {
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+      background: #f8f9fa;
+    }
+    
+    /* Asegurar que el carrusel se vea antes de inicializar */
+    .slide-one-item.home-slider.owl-carousel:not(.owl-loaded) {
+      display: block;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel:not(.owl-loaded) > div {
+      display: block;
+      margin-bottom: 20px;
+    }
+    
+    /* Mejorar la visualización de las imágenes del carrusel */
+    .slide-one-item.home-slider.owl-carousel .owl-stage {
+      display: flex;
+      align-items: center;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel .owl-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+    
+    /* Asegurar que las imágenes no se estiren */
+    .slide-one-item.home-slider.owl-carousel .owl-item > div {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Estilos para las imágenes del carrusel */
+    .slide-one-item.home-slider.owl-carousel .owl-item {
+      display: block;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: contain !important;
+      max-height: 500px !important;
+      display: block !important;
+      background-color: #f8f9fa;
+    }
+    
+    /* Controles del carrusel */
+    .slide-one-item.home-slider.owl-carousel .owl-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel .owl-nav button {
+      position: absolute;
+      pointer-events: auto;
+      background: rgba(0, 0, 0, 0.6) !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 50% !important;
+      width: 50px !important;
+      height: 50px !important;
+      font-size: 24px !important;
+      transition: all 0.3s ease;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel .owl-nav button:hover {
+      background: rgba(0, 0, 0, 0.8) !important;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+
+    
+    /* Ocultar completamente las flechas de navegación */
+    .slide-one-item.home-slider.owl-carousel .owl-nav {
+      display: none !important;
+    }
+    
+    /* Indicadores del carrusel */
+    .slide-one-item.home-slider.owl-carousel .owl-dots {
+      text-align: center;
+      margin-top: 20px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel .owl-dot {
+      display: inline-block;
+      margin: 0 5px;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel .owl-dot span {
+      display: block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ccc;
+      transition: all 0.3s ease;
+    }
+    
+    .slide-one-item.home-slider.owl-carousel .owl-dot.active span {
+      background: #007bff;
+      transform: scale(1.2);
+    }
+    
+    /* Responsive para el hero */
+    @media (max-width: 768px) {
+      #hero-property-details {
+        min-height: 400px !important;
+        background-position: center 30% !important;
+      }
+      
+
+    }
+    
+    @media (max-width: 576px) {
+      #hero-property-details {
+        min-height: 350px !important;
+        background-position: center 25% !important;
+      }
+      
+
+    }
+  </style>
+    
+  </head>
+  <body>
+  
+  <div class="site-loader"></div>
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+
+    <div class="site-navbar mt-4">
+        <div class="container py-1">
+          <div class="row align-items-center">
+            <div class="col-8 col-md-8 col-lg-4">
+              <h1 class="mb-0"><a href="index.html" class="text-white h2 mb-0"><strong>LEAD INMOBILIARIA<span class="text-danger">.</span></strong></a></h1>
+            </div>
+            <div class="col-4 col-md-4 col-lg-8">
+              <nav class="site-navigation text-right text-md-right" role="navigation">
+
+                <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+
+                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                  <li class="active">
+                    <a href="index.html">Home</a>
+                  </li>
+                  <!-- <li><a href="buy.html">Buy</a></li>
+                  <li><a href="rent.html">Rent</a></li>
+                  <li class="has-children">
+                    <a href="properties.html">Properties</a>
+                    <ul class="dropdown arrow-top">
+                      <li><a href="#">Condo</a></li>
+                      <li><a href="#">Property Land</a></li>
+                      <li><a href="#">Commercial Building</a></li>
+                      <li class="has-children">
+                        <a href="#">Sub Menu</a>
+                        <ul class="dropdown">
+                          <li><a href="#">Menu One</a></li>
+                          <li><a href="#">Menu Two</a></li>
+                          <li><a href="#">Menu Three</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a href="blog.html">Blog</a></li>
+                  <li><a href="about.html">About</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+                 --></ul>
+              </nav>
+            </div>
+           
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-blocks-cover inner-page-cover overlay" id="hero-property-details" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+          <div class="col-md-10">
+            <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Detalles de la propiedad de</span>
+            <h1 class="mb-2" id="property-title">625 S. Berendo St</h1>
+            <p class="mb-5"><strong class="h2 text-success font-weight-bold" id="property-price">$1,000,500</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-section-sm">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div>
+              <div class="slide-one-item home-slider owl-carousel">
+                <div><img src="images/hero_bg_1.jpg" alt="Image" class="img-fluid"></div>
+                <div><img src="images/hero_bg_2.jpg" alt="Image" class="img-fluid"></div>
+                <div><img src="images/hero_bg_3.jpg" alt="Image" class="img-fluid"></div>
+              </div>
+            </div>
+            <div class="bg-white property-body border-bottom border-left border-right">
+              <div class="row mb-5">
+                <div class="col-md-6">
+                  <strong class="text-success h1 mb-3" id="property-price-main">$1,000,500</strong>
+                </div>
+                <div class="col-md-6">
+                  <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
+                  <li>
+                    <span class="property-specs">Habitaciones</span>
+                    <span class="property-specs-number" id="property-beds">2 <sup>+</sup></span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">Baños</span>
+                    <span class="property-specs-number" id="property-baths">2</span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">m²</span>
+                    <span class="property-specs-number" id="property-m2">7,000</span>
+                    
+                  </li>
+                </ul>
+                </div>
+              </div>
+              
+
+              
+              <!-- ===== CARACTERÍSTICAS ADICIONALES ===== -->
+              <div class="row mb-5">
+                <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
+                  <span class="d-inline-block text-black mb-0 caption-text">Tipo de Propiedad</span>
+                  <strong class="d-block" id="property-type">Casa</strong>
+                </div>
+                <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
+                </div>
+                <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
+                  <span class="d-inline-block text-black mb-0 caption-text">Precio por m²</span>
+                  <strong class="d-block" id="property-price-m2">$520</strong>
+                </div>
+              </div>
+              
+              <h2 class="h4 text-black">Descripción de la Propiedad</h2>
+              <div id="property-description">
+                <p>Cargando descripción de la propiedad...</p>
+              </div>
+
+              <!-- <div class="row no-gutters mt-5">
+                <div class="col-12">
+                  <h2 class="h4 text-black mb-3">Galería de Imágenes</h2>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_1.jpg" class="image-popup gal-item"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_2.jpg" class="image-popup gal-item"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_3.jpg" class="image-popup gal-item"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_4.jpg" class="image-popup gal-item"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_5.jpg" class="image-popup gal-item"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_6.jpg" class="image-popup gal-item"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_7.jpg" class="image-popup gal-item"><img src="images/img_7.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_8.jpg" class="image-popup gal-item"><img src="images/img_8.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_1.jpg" class="image-popup gal-item"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_2.jpg" class="image-popup gal-item"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_3.jpg" class="image-popup gal-item"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                  <a href="images/img_4.jpg" class="image-popup gal-item"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <!-- <div class="col-lg-4">
+
+            <div class="bg-white widget border rounded">
+
+              <h3 class="h4 text-black widget-title mb-3">Contactar Agente</h3>
+              <form action="" class="form-contact-agent">
+                <div class="form-group">
+                  <label for="name">Nombre</label>
+                  <input type="text" id="name" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="email">Correo Electrónico</label>
+                  <input type="email" id="email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="phone">Teléfono</label>
+                  <input type="text" id="phone" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input type="submit" id="phone" class="btn btn-primary" value="Enviar Mensaje">
+                </div>
+              </form>
+            </div>
+
+            <div class="bg-white widget border rounded">
+              <h3 class="h4 text-black widget-title mb-3">Información Adicional</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit qui explicabo, libero nam, saepe eligendi. Molestias maiores illum error rerum. Exercitationem ullam saepe, minus, reiciendis ducimus quis. Illo, quisquam, veritatis.</p>
+            </div>
+
+          </div> -->
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section site-section-sm bg-light">
+  <!-- <div class="container">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="site-section-title mb-5">
+              <h2>Related Properties</h2>
+            </div>
+          </div>
+        </div>
+      
+        <div class="row mb-5">
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="property-entry h-100">
+              <a href="property-details.html" class="property-thumbnail">
+                <div class="offer-type-wrap">
+                  <span class="offer-type bg-danger">Sale</span>
+                  <span class="offer-type bg-success">Rent</span>
+                </div>
+                <img src="images/img_1.jpg" alt="Image" class="img-fluid">
+              </a>
+              <div class="p-4 property-body">
+                <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
+                <h2 class="property-title"><a href="property-details.html">625 S. Berendo St</a></h2>
+                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 625 S. Berendo St Unit 607 Los Angeles, CA 90005</span>
+                <strong class="property-price text-primary mb-3 d-block text-success">$2,265,500</strong>
+                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                  <li>
+                    <span class="property-specs">Beds</span>
+                    <span class="property-specs-number">2 <sup>+</sup></span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">Baths</span>
+                    <span class="property-specs-number">2</span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">SQ FT</span>
+                    <span class="property-specs-number">7,000</span>
+                    
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="property-entry h-100">
+              <a href="property-details.html" class="property-thumbnail">
+                <div class="offer-type-wrap">
+                  <span class="offer-type bg-danger">Sale</span>
+                  <span class="offer-type bg-success">Rent</span>
+                </div>
+                <img src="images/img_2.jpg" alt="Image" class="img-fluid">
+              </a>
+              <div class="p-4 property-body">
+                <a href="#" class="property-favorite active"><span class="icon-heart-o"></span></a>
+                <h2 class="property-title"><a href="property-details.html">871 Crenshaw Blvd</a></h2>
+                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 1 New York Ave, Warners Bay, NSW 2282</span>
+                <strong class="property-price text-primary mb-3 d-block text-success">$2,265,500</strong>
+                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                  <li>
+                    <span class="property-specs">Beds</span>
+                    <span class="property-specs-number">2 <sup>+</sup></span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">Baths</span>
+                    <span class="property-specs-number">2</span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">SQ FT</span>
+                    <span class="property-specs-number">1,620</span>
+                    
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="property-entry h-100">
+              <a href="property-details.html" class="property-thumbnail">
+                <div class="offer-type-wrap">
+                  <span class="offer-type bg-info">Lease</span>
+                </div>
+                <img src="images/img_3.jpg" alt="Image" class="img-fluid">
+              </a>
+              <div class="p-4 property-body">
+                <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
+                <h2 class="property-title"><a href="property-details.html">853 S Lucerne Blvd</a></h2>
+                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span> 853 S Lucerne Blvd Unit 101 Los Angeles, CA 90005</span>
+                <strong class="property-price text-primary mb-3 d-block text-success">$2,265,500</strong>
+                <ul class="property-specs-wrap mb-3 mb-lg-0">
+                  <li>
+                    <span class="property-specs">Beds</span>
+                    <span class="property-specs-number">2 <sup>+</sup></span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">Baths</span>
+                    <span class="property-specs-number">2</span>
+                    
+                  </li>
+                  <li>
+                    <span class="property-specs">SQ FT</span>
+                    <span class="property-specs-number">5,500</span>
+                    
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  -->
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="mb-5">
+              <h3 class="footer-heading mb-4">Acerca de LEAD INMOBILIARIA</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur reprehenderit vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos illum totam quis blanditiis, minima minus odio!</p>
+            </div>
+          </div>
+                      <div class="col-lg-4 mb-5 mb-lg-0">
+              <!-- <div class="row mb-5">
+                <div class="col-md-12">
+                  <h3 class="footer-heading mb-4">Navegación</h3>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Comprar</a></li>
+                    <li><a href="#">Rentar</a></li>
+                    <li><a href="#">Propiedades</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                  <ul class="list-unstyled">
+                    <li><a href="#">Acerca de Nosotros</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Contáctanos</a></li>
+                    <li><a href="#">Términos</a></li>
+                  </ul>
+                </div>
+              </div> -->
+
+
+          </div>
+
+                      <div class="col-lg-4 mb-5 mb-lg-0">
+              <h3 class="footer-heading mb-4">Síguenos</h3>
+
+                <div>
+                  <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                  <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                </div>
+
+            
+
+          </div>
+          
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+        
+          
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/mediaelement-and-player.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/circleaudioplayer.js"></script>
+  <script src="config.js"></script>
+
+  <script src="js/main.js"></script>
+  
+  <!-- ===== SCRIPT SIMPLE PARA ACTUALIZAR SOLO EL CONTENIDO ===== -->
+  <script>
+    // Función para obtener el ID de la propiedad desde la URL
+    function getPropertyIdFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('id');
+    }
+    
+    // Función para cargar los detalles de la propiedad (SIN TOCAR EL CARRUSEL)
+    async function cargarDetallesPropiedad() {
+      const propertyId = getPropertyIdFromUrl();
+      
+      if (!propertyId) {
+        console.log('ℹ️ No se especificó ID de propiedad, mostrando datos por defecto');
+        return;
+      }
+      
+      try {
+        console.log('🔄 Cargando detalles de la propiedad:', propertyId);
+        
+        // Usar la configuración del archivo config.js y pasar el ID directamente
+        const endpoint = window.CONFIG?.API?.ENDPOINTS?.MARKETING_PUBLICO || '/api/publico/marketing';
+        console.log('🌐 Llamando a la API:', endpoint);
+        console.log('🆔 Con ID de propiedad:', propertyId);
+        
+        // Llamar a la API con el ID específico
+        const response = await fetch(`${endpoint}/${propertyId}`);
+        const data = await response.json();
+        
+        console.log('📡 Respuesta de la API:', data);
+        console.log('📡 Status de la respuesta:', response.status);
+        console.log('📡 Headers de la respuesta:', response.headers);
+        
+        if (data.success) {
+          console.log('✅ Datos cargados correctamente para la propiedad específica:', data);
+          console.log('🎯 Propiedad encontrada directamente:', data.proyecto || data.propiedad);
+          
+          // La API debería devolver directamente la propiedad específica
+          const propiedad = data.proyecto || data.propiedad || data;
+          
+          if (propiedad) {
+            console.log('🎯 Propiedad encontrada:', propiedad);
+            console.log('🏠 Estructura completa de la propiedad:', propiedad);
+            console.log('🏠 Marketing:', propiedad.marketing);
+            console.log('🏠 Propiedad:', propiedad.propiedad);
+            console.log('🏠 Características:', propiedad?.caracteristicas);
+            console.log('🏠 Habitaciones:', propiedad?.caracteristicas?.habitaciones);
+            console.log('🏠 Baños:', propiedad?.caracteristicas?.baños);
+            console.log('🏠 Metros cuadrados:', propiedad?.caracteristicas?.m2_construccion);
+            
+            actualizarSoloContenido(propiedad);
+          } else {
+            console.log('⚠️ Propiedad no encontrada en la respuesta');
+            console.log('📋 Respuesta completa de la API:', data);
+            console.log('🔍 Estructura de la respuesta:', Object.keys(data));
+          }
+        } else {
+          console.error('❌ Error al cargar los datos:', data.message);
+          console.error('❌ Respuesta completa con error:', data);
+          
+          // Intentar con el endpoint original como fallback
+          console.log('🔄 Intentando con endpoint original como fallback...');
+          try {
+            const fallbackResponse = await fetch(endpoint);
+            const fallbackData = await fallbackResponse.json();
+            
+            if (fallbackData.success && fallbackData.proyectos) {
+              const propiedad = fallbackData.proyectos.find(p => p._id === propertyId);
+              if (propiedad) {
+                console.log('✅ Propiedad encontrada en fallback:', propiedad);
+                actualizarSoloContenido(propiedad);
+                return;
+              }
+            }
+          } catch (fallbackError) {
+            console.error('❌ Error en fallback:', fallbackError);
+          }
+        }
+      } catch (error) {
+        console.error('❌ Error cargando detalles:', error);
+        console.log('ℹ️ Mostrando datos por defecto debido al error');
+      }
+    }
+    
+    // Función que actualiza el contenido Y el carrusel
+    function actualizarSoloContenido(propiedad) {
+      console.log('🏠 ===== INICIANDO ACTUALIZACIÓN DE CONTENIDO =====');
+      console.log('🏠 Propiedad recibida:', propiedad);
+      console.log('🏠 Tipo de propiedad:', typeof propiedad);
+      console.log('🏠 Propiedad es null/undefined:', propiedad === null || propiedad === undefined);
+      
+      // Hero section - cambiar imagen de fondo con mejor tamaño
+      if (propiedad.marketing?.imagenes?.[0]?.url) {
+        const heroImage = window.getImageUrl ? 
+          window.getImageUrl(propiedad.marketing.imagenes[0].url) : 
+          propiedad.marketing.imagenes[0].url;
+        document.getElementById('hero-property-details').style.backgroundImage = `url('${heroImage}')`;
+        // Ajustar el tamaño de la imagen del hero para que se vea mejor
+        document.getElementById('hero-property-details').style.backgroundSize = 'cover';
+        document.getElementById('hero-property-details').style.backgroundPosition = 'center center';
+      }
+      
+      // Título y precio del hero
+      if (propiedad.marketing?.titulo) {
+        document.getElementById('property-title').textContent = propiedad.marketing.titulo;
+      }
+      if (propiedad.marketing?.precioOferta) {
+        document.getElementById('property-price').textContent = formatearPrecio(propiedad.marketing.precioOferta);
+      }
+      
+      // Precio principal
+      if (propiedad.marketing?.precioOferta) {
+        document.getElementById('property-price-main').textContent = formatearPrecio(propiedad.marketing.precioOferta);
+      }
+      
+      // Características principales
+      const caracteristicas = propiedad?.caracteristicas;
+      console.log('🏠 Características encontradas:', caracteristicas);
+      
+      if (caracteristicas?.habitaciones) {
+        console.log('🛏️ Actualizando habitaciones:', caracteristicas.habitaciones);
+        document.getElementById('property-beds').textContent = caracteristicas.habitaciones;
+      } else {
+        console.log('⚠️ No se encontraron habitaciones en:', caracteristicas);
+      }
+      
+      if (caracteristicas?.baños) {
+        console.log('🚿 Actualizando baños:', caracteristicas.baños);
+        document.getElementById('property-baths').textContent = caracteristicas.baños;
+      } else {
+        console.log('⚠️ No se encontraron baños en:', caracteristicas);
+      }
+      
+      if (caracteristicas?.m2_construccion) {
+        console.log('📐 Actualizando metros cuadrados:', caracteristicas.m2_construccion);
+        document.getElementById('property-m2').textContent = caracteristicas.m2_construccion;
+      } else {
+        console.log('⚠️ No se encontraron metros cuadrados en:', caracteristicas);
+      }
+      
+      // Características adicionales
+      if (propiedad.propiedad?.tipo) {
+        document.getElementById('property-type').textContent = propiedad.propiedad.tipo;
+      }
+      if (caracteristicas?.año_construccion) {
+        document.getElementById('property-year').textContent = caracteristicas.año_construccion;
+      }
+      
+      // Precio por m²
+      if (caracteristicas?.m2_construccion && propiedad.marketing?.precioOferta) {
+        const precioM2 = Math.round(propiedad.marketing.precioOferta / caracteristicas.m2_construccion);
+        document.getElementById('property-price-m2').textContent = `$${precioM2.toLocaleString()}`;
+      }
+      
+      // Información adicional de la propiedad
+      if (caracteristicas?.m2_terreno) {
+        // Agregar información del terreno si está disponible
+        console.log('🏞️ Terreno:', caracteristicas.m2_terreno, 'm²');
+      }
+      
+      if (caracteristicas?.cocheras) {
+        // Agregar información de cocheras si está disponible
+        console.log('🚗 Cocheras:', caracteristicas.cocheras);
+      }
+      
+      // Descripción de la propiedad (usar la descripción de marketing si está disponible)
+      if (propiedad.marketing?.descripcion) {
+        document.getElementById('property-description').innerHTML = `<p>${propiedad.marketing.descripcion}</p>`;
+      } else if (caracteristicas?.descripcion) {
+        document.getElementById('property-description').innerHTML = `<p>${caracteristicas.descripcion}</p>`;
+      } else {
+        document.getElementById('property-description').innerHTML = '<p>Sin descripción disponible para esta propiedad.</p>';
+      }
+      
+      // AHORA SÍ actualizar el carrusel con las imágenes reales
+      actualizarCarruselPropiedad(propiedad);
+      
+      console.log('✅ ===== ACTUALIZACIÓN DE CONTENIDO COMPLETADA =====');
+      console.log('✅ Contenido y carrusel actualizados correctamente');
+    }
+    
+    // Función para actualizar el carrusel con las imágenes reales
+    function actualizarCarruselPropiedad(propiedad) {
+      const carousel = document.querySelector('.slide-one-item.home-slider.owl-carousel');
+      
+      if (!carousel) {
+        console.log('⚠️ Carrusel no encontrado');
+        return;
+      }
+      
+      if (!propiedad.marketing?.imagenes || propiedad.marketing.imagenes.length === 0) {
+        console.log('ℹ️ No hay imágenes disponibles, manteniendo carrusel por defecto');
+        return;
+      }
+      
+      console.log('🖼️ Actualizando carrusel con', propiedad.marketing.imagenes.length, 'imágenes');
+      
+      // Destruir el carrusel existente si ya está inicializado
+      if (window.jQuery && window.jQuery.fn.owlCarousel) {
+        try {
+          const $carousel = window.jQuery(carousel);
+          if ($carousel.length && $carousel.hasClass('owl-loaded')) {
+            $carousel.trigger('destroy.owl.carousel');
+            console.log('🗑️ Carrusel anterior destruido');
+          }
+        } catch (error) {
+          console.error('❌ Error destruyendo carrusel:', error);
+        }
+      }
+      
+      // Limpiar el carrusel actual
+      carousel.innerHTML = '';
+      
+      // Agregar las imágenes reales de la propiedad
+      propiedad.marketing.imagenes.forEach((imagen, index) => {
+        const imageUrl = window.getImageUrl ? window.getImageUrl(imagen.url) : imagen.url;
+        const slideHtml = `<div><img src="${imageUrl}" alt="Imagen ${index + 1}" class="img-fluid"></div>`;
+        carousel.innerHTML += slideHtml;
+        console.log(`🖼️ Slide ${index + 1} agregado: ${imageUrl}`);
+      });
+      
+      // Esperar un momento para que el DOM se actualice
+      setTimeout(() => {
+        // Reinicializar el carrusel correctamente
+        if (window.jQuery && window.jQuery.fn.owlCarousel) {
+          try {
+            const $carousel = window.jQuery(carousel);
+            if ($carousel.length) {
+              $carousel.owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 0,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                nav: false, // Deshabilitar flechas
+                dots: true,
+                smartSpeed: 600,
+                responsive: {
+                  0: { items: 1 },
+                  600: { items: 1 },
+                  1000: { items: 1 }
+                }
+              });
+              console.log('🎠 Carrusel reinicializado correctamente');
+            }
+          } catch (error) {
+            console.error('❌ Error reinicializando el carrusel:', error);
+          }
+        }
+      }, 100);
+    }
+    
+    // Función para formatear precios
+    function formatearPrecio(precio) {
+      if (!precio) return 'Precio a consultar';
+      return `$${parseInt(precio).toLocaleString()}`;
+    }
+    
+    // Función para inicializar el carrusel por defecto
+    function inicializarCarruselPorDefecto() {
+      if (window.jQuery && window.jQuery.fn.owlCarousel) {
+        try {
+          const $carousel = window.jQuery('.slide-one-item.home-slider.owl-carousel');
+          if ($carousel.length) {
+            // Destruir si ya está inicializado
+            if ($carousel.hasClass('owl-loaded')) {
+              $carousel.trigger('destroy.owl.carousel');
+              console.log('🗑️ Carrusel anterior destruido para reinicializar');
+            }
+            
+            // Inicializar el carrusel
+                          $carousel.owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 0,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                nav: false, // Deshabilitar flechas
+                dots: true,
+                smartSpeed: 600,
+                responsive: {
+                  0: { items: 1 },
+                  600: { items: 1 },
+                  1000: { items: 1 }
+                }
+              });
+            console.log('🎠 Carrusel por defecto inicializado correctamente');
+          }
+        } catch (error) {
+          console.error('❌ Error inicializando carrusel por defecto:', error);
+        }
+      }
+    }
+    
+    // Cargar detalles cuando la página se cargue
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 ===== PÁGINA CARGADA - DOMContentLoaded EJECUTADO =====');
+      console.log('🚀 Página de detalles cargada, iniciando carga de datos...');
+      
+      // Inicializar el carrusel por defecto primero
+      setTimeout(inicializarCarruselPorDefecto, 100);
+      
+      // Luego cargar los detalles de la propiedad
+      console.log('🔄 Llamando a cargarDetallesPropiedad()...');
+      cargarDetallesPropiedad();
+      console.log('🔄 Función cargarDetallesPropiedad() llamada');
+    });
+  </script>
+    
+  </body>
+</html>

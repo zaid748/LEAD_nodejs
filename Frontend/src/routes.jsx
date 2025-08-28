@@ -11,6 +11,7 @@ import {
   UserPlusIcon,
   BuildingOffice2Icon,
   PlusIcon,
+  PhotoIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
@@ -27,6 +28,7 @@ import { CrearCaptacion } from '@/pages/dashboard/captaciones/CrearCaptacion';
 import { EditarCaptacion } from '@/pages/dashboard/captaciones/EditarCaptacion';
 import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
 import { DetalleCaptacion } from '@/pages/dashboard/captaciones/DetalleCaptacion';
+import { ProyectosMarketing, EditarMarketing, DetalleMarketing } from '@/pages/dashboard/Publicidad';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -179,6 +181,24 @@ export const routes = [
       {
         path: "/captaciones/:id/detalle",
         element: <DetalleCaptacion />, // Nueva vista de detalle
+        showInSidebar: false,
+      },
+      // Rutas para Marketing Inmobiliario
+      {
+        icon: <PhotoIcon {...icon} />,
+        name: "Marketing",
+        path: "/marketing",
+        element: <ProyectosMarketing />,
+        alwaysShow: true, // Disponible para todos los roles
+      },
+      {
+        path: "/marketing/:id/editar",
+        element: <EditarMarketing />,
+        showInSidebar: false,
+      },
+      {
+        path: "/marketing/:id/detalle",
+        element: <DetalleMarketing />,
         showInSidebar: false,
       },
     ],

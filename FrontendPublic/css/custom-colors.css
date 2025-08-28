@@ -1,0 +1,708 @@
+/* ===== PALETA DE COLORES PERSONALIZADA PARA LEAD INMOBILIARIA ===== */
+
+:root {
+  /* Colores principales de la marca */
+  --primary-color: #C6FF00;      /* Verde lima brillante - Color principal */
+  --secondary-color: #6E8E00;    /* Verde oliva oscuro - Color secundario */
+  --title-color: #F4FE81;        /* Amarillo verdoso suave para títulos */
+  --text-white: #FFFFFF;         /* Blanco para letras */
+  --text-black: #000000;         /* Negro para letras */
+  
+  /* Variaciones de los colores principales */
+  --primary-light: #d4ff33;      /* Versión más clara del verde principal */
+  --primary-dark: #b3e600;       /* Versión más oscura del verde principal */
+  --secondary-light: #8bb300;    /* Versión más clara del verde secundario */
+  --secondary-dark: #5a7500;     /* Versión más oscura del verde secundario */
+  
+  /* Colores de fondo */
+  --bg-primary: var(--primary-color);
+  --bg-secondary: var(--secondary-color);
+  --bg-light: #f8f9fa;
+  --bg-dark: #212529;
+  
+  /* Colores de texto */
+  --text-primary: var(--text-black);
+  --text-secondary: var(--text-white);
+  --text-muted: #6c757d;
+  
+  /* Colores de estado */
+  --success-color: var(--primary-color);
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --info-color: var(--secondary-color);
+}
+
+/* ===== SOBRESCRITURA COMPLETA DE COLORES NO DESEADOS ===== */
+
+/* IMPORTANTE: Solo cambiar los tags de oferta y precios */
+.bg-danger {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+/* NO cambiar text-danger ni text-success para mantener colores originales */
+
+/* ===== SOBRESCRITURA DE ESTILOS EXISTENTES ===== */
+
+/* Botones principales */
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
+  color: var(--text-black) !important;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  background-color: var(--secondary-dark) !important;
+  border-color: var(--secondary-dark) !important;
+  color: var(--text-white) !important;
+}
+
+/* Botones outline */
+.btn-outline-primary {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.btn-outline-secondary {
+  color: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+/* Enlaces - mantener color original */
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+/* Textos destacados - solo cambiar los específicos */
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
+}
+
+/* Fondos */
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color) !important;
+}
+
+/* Navbar */
+.site-navbar .site-navigation .site-menu .active > a {
+  color: var(--primary-color) !important;
+}
+
+.site-navbar .site-navigation .site-menu a:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Footer - MEJORAR CONTRASTE */
+.site-footer {
+  background: var(--secondary-color) !important;
+}
+
+.site-footer .footer-heading:before {
+  background: var(--primary-color) !important;
+}
+
+/* Footer - Cambiar colores de texto a blanco para mejor contraste */
+.site-footer p {
+  color: var(--text-white) !important;
+}
+
+.site-footer h2, 
+.site-footer h3, 
+.site-footer h4, 
+.site-footer h5 {
+  color: var(--text-white) !important;
+}
+
+.site-footer a {
+  color: var(--text-white) !important;
+}
+
+.site-footer a:hover {
+  color: var(--primary-color) !important;
+}
+
+.site-footer .footer-heading {
+  color: var(--text-white) !important;
+}
+
+/* Iconos del footer en blanco */
+.site-footer .icon,
+.site-footer i,
+.site-footer .fa,
+.site-footer .fab,
+.site-footer .fas {
+  color: var(--text-white) !important;
+}
+
+/* Servicios */
+.service .icon {
+  color: var(--primary-color) !important;
+}
+
+.service .read-more {
+  color: var(--primary-color) !important;
+}
+
+.service .read-more:hover {
+  color: var(--primary-dark) !important;
+}
+
+/* Paginación */
+.site-pagination a.active {
+  background: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.site-pagination a:hover {
+  border-color: var(--primary-color) !important;
+}
+
+/* Acordeón */
+.unit-8 .accordion-item .heading > a[aria-expanded="true"]:before {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Formularios */
+.form-control:active,
+.form-control:focus {
+  border-color: var(--primary-color) !important;
+}
+
+/* Overlays de imágenes */
+.bg-image.overlay-primary:before {
+  background: rgba(198, 255, 0, 0.9) !important;
+}
+
+/* Carrusel */
+.slide-one-item.home-slider .owl-dots .owl-dot.active > span {
+  background: var(--primary-color) !important;
+}
+
+/* Indicadores de carrusel de propiedades */
+#property-images-carousel .owl-dot.active span {
+  background: var(--primary-color) !important;
+}
+
+/* Badges */
+.badge-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.badge-secondary {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+/* Cards y elementos destacados */
+.card-header {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.card-footer {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+/* Lista de propiedades */
+.property-item {
+  border-left: 4px solid var(--primary-color);
+}
+
+.property-item:hover {
+  border-left-color: var(--secondary-color);
+}
+
+/* Precios - SOLO COLOR DE LETRA VERDE, SIN FONDO */
+.property-price,
+.text-success,
+.h2.text-success,
+.h1.text-success,
+strong.text-success,
+strong.property-price {
+  color: var(--primary-color) !important;
+  background-color: transparent !important;
+  font-weight: bold !important;
+}
+
+/* Estados de propiedades */
+.property-status {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.property-status.sold {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+/* Tags de oferta (VENTA, SALE, etc.) - SOLO ESTOS DEBEN ESTAR EN VERDE */
+.offer-type,
+.property-offer-type,
+.bg-danger {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+  border: none !important;
+}
+
+.offer-type:hover,
+.property-offer-type:hover,
+.bg-danger:hover {
+  background-color: var(--primary-dark) !important;
+  color: var(--text-black) !important;
+}
+
+/* ===== ELEMENTOS SUPERIORES CON FONDO VERDE LIMA ===== */
+
+/* Elementos superiores como "Venta" y "Detalles de la propiedad de" */
+.property-offer-type,
+.d-inline-block.property-offer-type,
+.text-white.property-offer-type,
+.property-header-tag,
+.property-title-tag {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+  border: none !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  font-weight: bold !important;
+}
+
+/* Hover effect para estos elementos */
+.property-offer-type:hover,
+.d-inline-block.property-offer-type:hover,
+.text-white.property-offer-type:hover,
+.property-header-tag:hover,
+.property-title-tag:hover {
+  background-color: var(--primary-dark) !important;
+  color: var(--text-black) !important;
+}
+
+/* ===== TÍTULOS EN COLOR #F4FE81 - SOLO EL PRINCIPAL ===== */
+
+/* SOLO el título principal "LEAD INMOBILIARIA" */
+.site-navbar h1,
+.site-navbar h1 a,
+.site-navbar h1.text-white,
+.site-navbar h1.text-white a,
+.site-navbar .site-logo,
+.site-navbar .site-logo a {
+  color: var(--title-color) !important;
+}
+
+/* También para el logo en el menú móvil */
+.site-mobile-menu .site-mobile-menu-logo a {
+  color: var(--title-color) !important;
+}
+
+/* ===== TÍTULOS DE CASAS EN COLOR BLANCO ===== */
+
+/* Títulos de propiedades y casas en blanco */
+.property-title,
+.property-name,
+.property-heading,
+.property-details h1,
+.property-details h2,
+.property-details h3,
+.property-card h3,
+.property-card h4,
+.property-card h5,
+.property-item h3,
+.property-item h4,
+.property-item h5 {
+  color: var(--text-white) !important;
+}
+
+/* Títulos de secciones en blanco */
+.section-title,
+.block-title,
+.widget-title {
+  color: var(--text-white) !important;
+}
+
+/* Títulos generales en blanco (excepto el principal) */
+h1:not(.site-navbar h1),
+h2:not(.site-navbar h2),
+h3:not(.site-navbar h3),
+h4:not(.site-navbar h4),
+h5:not(.site-navbar h5),
+h6:not(.site-navbar h6) {
+  color: var(--text-white) !important;
+}
+
+/* Botones de acción */
+.action-btn {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: var(--primary-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(198, 255, 0, 0.3);
+}
+
+/* Enlaces de navegación */
+.nav-link.active {
+  color: var(--primary-color) !important;
+  border-bottom: 2px solid var(--primary-color) !important;
+}
+
+/* Elementos de interfaz */
+.ui-slider .ui-slider-handle {
+  background: var(--primary-color) !important;
+}
+
+.ui-slider .ui-slider-range {
+  background: var(--secondary-color) !important;
+}
+
+/* Calendario */
+.datepicker table tr td.active {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.datepicker table tr td.active:hover {
+  background-color: var(--primary-dark) !important;
+}
+
+/* Tooltips */
+.tooltip-inner {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: var(--secondary-color) !important;
+}
+
+/* Modales */
+.modal-header {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.modal-footer {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+/* Alertas */
+.alert-primary {
+  background-color: rgba(198, 255, 0, 0.1) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.alert-secondary {
+  background-color: rgba(110, 142, 0, 0.1) !important;
+  border-color: var(--secondary-color) !important;
+  color: var(--text-black) !important;
+}
+
+/* Progress bars */
+.progress-bar {
+  background-color: var(--primary-color) !important;
+}
+
+.progress-bar-striped {
+  background-image: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.15) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255, 255, 255, 0.15) 50%, 
+    rgba(255, 255, 255, 0.15) 75%, 
+    transparent 75%, 
+    transparent) !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb-item.active {
+  color: var(--primary-color) !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  color: var(--secondary-color) !important;
+}
+
+/* Tabs */
+.nav-tabs .nav-link.active {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) var(--primary-color) transparent !important;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: var(--primary-color) var(--primary-color) transparent !important;
+}
+
+/* Dropdown */
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.dropdown-item.active {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+}
+
+/* Checkboxes y radios personalizados */
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Switches */
+.custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Input groups */
+.input-group-text {
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
+  border-color: var(--secondary-color) !important;
+}
+
+/* List groups */
+.list-group-item.active {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+/* Pagination personalizada */
+.page-item.active .page-link {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+}
+
+.page-link {
+  color: var(--primary-color) !important;
+}
+
+.page-link:hover {
+  color: var(--primary-dark) !important;
+}
+
+/* ===== SOBRESCRITURA ESPECÍFICA PARA ELEMENTOS CRÍTICOS ===== */
+
+/* Asegurar que SOLO los precios usen el color verde SIN FONDO */
+.property-price,
+.property-price.text-primary,
+.property-price.text-success,
+.h2.text-success,
+.h1.text-success,
+strong.text-success,
+strong.property-price {
+  color: var(--primary-color) !important;
+  background-color: transparent !important;
+  font-weight: bold !important;
+}
+
+/* Asegurar que SOLO los tags de oferta usen el color verde */
+.offer-type,
+.property-offer-type,
+.bg-danger,
+span.bg-danger,
+.d-inline-block.bg-danger {
+  background-color: var(--primary-color) !important;
+  color: var(--text-black) !important;
+  border: none !important;
+}
+
+/* ===== RESPONSIVE Y ACCESIBILIDAD ===== */
+
+@media (max-width: 768px) {
+  /* Ajustes para móviles */
+  .btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  .action-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
+
+/* ===== EFECTOS Y ANIMACIONES ===== */
+
+/* Transiciones suaves */
+.btn,
+.nav-link,
+.dropdown-item,
+.list-group-item {
+  transition: all 0.3s ease;
+}
+
+/* Hover effects */
+.property-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(198, 255, 0, 0.15);
+}
+
+/* Focus states para accesibilidad */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(198, 255, 0, 0.25) !important;
+}
+
+/* ===== UTILIDADES ADICIONALES ===== */
+
+/* Clases de utilidad para colores */
+.text-brand-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-brand-secondary {
+  color: var(--secondary-color) !important;
+}
+
+.text-brand-title {
+  color: var(--title-color) !important;
+}
+
+.bg-brand-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-brand-secondary {
+  background-color: var(--secondary-color) !important;
+}
+
+.bg-brand-title {
+  background-color: var(--title-color) !important;
+}
+
+.border-brand-primary {
+  border-color: var(--primary-color) !important;
+}
+
+.border-brand-secondary {
+  border-color: var(--secondary-color) !important;
+}
+
+.border-brand-title {
+  border-color: var(--title-color) !important;
+}
+
+/* Gradientes */
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark)) !important;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+}
+
+.bg-gradient-title {
+  background: linear-gradient(135deg, var(--title-color), var(--primary-color)) !important;
+}
+
+/* ===== IMPORTANTE: SOBRESCRITURA FINAL ===== */
+
+/* Asegurar que SOLO estos elementos específicos usen el color verde */
+.property-price,
+.property-price.text-primary,
+.property-price.text-success,
+.h2.text-success,
+.h1.text-success,
+strong.text-success,
+strong.property-price {
+  color: var(--primary-color) !important;
+  background-color: transparent !important;
+  font-weight: bold !important;
+}
+
+/* Asegurar que el texto en los tags sea negro */
+.offer-type,
+.property-offer-type,
+.bg-danger,
+span.bg-danger,
+.d-inline-block.bg-danger {
+  color: var(--text-black) !important;
+}
+
+/* ===== RESTAURAR COLORES ORIGINALES PARA OTROS ELEMENTOS ===== */
+
+/* Restaurar colores originales para elementos que no deben cambiar */
+.text-white {
+  color: #FFFFFF !important;
+}
+
+.text-black {
+  color: #000000 !important;
+}
+
+/* Asegurar que los enlaces mantengan su color original */
+a:not(.btn):not(.nav-link):not(.dropdown-item) {
+  color: inherit;
+}
+
+/* Restaurar colores para elementos de navegación */
+.site-navbar .site-navigation .site-menu > li > a {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.site-navbar .site-navigation .site-menu > li > a:hover {
+  color: #fff !important;
+}

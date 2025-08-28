@@ -149,4 +149,38 @@ router.post('/:id/venta/documentos',
 // Ruta para descargar PDF
 router.get('/download/:id', verificarToken, captacionesController.descargarPDF);
 
+// -------- Rutas para Marketing Inmobiliario --------
+
+// Obtener proyecto específico para marketing
+router.get('/marketing/:id', verificarToken, captacionesController.getProyectoMarketing);
+
+// Actualizar marketing de un proyecto
+router.put('/marketing/:id', verificarToken, captacionesController.actualizarMarketing);
+
+// -------- Rutas para Imágenes de Marketing --------
+
+// Subir imágenes de marketing
+router.post('/:id/marketing/imagenes', 
+    verificarToken, 
+    captacionesController.uploadImagenesMarketing
+);
+
+// Obtener imágenes de marketing
+router.get('/:id/marketing/imagenes', 
+    verificarToken, 
+    captacionesController.getImagenesMarketing
+);
+
+// Eliminar imagen de marketing
+router.delete('/:id/marketing/imagenes/:imageKey', 
+    verificarToken, 
+    captacionesController.deleteImagenMarketing
+);
+
+// Reordenar imágenes de marketing
+router.put('/:id/marketing/imagenes/orden', 
+    verificarToken, 
+    captacionesController.reordenarImagenesMarketing
+);
+
 module.exports = router;

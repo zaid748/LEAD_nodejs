@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API - LEAD Inmobiliaria</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        button { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test de API - LEAD Inmobiliaria</h1>
+    
+    <button onclick="testAPI()">🔍 Probar API de Marketing</button>
+    <button onclick="clearResults()">🗑️ Limpiar Resultados</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        async function testAPI() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="result">🔄 Probando API...</div>';
+            
+            try {
+                console.log('🔄 Iniciando test de API...');
+                
+                const response = await fetch('/api/publico/marketing');
+                console.log('📡 Respuesta recibida:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('📊 Datos recibidos:', data);
+                
+                if (data.success) {
+                    resultsDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ API Funcionando Correctamente</h3>
+                            <p><strong>Mensaje:</strong> ${data.message}</p>
+                            <p><strong>Proyectos encontrados:</strong> ${data.proyectos ? data.proyectos.length : 0}</p>
+                            <p><strong>Total:</strong> ${data.paginacion ? data.paginacion.total : 'N/A'}</p>
+                        </div>
+                        <div class="result">
+                            <h4>📋 Detalles de la Respuesta:</h4>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ Error en la API</h3>
+                            <p><strong>Mensaje:</strong> ${data.message}</p>
+                            <p><strong>Error:</strong> ${data.error || 'No especificado'}</p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('❌ Error en el test:', error);
+                resultsDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ Error de Conexión</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Detalles:</strong> ${error.stack}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        // Test automático al cargar la página
+        window.addEventListener('load', () => {
+            console.log('🚀 Página cargada, ejecutando test automático...');
+            setTimeout(testAPI, 1000);
+        });
+    </script>
+</body>
+</html>

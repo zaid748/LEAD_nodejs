@@ -21,43 +21,11 @@ module.exports = {
 
 const app = express();
 
-// Configuración dinámica de CORS
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://lead-inmobiliaria.com',
-  'https://www.lead-inmobiliaria.com'
-];
-
+// Configuración de CORS simplificada
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('No permitido por CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 204
+  origin: true, // Permitir todos los orígenes
+  credentials: true
 }));
-
-// Middleware específico para CORS en archivos estáticos
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
 
 // Middleware de seguridad
 app.use(helmetConfig);
@@ -192,8 +160,12 @@ app.use('/api', require('./routes/notes.routes'));
 app.use('/api', require('./routes/users.routes'));
 app.use('/api', require('./routes/empleados.router'));
 app.use('/api', require('./routes/nominas.router'));
-app.use('/api', require('./routes/Inventario.router'));
+// app.use('/api', require('./routes/Inventario.router')); // ROUTER ELIMINADO - NO SE USA
+app.use('/api', require('./routes/marketing.router'));
 app.use('/api/captaciones', captacionesRouter);
+
+// Router público para marketing (sin autenticación)
+app.use('/api', require('./routes/marketing-publico.router'));
 
 // Manejo de errores 404
 app.use('/api/*', (req, res) => {
@@ -212,13 +184,8 @@ app.use('/img', express.static(path.join(__dirname, 'public/img')));
 app.use('/uploads', (req, res, next) => {
   const origin = req.headers.origin;
   
-  // Permitir acceso desde orígenes permitidos
-  if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  } else {
-    res.header('Access-Control-Allow-Origin', '*');
-  }
-  
+  // Permitir acceso desde cualquier origen
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -240,6 +207,45 @@ app.use('/uploads', (req, res, next) => {
   
   next();
 }, express.static(path.join(__dirname, 'public/uploads')));
+
+// ===== SERVIR ARCHIVOS ESTÁTICOS DEL FRONTEND PÚBLICO =====
+// Ruta para servir archivos estáticos de la plantilla HTML pública
+app.use('/publico', express.static(path.join(__dirname, '../FrontendPublic'), {
+  setHeaders: (res, path, stat) => {
+    // Configurar tipos MIME correctos para diferentes archivos
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (path.endsWith('.woff')) {
+      res.setHeader('Content-Type', 'font/woff');
+    } else if (path.endsWith('.woff2')) {
+      res.setHeader('Content-Type', 'font/woff2');
+    } else if (path.endsWith('.ttf')) {
+      res.setHeader('Content-Type', 'font/ttf');
+    } else if (path.endsWith('.eot')) {
+      res.setHeader('Content-Type', 'application/vnd.ms-fontobject');
+    }
+    
+    // Headers de cache para archivos estáticos
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+  }
+}));
+
+// ===== MIDDLEWARE DE SEGURIDAD PARA FRONTEND PÚBLICO =====
+// Headers de seguridad específicos para archivos estáticos
+app.use('/publico', (req, res, next) => {
+  // Prevenir clickjacking
+  res.setHeader('X-Frame-Options', 'DENY');
+  
+  // Prevenir MIME type sniffing
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  
+  // Referrer Policy
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  next();
+});
 
 // Servir archivos estáticos de React en producción
 if (process.env.NODE_ENV === 'production') {

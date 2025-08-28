@@ -68,7 +68,7 @@ const PropietarioSchema = new mongoose.Schema({
             return this.tiene_conyuge === true; 
         }
     },
-    estado_civil: { type: String, trim: true, required: true }
+    estado_civil: { type: String, trim: true, required: false }
 });
 
 // 📌 Información de la dirección de la propiedad (mejorada con trim)
@@ -145,6 +145,68 @@ const ReferenciaPersonalSchema = new mongoose.Schema({
         type: String, 
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         trim: true
+    }
+});
+
+// 📌 Sección específica para Marketing Inmobiliario
+const MarketingSchema = new mongoose.Schema({
+    titulo: { 
+        type: String, 
+        trim: true,
+        default: '' 
+    },
+    descripcion: { 
+        type: String, 
+        trim: true,
+        default: '' 
+    },
+    precioOferta: { 
+        type: String, 
+        trim: true,
+        default: '' 
+    },
+    imagenes: [{
+        url: { type: String, required: true },
+        nombre: { type: String, required: true },
+        fecha_subida: { type: Date, default: Date.now },
+        orden: { type: Number, default: 0 },
+        key: { type: String, required: true }, // Key único para identificación
+        s3Key: { type: String, required: true }, // Ruta completa en S3 para eliminación
+        metadatos: {
+            original: {
+                width: { type: Number },
+                height: { type: Number },
+                size: { type: Number }, // Tamaño en bytes
+                format: { type: String }
+            },
+            procesada: {
+                width: { type: Number, default: 800 },
+                height: { type: Number, default: 600 },
+                size: { type: Number }, // Tamaño en bytes
+                format: { type: String, default: 'jpeg' }
+            }
+        }
+    }],
+    estatus: {
+        type: String,
+        enum: ['Activo', 'Inactivo', 'En revisión'],
+        default: 'Activo'
+    },
+    fecha_creacion: {
+        type: Date,
+        default: Date.now
+    },
+    fecha_actualizacion: {
+        type: Date,
+        default: Date.now
+    },
+    usuario_creador: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    usuario_ultima_modificacion: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
@@ -295,7 +357,7 @@ const VentaSchema = new mongoose.Schema({
     monto_venta: { type: Number, min: 0 },
     estatus_venta: { 
         type: String, 
-        enum: ['En proceso', 'Finalizada', 'Cancelada'],
+        enum: ['En proceso', 'Disponible para venta', 'Finalizada', 'Cancelada'],
         default: 'En proceso'
     },
     tipo_de_pago: { 
@@ -335,6 +397,7 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
     inversionistas: [InversionistaSchema],
     historial_estatus: [HistorialEstatusSchema],
     venta: VentaSchema,
+    marketing: MarketingSchema, // Sección específica para marketing inmobiliario
     pdf_url: {
         type: String,
         trim: true
@@ -361,6 +424,11 @@ CaptacionInmobiliariaSchema.index({ 'propiedad.direccion.estado': 1 });
 CaptacionInmobiliariaSchema.index({ 'propietario.nombre': 'text' }); // Índice de texto para búsquedas
 CaptacionInmobiliariaSchema.index({ 'venta.estatus_venta': 1 }); // Índice para consultas por estatus de venta
 CaptacionInmobiliariaSchema.index({ createdAt: -1 }); // Índice para ordenar por fecha de creación
+
+// Índices específicos para marketing
+CaptacionInmobiliariaSchema.index({ 'marketing.estatus': 1 });
+CaptacionInmobiliariaSchema.index({ 'marketing.fecha_creacion': -1 });
+CaptacionInmobiliariaSchema.index({ 'marketing.usuario_creador': 1 });
 
 // Validación para asegurar que documentos obligatorios estén presentes
 CaptacionInmobiliariaSchema.pre('save', function(next) {

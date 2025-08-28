@@ -11,3 +11,4 @@ export * from "@/pages/dashboard/Empleados/DocumentosEmpleado";
 export * from "@/pages/dashboard/Empleados/CrearEmpleado";
 export * from "@/pages/dashboard/Empleados/EditarEmpleado";
 export { CrearNomina } from "@/pages/dashboard/Empleados/CrearNomina";
+export * from "@/pages/dashboard/Publicidad";
