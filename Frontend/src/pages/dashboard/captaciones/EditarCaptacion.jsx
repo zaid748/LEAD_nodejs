@@ -23,16 +23,21 @@ import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { captacionesAPI } from "../../../services/api";
+import axios from 'axios';
 
 export function EditarCaptacion() {
+  console.log("=== COMPONENTE EditarCaptacion EJECUTÁNDOSE ===");
   const navigate = useNavigate();
   const { id } = useParams(); // Obtener el ID de la URL
+  console.log("ID de la URL:", id);
   const [activeTab, setActiveTab] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [user, setUser] = useState(null);
   const [initialData, setInitialData] = useState(null);
+  const [supervisores, setSupervisores] = useState([]);
+
 
   // Definición de las secciones/tabs del formulario
   const tabs = [
@@ -43,6 +48,7 @@ export function EditarCaptacion() {
     { label: "Referencias", value: 4 },
     { label: "Documentos", value: 5 },
     { label: "Venta", value: 6 },
+    { label: "Estatus y Configuración", value: 7 },
   ];
 
   // Estado inicial del formulario (vacío)
@@ -104,7 +110,6 @@ export function EditarCaptacion() {
       precio_venta: "",
       comision_venta: "",
       fecha_venta: "",
-      estatus_venta: "En proceso",
       en_venta: false,
       comprador: {
         nombre: "",
@@ -122,6 +127,10 @@ export function EditarCaptacion() {
     },
     captacion: {
       tipo_captacion: "Abierta",
+      estatus_actual: "Captación",
+      presupuesto_estimado: "",
+      supervisor_id: "",
+      
       observaciones: ""
     },
     documentacion: {
@@ -294,12 +303,32 @@ export function EditarCaptacion() {
       }),
       observaciones: yup.string().optional()
     }),
-    captacion: yup.object().shape({
-      tipo_captacion: yup
-        .string()
-        .required("El tipo de captación es requerido"),
-      observaciones: yup.string().optional()
-    }),
+         captacion: yup.object().shape({
+       tipo_captacion: yup
+         .string()
+         .optional(),
+       estatus_actual: yup
+         .string()
+         .required("El estatus actual es requerido"),
+       presupuesto_estimado: yup
+         .number()
+         .transform(value => (isNaN(value) || value === null || value === '' ? undefined : value))
+         .nullable()
+         .when('estatus_actual', (estatus_actual, schema) => {
+           return estatus_actual === 'Remodelacion' 
+             ? schema.required('El presupuesto estimado es requerido cuando el estatus es Remodelacion').min(0, 'El presupuesto debe ser mayor o igual a 0')
+             : schema.nullable().optional();
+         }),
+       supervisor_id: yup
+         .string()
+         .nullable()
+         .when('estatus_actual', (estatus_actual, schema) => {
+           return estatus_actual === 'Remodelacion' 
+             ? schema.required('El supervisor es requerido cuando el estatus es Remodelacion')
+             : schema.nullable().optional();
+         }),
+       observaciones: yup.string().optional()
+     }),
     datos_laborales: yup.object().shape({
       empresa: yup
         .string()
@@ -448,8 +477,7 @@ export function EditarCaptacion() {
             precio_venta: data.venta.monto_venta || data.venta.precio_venta || "",
             comision_venta: data.venta.comision_total || data.venta.comision_venta || "",
             fecha_venta: data.venta.fecha_venta || "",
-            estatus_venta: data.venta.estatus_venta || "En proceso",
-            en_venta: data.venta.estatus_venta === "Disponible para venta" || false,
+            en_venta: data.estatus_actual === "Disponible para venta" || false,
             comprador: data.venta.comprador ? {
               nombre: data.venta.comprador.nombre || "",
               telefono: data.venta.comprador.telefono || "",
@@ -466,6 +494,10 @@ export function EditarCaptacion() {
           } : defaultValues.venta,
           captacion: data.captacion ? {
             tipo_captacion: data.captacion.tipo_captacion || "Abierta",
+            estatus_actual: data.estatus_actual || "Captación",
+            presupuesto_estimado: data.remodelacion?.presupuesto_estimado || "",
+            supervisor_id: data.remodelacion?.supervisor?._id || data.remodelacion?.supervisor_id || "",
+
             observaciones: data.captacion.observaciones || ""
           } : defaultValues.captacion,
           documentacion: data.documentos_entregados ? {
@@ -495,17 +527,64 @@ export function EditarCaptacion() {
     }
   }, [id, reset]);
 
+  // Cargar supervisores disponibles
+  useEffect(() => {
+    const cargarSupervisores = async () => {
+      try {
+        // Configurar axios
+        axios.defaults.baseURL = 'http://localhost:4000';
+        axios.defaults.withCredentials = true;
+        
+        const response = await axios.get('/api/users', {
+          params: { role: 'supervisor' }
+        });
+        
+        console.log('🔍 Respuesta de supervisores:', response.data);
+        
+        if (response.data && response.data.success && Array.isArray(response.data.users)) {
+          console.log('✅ Supervisores encontrados:', response.data.users);
+          setSupervisores(response.data.users);
+        } else {
+          console.log('❌ No se encontraron supervisores o formato incorrecto');
+          setSupervisores([]);
+        }
+      } catch (error) {
+        console.error('Error al cargar supervisores:', error);
+        setSupervisores([]);
+      }
+    };
+
+    cargarSupervisores();
+  }, []);
+
+  // Función para sincronizar estatus
+  const sincronizarEstatus = (data) => {
+    const estatusActual = data.captacion?.estatus_actual;
+    
+    // Si el estatus general es "Disponible para venta", activar en_venta
+    if (estatusActual === "Disponible para venta") {
+      data.venta = data.venta || {};
+      data.venta.en_venta = true;
+    }
+    
+    return data;
+  };
+
   const onSubmit = async (data) => {
     try {
       console.log("=== INICIANDO ENVÍO DEL FORMULARIO ===");
       console.log("Datos del formulario a enviar:", data);
       console.log("ID de la captación:", id);
       
+      // Sincronizar estatus antes de enviar
+      const datosSincronizados = sincronizarEstatus(data);
+      console.log("Datos sincronizados:", datosSincronizados);
+      
       setIsLoading(true);
       setError(null);
       
       console.log("Llamando a captacionesAPI.update...");
-      const response = await captacionesAPI.update(id, data);
+      const response = await captacionesAPI.update(id, datosSincronizados);
       console.log("Respuesta del servidor:", response);
       
       setSuccessMessage("Captación actualizada exitosamente");
@@ -1543,26 +1622,16 @@ export function EditarCaptacion() {
                         )}
                       />
 
-                      <Controller
-                        name="venta.estatus_venta"
-                        control={control}
-                        render={({ field }) => (
-                          <Select
-                            label="Estatus de Venta"
-                            value={field.value}
-                            onChange={(value) => field.onChange(value)}
-                          >
-                            <Option value="En proceso">En proceso</Option>
-                            <Option value="Disponible para venta">Disponible para venta</Option>
-                            <Option value="En proceso de venta">En proceso de venta</Option>
-                            <Option value="Remodelacion">Remodelacion</Option>
-                            <Option value="En proceso de juicio">En proceso de juicio</Option>
-                            <Option value="En desalojo">En desalojo</Option>
-                            <Option value="Vendida">Vendida</Option>
-                            <Option value="Cancelada">Cancelada</Option>
-                          </Select>
-                        )}
-                      />
+                      <div className="col-span-2 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                        <Typography variant="small" color="blue-gray" className="font-medium mb-2">
+                          Estatus de Venta
+                        </Typography>
+                        <Typography variant="paragraph" color="blue-gray" className="text-sm">
+                          El estatus de venta se controla desde el tab "Estatus y Configuración". 
+                          Cuando el estatus general sea "Disponible para venta", esta propiedad 
+                          aparecerá automáticamente en la sección de Publicidad.
+                        </Typography>
+                      </div>
 
                       <Controller
                         name="venta.tipo_credito"
@@ -1705,6 +1774,159 @@ export function EditarCaptacion() {
                         )}
                       />
                     </div>
+                  </div>
+                </div>
+              </TabPanel>
+
+              {/* Tab Estatus y Configuración */}
+              <TabPanel value={7}>
+                <Typography variant="h6" color="blue-gray" className="mb-4">
+                  Estatus y Configuración de la Captación
+                </Typography>
+                <div className="min-h-[300px]">
+                  <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                                         <Typography variant="paragraph" color="blue-gray" className="mb-4">
+                       Configure el estatus general de la captación y parámetros adicionales.
+                     </Typography>
+                     
+                     <div className="bg-blue-50 p-3 rounded-lg mb-4">
+                       <Typography variant="small" color="blue-gray" className="font-medium">
+                         ℹ️ Información sobre Estatus Unificado:
+                       </Typography>
+                       <Typography variant="small" color="blue-gray">
+                         • <strong>Estatus Principal:</strong> Controla todo el flujo del proyecto desde un solo lugar<br/>
+                         • <strong>No hay duplicados:</strong> Solo existe este campo de estatus para evitar confusión<br/>
+                         • <strong>Disponible para venta:</strong> Se activa automáticamente en Publicidad y Marketing<br/>
+                         • <strong>Remodelacion:</strong> Habilita gestión de presupuesto y materiales
+                       </Typography>
+                     </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <Controller
+                        name="captacion.estatus_actual"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            label="Estatus Actual *"
+                            value={field.value}
+                            onChange={(value) => field.onChange(value)}
+                          >
+                            <Option value="Captación">Captación</Option>
+                            <Option value="En trámite legal">En trámite legal</Option>
+                            <Option value="Remodelacion">Remodelacion</Option>
+                            <Option value="Disponible para venta">Disponible para venta</Option>
+                            <Option value="Vendida">Vendida</Option>
+                            <Option value="Cancelada">Cancelada</Option>
+                          </Select>
+                        )}
+                      />
+
+                      <Controller
+                        name="captacion.presupuesto_estimado"
+                        control={control}
+                        render={({ field }) => (
+                          <Input
+                            type="number"
+                            label="Presupuesto Estimado (MXN)"
+                            placeholder="0.00"
+                            step="0.01"
+                            min="0"
+                            {...field}
+                            disabled={watch('captacion.estatus_actual') !== 'Remodelacion'}
+                          />
+                        )}
+                      />
+
+                      <Controller
+                        name="captacion.supervisor_id"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            label="Supervisor Asignado"
+                            value={field.value}
+                            onChange={(value) => field.onChange(value)}
+                            disabled={watch('captacion.estatus_actual') !== 'Remodelacion'}
+                          >
+                            <Option value="">Seleccionar supervisor</Option>
+                            {supervisores.map((supervisor) => (
+                              <Option key={supervisor._id} value={supervisor._id}>
+                                {supervisor.name}
+                              </Option>
+                            ))}
+                          </Select>
+                        )}
+                      />
+
+
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                                             <Controller
+                         name="captacion.tipo_captacion"
+                         control={control}
+                         render={({ field }) => (
+                           <Select
+                             label="Tipo de Captación (Opcional)"
+                             value={field.value}
+                             onChange={(value) => field.onChange(value)}
+                           >
+                             <Option value="Abierta">Abierta</Option>
+                             <Option value="Cerrada">Cerrada</Option>
+                             <Option value="Exclusiva">Exclusiva</Option>
+                           </Select>
+                         )}
+                       />
+
+                       <Controller
+                         name="captacion.observaciones"
+                         control={control}
+                         render={({ field }) => (
+                           <Textarea
+                             label="Observaciones Generales (Opcional)"
+                             placeholder="Observaciones sobre el estatus y configuración..."
+                             {...field}
+                           />
+                         )}
+                       />
+                    </div>
+
+                    {/* Información adicional cuando el estatus es Remodelacion */}
+                    {watch('captacion.estatus_actual') === 'Remodelacion' && (
+                      <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <Typography variant="h6" color="green" className="mb-2">
+                          Configuración de Remodelación
+                        </Typography>
+                        <Typography variant="small" color="green" className="mb-4">
+                          Al cambiar el estatus a "Remodelacion", se habilitará la gestión de presupuesto y materiales.
+                        </Typography>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="bg-white p-3 rounded border">
+                            <Typography variant="small" color="blue-gray" className="font-medium">
+                              Presupuesto Estimado:
+                            </Typography>
+                            <Typography variant="h6" color="green" className="font-bold">
+                              {watch('captacion.presupuesto_estimado') 
+                                ? `$${parseFloat(watch('captacion.presupuesto_estimado')).toLocaleString('es-MX', {minimumFractionDigits: 2})}`
+                                : 'Sin presupuesto'
+                              }
+                            </Typography>
+                          </div>
+                          
+                          <div className="bg-white p-3 rounded border">
+                            <Typography variant="small" color="blue-gray" className="font-medium">
+                              Acciones Disponibles:
+                            </Typography>
+                            <Typography variant="small" color="blue-gray">
+                              • Gestión de presupuesto<br/>
+                              • Control de materiales<br/>
+                              • Solicitudes de contratistas<br/>
+                              • Reportes de gastos
+                            </Typography>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </TabPanel>

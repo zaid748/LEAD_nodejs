@@ -3,6 +3,8 @@ require('dotenv').config();
 const app = require('./server');
 const mongoose = require('./database');
 const {createRoles} = require('./libs/initialSetup');
+const WebSocketManager = require('./libs/websocket');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
@@ -23,9 +25,19 @@ mongoose.connection.once('connected', async () => {
   }
 });
 
+// Crear servidor HTTP y configurar WebSocket
+const server = http.createServer(app);
+
+// Inicializar WebSocket Manager
+const wsManager = new WebSocketManager(server);
+
+// Hacer disponible el WebSocket Manager en la aplicación
+app.set('wsManager', wsManager);
+
 // server is listening
-app.listen(app.get('port'), () => {
-    console.log('server on port', app.get('port'));
+server.listen(app.get('port'), () => {
+    console.log('🚀 Server running on port', app.get('port'));
+    console.log('🔌 WebSocket server ready for real-time notifications');
 });
 
 // Health check para Docker

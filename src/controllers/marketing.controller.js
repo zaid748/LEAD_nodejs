@@ -13,11 +13,13 @@ exports.getProyectosMarketing = async (req, res) => {
         
         const { page = 1, limit = 10, sort = '-createdAt', search = '', supervisor } = req.query;
         
-        // Construir filtro base
+        // Construir filtro base - incluir proyectos en Remodelacion y Disponible para venta
         let filtro = {
             $or: [
                 { 'venta.estatus_venta': 'Disponible para venta' },
-                { estatus_actual: 'En venta' }
+                { estatus_actual: 'En venta' },
+                { estatus_actual: 'Disponible para venta' },
+                { estatus_actual: 'Remodelacion' }
             ]
         };
 
@@ -74,7 +76,7 @@ exports.getProyectosMarketing = async (req, res) => {
             tituloMarketing: captacion.marketing?.titulo || '',
             descripcionMarketing: captacion.marketing?.descripcion || '',
             precioOferta: captacion.marketing?.precioOferta || '',
-            estatusMarketing: captacion.marketing?.estatus || 'Inactivo',
+            estatusMarketing: captacion.estatus_actual || 'Inactivo',
             fechaCreacion: captacion.createdAt,
             fechaActualizacion: captacion.updatedAt,
             fechaMarketing: captacion.marketing?.fecha_creacion || null
@@ -127,7 +129,9 @@ exports.getProyectoMarketing = async (req, res) => {
         // Verificar que el proyecto esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
 
         if (!estatusValido) {
             return res.status(400).json({
@@ -179,7 +183,9 @@ exports.actualizarMarketing = async (req, res) => {
         // Verificar que el proyecto esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
 
         if (!estatusValido) {
             return res.status(400).json({
@@ -202,7 +208,7 @@ exports.actualizarMarketing = async (req, res) => {
                 $setOnInsert: {
                     'marketing.fecha_creacion': new Date(),
                     'marketing.usuario_creador': req.user?._id,
-                    'marketing.estatus': 'Activo'
+                    // estatus eliminado - se usa estatus_actual del documento principal
                 },
                 $push: {
                     historial_estatus: {
@@ -257,7 +263,9 @@ exports.uploadImagenesMarketing = async (req, res) => {
         // Verificar que el proyecto esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
 
         if (!estatusValido) {
             return res.status(400).json({
@@ -370,7 +378,7 @@ exports.uploadImagenesMarketing = async (req, res) => {
                 $setOnInsert: {
                     'marketing.fecha_creacion': new Date(),
                     'marketing.usuario_creador': req.user?._id,
-                    'marketing.estatus': 'Activo'
+                    // estatus eliminado - se usa estatus_actual del documento principal
                 }
             },
             { 
@@ -459,7 +467,9 @@ exports.deleteImagenMarketing = async (req, res) => {
         // Verificar que el proyecto esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
 
         if (!estatusValido) {
             return res.status(400).json({
@@ -608,7 +618,9 @@ exports.getEstadisticasMarketing = async (req, res) => {
         const totalDisponibles = await CaptacionInmobiliaria.countDocuments({
             $or: [
                 { 'venta.estatus_venta': 'Disponible para venta' },
-                { estatus_actual: 'En venta' }
+                { estatus_actual: 'En venta' },
+                { estatus_actual: 'Disponible para venta' },
+                { estatus_actual: 'Remodelacion' }
             ]
         });
 
@@ -616,7 +628,9 @@ exports.getEstadisticasMarketing = async (req, res) => {
         const conImagenes = await CaptacionInmobiliaria.countDocuments({
             $or: [
                 { 'venta.estatus_venta': 'Disponible para venta' },
-                { estatus_actual: 'En venta' }
+                { estatus_actual: 'En venta' },
+                { estatus_actual: 'Disponible para venta' },
+                { estatus_actual: 'Remodelacion' }
             ],
             'marketing.imagenes.0': { $exists: true }
         });
@@ -670,7 +684,9 @@ exports.getProyectoMarketingPublico = async (req, res) => {
         // Verificar que el proyecto esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
 
         if (!estatusValido) {
             return res.status(404).json({
@@ -729,7 +745,9 @@ exports.getProyectosMarketingPublico = async (req, res) => {
         const filtro = {
             $or: [
                 { 'venta.estatus_venta': 'Disponible para venta' },
-                { estatus_actual: 'En venta' }
+                { estatus_actual: 'En venta' },
+                { estatus_actual: 'Disponible para venta' },
+                { estatus_actual: 'Remodelacion' }
             ]
         };
         

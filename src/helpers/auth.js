@@ -65,10 +65,15 @@ const isAustheAdministrator = async(req, res, next) => {
 // Verificar JWT con Authorization
 const verificarToken = async (req, res, next) => {
     try {
+        console.log('🔐 DEBUG verificarToken - Ruta:', req.method, req.originalUrl);
+        
         // Obtener token del header
         const token = req.cookies.Authorization;
         
+        console.log('🔐 DEBUG verificarToken - Token presente:', !!token);
+        
         if (!token) {
+            console.log('❌ verificarToken - No hay token');
             return res.status(401).json({ mensaje: 'No hay token, acceso denegado' });
         }
         
@@ -84,8 +89,11 @@ const verificarToken = async (req, res, next) => {
         // Añadir usuario a la request
         req.user = usuario;
         
+        console.log('✅ verificarToken - Usuario autenticado:', usuario.role, usuario._id);
+        
         next();
     } catch (error) {
+        console.log('❌ verificarToken - Error:', error.name, error.message);
         if (error.name === 'JsonWebTokenError') {
             return res.status(401).json({ mensaje: 'Token inválido' });
         }

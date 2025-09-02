@@ -38,7 +38,7 @@ export function MisProyectos() {
   const statusColors = {
     'Captación': 'blue',
     'En trámite legal': 'purple',
-    'En remodelación': 'amber',
+    'Remodelacion': 'amber',
     'En venta': 'green',
     'Disponible para venta': 'green',
     'Vendida': 'gray',
@@ -120,10 +120,9 @@ export function MisProyectos() {
         // Construir URL con parámetros según el rol del usuario
         let apiUrl = `${import.meta.env.VITE_API_URL}/api/captaciones?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}`;
         
-        // Añadir filtro por supervisor si el usuario tiene ese rol
-        if (user.role === 'Supervisor') {
-          apiUrl += `&supervisor=${user._id}`;
-        }
+        // El backend automáticamente filtrará por supervisor si el usuario tiene ese rol
+        console.log('🔍 DEBUG - Usuario:', user ? `${user.name} (${user.role})` : 'No user');
+        console.log('🔍 DEBUG - URL de consulta:', apiUrl);
         
         // Añadir término de búsqueda si existe
         if (searchTerm) {
@@ -233,7 +232,7 @@ export function MisProyectos() {
               nombre: captacion.propietario?.nombre || "No especificado",
               telefono: captacion.propietario?.telefono || "---"
             },
-            estatus_actual: captacion.venta?.estatus_venta || captacion.estatus_actual || "Pendiente",
+            estatus_actual: captacion.estatus_actual || "Pendiente",
             captacion: {
               fecha: captacion.captacion?.fecha || new Date().toISOString(),
               asesor: { 

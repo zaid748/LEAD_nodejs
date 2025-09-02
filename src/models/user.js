@@ -17,7 +17,11 @@ const usuario = new Schema({
     telefono: {type:String, required: true},
     email: { type: String, required: true, unique: true},
     password: { type: String, required: true},
-    role: { type: String, default: 'user' },
+    role: { 
+        type: String, 
+        enum: ['user', 'administrator', 'administrador', 'supervisor', 'contratista', 'ayudante de administrador'], 
+        default: 'user' 
+    },
     foto_perfil: { type: String, default: '/img/user_icon.svg' },
     empleado_id: { type: Schema.Types.ObjectId, ref: 'Empleado', required: false }
 }, {

@@ -116,7 +116,7 @@ const captacionesAPI = {
    * @returns {Promise} Respuesta del servidor
    */
   update: async (id, data) => {
-    return fetchAPI(`/api/captaciones/${id}`, 'PUT', data);
+    return fetchAPI(`/api/captaciones/${id}/unified`, 'PUT', data);
   },
   
   /**

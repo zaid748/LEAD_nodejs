@@ -21,6 +21,8 @@ const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 exports.getCaptaciones = async (req, res) => {
 
     try {
+        console.log('🔥 DEBUG getCaptaciones - req.query completo:', JSON.stringify(req.query, null, 2));
+        console.log('🔥 DEBUG getCaptaciones - req.user:', req.user ? { _id: req.user._id, role: req.user.role } : 'No user');
 
         const { 
 
@@ -96,9 +98,27 @@ exports.getCaptaciones = async (req, res) => {
 
         
         
-        // Filtrar por supervisor específico
+        // Filtrar por supervisor específico - SOLO si el usuario actual es supervisor
+        if (req.user && (req.user.role === 'supervisor' || req.user.role === 'Supervisor')) {
+            console.log('🔍 DEBUG - Usuario es supervisor, filtrando por sus proyectos:', req.user._id);
+            filtro['remodelacion.supervisor'] = req.user._id;
+            console.log('🔍 DEBUG - Filtro aplicado para supervisor:', filtro);
+        } else if (supervisor && req.user && ['administrator', 'administrador', 'admin'].includes(req.user.role)) {
+            // Los administradores pueden filtrar por supervisor específico
+            console.log('🔍 DEBUG - Admin filtrando por supervisor específico:', supervisor);
+            const mongoose = require('mongoose');
+            const supervisorId = mongoose.Types.ObjectId.isValid(supervisor) 
+                ? new mongoose.Types.ObjectId(supervisor) 
+                : supervisor;
+            filtro['remodelacion.supervisor'] = supervisorId;
+        }
 
-        if (supervisor) filtro['captacion.supervisor'] = supervisor;
+        // Filtrar por contratista específico - SOLO si el usuario actual es contratista
+        if (req.user && req.user.role === 'contratista') {
+            console.log('🔍 DEBUG - Usuario es contratista, filtrando por sus proyectos asignados:', req.user._id);
+            filtro['remodelacion.contratista'] = req.user._id;
+            console.log('🔍 DEBUG - Filtro aplicado para contratista:', filtro);
+        }
 
         
         
@@ -151,6 +171,7 @@ exports.getCaptaciones = async (req, res) => {
         
         
         // Construir la consulta base
+        console.log('🔥 DEBUG ANTES DE CONSULTA - filtro final:', JSON.stringify(filtro, null, 2));
 
         let captacionesQuery = CaptacionInmobiliaria.find(filtro)
 
@@ -178,7 +199,8 @@ exports.getCaptaciones = async (req, res) => {
 
                     .populate('captacion.asesor', 'name email')
 
-                    .populate('remodelacion.supervisor', 'name email')
+                    .populate('remodelacion.supervisor', 'prim_nom apell_pa email')
+                    .populate('remodelacion.contratista', 'prim_nom apell_pa email')
 
                     .populate('ultima_actualizacion.usuario', 'name email')
 
@@ -276,7 +298,8 @@ exports.getCaptacionById = async (req, res) => {
 
             .populate('captacion.asesor', 'name email role')
 
-            .populate('remodelacion.supervisor', 'name email')
+            .populate('remodelacion.supervisor', 'prim_nom apell_pa email')
+            .populate('remodelacion.contratista', 'prim_nom apell_pa email')
 
             .populate('historial_estatus.usuario', 'name email');
         
@@ -290,14 +313,40 @@ exports.getCaptacionById = async (req, res) => {
 
         
         
-        // Verificar permisos (si no es admin, solo puede ver sus captaciones)
+        // Verificar permisos según rol del usuario
+        const tieneAcceso = () => {
+            // Administradores y ayudantes tienen acceso completo
+            if (['administrator', 'administrador', 'ayudante de administrador'].includes(req.user.role)) {
+                return true;
+            }
+            
+            // Supervisores pueden ver proyectos donde están asignados como supervisores
+            if (req.user.role === 'supervisor' || req.user.role === 'Supervisor') {
+                return captacion.remodelacion?.supervisor?.toString() === req.user._id.toString();
+            }
+            
+            // Contratistas pueden ver solo proyectos donde están asignados como contratistas
+            if (req.user.role === 'contratista') {
+                return captacion.remodelacion?.contratista?.toString() === req.user._id.toString();
+            }
+            
+            // Usuarios normales pueden ver sus propias captaciones
+            if (captacion.captacion.asesor && captacion.captacion.asesor._id) {
+                return captacion.captacion.asesor._id.toString() === req.user._id.toString();
+            }
+            
+            return false;
+        };
 
-        if (req.user.role !== 'administrator' && req.user.role !== 'supervisor' && 
-
-            captacion.captacion.asesor && captacion.captacion.asesor._id.toString() !== req.user._id.toString()) {
-
-            return res.status(403).json({ mensaje: 'No tienes permiso para ver esta captación' });
-
+        if (!tieneAcceso()) {
+            return res.status(403).json({ 
+                mensaje: 'No tienes permiso para ver esta captación',
+                detalle: req.user.role === 'contratista' 
+                    ? 'Solo puedes ver proyectos donde estás asignado como contratista'
+                    : req.user.role === 'supervisor' 
+                    ? 'Solo puedes ver proyectos donde estás asignado como supervisor'
+                    : 'Solo puedes ver tus propias captaciones'
+            });
         }   
 
         res.json(captacion);
@@ -502,7 +551,7 @@ exports.createCaptacion = async (req, res, next) => {
 
 /**
 
- * Actualizar una captación existente
+ * Actualizar una captación existente (REDISEÑADA para estatus unificado)
 
  * @route PUT /api/captaciones/:id
 
@@ -698,7 +747,366 @@ exports.updateCaptacion = async (req, res) => {
 
 };
 
-
+/**
+ * Actualizar una captación existente (REDISEÑADA para estatus unificado)
+ * @route PUT /api/captaciones/:id/unified
+ */
+exports.updateCaptacionUnificada = async (req, res) => {
+    try {
+        console.log('=== ACTUALIZANDO CAPTACIÓN (ESTATUS UNIFICADO) ===');
+        console.log('ID:', req.params.id);
+        console.log('Datos recibidos:', JSON.stringify(req.body, null, 2));
+        
+        const captacionId = req.params.id;
+        
+        if (!mongoose.Types.ObjectId.isValid(captacionId)) {
+            return res.status(400).json({ 
+                success: false,
+                mensaje: 'ID de captación inválido' 
+            });
+        }
+        
+        // Buscar la captación
+        const captacion = await CaptacionInmobiliaria.findById(captacionId);
+        
+        if (!captacion) {
+            return res.status(404).json({ 
+                success: false,
+                mensaje: 'Captación no encontrada' 
+            });
+        }
+        
+        // Verificar permisos
+        const esAdmin = ['administrator', 'administrador', 'Superadministrator'].includes(req.user.role);
+        const esSupervisor = req.user.role === 'supervisor';
+        const esAyudanteAdmin = req.user.role === 'ayudante de administrador';
+        const esCreador = captacion.captacion.asesor && 
+                         captacion.captacion.asesor.toString() === req.user._id.toString();
+        
+        if (!esAdmin && !esSupervisor && !esAyudanteAdmin && !esCreador) {
+            return res.status(403).json({ 
+                success: false,
+                mensaje: 'No tienes permiso para editar esta captación' 
+            });
+        }
+        
+        // Validar documentos obligatorios
+        if (req.body.documentos_entregados) {
+            if (req.body.documentos_entregados.ine === false || 
+                req.body.documentos_entregados.escrituras === false) {
+                return res.status(400).json({
+                    success: false,
+                    mensaje: 'No se pueden deshabilitar los documentos obligatorios (INE y Escrituras)'
+                });
+            }
+            
+            // Preservar valores anteriores si no están presentes
+            if (req.body.documentos_entregados.ine === undefined) {
+                req.body.documentos_entregados.ine = captacion.documentos_entregados.ine;
+            }
+            if (req.body.documentos_entregados.escrituras === undefined) {
+                req.body.documentos_entregados.escrituras = captacion.documentos_entregados.escrituras;
+            }
+        }
+        
+        // === PROCESAMIENTO DE ESTATUS UNIFICADO ===
+        let datosActualizados = { ...req.body };
+        let cambioEstatus = false;
+        
+        // Manejar el estatus unificado
+        if (datosActualizados.captacion && datosActualizados.captacion.estatus_actual) {
+            const nuevoEstatus = datosActualizados.captacion.estatus_actual;
+            const estatusAnterior = captacion.estatus_actual;
+            
+            console.log(`Cambiando estatus: ${estatusAnterior} → ${nuevoEstatus}`);
+            
+            // Validar estatus
+            const estatusValidos = ['Captación', 'En trámite legal', 'Remodelacion', 'Disponible para venta', 'Vendida', 'Cancelada'];
+            if (!estatusValidos.includes(nuevoEstatus)) {
+                return res.status(400).json({
+                    success: false,
+                    mensaje: 'Estatus inválido',
+                    estatusValidos
+                });
+            }
+            
+            // Mover estatus del nivel captacion al nivel principal
+            datosActualizados.estatus_actual = nuevoEstatus;
+            cambioEstatus = nuevoEstatus !== estatusAnterior;
+            
+            // === LÓGICA ESPECÍFICA POR ESTATUS ===
+            
+            // 1. Disponible para venta
+            if (nuevoEstatus === 'Disponible para venta') {
+                if (!datosActualizados.venta) datosActualizados.venta = {};
+                datosActualizados.venta.en_venta = true;
+                console.log('Activando en_venta por estatus Disponible para venta');
+            }
+            
+            // 2. Remodelacion - Validar presupuesto
+            if (nuevoEstatus === 'Remodelacion') {
+                const presupuesto = datosActualizados.captacion.presupuesto_estimado || 
+                                  datosActualizados.remodelacion?.presupuesto_estimado;
+                
+                if (!presupuesto || presupuesto <= 0) {
+                    return res.status(400).json({
+                        success: false,
+                        mensaje: 'El presupuesto estimado es requerido cuando el estatus es Remodelacion',
+                        campo: 'presupuesto_estimado'
+                    });
+                }
+                
+                // Inicializar/actualizar remodelación
+                if (!datosActualizados.remodelacion) {
+                    datosActualizados.remodelacion = {};
+                }
+                datosActualizados.remodelacion.presupuesto_estimado = presupuesto;
+                datosActualizados.remodelacion.necesita_remodelacion = true;
+                
+                // Asignar supervisor:
+                // 1. Si el usuario es supervisor, se asigna a sí mismo
+                // 2. Si es admin y viene supervisor_id en el formulario, usar ese
+                console.log('🔍 DEBUG - Asignación de supervisor:');
+                console.log('  - esSupervisor:', esSupervisor);
+                console.log('  - esAdmin:', esAdmin);
+                console.log('  - req.body.captacion:', req.body.captacion);
+                console.log('  - supervisor_id:', req.body.captacion?.supervisor_id);
+                
+                if (esSupervisor) {
+                    datosActualizados.remodelacion.supervisor = req.user._id;
+                    console.log('✅ Supervisor auto-asignado:', req.user._id);
+                } else if (esAdmin && req.body.captacion?.supervisor_id) {
+                    datosActualizados.remodelacion.supervisor = req.body.captacion.supervisor_id;
+                    console.log('✅ Supervisor asignado por admin:', req.body.captacion.supervisor_id);
+                } else {
+                    console.log('❌ No se asignó supervisor');
+                }
+                
+                // Lógica de contratistas movida fuera de este bloque
+                
+                console.log(`Configurando remodelación con presupuesto: $${presupuesto}`);
+            }
+            
+            // 3. Vendida - No permitir cambio desde Vendida
+            if (estatusAnterior === 'Vendida' && nuevoEstatus !== 'Vendida') {
+                return res.status(400).json({
+                    success: false,
+                    mensaje: 'No se puede cambiar el estatus de una captación ya vendida'
+                });
+            }
+        }
+        
+        // === CONTROL DE PERMISOS POR CAMPO ===
+        
+        // Solo admins pueden cambiar ciertos campos críticos
+        if (!esAdmin && !esAyudanteAdmin) {
+            // Eliminar campos que solo admins pueden modificar
+            const { inversionistas, ...camposPermitidos } = datosActualizados;
+            datosActualizados = camposPermitidos;
+            
+            // Los supervisores pueden modificar remodelación
+            if (esSupervisor && req.body.remodelacion) {
+                datosActualizados.remodelacion = {
+                    ...datosActualizados.remodelacion,
+                    supervisor: req.user._id
+                };
+            }
+        }
+        
+        // === ASIGNACIÓN DE CONTRATISTA ===
+        
+        // Supervisores pueden asignar/desasignar contratistas en proyectos de remodelación
+        console.log('🔍 DEBUG - Verificando asignación de contratista:');
+        console.log('  - esSupervisor:', esSupervisor);
+        console.log('  - req.body.captacion existe:', !!req.body.captacion);
+        console.log('  - contratista_id está en body:', req.body.captacion ? 'contratista_id' in req.body.captacion : false);
+        console.log('  - contratista_id valor:', req.body.captacion?.contratista_id);
+        console.log('  - estatus actual:', captacion.estatus_actual);
+        
+        if (esSupervisor && req.body.captacion && 'contratista_id' in req.body.captacion) {
+            // Solo permitir asignar contratistas en proyectos que están en Remodelacion
+            if (captacion.estatus_actual === 'Remodelacion' || datosActualizados.estatus_actual === 'Remodelacion') {
+                // Asegurar que existe el objeto remodelacion
+                if (!datosActualizados.remodelacion) {
+                    datosActualizados.remodelacion = captacion.remodelacion || {};
+                }
+                
+                const contratistaAnterior = captacion.remodelacion?.contratista;
+                const nuevoContratista = req.body.captacion.contratista_id || null;
+                
+                datosActualizados.remodelacion.contratista = nuevoContratista;
+                console.log('✅ Contratista actualizado por supervisor:', nuevoContratista || 'Desasignado');
+                
+                // Guardar información para notificaciones (se enviará después de la actualización)
+                datosActualizados._notificacionContratista = {
+                    anterior: contratistaAnterior,
+                    nuevo: nuevoContratista,
+                    supervisor: req.user._id
+                };
+            } else {
+                console.log('❌ No se puede asignar contratista: el proyecto no está en Remodelacion');
+            }
+        } else {
+            console.log('❌ No se actualiza contratista - condiciones no cumplidas');
+        }
+        
+        // === HISTORIAL DE ESTATUS ===
+        
+        if (cambioEstatus) {
+            if (!datosActualizados.historial_estatus) {
+                datosActualizados.historial_estatus = [...(captacion.historial_estatus || [])];
+            }
+            datosActualizados.historial_estatus.push({
+                estatus: datosActualizados.estatus_actual,
+                fecha: new Date(),
+                notas: `Cambio desde formulario: ${captacion.estatus_actual} → ${datosActualizados.estatus_actual}`,
+                usuario: req.user._id
+            });
+            
+            console.log('Registrando cambio de estatus en historial');
+        }
+        
+        // === ACTUALIZACIÓN EN BASE DE DATOS ===
+        
+        // Extraer información de notificaciones antes de la actualización
+        const notificacionContratista = datosActualizados._notificacionContratista;
+        delete datosActualizados._notificacionContratista; // No enviar a MongoDB
+        
+        // Agregar metadatos de actualización
+        datosActualizados.ultima_actualizacion = {
+            usuario: req.user._id,
+            fecha: new Date()
+        };
+        
+        console.log('Datos finales para actualización:', JSON.stringify(datosActualizados, null, 2));
+        
+        const captacionActualizada = await CaptacionInmobiliaria.findByIdAndUpdate(
+            captacionId,
+            { $set: datosActualizados },
+            { new: true, runValidators: true }
+        )
+        .populate('captacion.asesor', 'name email prim_nom segun_nom apell_pa apell_ma')
+        .populate('remodelacion.supervisor', 'name email prim_nom segun_nom apell_pa apell_ma')
+        .populate('ultima_actualizacion.usuario', 'name email prim_nom segun_nom apell_pa apell_ma');
+        
+        console.log('Captación actualizada exitosamente');
+        
+        // === NOTIFICACIONES DE ASIGNACIÓN DE CONTRATISTA ===
+        
+        if (notificacionContratista) {
+            try {
+                const { anterior, nuevo, supervisor } = notificacionContratista;
+                
+                // Obtener información del supervisor para las notificaciones
+                const User = require('../models/user.js');
+                const supervisorInfo = await User.findById(supervisor, 'prim_nom apell_pa email');
+                const supervisorNombre = supervisorInfo ? 
+                    `${supervisorInfo.prim_nom} ${supervisorInfo.apell_pa}` : 'Supervisor';
+                
+                // Obtener información de la propiedad para el mensaje
+                const direccionPropiedad = `${captacionActualizada.propiedad.direccion.calle} ${captacionActualizada.propiedad.direccion.numero}, ${captacionActualizada.propiedad.direccion.colonia}`;
+                
+                console.log('📨 Enviando notificaciones de contratista...');
+                
+                // Importar modelo de notificación y controlador de remodelación
+                const Notificacion = require('../models/notificacion.js');
+                const RemodelacionController = require('./remodelacion.controller.js');
+                
+                // Si hay un nuevo contratista asignado
+                if (nuevo) {
+                    console.log('📤 Notificando asignación al contratista:', nuevo);
+                    
+                    await RemodelacionController.crearNotificacion({
+                        usuario_destino: nuevo,
+                        titulo: '🏗️ Nuevo Proyecto Asignado',
+                        mensaje: `Se te ha asignado el proyecto de remodelación en ${direccionPropiedad}. Supervisor: ${supervisorNombre}`,
+                        tipo: 'Asignacion',
+                        proyecto_id: captacionActualizada._id,
+                        prioridad: 'Alta',
+                        accion_requerida: 'Revisar'
+                    });
+                }
+                
+                // Si había un contratista anterior y se desasignó
+                if (anterior && !nuevo) {
+                    console.log('📤 Notificando desasignación al contratista anterior:', anterior);
+                    
+                    await RemodelacionController.crearNotificacion({
+                        usuario_destino: anterior,
+                        titulo: '📋 Proyecto Desasignado',
+                        mensaje: `Has sido desasignado del proyecto de remodelación en ${direccionPropiedad}.`,
+                        tipo: 'Asignacion',
+                        proyecto_id: captacionActualizada._id,
+                        prioridad: 'Media',
+                        accion_requerida: 'Ninguna'
+                    });
+                }
+                
+                // Si se cambió de un contratista a otro
+                if (anterior && nuevo && anterior.toString() !== nuevo.toString()) {
+                    console.log('📤 Notificando cambio de contratista...');
+                    
+                    // Notificar al contratista anterior
+                    await RemodelacionController.crearNotificacion({
+                        usuario_destino: anterior,
+                        titulo: '📋 Proyecto Reasignado',
+                        mensaje: `El proyecto de remodelación en ${direccionPropiedad} ha sido reasignado a otro contratista.`,
+                        tipo: 'Asignacion',
+                        proyecto_id: captacionActualizada._id,
+                        prioridad: 'Media',
+                        accion_requerida: 'Ninguna'
+                    });
+                    
+                    // Notificar al nuevo contratista
+                    await RemodelacionController.crearNotificacion({
+                        usuario_destino: nuevo,
+                        titulo: '🏗️ Nuevo Proyecto Asignado',
+                        mensaje: `Se te ha asignado el proyecto de remodelación en ${direccionPropiedad}. Supervisor: ${supervisorNombre}`,
+                        tipo: 'Asignacion',
+                        proyecto_id: captacionActualizada._id,
+                        prioridad: 'Alta',
+                        accion_requerida: 'Revisar'
+                    });
+                }
+                
+                console.log('✅ Notificaciones de contratista enviadas correctamente');
+                
+            } catch (notificationError) {
+                console.error('❌ Error al enviar notificaciones de contratista:', notificationError);
+                // No detener el flujo si falla la notificación
+            }
+        }
+        
+        res.json({
+            success: true,
+            message: 'Captación actualizada exitosamente',
+            data: captacionActualizada
+        });
+        
+    } catch (error) {
+        console.error('Error al actualizar captación:', error);
+        
+        // Manejar errores de validación de Mongoose
+        if (error.name === 'ValidationError') {
+            const errores = Object.values(error.errors).map(err => ({
+                campo: err.path,
+                mensaje: err.message
+            }));
+            
+            return res.status(400).json({ 
+                success: false,
+                mensaje: 'Error de validación', 
+                errores 
+            });
+        }
+        
+        res.status(500).json({ 
+            success: false,
+            mensaje: 'Error interno del servidor',
+            error: error.message
+        });
+    }
+};
 
 /**
 
@@ -822,7 +1230,7 @@ exports.updateEstatus = async (req, res) => {
         
         // Validar que sea un estatus válido
 
-        const estatusValidos = ['Captación', 'En trámite legal', 'En remodelación', 'En venta', 'Vendida', 'Cancelada'];
+        const estatusValidos = ['Captación', 'En trámite legal', 'Remodelacion', 'Disponible para venta', 'Vendida', 'Cancelada'];
 
         if (!estatusValidos.includes(estatus)) {
 
@@ -1164,11 +1572,11 @@ exports.addGasto = async (req, res) => {
 
         
         
-        // Si el estatus actual es Captación o En trámite legal, actualizarlo a En remodelación
+        // Si el estatus actual es Captación o En trámite legal, actualizarlo a Remodelacion
 
         if (['Captación', 'En trámite legal'].includes(captacion.estatus_actual)) {
 
-            captacion.estatus_actual = 'En remodelación';
+            captacion.estatus_actual = 'Remodelacion';
 
             
             
@@ -1176,7 +1584,7 @@ exports.addGasto = async (req, res) => {
 
             captacion.historial_estatus.push({
 
-                estatus: 'En remodelación',
+                estatus: 'Remodelacion',
 
                 fecha: new Date(),
 
@@ -2515,7 +2923,9 @@ exports.getProyectoMarketing = async (req, res) => {
         // Verificar que esté disponible para marketing (validación más flexible)
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
             
         console.log('Estatus válido:', estatusValido);
         console.log('Validación:', {
@@ -2566,7 +2976,9 @@ exports.actualizarMarketing = async (req, res) => {
         // Verificar que esté disponible para marketing (validación más flexible)
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
             
         if (!estatusValido) {
             return res.status(400).json({
@@ -2670,7 +3082,9 @@ exports.deleteImagenMarketing = async (req, res) => {
         // Verificar que esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
             
         if (!estatusValido) {
             return res.status(400).json({
@@ -2747,7 +3161,9 @@ exports.getImagenesMarketing = async (req, res) => {
         // Verificar que esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
             
         if (!estatusValido) {
             return res.status(400).json({
@@ -2802,7 +3218,9 @@ exports.reordenarImagenesMarketing = async (req, res) => {
         // Verificar que esté disponible para marketing
         const estatusValido = 
             captacion.venta?.estatus_venta === 'Disponible para venta' ||
-            captacion.estatus_actual === 'En venta';
+            captacion.estatus_actual === 'En venta' ||
+            captacion.estatus_actual === 'Disponible para venta' ||
+            captacion.estatus_actual === 'Remodelacion';
             
         if (!estatusValido) {
             return res.status(400).json({

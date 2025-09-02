@@ -14,6 +14,20 @@ router.use(['POST', 'PUT'], sanitizarEntradas);
 // Obtener todas las captaciones (con filtros)
 router.get('/', captacionesController.getCaptaciones);
 
+// -------- Rutas para Remodelación (ANTES de /:id para evitar conflictos) --------
+
+// Importar y usar las rutas de remodelación
+const remodelacionRouter = require('./remodelacion.router');
+// Pasar el parámetro id a las rutas de remodelación
+router.use('/:id/remodelacion', (req, res, next) => {
+    console.log('🔗 DEBUG - LLEGÓ AL MIDDLEWARE DE CAPTACIONES para remodelación');
+    console.log('🔗 DEBUG - req.params.id:', req.params.id);
+    console.log('🔗 DEBUG - req.originalUrl:', req.originalUrl);
+    console.log('🔗 DEBUG - Usuario presente:', !!req.user, req.user?.role);
+    req.proyecto_id = req.params.id;
+    next();
+}, remodelacionRouter);
+
 // Obtener una captación por ID
 router.get('/:id', captacionesController.getCaptacionById);
 
@@ -29,8 +43,12 @@ router.post('/',
     uploadObject
 );
 
-// Actualizar captación
-router.put('/:id', captacionesController.updateCaptacion);
+// Actualizar captación (función original) - DEPRECATED
+// router.put('/:id', captacionesController.updateCaptacion);
+
+// Actualizar captación (nueva función con estatus unificado) - AHORA ES LA PRINCIPAL
+router.put('/:id', captacionesController.updateCaptacionUnificada);
+router.put('/:id/unified', captacionesController.updateCaptacionUnificada);
 
 // Eliminar captación (solo admin)
 router.delete('/:id', esAdmin, captacionesController.deleteCaptacion);

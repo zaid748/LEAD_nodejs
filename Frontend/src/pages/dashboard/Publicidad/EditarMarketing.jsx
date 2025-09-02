@@ -114,13 +114,15 @@ export function EditarMarketing() {
         console.log("proyectoData.estatus_actual:", proyectoData.estatus_actual);
         console.log("proyectoData.venta:", proyectoData.venta);
         
-        // Validación más flexible: permitir proyectos con estatus de venta "Disponible para venta" o estatus general "En venta"
+        // Validación más flexible: permitir proyectos con estatus de venta "Disponible para venta", estatus general "En venta", "Disponible para venta" o "Remodelacion"
         const estatusValido = 
           proyectoData.venta?.estatus_venta === 'Disponible para venta' ||
-          proyectoData.estatus_actual === 'En venta';
+          proyectoData.estatus_actual === 'En venta' ||
+          proyectoData.estatus_actual === 'Disponible para venta' ||
+          proyectoData.estatus_actual === 'Remodelacion';
         
         if (!estatusValido) {
-          setError(`Este proyecto no está disponible para marketing. Estatus actual: ${proyectoData.venta?.estatus_venta || proyectoData.estatus_actual || 'No definido'}. Solo se pueden editar propiedades con estatus "Disponible para venta" o "En venta".`);
+          setError(`Este proyecto no está disponible para marketing. Estatus actual: ${proyectoData.venta?.estatus_venta || proyectoData.estatus_actual || 'No definido'}. Solo se pueden editar propiedades con estatus "Disponible para venta", "En venta" o "Remodelacion".`);
           return;
         }
         

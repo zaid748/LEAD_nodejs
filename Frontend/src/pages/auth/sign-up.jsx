@@ -605,7 +605,8 @@ export function SignUp({ dashboard = false }) {
             <Option value="user">Usuario regular</Option>
             <Option value="administrator">Administrador (Acceso completo)</Option>
             <Option value="administrador">Administrador de sistema</Option>
-            <Option value="supervisor de obra">Supervisor de obra</Option>
+            <Option value="supervisor">Supervisor de obra</Option>
+            <Option value="contratista">Contratista</Option>
             <Option value="ayudante de administrador">Ayudante de administrador</Option>
           </Select>
           <FieldDescription>Nivel de acceso y permisos en el sistema</FieldDescription>

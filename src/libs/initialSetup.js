@@ -9,7 +9,10 @@ CreateRoles.createRoles = async ()=>{
         new Role({name: 'supervisors'}).save(),
         new Role({name: 'moderator'}).save(),
         new Role({name: 'admin'}).save(),
-        new Role({name: 'administrator'}).save()
+        new Role({name: 'administrator'}).save(),
+        new Role({name: 'administrador'}).save(),
+        new Role({name: 'contratista'}).save(),
+        new Role({name: 'ayudante de administrador'}).save()
     ]);
 }
 

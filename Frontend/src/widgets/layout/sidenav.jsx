@@ -88,6 +88,14 @@ export function Sidenav({ brandImg, brandName }) {
         return !page.hideInSidebar;
       }
       
+      // Verificar acceso por rol si está definido
+      if (page.roleAccess && userData && userData.role) {
+        const hasRoleAccess = page.roleAccess.includes(userData.role);
+        if (!hasRoleAccess) {
+          return false; // El usuario no tiene el rol necesario
+        }
+      }
+      
       // Resto de tu lógica de filtrado existente
       return !page.hideInSidebar && 
         page.name !== "crear empleado" && 
@@ -127,7 +135,7 @@ export function Sidenav({ brandImg, brandName }) {
         }`}
       >
         <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar src={brandImg} size="ms" />
+          <Avatar src={brandImg} size="sm" />
           <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}

@@ -161,7 +161,7 @@ const ProyectosMarketing = () => {
             </Typography>
             
             <Typography variant="small" color="white" className="opacity-80">
-              Solo propiedades con estatus "Disponible para venta"
+              Propiedades en "Disponible para venta" y "Remodelacion"
             </Typography>
           </div>
         </CardHeader>
@@ -190,7 +190,7 @@ const ProyectosMarketing = () => {
                 No hay proyectos disponibles para marketing
               </Typography>
               <Typography className="text-gray-500 mt-2">
-                Solo se muestran propiedades con estatus "Disponible para venta"
+                Solo se muestran propiedades con estatus "Disponible para venta" y "Remodelacion"
               </Typography>
             </div>
           ) : (
@@ -247,8 +247,11 @@ const ProyectosMarketing = () => {
                         <Chip
                           variant="ghost"
                           size="sm"
-                          value={proyecto.estatus || "Sin estatus"}
-                          color={proyecto.estatus === 'Disponible para venta' ? 'green' : 'blue'}
+                          value={proyecto.estatusMarketing || "Sin estatus"}
+                          color={
+                            proyecto.estatusMarketing === 'Disponible para venta' ? 'green' :
+                            proyecto.estatusMarketing === 'Remodelacion' ? 'amber' : 'blue'
+                          }
                         />
                       </td>
                       <td className="py-3 px-6">

@@ -12,6 +12,7 @@ import {
   BuildingOffice2Icon,
   PlusIcon,
   PhotoIcon,
+  WrenchScrewdriverIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
@@ -29,6 +30,7 @@ import { EditarCaptacion } from '@/pages/dashboard/captaciones/EditarCaptacion';
 import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
 import { DetalleCaptacion } from '@/pages/dashboard/captaciones/DetalleCaptacion';
 import { ProyectosMarketing, EditarMarketing, DetalleMarketing } from '@/pages/dashboard/Publicidad';
+import { RemodelacionPage, DetalleRemodelacion, EditarRemodelacion } from '@/pages/dashboard/remodelacion';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -54,7 +56,7 @@ export const routes = [
         path: "/home",
         element: <Home />,
         shouldRedirectToProfile: true,
-        
+        roleAccess: ["administrator", "administrador", "ayudante de administrador"], // Solo administradores - otros van a profile
       },
       {
         path: "/",
@@ -73,6 +75,7 @@ export const routes = [
         name: "Usuarios",
         path: "/users",
         element: <UsersTable />,
+        roleAccess: ["administrator", "administrador", "ayudante de administrador"], // Solo administradores
       },
       {
         path: "/users/crear",
@@ -108,6 +111,7 @@ export const routes = [
         name: "Empleados",
         path: "/empleados",
         element: <EmpleadosTable />,
+        roleAccess: ["administrator", "administrador", "ayudante de administrador"], // Solo administradores
       },
       {
         path: "/empleado-profile/:empleadoId",
@@ -158,14 +162,14 @@ export const routes = [
         name: "Proyectos",
         path: "/captaciones",
         element: <MisProyectos />,
-        alwaysShow: true, // Disponible para todos los roles
+        roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"], // Supervisor y contratista no tienen acceso
       },
       {
         icon: <PlusIcon {...icon} />,
         name: "Nueva Captación",
         path: "/captaciones/nueva",
         element: <CrearCaptacion />,
-        roleAccess: ["user", "administrator", "admin"], // Solo accesible para estos roles
+        roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"], // Supervisor y contratista no tienen acceso
       },
       // Rutas adicionales para captaciones (sin mostrar en sidebar)
       {
@@ -189,7 +193,7 @@ export const routes = [
         name: "Marketing",
         path: "/marketing",
         element: <ProyectosMarketing />,
-        alwaysShow: true, // Disponible para todos los roles
+        roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"], // Supervisor y contratista no tienen acceso
       },
       {
         path: "/marketing/:id/editar",
@@ -199,6 +203,25 @@ export const routes = [
       {
         path: "/marketing/:id/detalle",
         element: <DetalleMarketing />,
+        showInSidebar: false,
+      },
+      // Rutas para Remodelación
+      {
+        icon: <WrenchScrewdriverIcon {...icon} />,
+        name: "Remodelación",
+        path: "/remodelacion",
+        element: <RemodelacionPage />,
+        roleAccess: ["administrator", "administrador", "supervisor", "contratista", "ayudante de administrador"], // Contratistas tienen acceso pero con vistas limitadas
+      },
+      {
+        path: "/remodelacion/:id",
+        element: <DetalleRemodelacion />,
+        showInSidebar: false,
+        // Contratistas pueden acceder a proyectos individuales, pero el backend validará si están asignados
+      },
+      {
+        path: "/remodelacion/:id/editar",
+        element: <EditarRemodelacion />,
         showInSidebar: false,
       },
     ],

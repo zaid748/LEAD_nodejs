@@ -184,7 +184,13 @@ userCtrl.logout = (req, res) => {
 
 userCtrl.getUsers = async (req, res) => {
     try {
-        const users = await user.find({}, {
+        // Permitir filtro por rol si se proporciona en query params
+        const filter = {};
+        if (req.query.role) {
+            filter.role = req.query.role;
+        }
+
+        const users = await user.find(filter, {
             prim_nom: 1,
             segun_nom: 1,
             apell_pa: 1,
@@ -195,9 +201,19 @@ userCtrl.getUsers = async (req, res) => {
             telefono: 1
         });
 
+        // Formatear la respuesta para incluir el nombre completo
+        const formattedUsers = users.map(user => ({
+            _id: user._id,
+            name: `${user.prim_nom} ${user.segun_nom || ''} ${user.apell_pa} ${user.apell_ma || ''}`.trim(),
+            email: user.email,
+            role: user.role,
+            telefono: user.telefono,
+            pust: user.pust
+        }));
+
         return res.status(200).json({
             success: true,
-            users
+            users: formattedUsers
         });
     } catch (error) {
         return res.status(500).json({

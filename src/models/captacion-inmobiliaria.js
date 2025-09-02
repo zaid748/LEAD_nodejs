@@ -187,11 +187,7 @@ const MarketingSchema = new mongoose.Schema({
             }
         }
     }],
-    estatus: {
-        type: String,
-        enum: ['Activo', 'Inactivo', 'En revisión'],
-        default: 'Activo'
-    },
+    // estatus eliminado - se usa estatus_actual del documento principal
     fecha_creacion: {
         type: Date,
         default: Date.now
@@ -255,11 +251,7 @@ const TramiteSchema = new mongoose.Schema({
     descripcion: { type: String, trim: true, required: true },
     monto: { type: Number, min: 0 },
     moneda: { type: String, default: 'MXN' },
-    estatus: { 
-        type: String, 
-        enum: ['Pendiente', 'En proceso', 'Completado', 'Cancelado'],
-        default: 'Pendiente'
-    }
+    // estatus eliminado - se usa estatus_actual del documento principal
 });
 
 // 📌 Gastos de remodelación (mejorado)
@@ -271,13 +263,23 @@ const GastoSchema = new mongoose.Schema({
     descripcion: { type: String, trim: true }
 });
 
-// 📌 Información de remodelación
+// 📌 Información de remodelación (extendida)
 const RemodelacionSchema = new mongoose.Schema({
     necesita_remodelacion: Boolean,
-    estatus: { type: String, enum: ['No aplica', 'Planeación', 'En proceso', 'Terminada'], default: 'No aplica' },
+    // estatus eliminado - se usa estatus_actual del documento principal
     supervisor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Quién supervisa la remodelación
-    gastos: [GastoSchema], // Detalle de gastos
+    contratista: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Contratista asignado al proyecto
+    gastos: [GastoSchema], // Detalle de gastos (mantener para compatibilidad)
     presupuesto_total: { type: Number, min: 0 },
+    presupuesto_estimado: { type: Number, min: 0 }, // Nuevo campo para presupuesto inicial
+    materiales: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Material' }], // Referencias a materiales
+    solicitudes_pendientes: [{
+        material: { type: mongoose.Schema.Types.ObjectId, ref: 'Material' },
+        fecha_solicitud: Date,
+        estatus: String
+    }],
+    carta_responsabilidad: { type: mongoose.Schema.Types.ObjectId, ref: 'CartaResponsabilidad' },
+    notificaciones: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Notificacion' }],
     fecha_inicio: Date,
     fecha_fin: Date,
     notas: { type: String, trim: true }
@@ -375,7 +377,7 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
     propiedad: PropiedadSchema,
     estatus_actual: {
         type: String,
-        enum: ['Captación', 'En trámite legal', 'En remodelación', 'En venta', 'Vendida', 'Cancelada'],
+        enum: ['Captación', 'En trámite legal', 'Remodelacion', 'Disponible para venta', 'Vendida', 'Cancelada'],
         default: 'Captación'
     },
     captacion: CaptacionSchema,
@@ -426,9 +428,15 @@ CaptacionInmobiliariaSchema.index({ 'venta.estatus_venta': 1 }); // Índice para
 CaptacionInmobiliariaSchema.index({ createdAt: -1 }); // Índice para ordenar por fecha de creación
 
 // Índices específicos para marketing
-CaptacionInmobiliariaSchema.index({ 'marketing.estatus': 1 });
 CaptacionInmobiliariaSchema.index({ 'marketing.fecha_creacion': -1 });
 CaptacionInmobiliariaSchema.index({ 'marketing.usuario_creador': 1 });
+
+// Índices específicos para remodelación
+CaptacionInmobiliariaSchema.index({ 'remodelacion.supervisor': 1 });
+CaptacionInmobiliariaSchema.index({ 'remodelacion.presupuesto_estimado': 1 });
+CaptacionInmobiliariaSchema.index({ 'remodelacion.materiales': 1 });
+CaptacionInmobiliariaSchema.index({ 'remodelacion.carta_responsabilidad': 1 });
+CaptacionInmobiliariaSchema.index({ 'remodelacion.notificaciones': 1 });
 
 // Validación para asegurar que documentos obligatorios estén presentes
 CaptacionInmobiliariaSchema.pre('save', function(next) {
