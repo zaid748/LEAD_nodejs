@@ -558,12 +558,16 @@ export function MisProyectos() {
                         </td>
                         <td className={classes}>
                           <div className="flex items-center gap-2">
-                            <Tooltip content="Ver Detalles">
-                              <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/${_id}/detalle`)}>
-                                <EyeIcon className="h-5 w-5" />
-                              </IconButton>
-                            </Tooltip>
+                            {/* Ver Detalles - Solo para Administradores */}
+                            {isAdmin && (
+                              <Tooltip content="Ver Detalles">
+                                <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/${_id}/detalle`)}>
+                                  <EyeIcon className="h-5 w-5" />
+                                </IconButton>
+                              </Tooltip>
+                            )}
 
+                            {/* Descargar PDF - Disponible para todos los usuarios */}
                             <Tooltip content="Descargar PDF">
                               <IconButton 
                                 variant="text" 
@@ -573,12 +577,17 @@ export function MisProyectos() {
                                 <ArrowDownTrayIcon className="h-5 w-5" />
                               </IconButton>
                             </Tooltip>
+
+                            {/* Editar - Solo para Administradores */}
+                            {isAdmin && (
                               <Tooltip content="Editar">
                                 <IconButton variant="text" color="blue-gray" onClick={() => navigate(`/dashboard/captaciones/editar/${_id}`)}>
                                   <PencilIcon className="h-5 w-5" />
                                 </IconButton>
                               </Tooltip>
-                            {/* Eliminar solo para Admin */}
+                            )}
+
+                            {/* Eliminar - Solo para Administradores */}
                             {isAdmin && (
                               <Tooltip content="Eliminar">
                                 <IconButton

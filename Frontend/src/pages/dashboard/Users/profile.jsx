@@ -70,6 +70,11 @@ export function Profile() {
       setLoading(true);
       setError("");
       
+      // Verificar que user existe y tiene id
+      if (!user || !user.id) {
+        throw new Error('Usuario no disponible o sin ID');
+      }
+      
       console.log("Consultando usuario con ID:", user.id);
       
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${user.id}`, {
@@ -79,16 +84,26 @@ export function Profile() {
       console.log("Respuesta status:", response.status);
       
       const data = await response.json();
-      console.log(data.user.empleado_id);
+      
+      // Verificar que data.user existe antes de acceder a sus propiedades
+      if (!data.user) {
+        throw new Error('No se recibieron datos del usuario del servidor');
+      }
+      
+      console.log("Datos del usuario recibidos:", data.user);
+      console.log("empleado_id:", data.user.empleado_id);
+      
       if(data.user.empleado_id === undefined || data.user.empleado_id === null){
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/by-user/${user.id}`, {
+        console.log("empleado_id no encontrado, buscando en empleados-api...");
+        const empleadoResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/empleados-api/by-user/${user.id}`, {
           credentials: 'include'
         });  
 
-        const empleadoData = await response.json();
-        console.log(empleadoData);
+        const empleadoData = await empleadoResponse.json();
+        console.log("Respuesta de empleados-api:", empleadoData);
         if(empleadoData.success){
           data.user.empleado_id = empleadoData.empleado._id;
+          console.log("empleado_id asignado:", data.user.empleado_id);
         }
       }
 

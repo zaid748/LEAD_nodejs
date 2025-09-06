@@ -59,11 +59,11 @@
       <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
 
-    <div class="site-navbar mt-4">
+    <div class="site-navbar mt-4 ml-4">
         <div class="container py-1">
           <div class="row align-items-center">
             <div class="col-8 col-md-8 col-lg-4">
-              <h1 class="mb-0"><a href="index.html" class="text-white h2 mb-0"><strong>LEAD INMOBILIARIA<span class="text-danger">.</span></strong></a></h1>
+              <h1 class="mb-0"><a href="index.html" class="text-white h2 mb-0"><strong>LEAD INMOBILIARIA</strong></a></h1>
             </div>
             <div class="col-4 col-md-4 col-lg-8">
               <nav class="site-navigation text-right text-md-right" role="navigation">
@@ -107,7 +107,8 @@
 
     <div class="slide-one-item home-slider owl-carousel" id="hero-carousel">
 
-      <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" data-aos="fade" data-stellar-background-ratio="0.5">
+        <img class="hero-img" src="images/hero_bg_1.jpg" alt="Hero 1" />
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
@@ -120,7 +121,8 @@
         </div>
       </div>  
 
-      <div class="site-blocks-cover overlay" style="background-image: url(images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" data-aos="fade" data-stellar-background-ratio="0.5">
+        <img class="hero-img" src="images/hero_bg_2.jpg" alt="Hero 2" />
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
@@ -658,7 +660,7 @@
         // Crear slide del carousel para cada propiedad
         const slideHtml = `
           <div class="site-blocks-cover overlay hero-property-slide" data-aos="fade" data-stellar-background-ratio="0.5">
-            <div class="hero-background-image" style="background-image: url('${primeraImagen}');"></div>
+            <img class="hero-img" src="${primeraImagen}" alt="${proyecto.marketing?.titulo || 'Propiedad'}" />
             <div class="container">
               <div class="row align-items-center justify-content-center text-center">
                 <div class="col-md-10">
@@ -690,22 +692,39 @@
         try {
           const $carousel = window.jQuery('#hero-carousel');
           if ($carousel.length) {
-            $carousel.owlCarousel({
-              items: 1,
-              loop: true,
-              margin: 0,
-              autoplay: true,
-              autoplayTimeout: 5000,
-              autoplayHoverPause: true,
-              nav: true,
-              dots: true,
-              responsive: {
-                0: { items: 1 },
-                600: { items: 1 },
-                1000: { items: 1 }
-              }
-            });
-            console.log('🎠 Carousel del hero reinicializado correctamente');
+            // Destruir el carrusel existente si ya está inicializado
+            if ($carousel.hasClass('owl-loaded')) {
+              $carousel.trigger('destroy.owl.carousel');
+              $carousel.removeClass('owl-loaded owl-drag');
+              console.log('🗑️ Carrusel anterior destruido');
+            }
+            
+            // Pequeño delay para asegurar que la destrucción se complete
+            setTimeout(() => {
+              $carousel.owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 0,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                nav: true,
+                dots: true,
+                animateOut: 'fadeOut',
+                animateIn: 'fadeIn',
+                navText: ['<span class="icon-arrow-left">', '<span class="icon-arrow-right">'],
+                autoHeight: true,
+                responsiveRefreshRate: 100,
+                responsive: {
+                  0: { items: 1 },
+                  600: { items: 1 },
+                  1000: { items: 1 }
+                }
+              });
+              $carousel.on('initialized.owl.carousel', () => $carousel.trigger('refresh.owl.carousel'));
+              $carousel.trigger('refresh.owl.carousel');
+              console.log('🎠 Carousel del hero reinicializado correctamente');
+            }, 100);
           }
         } catch (error) {
           console.error('❌ Error reinicializando el carousel:', error);

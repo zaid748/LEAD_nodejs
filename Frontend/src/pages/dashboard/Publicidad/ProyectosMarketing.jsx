@@ -198,7 +198,7 @@ const ProyectosMarketing = () => {
               <table className="w-full min-w-[640px] table-auto">
                 <thead>
                   <tr>
-                    {["Propiedad", "Propietario", "Ubicación", "Precio", "Estatus", "Imágenes", "Acciones"].map((header) => (
+                    {["Propiedad", "Propietario", "Ubicación", "Precio", "Estatus", "Publicación", "Imágenes", "Acciones"].map((header) => (
                       <th key={header} className="border-b border-blue-gray-50 py-3 px-6 text-left">
                         <Typography variant="small" color="blue-gray" className="font-medium leading-none opacity-70">
                           {header}
@@ -255,6 +255,16 @@ const ProyectosMarketing = () => {
                         />
                       </td>
                       <td className="py-3 px-6">
+                        <Chip
+                          variant="ghost"
+                          size="sm"
+                          value={proyecto.estatusPublicacion || "No publicada"}
+                          color={
+                            proyecto.estatusPublicacion === 'Publicada' ? 'green' : 'red'
+                          }
+                        />
+                      </td>
+                      <td className="py-3 px-6">
                         <div className="flex items-center gap-2">
                           <PhotoIcon className="h-5 w-5 text-blue-gray-500" />
                           <Typography variant="small" color="blue-gray" className="font-normal">
@@ -290,7 +300,7 @@ const ProyectosMarketing = () => {
                               color="orange"
                               size="sm"
                               onClick={() => {
-                                const publicUrl = `/publico/marketing/${proyecto.id || proyecto._id}`;
+                                const publicUrl = `http://localhost:4000/publico/property-details.html?id=${proyecto.id || proyecto._id}`;
                                 window.open(publicUrl, '_blank');
                               }}
                             >

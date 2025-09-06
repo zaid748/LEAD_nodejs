@@ -15,7 +15,10 @@ const ConyugeSchema = new mongoose.Schema({
         type: String, 
         match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
         trim: true
-    }
+    },
+    nss: { type: String, match: /^[0-9]{11}$/, trim: true },
+    rfc: { type: String, match: /^[A-Z&Ñ]{3,4}[0-9]{6}[A-Z0-9]{3}$/, trim: true },
+    curp: { type: String, match: /^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$/, trim: true }
 });
 
 // 📌 Información de propietario (mejorada)
@@ -79,6 +82,8 @@ const DireccionSchema = new mongoose.Schema({
     ciudad: { type: String, trim: true },
     estado: { type: String, trim: true },
     codigo_postal: { type: String, trim: true },
+    manzana: { type: String, trim: true },
+    lote: { type: String, trim: true },
     referencias: { type: String, trim: true } // Referencias para ubicar la propiedad
 });
 
@@ -106,13 +111,15 @@ const AdeudoSchema = new mongoose.Schema({
         required: true, 
         min: 0 
     },
+    numero_referencia: { type: String, trim: true },
     estatus: { 
         type: String, 
         enum: ['Pagado', 'Pendiente', 'En proceso'],
         default: 'Pendiente'
     },
     fecha_vencimiento: Date,
-    descripcion: { type: String, trim: true }
+    descripcion: { type: String, trim: true },
+    detalle: { type: String, trim: true }
 });
 
 // 📌 Datos laborales del propietario
@@ -165,6 +172,11 @@ const MarketingSchema = new mongoose.Schema({
         trim: true,
         default: '' 
     },
+    estatus_publicacion: {
+        type: String,
+        enum: ['No publicada', 'Publicada'],
+        default: 'No publicada'
+    },
     imagenes: [{
         url: { type: String, required: true },
         nombre: { type: String, required: true },
@@ -210,7 +222,7 @@ const MarketingSchema = new mongoose.Schema({
 const PropiedadSchema = new mongoose.Schema({
     tipo: { 
         type: String, 
-        enum: ['Casa', 'Departamento', 'Terreno', 'Local', 'Bodega', 'Edificio'], 
+        enum: ['Casa', 'Departamento', 'Condominio', 'Terreno', 'Local', 'Bodega', 'Edificio'], 
         required: true 
     },
     direccion: DireccionSchema,
@@ -388,9 +400,9 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
         validate: [
             {
                 validator: function(referencias) {
-                    return referencias.length >= 2;
+                    return referencias.length >= 1;
                 },
-                message: 'Se requieren al menos dos referencias personales'
+                message: 'Se requiere al menos una referencia personal'
             }
         ]
     },

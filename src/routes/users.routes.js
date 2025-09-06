@@ -55,19 +55,40 @@ const handleMulterError = (error, req, res, next) => {
 };
 
 // Rutas de API
-router.get('/check-auth', isAuthenticated, (req, res) => {
-    if (req.user) {
-        res.json({
-            success: true,
-            user: {
-                id: req.user,
-                role: req.role
-            }
-        });
-    } else {
-        res.status(401).json({
+router.get('/check-auth', isAuthenticated, async (req, res) => {
+    try {
+        if (req.user) {
+            // req.user ya es el objeto completo del usuario desde el middleware
+            // Solo necesitamos excluir la contraseña
+            const user = {
+                _id: req.user._id,
+                id: req.user._id, // Agregar id para compatibilidad con frontend
+                email: req.user.email,
+                role: req.user.role,
+                prim_nom: req.user.prim_nom,
+                apell_pa: req.user.apell_pa,
+                apell_ma: req.user.apell_ma,
+                empleado_id: req.user.empleado_id,
+                foto_perfil: req.user.foto_perfil,
+                createdAt: req.user.createdAt,
+                updatedAt: req.user.updatedAt
+            };
+            
+            res.json({
+                success: true,
+                user: user
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: 'No autorizado'
+            });
+        }
+    } catch (error) {
+        console.error('Error en check-auth:', error);
+        res.status(500).json({
             success: false,
-            message: 'No autorizado'
+            message: 'Error interno del servidor'
         });
     }
 });

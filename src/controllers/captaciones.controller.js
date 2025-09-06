@@ -21,8 +21,6 @@ const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 exports.getCaptaciones = async (req, res) => {
 
     try {
-        console.log('🔥 DEBUG getCaptaciones - req.query completo:', JSON.stringify(req.query, null, 2));
-        console.log('🔥 DEBUG getCaptaciones - req.user:', req.user ? { _id: req.user._id, role: req.user.role } : 'No user');
 
         const { 
 
@@ -100,12 +98,11 @@ exports.getCaptaciones = async (req, res) => {
         
         // Filtrar por supervisor específico - SOLO si el usuario actual es supervisor
         if (req.user && (req.user.role === 'supervisor' || req.user.role === 'Supervisor')) {
-            console.log('🔍 DEBUG - Usuario es supervisor, filtrando por sus proyectos:', req.user._id);
+            
             filtro['remodelacion.supervisor'] = req.user._id;
-            console.log('🔍 DEBUG - Filtro aplicado para supervisor:', filtro);
+            
         } else if (supervisor && req.user && ['administrator', 'administrador', 'admin'].includes(req.user.role)) {
             // Los administradores pueden filtrar por supervisor específico
-            console.log('🔍 DEBUG - Admin filtrando por supervisor específico:', supervisor);
             const mongoose = require('mongoose');
             const supervisorId = mongoose.Types.ObjectId.isValid(supervisor) 
                 ? new mongoose.Types.ObjectId(supervisor) 
@@ -115,9 +112,8 @@ exports.getCaptaciones = async (req, res) => {
 
         // Filtrar por contratista específico - SOLO si el usuario actual es contratista
         if (req.user && req.user.role === 'contratista') {
-            console.log('🔍 DEBUG - Usuario es contratista, filtrando por sus proyectos asignados:', req.user._id);
             filtro['remodelacion.contratista'] = req.user._id;
-            console.log('🔍 DEBUG - Filtro aplicado para contratista:', filtro);
+            
         }
 
         
@@ -171,7 +167,7 @@ exports.getCaptaciones = async (req, res) => {
         
         
         // Construir la consulta base
-        console.log('🔥 DEBUG ANTES DE CONSULTA - filtro final:', JSON.stringify(filtro, null, 2));
+        
 
         let captacionesQuery = CaptacionInmobiliaria.find(filtro)
 
@@ -238,7 +234,7 @@ exports.getCaptaciones = async (req, res) => {
         
         // Devolver resultados
 
-        console.log('RESPUESTA captaciones:', JSON.stringify(captaciones, null, 2));
+        
 
         res.json({
 

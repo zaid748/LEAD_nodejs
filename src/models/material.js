@@ -11,6 +11,18 @@ const MaterialSchema = new mongoose.Schema({
         required: true, 
         min: 0 
     },
+    tipo_unidad: {
+        type: String,
+        required: true,
+        trim: true,
+        enum: [
+            'Pieza', 'Kilogramo', 'Litro', 'Metro', 'Metro cuadrado', 'Metro cúbico', 
+            'Caja', 'Bolsa', 'Rollo', 'Costal', 'Saco', 'Bulto', 'Tubo', 'Varilla',
+            'Lámina', 'Placa', 'Tabla', 'Viga', 'Poste', 'Bloque', 'Ladrillo',
+            'Barril', 'Galón', 'Quintal', 'Tonelada', 'Gramo', 'Mililitro',
+            'Pulgada', 'Pie', 'Yarda', 'Acre', 'Hectárea', 'Otro'
+        ]
+    },
     costo: { 
         type: Number, 
         required: true, 

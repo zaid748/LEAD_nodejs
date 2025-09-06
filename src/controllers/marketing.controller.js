@@ -9,7 +9,6 @@ const { resizeImage, validateImage, getImageMetadata } = require('../libs/imageP
  */
 exports.getProyectosMarketing = async (req, res) => {
     try {
-        console.log('=== DEBUG: getProyectosMarketing ejecutándose ===');
         
         const { page = 1, limit = 10, sort = '-createdAt', search = '', supervisor } = req.query;
         
@@ -37,7 +36,6 @@ exports.getProyectosMarketing = async (req, res) => {
             );
         }
 
-        console.log('Filtro aplicado:', JSON.stringify(filtro, null, 2));
 
         // Calcular skip para paginación
         const skip = (parseInt(page) - 1) * parseInt(limit);
@@ -51,7 +49,6 @@ exports.getProyectosMarketing = async (req, res) => {
             .limit(parseInt(limit))
             .lean();
 
-        console.log(`Captaciones encontradas: ${captaciones.length}`);
 
         // Contar total de documentos
         const total = await CaptacionInmobiliaria.countDocuments(filtro);
@@ -77,12 +74,12 @@ exports.getProyectosMarketing = async (req, res) => {
             descripcionMarketing: captacion.marketing?.descripcion || '',
             precioOferta: captacion.marketing?.precioOferta || '',
             estatusMarketing: captacion.estatus_actual || 'Inactivo',
+            estatusPublicacion: captacion.marketing?.estatus_publicacion || 'No publicada',
             fechaCreacion: captacion.createdAt,
             fechaActualizacion: captacion.updatedAt,
             fechaMarketing: captacion.marketing?.fecha_creacion || null
         }));
 
-        console.log('Proyectos procesados:', proyectosMarketing.length);
 
         res.json({
             success: true,
@@ -112,8 +109,6 @@ exports.getProyectosMarketing = async (req, res) => {
 exports.getProyectoMarketing = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log('=== DEBUG: getProyectoMarketing ===');
-        console.log('ID solicitado:', id);
         
         const captacion = await CaptacionInmobiliaria.findById(id)
             .populate('captacion.asesor', 'prim_nom segun_nom apell_pa apell_ma')
@@ -162,7 +157,7 @@ exports.getProyectoMarketing = async (req, res) => {
 exports.actualizarMarketing = async (req, res) => {
     try {
         const { id } = req.params;
-        const { tituloMarketing, descripcionMarketing, precioOferta } = req.body;
+        const { tituloMarketing, descripcionMarketing, precioOferta, estatusPublicacion } = req.body;
 
         // Validar datos de entrada
         if (!tituloMarketing || !descripcionMarketing) {
@@ -202,19 +197,20 @@ exports.actualizarMarketing = async (req, res) => {
                     'marketing.titulo': tituloMarketing,
                     'marketing.descripcion': descripcionMarketing,
                     'marketing.precioOferta': precioOferta || '',
+                    'marketing.estatus_publicacion': estatusPublicacion || 'No publicada',
                     'marketing.fecha_actualizacion': new Date(),
                     'marketing.usuario_ultima_modificacion': req.user?._id
                 },
                 $setOnInsert: {
                     'marketing.fecha_creacion': new Date(),
-                    'marketing.usuario_creador': req.user?._id,
-                    // estatus eliminado - se usa estatus_actual del documento principal
+                    'marketing.usuario_creador': req.user?._id
+                    // Removido estatus_publicacion de aquí para evitar conflicto
                 },
                 $push: {
                     historial_estatus: {
                         estatus: 'Marketing actualizado',
                         fecha: new Date(),
-                        notas: `Se actualizó la información de marketing: ${tituloMarketing}`,
+                        notas: `Se actualizó la información de marketing: ${tituloMarketing}. Estatus de publicación: ${estatusPublicacion || 'No publicada'}`,
                         usuario: req.user?._id
                     }
                 }
@@ -282,20 +278,14 @@ exports.uploadImagenesMarketing = async (req, res) => {
             });
         }
 
-        console.log('=== DEBUG: Archivos recibidos ===');
-        console.log('req.files:', req.files);
-        console.log('Número de archivos:', req.files.length);
+        
 
         // Procesar cada imagen y subir a S3
         const imagenesProcesadas = [];
         
         for (let index = 0; index < req.files.length; index++) {
             const file = req.files[index];
-            console.log(`Procesando archivo ${index + 1}:`, {
-                originalname: file.originalname,
-                mimetype: file.mimetype,
-                size: file.size
-            });
+            
 
             try {
                 // Validar imagen antes de procesar
@@ -306,13 +296,13 @@ exports.uploadImagenesMarketing = async (req, res) => {
 
                 // Obtener metadatos de la imagen original
                 const metadata = await getImageMetadata(file.buffer);
-                console.log(`📊 Metadatos de imagen ${index + 1}:`, metadata);
+                
 
                 // Redimensionar imagen al tamaño estándar para tarjetas (800x600)
-                console.log(`🖼️ Redimensionando imagen ${index + 1} a tamaño estándar...`);
+                
                 const resizedImageBuffer = await resizeImage(file.buffer, 'CARD');
                 
-                console.log(`📏 Imagen redimensionada: Original ${metadata.width}x${metadata.height} → Estándar 800x600`);
+                
 
                 // Subir imagen redimensionada a S3
                 const imageData = await uploadImageToS3(
@@ -343,13 +333,7 @@ exports.uploadImagenesMarketing = async (req, res) => {
                 };
 
                 imagenesProcesadas.push(imagenProcesada);
-                console.log(`✅ Imagen ${index + 1} procesada y subida a S3:`, {
-                    nombre: imagenProcesada.nombre,
-                    url: imagenProcesada.url,
-                    tamaño_original: `${metadata.size / 1024}KB`,
-                    tamaño_procesada: `${resizedImageBuffer.length / 1024}KB`,
-                    reduccion: `${((metadata.size - resizedImageBuffer.length) / metadata.size * 100).toFixed(1)}%`
-                });
+                
 
             } catch (error) {
                 console.error(`❌ Error al procesar imagen ${index + 1}:`, error);
@@ -378,6 +362,7 @@ exports.uploadImagenesMarketing = async (req, res) => {
                 $setOnInsert: {
                     'marketing.fecha_creacion': new Date(),
                     'marketing.usuario_creador': req.user?._id,
+                    'marketing.estatus_publicacion': 'No publicada'
                     // estatus eliminado - se usa estatus_actual del documento principal
                 }
             },
@@ -666,8 +651,6 @@ exports.getProyectoMarketingPublico = async (req, res) => {
     try {
         const { id } = req.params;
         
-        console.log('=== DEBUG: getProyectoMarketingPublico ===');
-        console.log('ID solicitado:', id);
 
         // Buscar la captación por ID
         const captacion = await CaptacionInmobiliaria.findById(id)
@@ -692,6 +675,14 @@ exports.getProyectoMarketingPublico = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 message: 'Este proyecto no está disponible para marketing'
+            });
+        }
+
+        // Verificar que el proyecto esté publicado
+        if (captacion.marketing?.estatus_publicacion !== 'Publicada') {
+            return res.status(404).json({
+                success: false,
+                message: 'Este proyecto no está publicado'
             });
         }
 
@@ -739,19 +730,24 @@ exports.getProyectoMarketingPublico = async (req, res) => {
  */
 exports.getProyectosMarketingPublico = async (req, res) => {
     try {
-        console.log('=== DEBUG: getProyectosMarketingPublico ejecutándose ===');
         
-        // Filtro para proyectos disponibles para marketing
+        // Filtro para proyectos disponibles para marketing Y publicados
         const filtro = {
-            $or: [
-                { 'venta.estatus_venta': 'Disponible para venta' },
-                { estatus_actual: 'En venta' },
-                { estatus_actual: 'Disponible para venta' },
-                { estatus_actual: 'Remodelacion' }
+            $and: [
+                {
+                    $or: [
+                        { 'venta.estatus_venta': 'Disponible para venta' },
+                        { estatus_actual: 'En venta' },
+                        { estatus_actual: 'Disponible para venta' },
+                        { estatus_actual: 'Remodelacion' }
+                    ]
+                },
+                {
+                    'marketing.estatus_publicacion': 'Publicada'
+                }
             ]
         };
         
-        console.log('Filtro aplicado:', filtro);
 
         // Obtener captaciones con paginación
         const page = parseInt(req.query.page) || 1;
@@ -764,11 +760,9 @@ exports.getProyectosMarketingPublico = async (req, res) => {
             .skip(skip)
             .limit(limit);
 
-        console.log('Captaciones encontradas:', captaciones.length);
 
         // Contar total de documentos
         const total = await CaptacionInmobiliaria.countDocuments(filtro);
-        console.log('Total de captaciones:', total);
 
         // Procesar proyectos para vista pública
         const proyectos = captaciones.map(captacion => ({
@@ -793,7 +787,6 @@ exports.getProyectosMarketingPublico = async (req, res) => {
             createdAt: captacion.createdAt
         }));
 
-        console.log('Proyectos procesados:', proyectos.length);
 
         res.json({
             success: true,

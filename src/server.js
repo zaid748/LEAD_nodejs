@@ -153,6 +153,7 @@ app.get('/api/test-image-access', (req, res) => {
 
 // Importar rutas de captaciones
 const captacionesRouter = require('./routes/captaciones.router');
+const listaCompraRouter = require('./routes/lista-compra.router');
 
 // Routes con prefijo /api
 app.use('/api', require('./routes/index.routes'));
@@ -163,6 +164,7 @@ app.use('/api', require('./routes/nominas.router'));
 // app.use('/api', require('./routes/Inventario.router')); // ROUTER ELIMINADO - NO SE USA
 app.use('/api', require('./routes/marketing.router'));
 app.use('/api/captaciones', captacionesRouter);
+app.use('/api/lista-compra', listaCompraRouter);
 
 // Router público para marketing (sin autenticación)
 app.use('/api', require('./routes/marketing-publico.router'));

@@ -33,6 +33,7 @@ export function EditarMarketing() {
     titulo: "",
     precioOferta: "",
     descripcionMarketing: "",
+    estatusPublicacion: "No publicada",
     imagenesMarketing: []
   });
 
@@ -139,6 +140,7 @@ export function EditarMarketing() {
           titulo: proyectoData.marketing?.titulo || proyectoData.propiedad?.titulo || proyectoData.propiedad?.descripcion_adicional || "",
           precioOferta: proyectoData.marketing?.precioOferta || proyectoData.venta?.monto_venta || proyectoData.propiedad?.precio || "",
           descripcionMarketing: proyectoData.marketing?.descripcion || proyectoData.propiedad?.descripcion_adicional || "",
+          estatusPublicacion: proyectoData.marketing?.estatus_publicacion || "No publicada",
           imagenesMarketing: proyectoData.marketing?.imagenes || []
         };
         
@@ -350,7 +352,8 @@ export function EditarMarketing() {
           body: JSON.stringify({
             tituloMarketing: formData.titulo,
             descripcionMarketing: formData.descripcionMarketing,
-            precioOferta: formData.precioOferta
+            precioOferta: formData.precioOferta,
+            estatusPublicacion: formData.estatusPublicacion
           })
         });
         
@@ -518,6 +521,43 @@ export function EditarMarketing() {
                   onChange={handleInputChange}
                   placeholder="Ej: $2,500,000"
                 />
+              </div>
+              
+              <div className="mt-4">
+                <Typography variant="h6" color="blue-gray" className="mb-2">
+                  Estatus de Publicación
+                </Typography>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="estatusPublicacion"
+                      value="No publicada"
+                      checked={formData.estatusPublicacion === "No publicada"}
+                      onChange={handleInputChange}
+                      className="text-red-500"
+                    />
+                    <Typography variant="small" color="red" className="font-medium">
+                      No Publicada
+                    </Typography>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="estatusPublicacion"
+                      value="Publicada"
+                      checked={formData.estatusPublicacion === "Publicada"}
+                      onChange={handleInputChange}
+                      className="text-green-500"
+                    />
+                    <Typography variant="small" color="green" className="font-medium">
+                      Publicada
+                    </Typography>
+                  </label>
+                </div>
+                <Typography variant="small" color="gray" className="mt-1">
+                  Solo las propiedades marcadas como "Publicada" aparecerán en el sitio web público
+                </Typography>
               </div>
               
               <div className="mt-4">

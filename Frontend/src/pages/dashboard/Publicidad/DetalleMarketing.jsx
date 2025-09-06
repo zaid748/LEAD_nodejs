@@ -21,8 +21,6 @@ export function DetalleMarketing() {
   const [error, setError] = useState(null);
   const [proyecto, setProyecto] = useState(null);
   const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isMarketing, setIsMarketing] = useState(false);
 
   // Verificar autenticación y rol
   useEffect(() => {
@@ -36,21 +34,6 @@ export function DetalleMarketing() {
         
         if (data.success) {
           setUser(data.user);
-          
-          // Comprobar roles
-          const userRole = data.user?.role || '';
-          setIsAdmin(
-            userRole.toLowerCase().includes('administrator') || 
-            userRole === 'Admin' ||
-            userRole === 'Superadministrator'
-          );
-          
-          setIsMarketing(
-            userRole === 'Marketing' || 
-            userRole === 'Asesor' ||
-            userRole === 'User'
-          );
-          
         } else {
           navigate('/auth/sign-in');
         }
@@ -72,8 +55,8 @@ export function DetalleMarketing() {
       setError(null);
       
       try {
-        // Usar la API de captaciones en lugar de inventario
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/captaciones/${id}`, {
+        // Usar la API de marketing que permite acceso a todos los usuarios
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/marketing/${id}`, {
           credentials: 'include',
           headers: {
             'Accept': 'application/json'
@@ -89,8 +72,8 @@ export function DetalleMarketing() {
         console.log("=== DEBUG: Respuesta completa del backend ===");
         console.log("data:", data);
         
-        // La respuesta del backend ya contiene la captación completa
-        const proyectoData = data;
+        // La respuesta del backend contiene el proyecto en data.proyecto
+        const proyectoData = data.proyecto || data;
         
         // Verificar que el proyecto esté disponible para marketing
         console.log("=== DEBUG: Estatus del proyecto ===");
@@ -205,17 +188,15 @@ export function DetalleMarketing() {
                 Volver
               </Button>
               
-              {(isAdmin || isMarketing) && (
-                <Button 
-                  size="sm" 
-                  color="white"
-                  onClick={() => navigate(`/dashboard/marketing/${id}/editar`)}
-                  className="flex items-center gap-2"
-                >
-                  <PencilIcon className="h-4 w-4" />
-                  Editar Marketing
-                </Button>
-              )}
+              <Button 
+                size="sm" 
+                color="white"
+                onClick={() => navigate(`/dashboard/marketing/${id}/editar`)}
+                className="flex items-center gap-2"
+              >
+                <PencilIcon className="h-4 w-4" />
+                Editar Marketing
+              </Button>
             </div>
           </div>
         </CardHeader>
@@ -310,7 +291,7 @@ export function DetalleMarketing() {
               Configuración de Marketing
             </Typography>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-4 bg-green-50 rounded-lg">
                 <Typography variant="h6" color="green" className="mb-2">
                   Título para Marketing
@@ -326,6 +307,22 @@ export function DetalleMarketing() {
                 </Typography>
                 <Typography variant="h5" color="green" className="font-bold">
                   ${proyecto.marketing?.precioOferta || "Sin precio definido"}
+                </Typography>
+              </div>
+              
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <Typography variant="h6" color="blue" className="mb-2">
+                  Estatus de Publicación
+                </Typography>
+                <Chip
+                  value={proyecto.marketing?.estatus_publicacion || "No publicada"}
+                  color={proyecto.marketing?.estatus_publicacion === 'Publicada' ? 'green' : 'red'}
+                  size="sm"
+                />
+                <Typography variant="small" color="gray" className="mt-1">
+                  {proyecto.marketing?.estatus_publicacion === 'Publicada' 
+                    ? "Visible en el sitio web público" 
+                    : "No visible en el sitio web público"}
                 </Typography>
               </div>
             </div>
@@ -509,16 +506,14 @@ export function DetalleMarketing() {
               Volver a Marketing
             </Button>
             
-            {(isAdmin || isMarketing) && (
-              <Button
-                color="green"
-                onClick={() => navigate(`/dashboard/marketing/${id}/editar`)}
-                className="flex items-center gap-2"
-              >
-                <PencilIcon className="h-4 w-4" />
-                Editar Marketing
-              </Button>
-            )}
+            <Button
+              color="green"
+              onClick={() => navigate(`/dashboard/marketing/${id}/editar`)}
+              className="flex items-center gap-2"
+            >
+              <PencilIcon className="h-4 w-4" />
+              Editar Marketing
+            </Button>
           </div>
         </CardBody>
       </Card>

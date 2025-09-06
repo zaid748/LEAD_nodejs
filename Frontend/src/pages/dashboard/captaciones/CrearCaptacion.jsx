@@ -54,7 +54,14 @@ export function CrearCaptacion() {
       nss: "",
       rfc: "",
       curp: "",
-      estado_civil: ""
+      estado_civil: "",
+      conyuge: {
+        nombre: "",
+        telefono: "",
+        nss: "",
+        rfc: "",
+        curp: ""
+      }
     },
     propiedad: {
       tipo: "",
@@ -64,7 +71,9 @@ export function CrearCaptacion() {
         colonia: "",
         ciudad: "",
         estado: "",
-        codigo_postal: ""
+        codigo_postal: "",
+        manzana: "",
+        lote: ""
       },
       caracteristicas: {
         m2_terreno: "",
@@ -195,7 +204,15 @@ export function CrearCaptacion() {
           .required("El estado es requerido"),
         codigo_postal: yup
           .string()
-          .required("El código postal es requerido")
+          .required("El código postal es requerido"),
+        manzana: yup
+          .string()
+          .transform(v => (v === '' ? 'N/A' : v))
+          .optional(),
+        lote: yup
+          .string()
+          .transform(v => (v === '' ? 'N/A' : v))
+          .optional()
       }),
       caracteristicas: yup.object().shape({
         m2_terreno: yup
@@ -245,7 +262,7 @@ export function CrearCaptacion() {
             .optional()
         })
       )
-      .min(2, "Se requieren al menos 2 referencias personales")
+      .min(1, "Se requiere al menos 1 referencia personal")
       .required("Las referencias personales son requeridas"),
     // Añadir validación para documentos
     documentacion: yup.object().shape({
@@ -260,6 +277,16 @@ export function CrearCaptacion() {
       curp: yup.boolean().optional(),
       rfc: yup.boolean().optional(),
       comprobante_domicilio: yup.boolean().optional()
+    }),
+    // Validación condicional para detalle de adeudo 'Otro'
+    propiedad: yup.object().shape({
+      adeudos: yup.array().of(yup.object().shape({
+        tipo: yup.string().required(),
+        detalle: yup.string().when('tipo', {
+          is: 'Otro',
+          then: (schema) => schema.required('Debe especificar el detalle del adeudo cuando es "Otro"')
+        })
+      }))
     }),
     venta: yup.object().shape({
       precio_venta: yup
@@ -474,10 +501,10 @@ export function CrearCaptacion() {
         valores.propiedad?.caracteristicas?.habitaciones !== undefined &&
         valores.propiedad?.caracteristicas?.baños !== undefined;
       
-      // Verificar referencias personales (al menos 2)
+      // Verificar referencias personales (al menos 1)
       const referenciasCompletas = 
         Array.isArray(valores.referencias_personales) && 
-        valores.referencias_personales.length >= 2 &&
+        valores.referencias_personales.length >= 1 &&
         valores.referencias_personales.every(ref => 
           !!ref.nombre && 
           !!ref.telefono && 
@@ -955,6 +982,50 @@ export function CrearCaptacion() {
                   )}
                 </div>
               </div>
+
+              {/* Datos de Esposa(o) - visible solo si Estado Civil = Casado */}
+              {watch('propietario.estado_civil') === 'Casado' && (
+              <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                <Typography variant="h6" color="green" className="mb-3">Datos de Esposa(o)</Typography>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <Controller
+                    name="propietario.conyuge.nombre"
+                    control={control}
+                    render={({ field }) => (
+                      <Input type="text" label="Nombre de Esposa(o)" value={field.value || ""} onChange={(e) => field.onChange(e.target.value)} />
+                    )}
+                  />
+                  <Controller
+                    name="propietario.conyuge.telefono"
+                    control={control}
+                    render={({ field }) => (
+                      <Input type="tel" label="Teléfono de Esposa(o)" value={field.value || ""} onChange={(e) => field.onChange(e.target.value)} />
+                    )}
+                  />
+                  <Controller
+                    name="propietario.conyuge.nss"
+                    control={control}
+                    render={({ field }) => (
+                      <Input type="text" label="NSS de Esposa(o)" value={field.value || ""} onChange={(e) => field.onChange(e.target.value)} />
+                    )}
+                  />
+                  <Controller
+                    name="propietario.conyuge.rfc"
+                    control={control}
+                    render={({ field }) => (
+                      <Input type="text" label="RFC de Esposa(o)" value={field.value || ""} onChange={(e) => field.onChange(e.target.value)} />
+                    )}
+                  />
+                  <Controller
+                    name="propietario.conyuge.curp"
+                    control={control}
+                    render={({ field }) => (
+                      <Input type="text" label="CURP de Esposa(o)" value={field.value || ""} onChange={(e) => field.onChange(e.target.value)} />
+                    )}
+                  />
+                </div>
+              </div>
+              )}
             </div>
                 </div>
               </TabPanel>
@@ -978,6 +1049,7 @@ export function CrearCaptacion() {
                     >
                       <Option value="Casa">Casa</Option>
                       <Option value="Departamento">Departamento</Option>
+                      <Option value="Condominio">Condominio</Option>
                       <Option value="Terreno">Terreno</Option>
                       <Option value="Local">Local</Option>
                       <Option value="Bodega">Bodega</Option>
@@ -1154,6 +1226,40 @@ export function CrearCaptacion() {
                       {errors.propiedad.direccion.codigo_postal.message}
                     </div>
                   )}
+                </div>
+
+                <div className="col-span-1">
+                  <Controller
+                    name="propiedad.direccion.manzana"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        type="text"
+                        label="Manzana (opcional)"
+                        placeholder="N/A"
+                        className="bg-white"
+                        value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value)}
+                      />
+                    )}
+                  />
+                </div>
+                
+                <div className="col-span-1">
+                  <Controller
+                    name="propiedad.direccion.lote"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        type="text"
+                        label="Lote (opcional)"
+                        placeholder="N/A"
+                        className="bg-white"
+                        value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value)}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -1392,7 +1498,7 @@ export function CrearCaptacion() {
                               render={({ field }) => (
                                 <Input
                                   type="text"
-                                  label="Número de Referencia *"
+                                  label="Número de Referencia o número de crédito *"
                                   className={errors.propiedad?.adeudos?.[index]?.numero_referencia ? "border-red-500" : ""}
                                   {...field}
                                 />
@@ -1415,6 +1521,23 @@ export function CrearCaptacion() {
                             Eliminar
                           </Button>
                         </div>
+                        {/* Detalle cuando el tipo es 'Otro' */}
+                        {watch(`propiedad.adeudos.${index}.tipo`) === 'Otro' && (
+                          <div className="mt-3">
+                            <Controller
+                              name={`propiedad.adeudos.${index}.detalle`}
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="text"
+                                  label="Detalle del adeudo (obligatorio si seleccionó 'Otro')"
+                                  value={field.value || ''}
+                                  onChange={(e) => field.onChange(e.target.value)}
+                                />
+                              )}
+                            />
+                          </div>
+                        )}
                       </div>
                     ))}
                     
@@ -1535,7 +1658,7 @@ export function CrearCaptacion() {
                     {referenciasFields.length === 0 ? (
                       <div className="text-center p-4 bg-white rounded-lg border border-blue-gray-100">
                         <Typography variant="paragraph" color="blue-gray" className="italic">
-                          No hay referencias registradas. Se requieren al menos 2 referencias.
+                          No hay referencias registradas. Se requiere al menos 1 referencia.
                         </Typography>
                       </div>
                     ) : (

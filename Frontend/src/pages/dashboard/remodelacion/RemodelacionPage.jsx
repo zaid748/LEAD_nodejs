@@ -11,7 +11,9 @@ import {
     Select,
     Option,
     Spinner,
-    Alert
+    Alert,
+    Textarea,
+    IconButton
 } from '@material-tailwind/react';
 import { 
     BuildingOfficeIcon,
@@ -26,7 +28,9 @@ import {
     BuildingStorefrontIcon,
     ListBulletIcon,
     ExclamationCircleIcon,
-    CheckIcon
+    CheckIcon,
+    XMarkIcon,
+    PrinterIcon
 } from '@heroicons/react/24/outline';
 import { captacionesAPI } from '../../../services/api';
 import axios from 'axios';
@@ -78,6 +82,18 @@ const RemodelacionPage = () => {
     // Estados para gestión de costos (supervisores)
     const [costosTemporales, setCostosTemporales] = useState({});
     const [guardandoCostos, setGuardandoCostos] = useState(false);
+
+    // Estados para modal de costos de lista de compra
+    const [showCostosModal, setShowCostosModal] = useState(false);
+    const [listaParaCostos, setListaParaCostos] = useState(null);
+    const [costosMateriales, setCostosMateriales] = useState([]);
+    const [totalCalculado, setTotalCalculado] = useState(0);
+
+    // Estados para funcionalidad de administración
+    const [showListasCompraModal, setShowListasCompraModal] = useState(false);
+    const [listasCompra, setListasCompra] = useState([]);
+    const [showDetallesListaModal, setShowDetallesListaModal] = useState(false);
+    const [listaSeleccionada, setListaSeleccionada] = useState(null);
 
     // Verificar autenticación del usuario
     useEffect(() => {
@@ -360,22 +376,27 @@ const RemodelacionPage = () => {
             setProyectoSeleccionado(proyecto);
             setLoading(true);
             
-            console.log('📋 Cargando requerimientos del proyecto:', proyecto._id);
+            console.log('📋 Cargando listas de compra del proyecto:', proyecto._id);
             
-            // Cargar solicitudes y materiales del proyecto
-            const response = await axios.get(`/api/captaciones/${proyecto._id}/remodelacion/materiales`);
+            // Cargar listas de compra del proyecto
+            const response = await axios.get(`/api/lista-compra/proyecto/${proyecto._id}`);
             
             console.log('📡 Respuesta del servidor:', response.data);
             
             if (response.data.success) {
+                console.log('✅ Listas de compra recibidas:', response.data.data);
+                console.log('🔍 Verificando estados de las listas:');
+                response.data.data.forEach((lista, index) => {
+                    console.log(`  Lista ${index + 1}: ${lista.titulo} - Estado: ${lista.estatus_general}`);
+                });
                 setRequerimientos(response.data.data || []);
                 setShowRequerimientosModal(true);
             } else {
-                throw new Error('Error al cargar requerimientos');
+                throw new Error('Error al cargar listas de compra');
             }
         } catch (error) {
-            console.error('❌ Error al cargar requerimientos:', error);
-            setError('Error al cargar requerimientos del proyecto');
+            console.error('❌ Error al cargar listas de compra:', error);
+            setError('Error al cargar listas de compra del proyecto');
         } finally {
             setLoading(false);
         }
@@ -397,13 +418,193 @@ const RemodelacionPage = () => {
         }));
     };
 
+    const abrirModalCostos = (lista) => {
+        setListaParaCostos(lista);
+        // Inicializar costos con valores existentes o 0
+        const costosIniciales = lista.materiales.map(material => ({
+            index: lista.materiales.indexOf(material),
+            costo_final: material.costo_final || 0,
+            notas: material.notas_supervisor || ''
+        }));
+        setCostosMateriales(costosIniciales);
+        calcularTotal(costosIniciales);
+        setShowCostosModal(true);
+    };
+
+    const cerrarModalCostos = () => {
+        setShowCostosModal(false);
+        setListaParaCostos(null);
+        setCostosMateriales([]);
+        setTotalCalculado(0);
+    };
+
+    const actualizarCostoMaterial = (index, campo, valor) => {
+        const nuevosCostos = [...costosMateriales];
+        nuevosCostos[index] = {
+            ...nuevosCostos[index],
+            [campo]: campo === 'costo_final' ? parseFloat(valor) || 0 : valor
+        };
+        setCostosMateriales(nuevosCostos);
+        calcularTotal(nuevosCostos);
+    };
+
+    const calcularTotal = (costos) => {
+        const total = costos.reduce((sum, costo) => sum + (costo.costo_final || 0), 0);
+        setTotalCalculado(total);
+    };
+
+    const guardarCostosYContinuar = async () => {
+        try {
+            setLoading(true);
+            
+            // Validar que todos los costos estén ingresados
+            const costosFaltantes = costosMateriales.filter(costo => !costo.costo_final || costo.costo_final <= 0);
+            if (costosFaltantes.length > 0) {
+                setError('Debe ingresar un costo válido para todos los materiales');
+            return;
+        }
+
+            const response = await axios.post(`/api/lista-compra/${listaParaCostos._id}/ingresar-costos`, {
+                materiales_costos: costosMateriales
+            });
+
+            if (response.data.success) {
+                console.log('✅ Costos guardados exitosamente');
+                console.log('📊 Respuesta del servidor:', response.data);
+                setError('');
+                // Recargar la lista de requerimientos
+                if (proyectoSeleccionado) {
+                    await verRequerimientos(proyectoSeleccionado);
+                }
+                cerrarModalCostos();
+            } else {
+                throw new Error(response.data.message || 'Error al guardar costos');
+            }
+        } catch (error) {
+            console.error('❌ Error al guardar costos:', error);
+            setError(error.response?.data?.message || error.message || 'Error al guardar costos');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const aprobarListaConCostos = async (listaId) => {
+        try {
+            setLoading(true);
+            const response = await axios.post(`/api/lista-compra/${listaId}/revisar`, {
+                accion: 'aprobar',
+                comentarios: 'Lista de compra aprobada por supervisor con costos verificados'
+            });
+
+            if (response.data.success) {
+                console.log('✅ Lista de compra aprobada exitosamente');
+                // Recargar la lista de requerimientos
+                if (proyectoSeleccionado) {
+                    await verRequerimientos(proyectoSeleccionado);
+                }
+            } else {
+                throw new Error(response.data.message || 'Error al aprobar lista de compra');
+            }
+        } catch (error) {
+            console.error('❌ Error al aprobar lista de compra:', error);
+            setError(error.response?.data?.message || error.message || 'Error al aprobar lista de compra');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const rechazarListaCompra = async (listaId) => {
+        try {
+            setLoading(true);
+            const motivo = prompt('¿Motivo del rechazo?');
+            if (!motivo) {
+                setLoading(false);
+                return;
+            }
+            
+            const response = await axios.post(`/api/lista-compra/${listaId}/revisar`, {
+                accion: 'rechazar',
+                comentarios: motivo
+            });
+            
+            if (response.data.success) {
+                console.log('✅ Lista de compra rechazada exitosamente');
+                // Recargar la lista de requerimientos
+                if (proyectoSeleccionado) {
+                    await verRequerimientos(proyectoSeleccionado);
+                }
+            } else {
+                throw new Error(response.data.message || 'Error al rechazar lista de compra');
+            }
+        } catch (error) {
+            console.error('❌ Error al rechazar lista de compra:', error);
+            setError(error.response?.data?.message || error.message || 'Error al rechazar lista de compra');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // === FUNCIONES PARA ADMINISTRACIÓN ===
+    
+    const verListasCompraAdmin = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            
+            console.log('📋 Cargando listas de compra para administración...');
+            
+            // Obtener todas las listas de compra (aprobadas por administración y listas de contratistas)
+            const response = await axios.get('/api/lista-compra/admin/todas');
+            
+            console.log('📡 Respuesta del servidor:', response.data);
+            
+            if (response.data.success) {
+                setListasCompra(response.data.data || []);
+                setShowListasCompraModal(true);
+                console.log('✅ Listas de compra cargadas:', response.data.data.length);
+            } else {
+                throw new Error('Error al cargar listas de compra');
+            }
+        } catch (error) {
+            console.error('❌ Error al cargar listas de compra:', error);
+            setError(`Error al cargar las listas de compra: ${error.message}`);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const abrirModalDetallesLista = (lista) => {
+        setListaSeleccionada(lista);
+        setShowDetallesListaModal(true);
+    };
+
+    const cerrarModalDetallesLista = () => {
+        setShowDetallesListaModal(false);
+        setListaSeleccionada(null);
+    };
+
+    const cerrarModalListasCompra = () => {
+        setShowListasCompraModal(false);
+        setListasCompra([]);
+    };
+
+    const imprimirOrdenCompra = (lista) => {
+        console.log('🖨️ Imprimiendo orden de compra para:', lista._id);
+        // TODO: Implementar funcionalidad de impresión
+        alert('Funcionalidad de impresión será implementada próximamente');
+    };
+
+
+
+
+
     const guardarCostoMaterial = async (material) => {
         console.log('🚀 INICIANDO guardarCostoMaterial');
         console.log('  - Material:', material._id, material.tipo);
-        console.log('  - Estado actual guardandoCostos:', guardandoCostos);
+        console.log('  - Estado actual loading:', loading);
         
         // Evitar múltiples clics
-        if (guardandoCostos) {
+        if (loading) {
             console.log('⏳ Ya se está guardando, evitando múltiple click');
             return;
         }
@@ -418,7 +619,7 @@ const RemodelacionPage = () => {
         }
 
         try {
-            console.log('✅ Estableciendo guardandoCostos = true');
+            console.log('✅ Estableciendo loading = true');
             setGuardandoCostos(true);
 
             const response = await axios.put(`/api/captaciones/${proyectoSeleccionado._id}/remodelacion/materiales/${material._id}/costo`, {
@@ -430,19 +631,19 @@ const RemodelacionPage = () => {
                 // Actualizar el material en la lista local
                 setRequerimientos(prev => 
                     prev.map(req => 
-                        req._id === material._id 
+                        lista._id === material._id 
                             ? { ...req, costo: parseFloat(nuevoCosto), estatus: 'Pendiente supervisión' }
                             : req
                     )
                 );
-                
+
                 // Limpiar el costo temporal
                 setCostosTemporales(prev => {
                     const nueva = { ...prev };
                     delete nueva[material._id];
                     return nueva;
                 });
-                
+
                 console.log('✅ Costo guardado exitosamente');
                 console.log('🔄 Material actualizado:', {
                     id: material._id,
@@ -457,94 +658,14 @@ const RemodelacionPage = () => {
             console.error('❌ Error al guardar costo:', error);
             setError('Error al guardar el costo del material');
         } finally {
-            console.log('🏁 FINALIZANDO guardarCostoMaterial - estableciendo guardandoCostos = false');
-            setGuardandoCostos(false);
-        }
-    };
-
-    const actualizarCostoMaterial = async (material) => {
-        console.log('🔄 INICIANDO actualizarCostoMaterial');
-        console.log('  - Material:', material._id, material.tipo);
-        console.log('  - Costo actual:', material.costo);
-        console.log('  - Nuevo costo:', costosTemporales[material._id]);
-        
-        // Evitar múltiples clics
-        if (guardandoCostos) {
-            console.log('⏳ Ya se está actualizando, evitando múltiple click');
-            return;
-        }
-
-        const nuevoCosto = costosTemporales[material._id];
-        
-        if (!nuevoCosto || parseFloat(nuevoCosto) <= 0) {
-            console.log('❌ Nuevo costo inválido');
-            setError('Por favor ingresa un costo válido');
-            return;
-        }
-
-        // Verificar si realmente cambió el costo
-        if (parseFloat(nuevoCosto) === parseFloat(material.costo)) {
-            console.log('ℹ️ El costo no cambió, cancelando edición');
-            setCostosTemporales(prev => {
-                const nueva = { ...prev };
-                delete nueva[material._id];
-                return nueva;
-            });
-            return;
-        }
-
-        try {
-            console.log('✅ Estableciendo guardandoCostos = true para actualización');
-            setGuardandoCostos(true);
-
-            const response = await axios.put(`/api/captaciones/${proyectoSeleccionado._id}/remodelacion/materiales/${material._id}/costo`, {
-                costo: parseFloat(nuevoCosto),
-                estatus: 'Pendiente supervisión'
-            });
-
-            if (response.data.success) {
-                console.log('✅ Costo actualizado exitosamente');
-                
-                // Actualizar el estado local
-                setRequerimientos(prev => 
-                    prev.map(req => 
-                        req._id === material._id 
-                            ? { ...req, costo: parseFloat(nuevoCosto), estatus: 'Pendiente supervisión' }
-                            : req
-                    )
-                );
-
-                // Limpiar el estado temporal
-                setCostosTemporales(prev => {
-                    const nueva = { ...prev };
-                    delete nueva[material._id];
-                    return nueva;
-                });
-
-                setSuccessMessage('Costo actualizado exitosamente');
-                
-                // Log para debug
-                console.log('🔄 Material actualizado:', {
-                    id: material._id,
-                    costoAnterior: material.costo,
-                    nuevoCosto: parseFloat(nuevoCosto),
-                    nuevoEstatus: 'Pendiente supervisión'
-                });
-            } else {
-                throw new Error('Error al actualizar el costo');
-            }
-        } catch (error) {
-            console.error('❌ Error al actualizar costo:', error);
-            setError('Error al actualizar el costo del material');
-        } finally {
-            console.log('🏁 FINALIZANDO actualizarCostoMaterial - estableciendo guardandoCostos = false');
+            console.log('🏁 FINALIZANDO guardarCostoMaterial - estableciendo loading = false');
             setGuardandoCostos(false);
         }
     };
 
     const aprobarMaterial = async (material) => {
         // Evitar múltiples clics
-        if (guardandoCostos) {
+        if (loading) {
             console.log('⏳ Ya se está procesando, evitando múltiple click');
             return;
         }
@@ -562,7 +683,7 @@ const RemodelacionPage = () => {
                 // Actualizar el estatus en la lista local
                 setRequerimientos(prev => 
                     prev.map(req => 
-                        req._id === material._id 
+                        lista._id === material._id 
                             ? { ...req, estatus: 'Pendiente aprobación administrativa' }
                             : req
                     )
@@ -582,7 +703,7 @@ const RemodelacionPage = () => {
 
     const rechazarMaterial = async (material) => {
         // Evitar múltiples clics
-        if (guardandoCostos) {
+        if (loading) {
             console.log('⏳ Ya se está procesando, evitando múltiple click');
             return;
         }
@@ -607,7 +728,7 @@ const RemodelacionPage = () => {
                 // Actualizar el estatus en la lista local
                 setRequerimientos(prev => 
                     prev.map(req => 
-                        req._id === material._id 
+                        lista._id === material._id 
                             ? { ...req, estatus: 'Rechazado por supervisor', motivo_rechazo: motivo }
                             : req
                     )
@@ -627,7 +748,7 @@ const RemodelacionPage = () => {
 
     const rechazarMaterialDirecto = async (material) => {
         // Evitar múltiples clics
-        if (guardandoCostos) {
+        if (loading) {
             console.log('⏳ Ya se está procesando, evitando múltiple click');
             return;
         }
@@ -652,7 +773,7 @@ const RemodelacionPage = () => {
                 // Actualizar el estatus en la lista local
                 setRequerimientos(prev => 
                     prev.map(req => 
-                        req._id === material._id 
+                        lista._id === material._id 
                             ? { ...req, estatus: 'Rechazado por supervisor', motivo_rechazo: motivo }
                             : req
                     )
@@ -723,6 +844,19 @@ const RemodelacionPage = () => {
             'En venta': 'green',
             'Vendida': 'green',
             'Cancelada': 'red'
+        };
+        return colors[status] || 'gray';
+    };
+
+    const getListaCompraStatusColor = (status) => {
+        const colors = {
+            'Aprobada': 'green',
+            'Rechazada': 'red',
+            'En revisión': 'blue',
+            'Enviada': 'orange',
+            'Borrador': 'gray',
+            'En compra': 'purple',
+            'Completada': 'purple'
         };
         return colors[status] || 'gray';
     };
@@ -1149,6 +1283,21 @@ const RemodelacionPage = () => {
                                                         >
                                                             <PencilIcon className="h-4 w-4" />
                                                         </Button>
+
+                                                        {/* Botón para administradores - Ver Listas de Compra */}
+                                                        {['administrator', 'administrador', 'ayudante de administrador'].includes(user?.role) && (
+                                                            <Button
+                                                                size="sm"
+                                                                color="purple"
+                                                                variant="outlined"
+                                                                className="flex items-center gap-1 px-3 py-1"
+                                                                onClick={verListasCompraAdmin}
+                                                                title="Ver Listas de Compra"
+                                                            >
+                                                                <PrinterIcon className="h-4 w-4" />
+                                                                Listas de Compra
+                                                            </Button>
+                                                        )}
                                                     </>
                                                 )}
                                             </div>
@@ -1299,37 +1448,43 @@ const RemodelacionPage = () => {
                         {requerimientos.length === 0 ? (
                             <div className="text-center py-8">
                                 <Typography variant="h6" color="gray">
-                                    No hay requerimientos registrados
+                                    No hay listas de compra registradas
                                 </Typography>
                                 <Typography variant="small" color="gray">
-                                    Puedes solicitar materiales utilizando el botón "Material"
+                                    Los contratistas pueden crear listas de compra para este proyecto
                                 </Typography>
                             </div>
                         ) : (
                             <div className="space-y-6">
-                                {requerimientos.map((req, index) => (
+                                {requerimientos.map((lista, index) => (
                                     <Card key={index} className="border-l-4 border-l-blue-500 shadow-lg">
                                         <CardBody className="p-6">
-                                            {/* Encabezado del Material */}
+                                            {/* Encabezado de la Lista de Compra */}
                                             <div className="flex justify-between items-start mb-4">
                                                 <div>
                                                     <Typography variant="h5" color="blue-gray" className="font-bold">
-                                                        {req.tipo || 'Material'}
+                                                        {lista.titulo || 'Lista de Compra'}
                                                     </Typography>
+
                                                     <Typography variant="small" color="gray" className="mt-1">
-                                                        Cantidad: <span className="font-medium text-blue-gray-800">{req.cantidad || 'N/A'}</span>
+                                                        Materiales: <span className="font-medium text-blue-gray-800">{lista.materiales?.length || 0} items</span>
+                                                    </Typography>
+                                                    
+                                                    <Typography variant="small" color="gray" className="mt-1">
+                                                        Creada: <span className="font-medium text-blue-gray-800">
+                                                            {new Date(lista.fecha_creacion).toLocaleDateString('es-MX')}
+                                                        </span>
                                                     </Typography>
                                                 </div>
                                                 <Chip
-                                                    value={req.estatus || 'Pendiente'}
+                                                    value={lista.estatus_general || 'Borrador'}
                                                     color={
-                                                        req.estatus === 'Entregado' ? 'green' :
-                                                        req.estatus === 'Aprobado para su compra' ? 'blue' :
-                                                        req.estatus === 'En proceso de entrega' ? 'orange' :
-                                                        req.estatus === 'Pendiente supervisión' ? 'amber' :
-                                                        req.estatus === 'Pendiente aprobación administrativa' ? 'purple' :
-                                                        req.estatus === 'Rechazado por supervisor' ? 'red' :
-                                                        req.estatus === 'Solicitando material' ? 'gray' : 'gray'
+                                                        lista.estatus_general === 'Completada' ? 'green' :
+                                                        lista.estatus_general === 'Aprobada' ? 'blue' :
+                                                        lista.estatus_general === 'En revisión' ? 'orange' :
+                                                        lista.estatus_general === 'Enviada' ? 'amber' :
+                                                        lista.estatus_general === 'Rechazada' ? 'red' :
+                                                        lista.estatus_general === 'Borrador' ? 'gray' : 'gray'
                                                     }
                                                     size="lg"
                                                     className="font-medium"
@@ -1343,35 +1498,32 @@ const RemodelacionPage = () => {
                                                                                             {(user?.role === 'supervisor' || user?.role === 'Supervisor') ? (
                                             <div className="bg-white rounded-lg p-3 border">
                                                 <Typography variant="small" color="gray" className="font-medium mb-2">💰 Gestión de Costo</Typography>
-                                                {req.costo > 0 && costosTemporales[req._id] === undefined ? (
+                                                {lista.total_estimado > 0 ? (
                                                     <div className="flex items-center justify-between">
                                                         <Typography variant="h6" color="green" className="font-bold">
-                                                            ${req.costo?.toLocaleString('es-MX') || '0'}
+                                                            ${lista.total_estimado?.toLocaleString('es-MX') || '0'}
                                                         </Typography>
                                                         <Button
                                                             size="sm"
                                                             color="blue"
                                                             variant="outlined"
                                                             onClick={() => {
-                                                                console.log('✏️ Habilitando edición de costo para:', req._id);
-                                                                setCostosTemporales(prev => ({
-                                                                    ...prev,
-                                                                    [req._id]: req.costo.toString()
-                                                                }));
+                                                                console.log('✏️ Habilitando edición de costo para:', lista._id);
+                                                                {};
                                                             }}
                                                             className="ml-2 px-2 py-1"
                                                         >
                                                             ✏️ Editar
                                                         </Button>
                                                     </div>
-                                                ) : (req.costo > 0 && costosTemporales[req._id] !== undefined) ? (
+                                                ) : (lista.total_estimado > 0 && false) ? (
                                                     <div className="flex gap-2 items-center">
                                                         <Input
                                                             type="number"
                                                             size="lg"
                                                             placeholder="Modifica el costo..."
-                                                            value={costosTemporales[req._id] || ''}
-                                                            onChange={(e) => manejarCambioCosto(req._id, e.target.value)}
+                                                            value={lista.total_estimado || ''}
+                                                            onChange={(e) => {}}
                                                             className="flex-1"
                                                             step="0.01"
                                                             min="0"
@@ -1381,25 +1533,21 @@ const RemodelacionPage = () => {
                                                             size="lg"
                                                             color="green"
                                                             onClick={() => {
-                                                                console.log('💾 Actualizando costo existente - Material:', req._id, 'Nuevo costo:', costosTemporales[req._id]);
-                                                                actualizarCostoMaterial(req);
+                                                                console.log('💾 Actualizando costo existente - Material:', lista._id, 'Nuevo costo:', lista.total_estimado);
+                                                                abrirModalCostos(lista);
                                                             }}
-                                                            disabled={!costosTemporales[req._id] || parseFloat(costosTemporales[req._id] || 0) <= 0 || guardandoCostos}
+                                                            disabled={false || false || guardandoCostos}
                                                             className="px-4"
                                                         >
-                                                            {guardandoCostos ? 'Actualizando...' : '💾 Actualizar'}
+                                                            {loading ? 'Actualizando...' : '💾 Actualizar'}
                                                         </Button>
                                                         <Button
                                                             size="lg"
                                                             color="gray"
                                                             variant="outlined"
                                                             onClick={() => {
-                                                                console.log('❌ Cancelando edición de costo para:', req._id);
-                                                                setCostosTemporales(prev => {
-                                                                    const nueva = { ...prev };
-                                                                    delete nueva[req._id];
-                                                                    return nueva;
-                                                                });
+                                                                console.log('❌ Cancelando edición de costo para:', lista._id);
+                                                                {};
                                                             }}
                                                             className="px-3"
                                                         >
@@ -1408,14 +1556,14 @@ const RemodelacionPage = () => {
                                                     </div>
                                                 ) : (
                                                     // Solo mostrar input si el supervisor habilitó el modo de agregar costo
-                                                    costosTemporales[req._id] !== undefined ? (
+                                                    false ? (
                                                         <div className="flex gap-2 items-center">
                                                             <Input
                                                                 type="number"
                                                                 size="lg"
                                                                 placeholder="Ingresa el costo..."
-                                                                value={costosTemporales[req._id] || ''}
-                                                                onChange={(e) => manejarCambioCosto(req._id, e.target.value)}
+                                                                value={lista.total_estimado || ''}
+                                                                onChange={(e) => {}}
                                                                 className="flex-1"
                                                                 step="0.01"
                                                                 min="0"
@@ -1425,24 +1573,20 @@ const RemodelacionPage = () => {
                                                                 size="lg"
                                                                 color="green"
                                                                 onClick={() => {
-                                                                    console.log('🔘 CLICK BOTÓN GUARDAR - Material:', req._id, 'Costo:', costosTemporales[req._id]);
-                                                                    guardarCostoMaterial(req);
+                                                                    console.log('🔘 CLICK BOTÓN GUARDAR - Material:', lista._id, 'Costo:', lista.total_estimado);
+                                                                    abrirModalCostos(lista);
                                                                 }}
-                                                                disabled={!costosTemporales[req._id] || parseFloat(costosTemporales[req._id] || 0) <= 0 || guardandoCostos}
+                                                                disabled={false || false || guardandoCostos}
                                                                 className="px-4"
                                                             >
-                                                                {guardandoCostos ? 'Guardando...' : 'Guardar'}
+                                                                {loading ? 'Guardando...' : 'Guardar'}
                                                             </Button>
                                                             <Button
                                                                 size="lg"
                                                                 color="gray"
                                                                 variant="outlined"
                                                                 onClick={() => {
-                                                                    setCostosTemporales(prev => {
-                                                                        const nueva = { ...prev };
-                                                                        delete nueva[req._id];
-                                                                        return nueva;
-                                                                    });
+                                                                    {};
                                                                 }}
                                                                 className="px-3"
                                                             >
@@ -1458,11 +1602,11 @@ const RemodelacionPage = () => {
                                             </div>
                                         ) : (
                                                         /* Vista para contratistas */
-                                                        req.costo > 0 && (
+                                                        lista.total_estimado > 0 && (
                                                             <div className="bg-white rounded-lg p-3 border">
                                                                 <Typography variant="small" color="gray" className="font-medium mb-2">💰 Costo</Typography>
                                                                 <Typography variant="h6" color="green" className="font-bold">
-                                                                    ${req.costo?.toLocaleString('es-MX') || '0'}
+                                                                    ${lista.total_estimado?.toLocaleString('es-MX') || '0'}
                                                                 </Typography>
                                                             </div>
                                                         )
@@ -1470,26 +1614,26 @@ const RemodelacionPage = () => {
                                                     
                                                     {/* Información adicional */}
                                                     <div className="space-y-3">
-                                                        {req.tipo_gasto && (
+                                                        {true && (
                                                             <div>
                                                                 <Typography variant="small" color="gray" className="font-medium">📝 Tipo de Gasto</Typography>
                                                                 <Typography variant="small" color="blue-gray" className="font-medium">
-                                                                    {req.tipo_gasto === 'Solicitud_Contratista' ? 'Solicitado por Contratista' : 'Administrativo'}
+                                                                    {'Solicitado por Contratista'}
                                                                 </Typography>
                                                             </div>
                                                         )}
-                                                        {req.usuario_registro && (
+                                                        {lista.contratista_id && (
                                                             <div>
                                                                 <Typography variant="small" color="gray" className="font-medium">👤 Solicitado por</Typography>
                                                                 <Typography variant="small" color="blue-gray" className="font-medium">
-                                                                    {req.usuario_registro.prim_nom} {req.usuario_registro.apell_pa}
+                                                                    {lista.contratista_id?.prim_nom || 'Contratista'} {lista.contratista_id?.apell_pa || ''}
                                                                 </Typography>
                                                             </div>
                                                         )}
                                                         <div>
                                                             <Typography variant="small" color="gray" className="font-medium">📅 Fecha de Solicitud</Typography>
                                                             <Typography variant="small" color="blue-gray" className="font-medium">
-                                                                {req.fecha_registro ? new Date(req.fecha_registro).toLocaleDateString() : 'N/A'}
+                                                                {lista.fecha_creacion ? new Date(lista.fecha_creacion).toLocaleDateString() : 'N/A'}
                                                             </Typography>
                                                         </div>
                                                     </div>
@@ -1497,18 +1641,18 @@ const RemodelacionPage = () => {
                                             </div>
 
                                             {/* Notas */}
-                                            {req.notas && (
+                                            {lista.descripcion && (
                                                 <div className="bg-blue-50 rounded-lg p-3 mb-4">
                                                     <Typography variant="small" color="blue-gray" className="font-medium mb-1">📋 Notas</Typography>
-                                                    <Typography variant="small" color="blue-gray">{req.notas}</Typography>
+                                                    <Typography variant="small" color="blue-gray">{lista.descripcion}</Typography>
                                                 </div>
                                             )}
 
                                             {/* Motivo de rechazo */}
-                                            {req.motivo_rechazo && (
+                                            {lista.motivo_rechazo && (
                                                 <div className="bg-red-50 rounded-lg p-3 mb-4">
                                                     <Typography variant="small" color="red" className="font-medium mb-1">❌ Motivo de Rechazo</Typography>
-                                                    <Typography variant="small" color="red">{req.motivo_rechazo}</Typography>
+                                                    <Typography variant="small" color="red">{lista.motivo_rechazo}</Typography>
                                                 </div>
                                             )}
 
@@ -1516,30 +1660,27 @@ const RemodelacionPage = () => {
                 {(user?.role === 'supervisor' || user?.role === 'Supervisor') && (
                     <div className="mt-4 pt-4 border-t">
                         {/* CASO 1: Material recién solicitado - Supervisor puede agregar costo o rechazar directamente */}
-                        {req.estatus === 'Solicitando material' && req.costo === 0 && (
+                        {lista.estatus_general === 'Enviada' && lista.total_estimado === 0 && (
                             <div className="flex gap-3 justify-end">
                                 <Button
                                     size="lg"
                                     color="red"
                                     variant="outlined"
-                                    onClick={() => rechazarMaterialDirecto(req)}
-                                    disabled={guardandoCostos}
+                                    onClick={() => rechazarListaCompra(lista._id)}
+                                    disabled={loading}
                                     className="flex items-center gap-2"
                                 >
                                     <ExclamationCircleIcon className="h-5 w-5" />
                                     Rechazar Material
                                 </Button>
-                                {costosTemporales[req._id] === undefined && (
+                                {true && (
                                     <Button
                                         size="lg"
                                         color="blue"
                                         variant="outlined"
                                         onClick={() => {
-                                            console.log('➕ Habilitando modo agregar costo para:', req._id);
-                                            setCostosTemporales(prev => ({
-                                                ...prev,
-                                                [req._id]: ''
-                                            }));
+                                            console.log('➕ Abriendo modal de costos para lista:', lista._id);
+                                            abrirModalCostos(lista);
                                         }}
                                         className="flex items-center gap-2"
                                     >
@@ -1550,15 +1691,26 @@ const RemodelacionPage = () => {
                             </div>
                         )}
 
-                        {/* CASO 2: Material con costo pendiente de supervisión - Aprobar o Rechazar */}
-                        {req.costo > 0 && req.estatus === 'Pendiente supervisión' && costosTemporales[req._id] === undefined && (
+                        {/* CASO 2: Lista en revisión - Editar, Aprobar o Rechazar */}
+                        {lista.estatus_general === 'En revisión' && (
                             <div className="flex gap-3 justify-end">
+                                <Button
+                                    size="lg"
+                                    color="blue"
+                                    variant="outlined"
+                                    onClick={() => abrirModalCostos(lista)}
+                                    disabled={loading}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PencilIcon className="h-5 w-5" />
+                                    ✏️ Editar Costos
+                                </Button>
                                 <Button
                                     size="lg"
                                     color="red"
                                     variant="outlined"
-                                    onClick={() => rechazarMaterial(req)}
-                                    disabled={guardandoCostos}
+                                    onClick={() => rechazarListaCompra(lista._id)}
+                                    disabled={loading}
                                     className="flex items-center gap-2"
                                 >
                                     <ExclamationCircleIcon className="h-5 w-5" />
@@ -1567,18 +1719,18 @@ const RemodelacionPage = () => {
                                 <Button
                                     size="lg"
                                     color="green"
-                                    onClick={() => aprobarMaterial(req)}
-                                    disabled={guardandoCostos}
+                                    onClick={() => aprobarListaConCostos(lista._id)}
+                                    disabled={loading}
                                     className="flex items-center gap-2"
                                 >
                                     <CheckIcon className="h-5 w-5" />
-                                    Aprobar y Enviar a Admin
+                                    ✅ Aprobar Lista
                                 </Button>
                             </div>
                         )}
 
                         {/* CASO 3: Material ya aprobado pero editable - Solo mostrar estado */}
-                        {req.estatus === 'Pendiente aprobación administrativa' && (
+                        {lista.estatus_general === 'Aprobada' && (
                             <div className="flex justify-center">
                                 <div className="bg-blue-50 rounded-lg p-3">
                                     <Typography variant="small" color="blue" className="text-center">
@@ -1589,7 +1741,7 @@ const RemodelacionPage = () => {
                         )}
 
                         {/* CASO 4: Material rechazado - Solo mostrar estado */}
-                        {req.estatus === 'Rechazado por supervisor' && (
+                        {lista.estatus_general === 'Rechazada' && (
                             <div className="flex justify-center">
                                 <div className="bg-red-50 rounded-lg p-3">
                                     <Typography variant="small" color="red" className="text-center">
@@ -1617,8 +1769,490 @@ const RemodelacionPage = () => {
                     </div>
                 </div>
             )}
+
+            {/* Modal para ingresar costos de lista de compra */}
+            {showCostosModal && listaParaCostos && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-4xl mx-4 max-h-[80vh] overflow-y-auto">
+                        <Typography variant="h6" color="blue-gray" className="mb-4">
+                            💰 {listaParaCostos.estatus_general === 'En revisión' ? 'Editar' : 'Ingresar'} Costos de Materiales
+                        </Typography>
+                        
+                        <Typography variant="small" color="gray" className="mb-6">
+                            Lista: {listaParaCostos.titulo} - Proyecto: {proyectoSeleccionado?.propiedad ? formatearDireccion(proyectoSeleccionado.propiedad.direccion) : 'N/A'}
+                        </Typography>
+                        
+                        <div className="space-y-6">
+                            {listaParaCostos.materiales.map((material, index) => (
+                                <Card key={index} className="border-l-4 border-l-green-500 shadow-lg">
+                                    <CardBody className="p-6">
+                                        {/* Encabezado del Material */}
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div>
+                                                <Typography variant="h5" color="blue-gray" className="font-bold">
+                                                    {material.tipo}
+                                                </Typography>
+                                                <Typography variant="small" color="gray" className="mt-1">
+                                                    Cantidad: <span className="font-medium text-blue-gray-800">{material.cantidad} {material.tipo_unidad}</span>
+                                                </Typography>
+                                            </div>
+                                            <Chip
+                                                value={material.urgencia}
+                                                color={
+                                                    material.urgencia === 'Urgente' ? 'red' :
+                                                    material.urgencia === 'Alta' ? 'orange' :
+                                                    material.urgencia === 'Media' ? 'amber' : 'green'
+                                                }
+                                                size="lg"
+                                                className="font-medium"
+                                            />
+                                        </div>
+
+                                        {/* Información del Material */}
+                                        <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <Typography variant="small" color="gray" className="font-medium mb-2">
+                                                        Descripción
+                                                    </Typography>
+                                                    <Typography variant="small" color="blue-gray">
+                                                        {material.descripcion || 'Sin descripción'}
+                                                    </Typography>
+                                                </div>
+                                                <div>
+                                                    <Typography variant="small" color="gray" className="font-medium mb-2">
+                                                        Costo Estimado
+                                                    </Typography>
+                                                    <Typography variant="h6" color="blue" className="font-bold">
+                                                        ${material.costo_estimado?.toLocaleString('es-MX') || '0'}
+                                                    </Typography>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Sección de Costo Final */}
+                                        <div className="bg-white rounded-lg p-4 border border-green-200">
+                                            <Typography variant="small" color="gray" className="font-medium mb-3">
+                                                💰 Costo Final (MXN)
+                                            </Typography>
+                                            <div className="flex gap-3 items-center">
+                                                <Input
+                                                    type="number"
+                                                    size="lg"
+                                                    placeholder="Ingrese el costo final..."
+                                                    value={costosMateriales[index]?.costo_final || ''}
+                                                    onChange={(e) => actualizarCostoMaterial(index, 'costo_final', e.target.value)}
+                                                    className="flex-1"
+                                                    step="0.01"
+                                                    min="0"
+                                                    label="Costo Final"
+                                                />
+                                                <div className="text-right">
+                                                    <Typography variant="small" color="gray">
+                                                        Diferencia
+                                                    </Typography>
+                                                    <Typography 
+                                                        variant="h6" 
+                                                        color={costosMateriales[index]?.costo_final > material.costo_estimado ? 'red' : 'green'}
+                                                        className="font-bold"
+                                                    >
+                                                        ${((costosMateriales[index]?.costo_final || 0) - (material.costo_estimado || 0)).toLocaleString('es-MX')}
+                                                    </Typography>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Campo para notas */}
+                                            <div className="mt-3">
+                                                <Textarea
+                                                    size="lg"
+                                                    placeholder="Notas adicionales sobre el costo..."
+                                                    value={costosMateriales[index]?.notas || ''}
+                                                    onChange={(e) => actualizarCostoMaterial(index, 'notas', e.target.value)}
+                                                    label="Notas del Supervisor"
+                                                    className="min-h-[80px]"
+                                                />
+                                            </div>
+                                        </div>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
+
+                        {/* Resumen de Costos */}
+                        <Card className="mt-6 border-2 border-green-500">
+                            <CardBody className="p-6">
+                                <Typography variant="h5" color="green" className="mb-4 text-center">
+                                    📊 Resumen de Costos
+                                </Typography>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <Typography variant="small" color="gray">
+                                            Total Estimado
+                                        </Typography>
+                                        <Typography variant="h6" color="blue" className="font-bold">
+                                            ${listaParaCostos.total_estimado?.toLocaleString('es-MX') || '0'}
+                                        </Typography>
+                                    </div>
+                                    <div>
+                                        <Typography variant="small" color="gray">
+                                            Total Final
+                                        </Typography>
+                                        <Typography variant="h6" color="green" className="font-bold">
+                                            ${totalCalculado.toLocaleString('es-MX')}
+                                        </Typography>
+                                    </div>
+                                    <div>
+                                        <Typography variant="small" color="gray">
+                                            Diferencia
+                                        </Typography>
+                                        <Typography 
+                                            variant="h6" 
+                                            color={totalCalculado > (listaParaCostos.total_estimado || 0) ? 'red' : 'green'}
+                                            className="font-bold"
+                                        >
+                                            ${(totalCalculado - (listaParaCostos.total_estimado || 0)).toLocaleString('es-MX')}
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </CardBody>
+                        </Card>
+                        
+                        <div className="flex justify-between mt-6">
+                            <Button
+                                color="gray"
+                                variant="outlined"
+                                onClick={cerrarModalCostos}
+                            >
+                                Cancelar
+                            </Button>
+                            <div className="flex gap-3">
+                                <Button
+                                    color="blue"
+                                    onClick={guardarCostosYContinuar}
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Guardando...' : `💾 ${listaParaCostos.estatus_general === 'En revisión' ? 'Actualizar' : 'Guardar'} Costos`}
+                                </Button>
+                                <Button
+                                    color="green"
+                                    onClick={() => {
+                                        guardarCostosYContinuar().then(() => {
+                                            if (!error) {
+                                                aprobarListaConCostos(listaParaCostos._id);
+                                            }
+                                        });
+                                    }}
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Procesando...' : '✅ Guardar y Aprobar'}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal de Listas de Compra para Administración */}
+            {showListasCompraModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-6xl mx-4 max-h-[80vh] overflow-y-auto">
+                        <Typography variant="h6" color="blue-gray" className="mb-4">
+                            📋 Listas de Compra - Administración
+                        </Typography>
+                        
+                        <Typography variant="small" color="gray" className="mb-6">
+                            Listas de compra pendientes de aprobación administrativa y ya procesadas por administración
+                        </Typography>
+                        
+                        {listasCompra.length === 0 ? (
+                            <div className="text-center py-8">
+                                <Typography variant="h6" color="gray">
+                                    No hay listas de compra disponibles
+                                </Typography>
+                                                            <Typography variant="small" color="gray">
+                                Las listas de compra aparecerán aquí cuando sean aprobadas por supervisores o procesadas por administración
+                            </Typography>
+                            </div>
+                        ) : (
+                            <div className="overflow-x-auto">
+                                <table className="w-full min-w-[640px] table-auto">
+                                    <thead>
+                                        <tr>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Lista de Compra
+                                                </Typography>
+                                            </th>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Proyecto
+                                                </Typography>
+                                            </th>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Contratista
+                                                </Typography>
+                                            </th>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Total
+                                                </Typography>
+                                            </th>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Estatus
+                                                </Typography>
+                                            </th>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Fecha
+                                                </Typography>
+                                            </th>
+                                            <th className="border-b border-blue-gray-50 py-3 px-5 text-left">
+                                                <Typography variant="small" className="text-[11px] font-bold uppercase text-blue-gray-400">
+                                                    Acciones
+                                                </Typography>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {listasCompra.map((lista) => (
+                                        <tr key={lista._id}>
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <div>
+                                                    <Typography variant="small" color="blue-gray" className="font-medium">
+                                                        {lista.titulo || 'Lista de Compra'}
+                                                    </Typography>
+                                                    <Typography variant="small" color="gray">
+                                                        {lista.materiales?.length || 0} materiales
+                                                    </Typography>
+                                                </div>
+                                            </td>
+                                            
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <Typography variant="small" color="blue-gray">
+                                                    {formatearDireccion(lista.proyecto_id?.propiedad?.direccion)}
+                                                </Typography>
+                                            </td>
+                                            
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <div className="flex items-center gap-2">
+                                                    <UserIcon className="h-4 w-4 text-gray-500" />
+                                                    <Typography variant="small" color="blue-gray">
+                                                        {lista.contratista_id ? 
+                                                            `${lista.contratista_id.prim_nom || ''} ${lista.contratista_id.apell_pa || ''}`.trim() || lista.contratista_id.email
+                                                            : 'N/A'}
+                                                    </Typography>
+                                                </div>
+                                            </td>
+                                            
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <Typography variant="small" color="green" className="font-medium">
+                                                    {formatCurrency(lista.total_final || lista.total_estimado || 0)}
+                                                </Typography>
+                                            </td>
+                                            
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <Chip
+                                                    value={lista.estatus_general}
+                                                    color={getListaCompraStatusColor(lista.estatus_general)}
+                                                    size="sm"
+                                                />
+                                            </td>
+                                            
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <Typography variant="small" color="blue-gray">
+                                                    {formatDate(lista.fecha_creacion)}
+                                                </Typography>
+                                            </td>
+                                            
+                                            <td className="py-3 px-5 border-b border-blue-gray-50">
+                                                <div className="flex gap-2">
+                                                    <Button
+                                                        size="sm"
+                                                        color="blue"
+                                                        variant="text"
+                                                        className="p-2"
+                                                        onClick={() => abrirModalDetallesLista(lista)}
+                                                        title="Ver detalles"
+                                                    >
+                                                        <EyeIcon className="h-4 w-4" />
+                                                    </Button>
+                                                    
+                                                    <Button
+                                                        size="sm"
+                                                        color="purple"
+                                                        variant="outlined"
+                                                        className="flex items-center gap-1 px-3 py-1"
+                                                        onClick={() => imprimirOrdenCompra(lista)}
+                                                        title="Imprimir orden de compra"
+                                                    >
+                                                        <PrinterIcon className="h-4 w-4" />
+                                                        Imprimir
+                                                    </Button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                        
+                        <div className="flex justify-end mt-6">
+                            <Button
+                                color="blue"
+                                onClick={cerrarModalListasCompra}
+                            >
+                                Cerrar
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal de Detalles de Lista para Administración */}
+            {showDetallesListaModal && listaSeleccionada && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-4xl mx-4 max-h-[80vh] overflow-y-auto">
+                        <Typography variant="h6" color="blue-gray" className="mb-4">
+                            📋 Detalles de Lista de Compra
+                        </Typography>
+                        
+                        <Typography variant="small" color="gray" className="mb-6">
+                            Lista: {listaSeleccionada.titulo} - Proyecto: {formatearDireccion(listaSeleccionada.proyecto_id?.propiedad?.direccion)}
+                        </Typography>
+                        
+                        {/* Información General */}
+                        <Card className="mb-6">
+                            <CardBody className="p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <Typography variant="small" color="gray" className="font-medium">📅 Fecha de Creación</Typography>
+                                        <Typography variant="small" color="blue-gray">{formatDate(listaSeleccionada.fecha_creacion)}</Typography>
+                                    </div>
+                                    <div>
+                                        <Typography variant="small" color="gray" className="font-medium">👤 Contratista</Typography>
+                                        <Typography variant="small" color="blue-gray">
+                                            {listaSeleccionada.contratista_id ? 
+                                                `${listaSeleccionada.contratista_id.prim_nom || ''} ${listaSeleccionada.contratista_id.apell_pa || ''}`.trim() || listaSeleccionada.contratista_id.email
+                                                : 'N/A'}
+                                        </Typography>
+                                    </div>
+                                    <div>
+                                        <Typography variant="small" color="gray" className="font-medium">💰 Total</Typography>
+                                        <Typography variant="small" color="green" className="font-bold">
+                                            {formatCurrency(listaSeleccionada.total_final || listaSeleccionada.total_estimado || 0)}
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </CardBody>
+                        </Card>
+
+                        {/* Lista de Materiales */}
+                        <div className="space-y-4">
+                            <Typography variant="h6" color="blue-gray" className="mb-4">
+                                📦 Materiales Solicitados
+                            </Typography>
+                            
+                            {listaSeleccionada.materiales?.map((material, index) => (
+                                <Card key={index} className="border-l-4 border-l-blue-500">
+                                    <CardBody className="p-4">
+                                        <div className="flex justify-between items-start">
+                                            <div className="flex-1">
+                                                <Typography variant="h6" color="blue-gray" className="font-bold">
+                                                    {material.tipo}
+                                                </Typography>
+                                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                                                    <div>
+                                                        <Typography variant="small" color="gray">Cantidad</Typography>
+                                                        <Typography variant="small" color="blue-gray" className="font-medium">
+                                                            {material.cantidad} {material.tipo_unidad}
+                                                        </Typography>
+                                                    </div>
+                                                    <div>
+                                                        <Typography variant="small" color="gray">Urgencia</Typography>
+                                                        <Chip
+                                                            value={material.urgencia}
+                                                            color={
+                                                                material.urgencia === 'Urgente' ? 'red' :
+                                                                material.urgencia === 'Alta' ? 'orange' :
+                                                                material.urgencia === 'Media' ? 'yellow' : 'green'
+                                                            }
+                                                            size="sm"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <Typography variant="small" color="gray">Costo Estimado</Typography>
+                                                        <Typography variant="small" color="blue" className="font-medium">
+                                                            {formatCurrency(material.costo_estimado || 0)}
+                                                        </Typography>
+                                                    </div>
+                                                    <div>
+                                                        <Typography variant="small" color="gray">Costo Final</Typography>
+                                                        <Typography variant="small" color="green" className="font-medium">
+                                                            {formatCurrency(material.costo_final || 0)}
+                                                        </Typography>
+                                                    </div>
+                                                </div>
+                                                {material.descripcion && (
+                                                    <div className="mt-2">
+                                                        <Typography variant="small" color="gray">Descripción</Typography>
+                                                        <Typography variant="small" color="blue-gray">{material.descripcion}</Typography>
+                                                    </div>
+                                                )}
+                                                {material.notas_supervisor && (
+                                                    <div className="mt-2">
+                                                        <Typography variant="small" color="gray">Notas del Supervisor</Typography>
+                                                        <Typography variant="small" color="blue-gray">{material.notas_supervisor}</Typography>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </CardBody>
+                                </Card>
+                            ))}
+                        </div>
+
+                        {/* Descripción General */}
+                        {listaSeleccionada.descripcion && (
+                            <Card className="mt-6">
+                                <CardBody className="p-4">
+                                    <Typography variant="small" color="gray" className="font-medium mb-2">📝 Descripción General</Typography>
+                                    <Typography variant="small" color="blue-gray">{listaSeleccionada.descripcion}</Typography>
+                                </CardBody>
+                            </Card>
+                        )}
+
+                        {/* Botones de Acción */}
+                        <div className="flex gap-3 justify-end mt-6">
+                            <Button
+                                size="lg"
+                                color="purple"
+                                variant="outlined"
+                                onClick={() => imprimirOrdenCompra(listaSeleccionada)}
+                                className="flex items-center gap-2"
+                            >
+                                <PrinterIcon className="h-5 w-5" />
+                                🖨️ Imprimir Orden
+                            </Button>
+                        </div>
+                        
+                        <div className="flex justify-end mt-6">
+                            <Button
+                                color="gray"
+                                variant="outlined"
+                                onClick={cerrarModalDetallesLista}
+                            >
+                                Cerrar
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
 
 export default RemodelacionPage;
+

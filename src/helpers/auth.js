@@ -29,7 +29,7 @@ const isAuthenticated = async(req, res, next) => {
             }
 
             req.token = authorization;
-            req.user = usuario.id;
+            req.user = usuario;
             req.role = usuario.role;
           
             

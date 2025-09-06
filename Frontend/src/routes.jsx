@@ -31,6 +31,7 @@ import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
 import { DetalleCaptacion } from '@/pages/dashboard/captaciones/DetalleCaptacion';
 import { ProyectosMarketing, EditarMarketing, DetalleMarketing } from '@/pages/dashboard/Publicidad';
 import { RemodelacionPage, DetalleRemodelacion, EditarRemodelacion } from '@/pages/dashboard/remodelacion';
+import ListasCompraAdminPage from '@/pages/dashboard/administracion/ListasCompraAdminPage';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -223,6 +224,14 @@ export const routes = [
         path: "/remodelacion/:id/editar",
         element: <EditarRemodelacion />,
         showInSidebar: false,
+      },
+      // Rutas para Administración de Listas de Compra
+      {
+        icon: <DocumentTextIcon {...icon} />,
+        name: "Listas de Compra",
+        path: "/administracion/listas-compra",
+        element: <ListasCompraAdminPage />,
+        roleAccess: ["administrator", "administrador", "ayudante de administrador"], // Solo administradores
       },
     ],
   },

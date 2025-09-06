@@ -39,8 +39,8 @@ RUN mkdir -p src/public/uploads/profile_photos && \
     chmod -R 755 src/public/uploads && \
     chown -R nodejs:nodejs src/public/uploads
 
-# Creamos el directorio Frontend/dist si no existe para evitar errores
-RUN mkdir -p Frontend/dist && \
+# Creamos los directorios necesarios si no existen para evitar errores
+RUN mkdir -p Frontend/dist FrontendPublic && \
     chown -R nodejs:nodejs /usr/src/app
 
 # Exponemos el puerto que utiliza la aplicación

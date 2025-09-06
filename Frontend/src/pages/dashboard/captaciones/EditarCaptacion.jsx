@@ -62,7 +62,15 @@ export function EditarCaptacion() {
       nss: "",
       rfc: "",
       curp: "",
-      estado_civil: ""
+      estado_civil: "",
+      tiene_conyuge: false,
+      conyuge: {
+        nombre: "",
+        telefono: "",
+        nss: "",
+        rfc: "",
+        curp: ""
+      }
     },
     propiedad: {
       tipo: "",
@@ -72,7 +80,9 @@ export function EditarCaptacion() {
         colonia: "",
         ciudad: "",
         estado: "",
-        codigo_postal: ""
+        codigo_postal: "",
+        manzana: "",
+        lote: ""
       },
       caracteristicas: {
         m2_terreno: "",
@@ -182,7 +192,15 @@ export function EditarCaptacion() {
         ),
       estado_civil: yup
         .string()
-        .required("El estado civil es requerido")
+        .required("El estado civil es requerido"),
+      tiene_conyuge: yup.boolean().optional(),
+      conyuge: yup.object().shape({
+        nombre: yup.string().optional(),
+        telefono: yup.string().optional(),
+        nss: yup.string().optional(),
+        rfc: yup.string().optional(),
+        curp: yup.string().optional()
+      })
     }),
     propiedad: yup.object().shape({
       tipo: yup
@@ -206,7 +224,9 @@ export function EditarCaptacion() {
           .required("El estado es requerido"),
         codigo_postal: yup
           .string()
-          .required("El código postal es requerido")
+          .required("El código postal es requerido"),
+        manzana: yup.string().transform(v => (v === '' ? 'N/A' : v)).optional(),
+        lote: yup.string().transform(v => (v === '' ? 'N/A' : v)).optional()
       }),
       caracteristicas: yup.object().shape({
         m2_terreno: yup
@@ -256,7 +276,7 @@ export function EditarCaptacion() {
             .optional()
         })
       )
-      .min(2, "Se requieren al menos 2 referencias personales")
+      .min(1, "Se requiere al menos 1 referencia personal")
       .required("Las referencias personales son requeridas"),
     documentacion: yup.object().shape({
       ine: yup
@@ -384,6 +404,8 @@ export function EditarCaptacion() {
     name: "referencias_personales"
   });
 
+
+
   // Verificar autenticación y rol
   useEffect(() => {
     const checkAuth = async () => {
@@ -427,6 +449,9 @@ export function EditarCaptacion() {
         console.log("Propiedad:", data.propiedad);
         console.log("Venta:", data.venta);
         console.log("Documentos:", data.documentos_entregados);
+        console.log("🔍 Datos de remodelacion:", data.remodelacion);
+        console.log("🔍 Supervisor en remodelacion:", data.remodelacion?.supervisor);
+        console.log("🔍 Supervisor ID en remodelacion:", data.remodelacion?.supervisor_id);
         
         // Mapear los datos a la estructura del formulario, solo incluyendo los campos que existen
         const formData = {
@@ -439,7 +464,15 @@ export function EditarCaptacion() {
             nss: data.propietario?.nss || "",
             rfc: data.propietario?.rfc || "",
             curp: data.propietario?.curp || "",
-            estado_civil: data.propietario?.estado_civil || ""
+            estado_civil: data.propietario?.estado_civil || "",
+            tiene_conyuge: data.propietario?.tiene_conyuge || false,
+            conyuge: data.propietario?.conyuge || {
+              nombre: "",
+              telefono: "",
+              nss: "",
+              rfc: "",
+              curp: ""
+            }
           },
           propiedad: {
             tipo: data.propiedad?.tipo || "",
@@ -449,7 +482,9 @@ export function EditarCaptacion() {
               colonia: data.propiedad?.direccion?.colonia || "",
               ciudad: data.propiedad?.direccion?.ciudad || "",
               estado: data.propiedad?.direccion?.estado || "",
-              codigo_postal: data.propiedad?.direccion?.codigo_postal || ""
+              codigo_postal: data.propiedad?.direccion?.codigo_postal || "",
+              manzana: data.propiedad?.direccion?.manzana || "",
+              lote: data.propiedad?.direccion?.lote || ""
             },
             caracteristicas: {
               m2_terreno: data.propiedad?.caracteristicas?.m2_terreno || "",
@@ -496,8 +531,25 @@ export function EditarCaptacion() {
             tipo_captacion: data.captacion.tipo_captacion || "Abierta",
             estatus_actual: data.estatus_actual || "Captación",
             presupuesto_estimado: data.remodelacion?.presupuesto_estimado || "",
-            supervisor_id: data.remodelacion?.supervisor?._id || data.remodelacion?.supervisor_id || "",
-
+            supervisor_id: (() => {
+              // Asegurar que solo se guarde el _id, no el objeto completo
+              let supervisorId = "";
+              
+              if (data.remodelacion?.supervisor) {
+                // Si viene como objeto, extraer solo el _id
+                supervisorId = typeof data.remodelacion.supervisor === 'object' 
+                  ? data.remodelacion.supervisor._id 
+                  : data.remodelacion.supervisor;
+              } else if (data.remodelacion?.supervisor_id) {
+                // Si viene como string directo
+                supervisorId = data.remodelacion.supervisor_id;
+              }
+              
+              console.log("🔍 Mapeando supervisor_id:", supervisorId);
+              console.log("🔍 De supervisor object:", data.remodelacion?.supervisor);
+              console.log("🔍 De supervisor_id directo:", data.remodelacion?.supervisor_id);
+              return supervisorId;
+            })(),
             observaciones: data.captacion.observaciones || ""
           } : defaultValues.captacion,
           documentacion: data.documentos_entregados ? {
@@ -556,6 +608,8 @@ export function EditarCaptacion() {
 
     cargarSupervisores();
   }, []);
+
+
 
   // Función para sincronizar estatus
   const sincronizarEstatus = (data) => {
@@ -738,6 +792,25 @@ export function EditarCaptacion() {
                         </div>
                       )}
                     </div>
+
+                    {/* Datos de Esposa(o) - visible solo si Casado */}
+                    {watch('propietario.estado_civil') === 'Casado' && (
+                      <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                        <Typography variant="h6" color="green" className="mb-3">Datos de Esposa(o)</Typography>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          <Controller name="propietario.conyuge.nombre" control={control} render={({ field }) => (
+                            <Input type="text" label="Nombre de Esposa(o)" {...field} />)} />
+                          <Controller name="propietario.conyuge.telefono" control={control} render={({ field }) => (
+                            <Input type="tel" label="Teléfono de Esposa(o)" {...field} />)} />
+                          <Controller name="propietario.conyuge.nss" control={control} render={({ field }) => (
+                            <Input type="text" label="NSS de Esposa(o)" {...field} />)} />
+                          <Controller name="propietario.conyuge.rfc" control={control} render={({ field }) => (
+                            <Input type="text" label="RFC de Esposa(o)" {...field} />)} />
+                          <Controller name="propietario.conyuge.curp" control={control} render={({ field }) => (
+                            <Input type="text" label="CURP de Esposa(o)" {...field} />)} />
+                        </div>
+                      </div>
+                    )}
                     
                     <div className="mt-4">
                       <Typography variant="small" className="font-medium mb-2 text-blue-gray-500">
@@ -827,6 +900,105 @@ export function EditarCaptacion() {
                         )}
                       />
                     </div>
+
+                    {watch('propietario.estado_civil') === 'Casado' && (
+                      <div className="mt-4">
+                        <Typography variant="h6" color="blue-gray" className="mb-4">
+                          Información del Conyuge
+                        </Typography>
+                        <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                          <Typography variant="paragraph" color="blue-gray" className="mb-4">
+                            Complete la información del conyuge del propietario.
+                          </Typography>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Controller
+                              name="propietario.conyuge.nombre"
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="text"
+                                  label="Nombre Completo del Conyuge"
+                                  {...field}
+                                />
+                              )}
+                            />
+                            {errors.propietario?.conyuge?.nombre && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.propietario.conyuge.nombre.message}
+                              </div>
+                            )}
+
+                            <Controller
+                              name="propietario.conyuge.telefono"
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="tel"
+                                  label="Teléfono del Conyuge"
+                                  {...field}
+                                />
+                              )}
+                            />
+                            {errors.propietario?.conyuge?.telefono && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.propietario.conyuge.telefono.message}
+                              </div>
+                            )}
+
+                            <Controller
+                              name="propietario.conyuge.nss"
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="text"
+                                  label="Número de Seguridad Social del Conyuge"
+                                  {...field}
+                                />
+                              )}
+                            />
+                            {errors.propietario?.conyuge?.nss && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.propietario.conyuge.nss.message}
+                              </div>
+                            )}
+
+                            <Controller
+                              name="propietario.conyuge.rfc"
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="text"
+                                  label="RFC del Conyuge"
+                                  {...field}
+                                />
+                              )}
+                            />
+                            {errors.propietario?.conyuge?.rfc && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.propietario.conyuge.rfc.message}
+                              </div>
+                            )}
+
+                            <Controller
+                              name="propietario.conyuge.curp"
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="text"
+                                  label="CURP del Conyuge"
+                                  {...field}
+                                />
+                              )}
+                            />
+                            {errors.propietario?.conyuge?.curp && (
+                              <div className="text-red-500 text-xs mt-1">
+                                {errors.propietario.conyuge.curp.message}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </TabPanel>
@@ -857,8 +1029,10 @@ export function EditarCaptacion() {
                             <Option value="Casa">Casa</Option>
                             <Option value="Departamento">Departamento</Option>
                             <Option value="Terreno">Terreno</Option>
+                            <Option value="Condominio">Condominio</Option>
                             <Option value="Local Comercial">Local Comercial</Option>
                             <Option value="Oficina">Oficina</Option>
+                            <Option value="Condominio">Condominio</Option>
                           </Select>
                         )}
                       />
@@ -979,6 +1153,40 @@ export function EditarCaptacion() {
                         {errors.propiedad?.direccion?.codigo_postal && (
                           <div className="text-red-500 text-xs mt-1">
                             {errors.propiedad.direccion.codigo_postal.message}
+                          </div>
+                        )}
+
+                        <Controller
+                          name="propiedad.direccion.manzana"
+                          control={control}
+                          render={({ field }) => (
+                            <Input
+                              type="text"
+                              label="Manzana"
+                              {...field}
+                            />
+                          )}
+                        />
+                        {errors.propiedad?.direccion?.manzana && (
+                          <div className="text-red-500 text-xs mt-1">
+                            {errors.propiedad.direccion.manzana.message}
+                          </div>
+                        )}
+
+                        <Controller
+                          name="propiedad.direccion.lote"
+                          control={control}
+                          render={({ field }) => (
+                            <Input
+                              type="text"
+                              label="Lote"
+                              {...field}
+                            />
+                          )}
+                        />
+                        {errors.propiedad?.direccion?.lote && (
+                          <div className="text-red-500 text-xs mt-1">
+                            {errors.propiedad.direccion.lote.message}
                           </div>
                         )}
                       </div>
@@ -1158,16 +1366,29 @@ export function EditarCaptacion() {
                           />
 
                           <Controller
-                            name={`propiedad.adeudos.${index}.referencia`}
+                            name={`propiedad.adeudos.${index}.numero_referencia`}
                             control={control}
                             render={({ field }) => (
                               <Input
                                 type="text"
-                                label="Número de Referencia"
+                                label="Número de Referencia o número de crédito"
                                 {...field}
                               />
                             )}
                           />
+                          {watch(`propiedad.adeudos.${index}.tipo`) === 'Otro' && (
+                            <Controller
+                              name={`propiedad.adeudos.${index}.detalle`}
+                              control={control}
+                              render={({ field }) => (
+                                <Input
+                                  type="text"
+                                  label="Detalle del adeudo (si seleccionó 'Otro')"
+                                  {...field}
+                                />
+                              )}
+                            />
+                          )}
                         </div>
                       </div>
                     ))}
@@ -1176,7 +1397,7 @@ export function EditarCaptacion() {
                       size="sm"
                       color="blue"
                       variant="outlined"
-                      onClick={() => appendAdeudo({ tipo: "", monto: "", referencia: "" })}
+                      onClick={() => appendAdeudo({ tipo: "", monto: "", numero_referencia: "" })}
                       className="mt-4"
                     >
                       Agregar Adeudo
@@ -1388,6 +1609,7 @@ export function EditarCaptacion() {
                                 onChange={(value) => field.onChange(value)}
                                 error={!!errors.referencias_personales?.[index]?.relacion}
                               >
+                                <Option value="">Seleccionar parentesco</Option>
                                 <Option value="Familiar">Familiar</Option>
                                 <Option value="Amigo">Amigo</Option>
                                 <Option value="Vecino">Vecino</Option>
@@ -1843,9 +2065,10 @@ export function EditarCaptacion() {
                         render={({ field }) => (
                           <Select
                             label="Supervisor Asignado"
-                            value={field.value}
+                            value={field.value || ""}
                             onChange={(value) => field.onChange(value)}
                             disabled={watch('captacion.estatus_actual') !== 'Remodelacion'}
+                            error={!!errors.captacion?.supervisor_id}
                           >
                             <Option value="">Seleccionar supervisor</Option>
                             {supervisores.map((supervisor) => (
@@ -1856,6 +2079,11 @@ export function EditarCaptacion() {
                           </Select>
                         )}
                       />
+                      {errors.captacion?.supervisor_id && (
+                        <div className="text-red-500 text-xs mt-1">
+                          {errors.captacion.supervisor_id.message}
+                        </div>
+                      )}
 
 
                     </div>
