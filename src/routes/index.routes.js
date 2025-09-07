@@ -22,8 +22,15 @@ router.get('/test-image-access', (req, res) => {
   console.log('User-Agent:', req.get('User-Agent'));
   
   // Simular una respuesta de imagen con headers CORS
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
+  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'];
+  const origin = req.headers.origin;
+  
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
   res.header('Content-Type', 'image/png');
   res.header('Cross-Origin-Resource-Policy', 'cross-origin');
   
@@ -32,8 +39,8 @@ router.get('/test-image-access', (req, res) => {
     message: 'Acceso a imagen configurado correctamente',
     origin: req.headers.origin,
     corsHeaders: {
-      'Access-Control-Allow-Origin': req.headers.origin || '*',
-      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : '*',
+      'Access-Control-Allow-Credentials': allowedOrigins.includes(origin) ? 'true' : 'false',
       'Cross-Origin-Resource-Policy': 'cross-origin'
     },
     timestamp: new Date().toISOString()

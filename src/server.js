@@ -21,10 +21,12 @@ module.exports = {
 
 const app = express();
 
-// Configuración de CORS simplificada
+// Configuración de CORS para desarrollo
 app.use(cors({
-  origin: true, // Permitir todos los orígenes
-  credentials: true
+  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
 // Middleware de seguridad
@@ -133,8 +135,15 @@ app.get('/api/test-image-access', (req, res) => {
   console.log('User-Agent:', req.get('User-Agent'));
   
   // Simular una respuesta de imagen con headers CORS
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
+  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'];
+  const origin = req.headers.origin;
+  
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
   res.header('Content-Type', 'image/png');
   res.header('Cross-Origin-Resource-Policy', 'cross-origin');
   
@@ -143,8 +152,8 @@ app.get('/api/test-image-access', (req, res) => {
     message: 'Acceso a imagen configurado correctamente (directo)',
     origin: req.headers.origin,
     corsHeaders: {
-      'Access-Control-Allow-Origin': req.headers.origin || '*',
-      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : '*',
+      'Access-Control-Allow-Credentials': allowedOrigins.includes(origin) ? 'true' : 'false',
       'Cross-Origin-Resource-Policy': 'cross-origin'
     },
     timestamp: new Date().toISOString()
@@ -186,9 +195,17 @@ app.use('/img', express.static(path.join(__dirname, 'public/img')));
 app.use('/uploads', (req, res, next) => {
   const origin = req.headers.origin;
   
-  // Permitir acceso desde cualquier origen
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
+  // Permitir acceso desde orígenes específicos (no usar wildcard con credentials)
+  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'];
+  
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+    // No incluir Access-Control-Allow-Credentials cuando usamos wildcard
+  }
+  
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   

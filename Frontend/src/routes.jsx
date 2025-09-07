@@ -54,14 +54,19 @@ export const routes = [
       {
         icon: <HomeIcon {...icon} />,
         name: "dashboard",
-        path: "/home",
+        path: "/dashboard",
         element: <Home />,
         shouldRedirectToProfile: true,
         roleAccess: ["administrator", "administrador", "ayudante de administrador"], // Solo administradores - otros van a profile
       },
       {
         path: "/",
-        element: <Home />,
+        element: <Profile />,
+        shouldRedirectToProfile: true
+      },
+      {
+        path: "/home",
+        element: <Profile />,
         shouldRedirectToProfile: true
       },
       {

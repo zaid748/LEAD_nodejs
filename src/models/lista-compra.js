@@ -79,11 +79,24 @@ const ListaCompraSchema = new mongoose.Schema({
         notas_supervisor: {
             type: String,
             trim: true
+        },
+        costo_real: {
+            type: Number,
+            min: 0,
+            default: 0
+        },
+        proveedor: {
+            type: String,
+            trim: true
+        },
+        notas_compra: {
+            type: String,
+            trim: true
         }
     }],
     estatus_general: {
         type: String,
-        enum: ['Borrador', 'Enviada', 'En revisión', 'Aprobada', 'Rechazada', 'En compra', 'Completada'],
+        enum: ['Borrador', 'Enviada', 'En revisión', 'Aprobada', 'Rechazada', 'En compra', 'Recibida', 'Comprada', 'Completada'],
         default: 'Borrador'
     },
     fecha_creacion: {
@@ -134,7 +147,49 @@ const ListaCompraSchema = new mongoose.Schema({
     comentarios_admin: {
         type: String,
         trim: true
-    }
+    },
+    // Campos para funcionalidad de recibido/comprado
+    fecha_recibido: Date,
+    firma_contratista: {
+        type: String,
+        trim: true
+    },
+    tipo_firma: {
+        type: String,
+        enum: ['texto', 'digital'],
+        default: 'texto'
+    },
+    comentarios_recibido: {
+        type: String,
+        trim: true
+    },
+    fecha_compra: Date,
+    comentarios_compra: {
+        type: String,
+        trim: true
+    },
+    total_real: {
+        type: Number,
+        min: 0,
+        default: 0
+    },
+    proveedor_general: {
+        type: String,
+        trim: true
+    },
+    notas_compra: {
+        type: String,
+        trim: true
+    },
+    comprobantes: [{
+        nombre: String,
+        nombreArchivo: String,
+        url: String,
+        s3Key: String,
+        tipo: String,
+        tamaño: Number,
+        fechaSubida: Date
+    }]
 }, { timestamps: true });
 
 // Índices para mejorar rendimiento

@@ -1,7 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
 const ListaCompraController = require('../controllers/lista-compra.controller');
 const { isAuthenticated } = require('../helpers/auth');
+
+// Configurar multer para subir archivos
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB por archivo
+        files: 10 // Máximo 10 archivos
+    },
+    fileFilter: (req, file, cb) => {
+        // Permitir solo imágenes y PDFs
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Solo se permiten archivos JPG, PNG, GIF y PDF'), false);
+        }
+    }
+});
 
 // Middleware de autenticación para todas las rutas
 router.use(isAuthenticated);
@@ -162,6 +181,55 @@ router.post('/:listaId/admin/aprobar', async (req, res) => {
  */
 router.post('/:listaId/admin/rechazar', async (req, res) => {
     await ListaCompraController.rechazarListaCompraAdmin(req, res);
+});
+
+/**
+ * @route   POST /api/lista-compra/:listaId/recibida
+ * @desc    Marcar lista como recibida por contratista (firma carta responsiva)
+ * @access  Private - Contratistas
+ */
+router.post('/:listaId/recibida', async (req, res) => {
+    // Verificar que el usuario es contratista
+    if (req.user.role !== 'contratista') {
+        return res.status(403).json({
+            success: false,
+            message: 'Solo los contratistas pueden marcar listas como recibidas'
+        });
+    }
+    
+    await ListaCompraController.marcarComoRecibida(req, res);
+});
+
+/**
+ * @route   POST /api/lista-compra/:listaId/comprada
+ * @desc    Marcar lista como comprada por supervisor (subir comprobantes)
+ * @access  Private - Supervisores
+ */
+router.post('/:listaId/comprada', (req, res, next) => {
+    upload.array('comprobantes', 10)(req, res, (err) => {
+        if (err) {
+            console.error('🔍 Error de multer:', err);
+            return res.status(400).json({
+                success: false,
+                message: err.message || 'Error al procesar archivos'
+            });
+        }
+        
+        // Debugging middleware
+        console.log('🔍 Middleware - Archivos recibidos:', req.files);
+        console.log('🔍 Middleware - Body:', req.body);
+        console.log('🔍 Middleware - Headers:', req.headers);
+        
+        // Verificar que el usuario es supervisor
+        if (req.user.role !== 'supervisor') {
+            return res.status(403).json({
+                success: false,
+                message: 'Solo los supervisores pueden marcar listas como compradas'
+            });
+        }
+        
+        ListaCompraController.marcarComoComprada(req, res);
+    });
 });
 
 module.exports = router;

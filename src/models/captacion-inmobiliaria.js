@@ -272,7 +272,11 @@ const GastoSchema = new mongoose.Schema({
     monto: { type: Number, required: true, min: 0 },
     moneda: { type: String, default: 'MXN' },
     fecha: { type: Date, default: Date.now },
-    descripcion: { type: String, trim: true }
+    descripcion: { type: String, trim: true },
+    tipo: { type: String, enum: ['Materiales', 'Mano de obra', 'Herramientas', 'Otro'], default: 'Materiales' },
+    lista_compra_id: { type: mongoose.Schema.Types.ObjectId, ref: 'ListaCompra' },
+    supervisor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    notas: { type: String, trim: true }
 });
 
 // 📌 Información de remodelación (extendida)
@@ -284,6 +288,7 @@ const RemodelacionSchema = new mongoose.Schema({
     gastos: [GastoSchema], // Detalle de gastos (mantener para compatibilidad)
     presupuesto_total: { type: Number, min: 0 },
     presupuesto_estimado: { type: Number, min: 0 }, // Nuevo campo para presupuesto inicial
+    presupuesto_restante: { type: Number, min: 0 }, // Presupuesto restante después de gastos
     materiales: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Material' }], // Referencias a materiales
     solicitudes_pendientes: [{
         material: { type: mongoose.Schema.Types.ObjectId, ref: 'Material' },

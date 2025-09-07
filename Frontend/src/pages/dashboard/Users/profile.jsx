@@ -18,6 +18,9 @@ import {
   CurrencyDollarIcon,
   IdentificationIcon,
   PencilSquareIcon,
+  ShieldCheckIcon,
+  EyeIcon,
+  EyeSlashIcon,
 } from "@heroicons/react/24/solid";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
@@ -33,6 +36,21 @@ export function Profile() {
   const fileInputRef = useRef(null);
   const [nominas, setNominas] = useState([]);
   const [activeTab, setActiveTab] = useState("perfil");
+  
+  // Estados para cambio de contraseña
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [showPasswords, setShowPasswords] = useState({
+    current: false,
+    new: false,
+    confirm: false
+  });
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -389,6 +407,127 @@ export function Profile() {
     return date.toLocaleDateString('es-MX');
   };
 
+  // Funciones para cambio de contraseña
+  const handlePasswordChange = (field, value) => {
+    setPasswordData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+    // Limpiar errores cuando el usuario empiece a escribir
+    if (passwordError) setPasswordError('');
+    if (passwordSuccess) setPasswordSuccess('');
+  };
+
+  const togglePasswordVisibility = (field) => {
+    setShowPasswords(prev => ({
+      ...prev,
+      [field]: !prev[field]
+    }));
+  };
+
+  const validatePassword = (password) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return {
+      isValid: password.length >= minLength && hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar,
+      errors: {
+        length: password.length < minLength ? `Mínimo ${minLength} caracteres` : null,
+        uppercase: !hasUpperCase ? 'Al menos una mayúscula' : null,
+        lowercase: !hasLowerCase ? 'Al menos una minúscula' : null,
+        numbers: !hasNumbers ? 'Al menos un número' : null,
+        special: !hasSpecialChar ? 'Al menos un carácter especial' : null
+      }
+    };
+  };
+
+  const handleChangePassword = async () => {
+    try {
+      setIsChangingPassword(true);
+      setPasswordError('');
+      setPasswordSuccess('');
+
+      // Validaciones
+      if (!passwordData.currentPassword) {
+        setPasswordError('La contraseña actual es obligatoria');
+        return;
+      }
+
+      if (!passwordData.newPassword) {
+        setPasswordError('La nueva contraseña es obligatoria');
+        return;
+      }
+
+      if (passwordData.newPassword !== passwordData.confirmPassword) {
+        setPasswordError('Las contraseñas nuevas no coinciden');
+        return;
+      }
+
+      if (passwordData.currentPassword === passwordData.newPassword) {
+        setPasswordError('La nueva contraseña debe ser diferente a la actual');
+        return;
+      }
+
+      // Validar fortaleza de la nueva contraseña
+      const passwordValidation = validatePassword(passwordData.newPassword);
+      if (!passwordValidation.isValid) {
+        const errors = Object.values(passwordValidation.errors).filter(Boolean);
+        setPasswordError(`La contraseña debe cumplir: ${errors.join(', ')}`);
+        return;
+      }
+
+      // Enviar solicitud al servidor
+      const response = await axios.put(
+        `/api/users/${user.id}/password`,
+        {
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response.data.success) {
+        setPasswordSuccess('¡Contraseña actualizada correctamente!');
+        setPasswordData({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+        
+        // Limpiar mensaje de éxito después de 5 segundos
+        setTimeout(() => {
+          setPasswordSuccess('');
+        }, 5000);
+      } else {
+        setPasswordError(response.data.message || 'Error al cambiar la contraseña');
+      }
+    } catch (error) {
+      console.error('Error al cambiar contraseña:', error);
+      
+      if (error.response) {
+        if (error.response.status === 400) {
+          setPasswordError(error.response.data.message || 'Datos inválidos');
+        } else if (error.response.status === 401) {
+          setPasswordError('Contraseña actual incorrecta');
+        } else {
+          setPasswordError(error.response.data.message || 'Error del servidor');
+        }
+      } else {
+        setPasswordError('Error de conexión. Intenta nuevamente.');
+      }
+    } finally {
+      setIsChangingPassword(false);
+    }
+  };
+
   return (
     <div className="mx-auto my-10 max-w-screen-lg px-4">
       <Card className="mb-6">
@@ -497,6 +636,12 @@ export function Profile() {
                     <div className="flex items-center gap-2">
                       <CurrencyDollarIcon className="w-5 h-5" />
                       Nóminas
+                    </div>
+                  </Tab>
+                  <Tab value="seguridad">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheckIcon className="w-5 h-5" />
+                      Seguridad
                     </div>
                   </Tab>
                 </TabsHeader>
@@ -680,6 +825,193 @@ export function Profile() {
                         </Typography>
                       </div>
                     )}
+                  </TabPanel>
+                  
+                  <TabPanel value="seguridad">
+                    <div className="bg-white p-6 rounded-lg shadow">
+                      <Typography variant="h6" color="blue-gray" className="mb-6 flex items-center gap-2">
+                        <ShieldCheckIcon className="w-6 h-6" />
+                        Cambiar Contraseña
+                      </Typography>
+                      
+                      {passwordError && (
+                        <div className="bg-red-50 border border-red-200 p-4 rounded-lg mb-6">
+                          <Typography variant="small" color="red" className="font-medium">
+                            {passwordError}
+                          </Typography>
+                        </div>
+                      )}
+                      
+                      {passwordSuccess && (
+                        <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-6">
+                          <Typography variant="small" color="green" className="font-medium">
+                            {passwordSuccess}
+                          </Typography>
+                        </div>
+                      )}
+                      
+                      <div className="space-y-6">
+                        {/* Contraseña actual */}
+                        <div>
+                          <Typography variant="small" color="blue-gray" className="font-semibold mb-2">
+                            Contraseña Actual
+                          </Typography>
+                          <div className="relative">
+                            <Input
+                              type={showPasswords.current ? "text" : "password"}
+                              value={passwordData.currentPassword}
+                              onChange={(e) => handlePasswordChange('currentPassword', e.target.value)}
+                              placeholder="Ingresa tu contraseña actual"
+                              className="pr-10"
+                              disabled={isChangingPassword}
+                            />
+                            <button
+                              type="button"
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                              onClick={() => togglePasswordVisibility('current')}
+                            >
+                              {showPasswords.current ? (
+                                <EyeSlashIcon className="h-5 w-5" />
+                              ) : (
+                                <EyeIcon className="h-5 w-5" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Nueva contraseña */}
+                        <div>
+                          <Typography variant="small" color="blue-gray" className="font-semibold mb-2">
+                            Nueva Contraseña
+                          </Typography>
+                          <div className="relative">
+                            <Input
+                              type={showPasswords.new ? "text" : "password"}
+                              value={passwordData.newPassword}
+                              onChange={(e) => handlePasswordChange('newPassword', e.target.value)}
+                              placeholder="Ingresa tu nueva contraseña"
+                              className="pr-10"
+                              disabled={isChangingPassword}
+                            />
+                            <button
+                              type="button"
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                              onClick={() => togglePasswordVisibility('new')}
+                            >
+                              {showPasswords.new ? (
+                                <EyeSlashIcon className="h-5 w-5" />
+                              ) : (
+                                <EyeIcon className="h-5 w-5" />
+                              )}
+                            </button>
+                          </div>
+                          
+                          {/* Indicador de fortaleza de contraseña */}
+                          {passwordData.newPassword && (
+                            <div className="mt-3 p-3 bg-gray-50 rounded-lg">
+                              <Typography variant="small" color="gray" className="font-medium mb-2">
+                                Requisitos de la contraseña:
+                              </Typography>
+                              <div className="space-y-1">
+                                {(() => {
+                                  const validation = validatePassword(passwordData.newPassword);
+                                  return Object.entries(validation.errors).map(([key, error]) => (
+                                    <div key={key} className="flex items-center gap-2">
+                                      <div className={`w-2 h-2 rounded-full ${
+                                        error ? 'bg-red-400' : 'bg-green-400'
+                                      }`} />
+                                      <Typography variant="small" color={error ? 'red' : 'green'}>
+                                        {key === 'length' && 'Mínimo 8 caracteres'}
+                                        {key === 'uppercase' && 'Al menos una mayúscula'}
+                                        {key === 'lowercase' && 'Al menos una minúscula'}
+                                        {key === 'numbers' && 'Al menos un número'}
+                                        {key === 'special' && 'Al menos un carácter especial'}
+                                      </Typography>
+                                    </div>
+                                  ));
+                                })()}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* Confirmar nueva contraseña */}
+                        <div>
+                          <Typography variant="small" color="blue-gray" className="font-semibold mb-2">
+                            Confirmar Nueva Contraseña
+                          </Typography>
+                          <div className="relative">
+                            <Input
+                              type={showPasswords.confirm ? "text" : "password"}
+                              value={passwordData.confirmPassword}
+                              onChange={(e) => handlePasswordChange('confirmPassword', e.target.value)}
+                              placeholder="Confirma tu nueva contraseña"
+                              className="pr-10"
+                              disabled={isChangingPassword}
+                            />
+                            <button
+                              type="button"
+                              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                              onClick={() => togglePasswordVisibility('confirm')}
+                            >
+                              {showPasswords.confirm ? (
+                                <EyeSlashIcon className="h-5 w-5" />
+                              ) : (
+                                <EyeIcon className="h-5 w-5" />
+                              )}
+                            </button>
+                          </div>
+                          
+                          {/* Indicador de coincidencia */}
+                          {passwordData.confirmPassword && (
+                            <div className="mt-2 flex items-center gap-2">
+                              <div className={`w-2 h-2 rounded-full ${
+                                passwordData.newPassword === passwordData.confirmPassword ? 'bg-green-400' : 'bg-red-400'
+                              }`} />
+                              <Typography variant="small" color={passwordData.newPassword === passwordData.confirmPassword ? 'green' : 'red'}>
+                                {passwordData.newPassword === passwordData.confirmPassword ? 'Las contraseñas coinciden' : 'Las contraseñas no coinciden'}
+                              </Typography>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {/* Botón de cambio */}
+                        <div className="pt-4">
+                          <Button
+                            color="blue"
+                            size="lg"
+                            onClick={handleChangePassword}
+                            disabled={isChangingPassword || !passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
+                            className="flex items-center gap-2"
+                          >
+                            {isChangingPassword ? (
+                              <>
+                                <Spinner className="h-4 w-4" />
+                                Cambiando...
+                              </>
+                            ) : (
+                              <>
+                                <ShieldCheckIcon className="h-5 w-5" />
+                                Cambiar Contraseña
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                        
+                        {/* Información adicional */}
+                        <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                          <Typography variant="small" color="blue-gray" className="font-medium mb-2">
+                            💡 Consejos de seguridad:
+                          </Typography>
+                          <ul className="text-sm text-gray-600 space-y-1">
+                            <li>• Usa una contraseña única que no uses en otros sitios</li>
+                            <li>• Combina letras, números y símbolos especiales</li>
+                            <li>• Evita información personal obvia</li>
+                            <li>• Cambia tu contraseña regularmente</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </TabPanel>
                 </TabsBody>
               </Tabs>

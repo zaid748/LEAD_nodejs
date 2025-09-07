@@ -87,6 +87,73 @@ upload.uploadImageToS3 = async (imageBuffer, fileName, propiedadId) => {
   }
 };
 
+// Función para subir archivos de comprobantes (PDF, imágenes, etc.)
+upload.uploadComprobanteToS3 = async (fileBuffer, fileName, proyectoId, mimeType) => {
+  try {
+    // Configurar cliente S3
+    const s3Client = new S3Client({
+      endpoint: "https://sfo3.digitaloceanspaces.com",
+      region: "us-east-1",
+      credentials: {
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY
+      }
+    });
+
+    // Crear nombre único para el archivo
+    const timestamp = new Date().getTime();
+    const extension = path.extname(fileName);
+    const baseName = path.basename(fileName, extension);
+    const uniqueFileName = `${baseName}_${timestamp}${extension}`;
+    
+    // Definir la carpeta y key en S3
+    const folder = 'Facturas Remodelacion';
+    const s3Key = `${folder}/${proyectoId}/${uniqueFileName}`;
+    
+    // Crear key único para identificación
+    const uniqueKey = `comprobante_${proyectoId}_${timestamp}_${Date.now()}`;
+    
+    // Determinar ContentType basado en la extensión
+    let contentType = mimeType || 'application/octet-stream';
+    if (extension.toLowerCase() === '.pdf') {
+      contentType = 'application/pdf';
+    } else if (extension.toLowerCase() === '.jpg' || extension.toLowerCase() === '.jpeg') {
+      contentType = 'image/jpeg';
+    } else if (extension.toLowerCase() === '.png') {
+      contentType = 'image/png';
+    }
+    
+    // Parámetros para subir a S3
+    const params = {
+      Bucket: BUCKET_NAME,
+      Key: s3Key,
+      Body: fileBuffer,
+      ACL: "public-read",
+      ContentType: contentType
+    };
+
+    // Subir archivo a S3
+    await s3Client.send(new PutObjectCommand(params));
+    
+    // Construir URL pública
+    const fileUrl = `https://${BUCKET_NAME}.sfo3.digitaloceanspaces.com/${s3Key}`;
+    
+    console.log(`Comprobante subido exitosamente: ${fileUrl}`);
+    
+    return {
+      url: fileUrl,
+      nombre: uniqueFileName,
+      fecha_subida: new Date(),
+      key: uniqueKey, // Key único para identificación
+      s3Key: s3Key   // Ruta completa en S3 para eliminación
+    };
+    
+  } catch (error) {
+    console.error('Error al subir comprobante a S3:', error);
+    throw new Error(`Error al subir comprobante: ${error.message}`);
+  }
+};
+
 // Función para eliminar imagen de S3
 upload.deleteImageFromS3 = async (key) => {
   try {
