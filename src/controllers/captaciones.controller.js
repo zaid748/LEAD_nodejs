@@ -845,6 +845,25 @@ exports.updateCaptacionUnificada = async (req, res) => {
             });
         }
         
+        // Sanitizar propietario.conyuge según tiene_conyuge para evitar validaciones de Mongoose
+        if (req.body && req.body.propietario) {
+            const { tiene_conyuge, conyuge } = req.body.propietario;
+            if (!tiene_conyuge) {
+                // Si no tiene cónyuge, eliminar objeto conyuge para que no dispare required internos
+                if (req.body.propietario.conyuge) {
+                    delete req.body.propietario.conyuge;
+                }
+            } else {
+                // Si indica que sí tiene cónyuge, validar campos mínimos antes de continuar
+                if (!conyuge || !conyuge.nombre || !conyuge.telefono) {
+                    return res.status(400).json({
+                        success: false,
+                        mensaje: 'Datos de cónyuge incompletos. Nombre y teléfono son obligatorios cuando tiene_conyuge es verdadero.'
+                    });
+                }
+            }
+        }
+
         // Verificar permisos
         const esAdmin = ['administrator', 'administrador', 'Superadministrator'].includes(req.user.role);
         const esSupervisor = req.user.role === 'supervisor';

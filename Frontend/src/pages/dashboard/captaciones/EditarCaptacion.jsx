@@ -583,12 +583,10 @@ export function EditarCaptacion() {
   useEffect(() => {
     const cargarSupervisores = async () => {
       try {
-        // Configurar axios
-        axios.defaults.baseURL = 'http://localhost:4000';
-        axios.defaults.withCredentials = true;
-        
-        const response = await axios.get('/api/users', {
-          params: { role: 'supervisor' }
+        const apiBase = import.meta.env.VITE_API_URL || '';
+        const response = await axios.get(`${apiBase}/api/users`, {
+          params: { role: 'supervisor' },
+          withCredentials: true
         });
         
         console.log('🔍 Respuesta de supervisores:', response.data);
