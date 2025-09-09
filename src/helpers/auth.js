@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const {SECRET} = process.env;
+// Unificar secreto de verificación con fallback
+const JWT_SECRET = process.env.JWT_SECRET || process.env.SECRET || process.env.SESSION_SECRET;
 
 // Middleware para autenticación con cookies
 const isAuthenticated = async(req, res, next) => {
@@ -16,7 +17,7 @@ const isAuthenticated = async(req, res, next) => {
         }
 
         try {
-            const decoded = jwt.verify(authorization, SECRET);
+            const decoded = jwt.verify(authorization, JWT_SECRET);
             
             const usuario = await User.findById(decoded._id);
             
@@ -78,7 +79,7 @@ const verificarToken = async (req, res, next) => {
         }
         
         // Verificar token
-        const decodificado = jwt.verify(token, process.env.JWT_SECRET || SECRET);
+        const decodificado = jwt.verify(token, JWT_SECRET);
         // Buscar usuario en base de datos
         const usuario = await User.findById(decodificado._id).select('-password');
         
