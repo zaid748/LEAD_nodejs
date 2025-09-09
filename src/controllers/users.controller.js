@@ -6,7 +6,8 @@ const { sendUserCreationEmail } = require('../libs/emailService');
 const fs = require('fs');
 const path = require('path');
 
-const {SECRET} = process.env;
+// Usar SECRET; si no existe, hacer fallback a SESSION_SECRET para evitar caída en prod
+const SECRET = process.env.SECRET || process.env.SESSION_SECRET;
 
 userCtrl.renderSignUpForm = async(req, res)=>{
     const department = await Departamentos.find();
