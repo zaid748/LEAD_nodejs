@@ -26,6 +26,7 @@ import { TestImageDisplay } from "@/pages/dashboard/Users/TestImageDisplay";
 import { TestCORS } from "@/pages/dashboard/Users/TestCORS";
 
 import { CrearCaptacion } from '@/pages/dashboard/captaciones/CrearCaptacion';
+import { CrearPropiedadExterna } from '@/pages/dashboard/captaciones/CrearPropiedadExterna';
 import { EditarCaptacion } from '@/pages/dashboard/captaciones/EditarCaptacion';
 import { MisProyectos } from "@/pages/dashboard/captaciones/MisProyectos";
 import { DetalleCaptacion } from '@/pages/dashboard/captaciones/DetalleCaptacion';
@@ -176,6 +177,13 @@ export const routes = [
         path: "/captaciones/nueva",
         element: <CrearCaptacion />,
         roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"], // Supervisor y contratista no tienen acceso
+      },
+      {
+        icon: <PlusIcon {...icon} />,
+        name: "Mercado Libre",
+        path: "/captaciones/mercado-libre",
+        element: <CrearPropiedadExterna />,
+        roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"],
       },
       // Rutas adicionales para captaciones (sin mostrar en sidebar)
       {

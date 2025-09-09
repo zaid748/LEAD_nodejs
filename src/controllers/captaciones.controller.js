@@ -543,6 +543,79 @@ exports.createCaptacion = async (req, res, next) => {
 
 };
 
+/**
+ * Crear una nueva propiedad externa (Mercado Libre / Renta)
+ * @route POST /api/captaciones/externas
+ */
+exports.createPropiedadExterna = async (req, res) => {
+    try {
+        // Construir objeto base minimal, sin exigir documentos ni datos laborales
+        const {
+            propietario = {},
+            propiedad = {},
+            tipo_operacion = 'Venta',
+            origen = 'Mercado Libre',
+            fuente_externa = ''
+        } = req.body || {};
+
+        // Validaciones mínimas
+        if (!propiedad || !propiedad.tipo) {
+            return res.status(400).json({
+                success: false,
+                mensaje: 'El tipo de propiedad es requerido'
+            });
+        }
+        if (!propietario || !propietario.nombre) {
+            return res.status(400).json({
+                success: false,
+                mensaje: 'El nombre del propietario o inmobiliaria es requerido'
+            });
+        }
+
+        const data = {
+            propietario,
+            propiedad,
+            es_externa: true,
+            origen,
+            fuente_externa,
+            tipo_operacion,
+            documentos_entregados: {
+                ine: false,
+                escrituras: false
+            },
+            referencias_personales: [],
+            datos_laborales: undefined,
+            captacion: {
+                asesor: req.user?._id,
+                fecha: new Date(),
+                observaciones: 'Registro externo'
+            },
+            estatus_actual: 'Disponible para venta',
+            historial_estatus: [{
+                estatus: 'Disponible para venta',
+                fecha: new Date(),
+                notas: 'Creación de propiedad externa',
+                usuario: req.user?._id
+            }],
+            // Sin sección de marketing en creación
+        };
+
+        const creada = await CaptacionInmobiliaria.create(data);
+
+        return res.status(201).json({
+            success: true,
+            message: 'Propiedad externa creada correctamente',
+            data: creada
+        });
+    } catch (error) {
+        console.error('Error al crear propiedad externa:', error);
+        return res.status(500).json({
+            success: false,
+            mensaje: 'Error interno del servidor',
+            error: error.message
+        });
+    }
+};
 
 
 /**

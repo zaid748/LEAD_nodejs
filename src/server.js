@@ -21,9 +21,26 @@ module.exports = {
 
 const app = express();
 
-// Configuración de CORS para desarrollo
+// Configuración de CORS (usa ALLOWED_ORIGINS en producción)
+const allowedOriginsEnv = process.env.ALLOWED_ORIGINS || '';
+const defaultAllowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:3000',
+  'https://lead-inmobiliaria.com',
+  'https://www.lead-inmobiliaria.com'
+];
+const allowedOrigins = allowedOriginsEnv
+  ? allowedOriginsEnv.split(',').map(s => s.trim()).filter(Boolean)
+  : defaultAllowedOrigins;
+
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'],
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true); // permitir herramientas como curl/healthcheck
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -194,10 +211,8 @@ app.use('/img', express.static(path.join(__dirname, 'public/img')));
 // Servir archivos de uploads con headers CORS apropiados ANTES de las rutas estáticas
 app.use('/uploads', (req, res, next) => {
   const origin = req.headers.origin;
-  
+
   // Permitir acceso desde orígenes específicos (no usar wildcard con credentials)
-  const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:3000'];
-  
   if (allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', 'true');

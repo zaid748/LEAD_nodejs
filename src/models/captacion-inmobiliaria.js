@@ -323,9 +323,12 @@ const DocumentosEntregadosSchema = new mongoose.Schema({
     ine: { 
         type: Boolean, 
         default: false,
-        required: true, // INE es obligatorio
+        required: true, // INE es obligatorio para internas
         validate: {
             validator: function(v) {
+                // Permitir false cuando es_externa === true
+                const doc = typeof this.ownerDocument === 'function' ? this.ownerDocument() : this;
+                if (doc && doc.es_externa === true) return true;
                 return v === true;
             },
             message: 'El documento INE es obligatorio'
@@ -336,9 +339,12 @@ const DocumentosEntregadosSchema = new mongoose.Schema({
     escrituras: { 
         type: Boolean, 
         default: false,
-        required: true, // Escrituras son obligatorias
+        required: true, // Escrituras obligatorias para internas
         validate: {
             validator: function(v) {
+                // Permitir false cuando es_externa === true
+                const doc = typeof this.ownerDocument === 'function' ? this.ownerDocument() : this;
+                if (doc && doc.es_externa === true) return true;
                 return v === true;
             },
             message: 'Las escrituras son obligatorias'
@@ -392,6 +398,19 @@ const VentaSchema = new mongoose.Schema({
 const CaptacionInmobiliariaSchema = new mongoose.Schema({
     propietario: PropietarioSchema,
     propiedad: PropiedadSchema,
+    // Propiedades externas (Mercado Libre/Renta)
+    es_externa: { type: Boolean, default: false },
+    origen: { 
+        type: String, 
+        enum: ['Interna', 'Mercado Libre', 'Renta Externa', 'Otro'],
+        default: 'Interna'
+    },
+    fuente_externa: { type: String, trim: true },
+    tipo_operacion: {
+        type: String,
+        enum: ['Venta', 'Renta'],
+        default: 'Venta'
+    },
     estatus_actual: {
         type: String,
         enum: ['Captación', 'En trámite legal', 'Remodelacion', 'Disponible para venta', 'Vendida', 'Cancelada'],
@@ -405,6 +424,8 @@ const CaptacionInmobiliariaSchema = new mongoose.Schema({
         validate: [
             {
                 validator: function(referencias) {
+                    // Si es externa, permitir 0 referencias
+                    if (this && this.es_externa === true) return true;
                     return referencias.length >= 1;
                 },
                 message: 'Se requiere al menos una referencia personal'
@@ -457,10 +478,14 @@ CaptacionInmobiliariaSchema.index({ 'remodelacion.notificaciones': 1 });
 
 // Validación para asegurar que documentos obligatorios estén presentes
 CaptacionInmobiliariaSchema.pre('save', function(next) {
-    if (!this.documentos_entregados.ine) {
+    // Para propiedades externas, no exigir documentos obligatorios
+    if (this.es_externa === true) {
+        return next();
+    }
+    if (!this.documentos_entregados || this.documentos_entregados.ine !== true) {
         return next(new Error('El documento INE es obligatorio'));
     }
-    if (!this.documentos_entregados.escrituras) {
+    if (!this.documentos_entregados || this.documentos_entregados.escrituras !== true) {
         return next(new Error('Las escrituras son obligatorias'));
     }
     next();

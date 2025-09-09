@@ -9,19 +9,14 @@ services:
     restart: always
     ports:
       - "127.0.0.1:14000:4000"
+    env_file:
+      - .env.prod
     environment:
       - NODE_ENV=production
-      - SECRET=erhgvbhbsfedbehbfd
       - PORT=4000
-      - MONGODB_URI=mongodb://admin_lead:LeadPass2024@mongodb:27017/lead-db-prod?authSource=admin
-      - ALLOWED_ORIGINS=https://lead-inmobiliaria.com:4000
-      - BUCKET_NAME=lead-spaces
-      - AWS_ACCESS_KEY_ID=R26X7JJS3B7PTESEAUKG
-      - AWS_SECRET_ACCESS_KEY=poW5uZHFYxxcfkmvOEcHrDwsciUErYHyyejsBfsx+mI
-      - S3_ENDPOINT=https://sfo3.digitaloceanspaces.com
-      - USE_S3=true
-      - SESSION_SECRET=lead-prod-session-secret-2024
       - LOG_LEVEL=info
+      # Orígenes permitidos (usar .env.prod por defecto, aquí como respaldo)
+      - ALLOWED_ORIGINS=https://lead-inmobiliaria.com,https://www.lead-inmobiliaria.com
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
       - ./FrontendPublic:/usr/src/app/FrontendPublic:ro

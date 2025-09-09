@@ -108,6 +108,13 @@ const captacionesAPI = {
   create: async (data) => {
     return fetchAPI('/api/captaciones', 'POST', data);
   },
+  /**
+   * Crear una nueva propiedad externa (Mercado Libre / Renta)
+   * @param {object} data - Datos mínimos de la propiedad externa
+   */
+  createExterna: async (data) => {
+    return fetchAPI('/api/captaciones/externas', 'POST', data);
+  },
   
   /**
    * Actualizar una captación existente

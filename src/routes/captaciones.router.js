@@ -43,6 +43,16 @@ router.post('/',
     uploadObject
 );
 
+// Crear propiedad externa (Mercado Libre / Renta) - sin documentos/adeudos/referencias obligatorios
+router.post('/externas',
+    [
+        check('propiedad.tipo', 'El tipo de propiedad es requerido').not().isEmpty(),
+        check('propietario.nombre', 'El nombre del propietario o inmobiliaria es requerido').not().isEmpty(),
+        check('tipo_operacion').optional().isIn(['Venta', 'Renta'])
+    ],
+    captacionesController.createPropiedadExterna
+);
+
 // Actualizar captación (función original) - DEPRECATED
 // router.put('/:id', captacionesController.updateCaptacion);
 

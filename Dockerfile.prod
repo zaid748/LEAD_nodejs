@@ -28,7 +28,7 @@ COPY package*.json ./
 
 # Instalamos dependencias con configuraciones de seguridad
 RUN npm install -g npm@latest && \
-    npm ci --only=production --no-audit && \
+    npm ci --omit=dev --no-audit && \
     npm cache clean --force
 
 # Copiamos el resto de archivos del proyecto
