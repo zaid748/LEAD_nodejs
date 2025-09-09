@@ -9804,10 +9804,10 @@ function EditarCaptacion() {
   reactExports$1.useEffect(() => {
     const cargarSupervisores = async () => {
       try {
-        axios.defaults.baseURL = "http://localhost:4000";
-        axios.defaults.withCredentials = true;
-        const response = await axios.get("/api/users", {
-          params: { role: "supervisor" }
+        const apiBase = "https://lead-inmobiliaria.com";
+        const response = await axios.get(`${apiBase}/api/users`, {
+          params: { role: "supervisor" },
+          withCredentials: true
         });
         console.log("🔍 Respuesta de supervisores:", response.data);
         if (response.data && response.data.success && Array.isArray(response.data.users)) {
