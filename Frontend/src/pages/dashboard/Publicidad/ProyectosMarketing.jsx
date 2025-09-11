@@ -235,11 +235,11 @@ const ProyectosMarketing = () => {
                       </td>
                       <td className="py-3 px-6">
                         <Typography variant="small" color="green" className="font-bold">
-                          ${proyecto.precio || "Consultar"}
+                          {(proyecto.moneda || 'MXN') === 'USD' ? 'US$' : '$'}{proyecto.precio || "Consultar"}
                         </Typography>
                         {proyecto.precioOferta && (
                           <Typography variant="small" color="blue-gray" className="font-normal opacity-70">
-                            Oferta: ${proyecto.precioOferta}
+                            Oferta: {(proyecto.monedaOferta || proyecto.moneda || 'MXN') === 'USD' ? 'US$' : '$'}{proyecto.precioOferta}
                           </Typography>
                         )}
                       </td>

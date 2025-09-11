@@ -21,8 +21,8 @@ const fetchAPI = async (endpoint, method = 'GET', data = null) => {
   try {
     const url = `${API_URL}${endpoint}`;
     
-    // Para depuración
-    logCookies();
+    // Para depuración (desactivado: la cookie es HttpOnly y no es visible desde JS)
+    // logCookies();
     
     const headers = {
       'Content-Type': 'application/json',
@@ -35,12 +35,24 @@ const fetchAPI = async (endpoint, method = 'GET', data = null) => {
       .split('; ')
       .find(cookie => cookie.startsWith('Authorization='));
       
+    let bearerToken = null;
     if (authCookie) {
       const token = authCookie.split('=')[1];
+      bearerToken = token && token.startsWith('Bearer') ? token : `Bearer ${token}`;
       console.log('Token de autenticación encontrado en cookie');
-      headers['Authorization'] = token;
-    } else {
-      console.warn('No se encontró cookie de autenticación');
+    }
+    // Fallback: localStorage
+    if (!bearerToken) {
+      const lsToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
+      if (lsToken) {
+        bearerToken = lsToken.startsWith('Bearer') ? lsToken : `Bearer ${lsToken}`;
+        console.log('Token de autenticación encontrado en localStorage');
+      }
+    }
+    // Importante: si no hay token legible en JS, evitamos inundar la consola con warnings, ya que
+    // el backend valida por cookie HttpOnly mediante verificarToken. Solo adjuntamos header si existe.
+    if (bearerToken) {
+      headers['Authorization'] = bearerToken;
     }
     
     const options = {

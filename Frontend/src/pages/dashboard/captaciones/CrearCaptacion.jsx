@@ -109,6 +109,7 @@ export function CrearCaptacion() {
     },
     venta: {
       precio_venta: "",
+      moneda: "MXN",
       comision_venta: "",
       fecha_venta: "",
       estatus_venta: "En proceso",
@@ -294,6 +295,7 @@ export function CrearCaptacion() {
         .transform(value => (isNaN(value) || value === null || value === '' ? undefined : value))
         .nullable()
         .optional(),
+      moneda: yup.string().oneOf(['MXN','USD']).optional(),
       tipo_credito: yup
         .string()
         .nullable()
@@ -677,6 +679,11 @@ export function CrearCaptacion() {
           
           return referenciaActualizada;
         });
+      }
+      
+      // Asegurar fecha de captación automática si backend no la establece
+      if (!formData.fecha_captacion && !formData.fechaCaptacion) {
+        formData.fecha_captacion = new Date().toISOString();
       }
       
       // Continuar con el resto de la función
@@ -1989,7 +1996,7 @@ export function CrearCaptacion() {
                           <Typography variant="h6" color="blue-gray" className="mb-3">
                             Datos de la Operación
                           </Typography>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                               <Controller
                                 name="venta.precio_venta"
@@ -2013,6 +2020,22 @@ export function CrearCaptacion() {
                                   {errors.venta.precio_venta.message}
                                 </div>
                               )}
+                            </div>
+                            <div>
+                              <Controller
+                                name="venta.moneda"
+                                control={control}
+                                render={({ field }) => (
+                                  <Select
+                                    label="Moneda"
+                                    value={field.value || 'MXN'}
+                                    onChange={(value) => field.onChange(value)}
+                                  >
+                                    <Option value="MXN">MXN (Pesos)</Option>
+                                    <Option value="USD">USD (Dólares)</Option>
+                                  </Select>
+                                )}
+                              />
                             </div>
                             
                             <div>

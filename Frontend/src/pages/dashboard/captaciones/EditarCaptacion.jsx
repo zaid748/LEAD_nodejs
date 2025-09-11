@@ -118,6 +118,7 @@ export function EditarCaptacion() {
     },
     venta: {
       precio_venta: "",
+      moneda: "MXN",
       comision_venta: "",
       fecha_venta: "",
       en_venta: false,
@@ -297,6 +298,7 @@ export function EditarCaptacion() {
         .transform(value => (isNaN(value) || value === null || value === '' ? undefined : value))
         .nullable()
         .optional(),
+      moneda: yup.string().oneOf(['MXN','USD']).optional(),
       tipo_credito: yup
         .string()
         .nullable()
@@ -513,6 +515,7 @@ export function EditarCaptacion() {
             comision_venta: data.venta.comision_total || data.venta.comision_venta || "",
             fecha_venta: data.venta.fecha_venta || "",
             en_venta: data.estatus_actual === "Disponible para venta" || false,
+            moneda: data.venta.moneda || "MXN",
             comprador: data.venta.comprador ? {
               nombre: data.venta.comprador.nombre || "",
               telefono: data.venta.comprador.telefono || "",
@@ -631,6 +634,8 @@ export function EditarCaptacion() {
       // Sincronizar estatus antes de enviar
       const datosSincronizados = sincronizarEstatus(data);
       console.log("Datos sincronizados:", datosSincronizados);
+
+      // No adjuntamos ultima_actualizacion aquí: el backend la establece con req.user y fecha.
       
       setIsLoading(true);
       setError(null);
@@ -1789,7 +1794,7 @@ export function EditarCaptacion() {
                       Complete la información relacionada con la venta de la propiedad.
                     </Typography>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <Controller
                         name="venta.en_venta"
                         control={control}
@@ -1815,6 +1820,21 @@ export function EditarCaptacion() {
                             label="Precio de Venta"
                             {...field}
                           />
+                        )}
+                      />
+
+                      <Controller
+                        name="venta.moneda"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            label="Moneda"
+                            value={field.value || 'MXN'}
+                            onChange={(value) => field.onChange(value)}
+                          >
+                            <Option value="MXN">MXN (Pesos)</Option>
+                            <Option value="USD">USD (Dólares)</Option>
+                          </Select>
                         )}
                       />
 

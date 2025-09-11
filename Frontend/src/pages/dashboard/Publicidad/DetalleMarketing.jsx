@@ -240,7 +240,7 @@ export function DetalleMarketing() {
                     Precio de Venta
                   </Typography>
                   <Typography variant="paragraph" color="blue-gray">
-                    ${proyecto.venta?.monto_venta || "Sin precio definido"}
+                    {(proyecto.venta?.moneda || 'MXN') === 'USD' ? 'US$' : '$'}{proyecto.venta?.monto_venta || "Sin precio definido"}
                   </Typography>
                 </div>
               </div>
@@ -306,7 +306,7 @@ export function DetalleMarketing() {
                   Precio de Oferta
                 </Typography>
                 <Typography variant="h5" color="green" className="font-bold">
-                  ${proyecto.marketing?.precioOferta || "Sin precio definido"}
+                  {(proyecto.marketing?.monedaOferta || proyecto.venta?.moneda || 'MXN') === 'USD' ? 'US$' : '$'}{proyecto.marketing?.precioOferta || "Sin precio definido"}
                 </Typography>
               </div>
               

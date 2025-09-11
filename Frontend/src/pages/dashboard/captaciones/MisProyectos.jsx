@@ -446,7 +446,7 @@ export function MisProyectos() {
                   </tr>
                 </thead>
                 <tbody>
-                  {captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus }, index) => {
+                  {captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus, ultima_actualizacion, updatedAt }, index) => {
                     const isLast = index === captaciones.length - 1;
                     const classes = isLast
                       ? "py-3 px-5"
@@ -470,30 +470,49 @@ export function MisProyectos() {
                       console.error("Error al formatear fecha:", e);
                     }
 
-                    // Mostrar nombre y fecha de última actualización desde historial_estatus
+                    // Mostrar "Última actualización": preferir campo ultima_actualizacion y caer a historial_estatus
                     let ultimaActualizacionNombre = "Nunca editado";
                     let ultimaActualizacionFecha = "";
-                    const historial = historial_estatus || [];
-                    if (historial.length > 0) {
+                    const ua = ultima_actualizacion || captacion?.ultima_actualizacion; // fallback defensivo
+                    if (ua && (ua.usuario || ua.fecha)) {
+                      const u = ua.usuario || {};
+                      ultimaActualizacionNombre =
+                        u.name ||
+                        u.nombre ||
+                        [u.prim_nom, u.segun_nom, u.apell_pa, u.apell_ma].filter(Boolean).join(' ') ||
+                        u.email ||
+                        "Sin nombre";
+                      if (ua.fecha) {
+                        try { ultimaActualizacionFecha = new Date(ua.fecha).toLocaleDateString(); } catch {}
+                      }
+                    } else {
+                      const historial = historial_estatus || [];
+                      if (historial.length > 0) {
                         const ultimo = historial[historial.length - 1];
                         if (ultimo.usuario) {
-                            ultimaActualizacionNombre =
-                                ultimo.usuario.name ||
-                                ultimo.usuario.nombre ||
-                                ([
-                                    ultimo.usuario.prim_nom,
-                                    ultimo.usuario.segun_nom,
-                                    ultimo.usuario.apell_pa,
-                                    ultimo.usuario.apell_ma
-                                ].filter(Boolean).join(' ')) ||
-                                ultimo.usuario.email ||
-                                "Sin nombre";
-                            if (ultimo.fecha) {
-                                try {
-                                    ultimaActualizacionFecha = new Date(ultimo.fecha).toLocaleDateString();
-                                } catch {}
-                            }
+                          ultimaActualizacionNombre =
+                            ultimo.usuario.name ||
+                            ultimo.usuario.nombre ||
+                            [
+                              ultimo.usuario.prim_nom,
+                              ultimo.usuario.segun_nom,
+                              ultimo.usuario.apell_pa,
+                              ultimo.usuario.apell_ma
+                            ].filter(Boolean).join(' ') ||
+                            ultimo.usuario.email ||
+                            "Sin nombre";
+                          if (ultimo.fecha) {
+                            try { ultimaActualizacionFecha = new Date(ultimo.fecha).toLocaleDateString(); } catch {}
+                          }
                         }
+                      }
+                      // Fallback final: usar updatedAt del documento o la fecha de captación
+                      if (!ultimaActualizacionFecha) {
+                        try {
+                          const f = updatedAt || captacion?.fecha || propiedad?.updatedAt;
+                          if (f) ultimaActualizacionFecha = new Date(f).toLocaleDateString();
+                        } catch {}
+                      }
                     }
 
                     return (

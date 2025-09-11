@@ -157,6 +157,9 @@ export function DetalleCaptacion() {
     );
   }
 
+  const fechaCaptacion = (captacion.fecha_captacion || captacion.fechaCaptacion || captacion.createdAt);
+  const adeudos = (captacion.propiedad?.adeudos || captacion.adeudos || []);
+
   const TABS = [
     {
       label: "General",
@@ -258,11 +261,14 @@ export function DetalleCaptacion() {
             </div>
             
             <div className="bg-blue-gray-50 p-4 rounded-lg">
-              <Typography variant="small" color="blue-gray" className="font-medium">
-                Fecha de Captación:
-              </Typography>
+              <div className="flex items-center gap-2">
+                <CalendarIcon className="h-4 w-4 text-blue-gray-500" />
+                <Typography variant="small" color="blue-gray" className="font-medium">
+                  Fecha de Captación:
+                </Typography>
+              </div>
               <Typography className="mt-1">
-                {formatDate(captacion.fecha_captacion)}
+                {formatDate(fechaCaptacion)}
               </Typography>
             </div>
             
@@ -291,13 +297,13 @@ export function DetalleCaptacion() {
       <Card className="mx-3 lg:mx-4">
         <CardBody className="p-0">
           <Tabs value={activeTab} className="w-full">
-            <TabsHeader className="mb-6 flex flex-wrap md:flex-nowrap h-auto md:h-12 py-2 gap-1 bg-blue-gray-50 overflow-x-auto md:overflow-x-auto hide-scrollbar">
+            <TabsHeader className="mt-2 mb-6 flex flex-wrap md:flex-nowrap items-center min-h-[48px] py-2 gap-1 bg-blue-gray-50 overflow-x-auto hide-scrollbar px-2">
               {TABS.map(({ label, value, icon }) => (
                 <Tab
                   key={value}
                   value={value}
                   onClick={() => handleTabChange(value)}
-                  className={`py-2 px-3 whitespace-nowrap rounded-md transition-all flex items-center gap-2 ${
+                  className={`h-10 py-2 px-3 whitespace-nowrap rounded-md transition-all flex items-center gap-2 leading-none ${
                     activeTab === value ? "bg-white shadow-sm font-medium" : ""
                   }`}
                 >
@@ -337,8 +343,21 @@ export function DetalleCaptacion() {
                         Última Actualización:
                       </Typography>
                       <Typography className="mt-1">
-                        {formatDate(captacion.updatedAt)}
+                        {formatDate((captacion.ultima_actualizacion && captacion.ultima_actualizacion.fecha) || captacion.updatedAt)}
                       </Typography>
+                      {captacion.ultima_actualizacion?.usuario && (
+                        <Typography variant="small" color="blue-gray" className="opacity-70">
+                          {captacion.ultima_actualizacion.usuario.name ||
+                           captacion.ultima_actualizacion.usuario.nombre ||
+                           [
+                             captacion.ultima_actualizacion.usuario.prim_nom,
+                             captacion.ultima_actualizacion.usuario.segun_nom,
+                             captacion.ultima_actualizacion.usuario.apell_pa,
+                             captacion.ultima_actualizacion.usuario.apell_ma
+                           ].filter(Boolean).join(' ') ||
+                           captacion.ultima_actualizacion.usuario.email}
+                        </Typography>
+                      )}
                     </div>
                     
                     <div className="bg-blue-gray-50 p-4 rounded-lg">
@@ -717,30 +736,30 @@ export function DetalleCaptacion() {
                     Adeudos y Deudas
                   </Typography>
                   
-                  {captacion.adeudos && captacion.adeudos.length > 0 ? (
+                  {adeudos.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {captacion.adeudos.map((adeudo, idx) => (
+                      {adeudos.map((adeudo, idx) => (
                         <div key={idx} className="bg-blue-gray-50 p-4 rounded-lg">
                           <div className="flex items-center justify-between mb-2">
                             <Typography variant="h6" color="blue-gray">
                               {adeudo.tipo}
-                    </Typography>
+                            </Typography>
                             <Badge color="red" className="ml-2">
                               {formatCurrency(adeudo.monto)}
                             </Badge>
-                  </div>
-
+                          </div>
+ 
                           <Typography variant="small" color="blue-gray" className="mb-2">
                             {adeudo.descripcion}
-                    </Typography>
+                          </Typography>
                           
                           <div className="flex items-center gap-2 text-sm text-gray-600">
                             <CalendarIcon className="h-4 w-4" />
                             <span>Vencimiento: {formatDate(adeudo.fecha_vencimiento)}</span>
+                          </div>
                         </div>
-                      </div>
                       ))}
-                        </div>
+                    </div>
                   ) : (
                     <div className="text-center p-8 bg-blue-gray-50 rounded-lg">
                       <Typography>No hay adeudos registrados.</Typography>

@@ -85,7 +85,7 @@ export function CrearPropiedadExterna() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <Select label="Origen" value={form.origen} onChange={(v) => handleChange('origen', v)}>
                             <Option value="Mercado Libre">Mercado Libre</Option>
-                            <Option value="Renta Externa">Renta Externa</Option>
+                            <Option value="Renta">Renta</Option>
                             <Option value="Otro">Otro</Option>
                         </Select>
                         <Select label="Operación" value={form.tipo_operacion} onChange={(v) => handleChange('tipo_operacion', v)}>

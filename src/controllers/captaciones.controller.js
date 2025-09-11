@@ -198,7 +198,7 @@ exports.getCaptaciones = async (req, res) => {
                     .populate('remodelacion.supervisor', 'prim_nom apell_pa email')
                     .populate('remodelacion.contratista', 'prim_nom apell_pa email')
 
-                    .populate('ultima_actualizacion.usuario', 'name email')
+                    .populate('ultima_actualizacion.usuario', 'name email prim_nom segun_nom apell_pa apell_ma nombre')
 
                     .populate('historial_estatus.usuario', 'prim_nom segun_nom apell_pa apell_ma nombre email');
 

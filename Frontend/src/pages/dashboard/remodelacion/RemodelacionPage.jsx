@@ -1078,18 +1078,20 @@ const RemodelacionPage = () => {
 
     // === FUNCIONES PARA ADMINISTRACIÓN ===
     
-    const verListasCompraAdmin = async () => {
+    const verListasCompraAdmin = async (proyecto) => {
         try {
             setLoading(true);
             setError(null);
             
-            console.log('📋 Cargando listas de compra para administración...');
+            if (!proyecto?._id) {
+                throw new Error('Proyecto no válido para cargar listas de compra');
+            }
             
-            // Obtener todas las listas de compra (aprobadas por administración y listas de contratistas)
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/lista-compra/admin/todas`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+            console.log('📋 Cargando listas de compra para administración por proyecto...', proyecto._id);
+            
+            // Obtener listas de compra del proyecto seleccionado
+            const response = await axios.get(`/api/lista-compra/proyecto/${proyecto._id}`, {
+                withCredentials: true
             });
             
             console.log('📡 Respuesta del servidor:', response.data);
@@ -1097,13 +1099,13 @@ const RemodelacionPage = () => {
             if (response.data.success) {
                 setListasCompra(response.data.data || []);
                 setShowListasCompraModal(true);
-                console.log('✅ Listas de compra cargadas:', response.data.data.length);
+                console.log('✅ Listas de compra cargadas para el proyecto:', response.data.data.length);
             } else {
-                throw new Error('Error al cargar listas de compra');
+                throw new Error('Error al cargar listas de compra del proyecto');
             }
         } catch (error) {
             console.error('❌ Error al cargar listas de compra:', error);
-            setError(`Error al cargar las listas de compra: ${error.message}`);
+            setError(`Error al cargar las listas de compra del proyecto: ${error.message}`);
         } finally {
             setLoading(false);
         }
@@ -2013,7 +2015,7 @@ const RemodelacionPage = () => {
                                                                 color="purple"
                                                                 variant="outlined"
                                                                 className="flex items-center gap-1 px-3 py-1"
-                                                                onClick={verListasCompraAdmin}
+                                                                onClick={() => verListasCompraAdmin(proyecto)}
                                                                 title="Ver Listas de Compra"
                                                             >
                                                                 <PrinterIcon className="h-4 w-4" />

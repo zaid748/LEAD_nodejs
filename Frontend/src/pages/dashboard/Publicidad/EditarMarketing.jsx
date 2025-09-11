@@ -10,7 +10,9 @@ import {
   Spinner,
   Alert,
   IconButton,
-  Tooltip
+  Tooltip,
+  Select,
+  Option
 } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon, PhotoIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/solid";
@@ -32,6 +34,7 @@ export function EditarMarketing() {
   const [formData, setFormData] = useState({
     titulo: "",
     precioOferta: "",
+    monedaOferta: "MXN",
     descripcionMarketing: "",
     estatusPublicacion: "No publicada",
     imagenesMarketing: []
@@ -139,6 +142,7 @@ export function EditarMarketing() {
         const formDataInicial = {
           titulo: proyectoData.marketing?.titulo || proyectoData.propiedad?.titulo || proyectoData.propiedad?.descripcion_adicional || "",
           precioOferta: proyectoData.marketing?.precioOferta || proyectoData.venta?.monto_venta || proyectoData.propiedad?.precio || "",
+          monedaOferta: proyectoData.marketing?.monedaOferta || proyectoData.venta?.moneda || "MXN",
           descripcionMarketing: proyectoData.marketing?.descripcion || proyectoData.propiedad?.descripcion_adicional || "",
           estatusPublicacion: proyectoData.marketing?.estatus_publicacion || "No publicada",
           imagenesMarketing: proyectoData.marketing?.imagenes || []
@@ -330,6 +334,7 @@ export function EditarMarketing() {
         const formDataToSend = new FormData();
         formDataToSend.append('titulo', formData.titulo);
         formDataToSend.append('precioOferta', formData.precioOferta);
+        formDataToSend.append('monedaOferta', formData.monedaOferta);
         formDataToSend.append('descripcionMarketing', formData.descripcionMarketing);
         
         // Añadir nuevas imágenes
@@ -353,6 +358,7 @@ export function EditarMarketing() {
             tituloMarketing: formData.titulo,
             descripcionMarketing: formData.descripcionMarketing,
             precioOferta: formData.precioOferta,
+            monedaOferta: formData.monedaOferta,
             estatusPublicacion: formData.estatusPublicacion
           })
         });
@@ -505,7 +511,7 @@ export function EditarMarketing() {
                 Configuración de Marketing
               </Typography>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Input
                   label="Título para Marketing"
                   name="titulo"
@@ -521,6 +527,14 @@ export function EditarMarketing() {
                   onChange={handleInputChange}
                   placeholder="Ej: $2,500,000"
                 />
+                <Select
+                  label="Moneda"
+                  value={formData.monedaOferta}
+                  onChange={(value) => setFormData(prev => ({ ...prev, monedaOferta: value }))}
+                >
+                  <Option value="MXN">MXN (Pesos)</Option>
+                  <Option value="USD">USD (Dólares)</Option>
+                </Select>
               </div>
               
               <div className="mt-4">
