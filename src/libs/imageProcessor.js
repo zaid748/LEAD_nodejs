@@ -70,6 +70,38 @@ async function resizeImage(imageBuffer, size = 'CARD') {
 }
 
 /**
+ * Redimensionar imagen con dimensiones específicas
+ * @param {Buffer} imageBuffer - Buffer de la imagen original
+ * @param {number} width - Ancho deseado
+ * @param {number} height - Alto deseado
+ * @returns {Promise<Buffer>} - Buffer de la imagen redimensionada
+ */
+async function resizeImageToSize(imageBuffer, width, height) {
+    try {
+        console.log(`🖼️ Redimensionando imagen a ${width}x${height}`);
+
+        // Redimensionar imagen manteniendo proporción
+        const resizedImage = await sharp(imageBuffer)
+            .resize(width, height, {
+                fit: 'cover', // Cubrir completamente el área especificada
+                position: 'center' // Centrar la imagen
+            })
+            .jpeg({ 
+                quality: 85,
+                progressive: true // JPEG progresivo para mejor carga
+            })
+            .toBuffer();
+
+        console.log(`✅ Imagen redimensionada exitosamente a ${width}x${height}`);
+        
+        return resizedImage;
+    } catch (error) {
+        console.error(`❌ Error redimensionando imagen a ${width}x${height}:`, error);
+        throw error;
+    }
+}
+
+/**
  * Generar múltiples tamaños de una imagen
  * @param {Buffer} imageBuffer - Buffer de la imagen original
  * @returns {Promise<Object>} - Objeto con diferentes tamaños
@@ -210,6 +242,7 @@ async function getImageMetadata(imageBuffer) {
 
 module.exports = {
     resizeImage,
+    resizeImageToSize,
     generateMultipleSizes,
     optimizeImage,
     validateImage,

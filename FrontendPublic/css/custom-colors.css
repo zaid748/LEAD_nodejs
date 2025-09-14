@@ -2,8 +2,8 @@
 
 :root {
   /* Colores principales de la marca */
-  --primary-color: #C6FF00;      /* Verde lima brillante - Color principal */
-  --secondary-color: #6E8E00;    /* Verde oliva oscuro - Color secundario */
+  --primary-color: #6e8e00;      /* Verde lima brillante - Color principal */
+  --secondary-color: #6e8e00;    /* Verde oliva oscuro - Color secundario */
   --title-color: #F4FE81;        /* Amarillo verdoso suave para títulos */
   --text-white: #FFFFFF;         /* Blanco para letras */
   --text-black: #000000;         /* Negro para letras */
@@ -36,8 +36,8 @@
 
 /* IMPORTANTE: Solo cambiar los tags de oferta y precios */
 .bg-danger {
-  background-color: var(--primary-color) !important;
-  color: var(--text-black) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
 }
 
 /* NO cambiar text-danger ni text-success para mantener colores originales */
@@ -280,16 +280,16 @@ strong.property-price {
 .offer-type,
 .property-offer-type,
 .bg-danger {
-  background-color: var(--primary-color) !important;
-  color: var(--text-black) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
   border: none !important;
 }
 
 .offer-type:hover,
 .property-offer-type:hover,
 .bg-danger:hover {
-  background-color: var(--primary-dark) !important;
-  color: var(--text-black) !important;
+  background-color: var(--secondary-dark) !important;
+  color: var(--text-white) !important;
 }
 
 /* ===== ELEMENTOS SUPERIORES CON FONDO VERDE LIMA ===== */
@@ -559,8 +559,8 @@ strong.property-price {
 .bg-danger,
 span.bg-danger,
 .d-inline-block.bg-danger {
-  background-color: var(--primary-color) !important;
-  color: var(--text-black) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--text-white) !important;
   border: none !important;
 }
 
@@ -673,13 +673,13 @@ strong.property-price {
   font-weight: bold !important;
 }
 
-/* Asegurar que el texto en los tags sea negro */
+/* Asegurar que el texto en los tags sea blanco */
 .offer-type,
 .property-offer-type,
 .bg-danger,
 span.bg-danger,
 .d-inline-block.bg-danger {
-  color: var(--text-black) !important;
+  color: var(--text-white) !important;
 }
 
 /* ===== RESTAURAR COLORES ORIGINALES PARA OTROS ELEMENTOS ===== */

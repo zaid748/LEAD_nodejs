@@ -37,7 +37,32 @@ const allowedOrigins = allowedOriginsEnv
 
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin) return callback(null, true); // permitir herramientas como curl/healthcheck
+    console.log('=== CORS DEBUG ===');
+    console.log('Origin recibida:', origin);
+    console.log('Allowed origins:', allowedOrigins);
+    
+    if (!origin) {
+      console.log('No origin - permitiendo (herramientas como curl/healthcheck)');
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.includes(origin)) {
+      console.log('Origin permitida:', origin);
+      return callback(null, true);
+    }
+    
+    console.log('Origin NO permitida:', origin);
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+// Middleware adicional para manejar preflight requests
+app.options('*', cors({
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error('Not allowed by CORS'));
   },
@@ -180,6 +205,7 @@ app.get('/api/test-image-access', (req, res) => {
 // Importar rutas de captaciones
 const captacionesRouter = require('./routes/captaciones.router');
 const listaCompraRouter = require('./routes/lista-compra.router');
+const blogRouter = require('./routes/blog.routes');
 
 // Routes con prefijo /api
 app.use('/api', require('./routes/index.routes'));
@@ -191,6 +217,7 @@ app.use('/api', require('./routes/nominas.router'));
 app.use('/api', require('./routes/marketing.router'));
 app.use('/api/captaciones', captacionesRouter);
 app.use('/api/lista-compra', listaCompraRouter);
+app.use('/api/blog', blogRouter);
 
 // Router público para marketing (sin autenticación)
 app.use('/api', require('./routes/marketing-publico.router'));
@@ -245,6 +272,30 @@ app.use('/uploads', (req, res, next) => {
 // ===== SERVIR ARCHIVOS ESTÁTICOS DEL FRONTEND PÚBLICO =====
 // Ruta para servir archivos estáticos de la plantilla HTML pública
 app.use('/publico', express.static(path.join(__dirname, '../FrontendPublic'), {
+  setHeaders: (res, path, stat) => {
+    // Configurar tipos MIME correctos para diferentes archivos
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    } else if (path.endsWith('.woff')) {
+      res.setHeader('Content-Type', 'font/woff');
+    } else if (path.endsWith('.woff2')) {
+      res.setHeader('Content-Type', 'font/woff2');
+    } else if (path.endsWith('.ttf')) {
+      res.setHeader('Content-Type', 'font/ttf');
+    } else if (path.endsWith('.eot')) {
+      res.setHeader('Content-Type', 'application/vnd.ms-fontobject');
+    }
+    
+    // Headers de cache para archivos estáticos
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+  }
+}));
+
+// ===== SERVIR FRONTENDPUBLIC DESDE LA RAÍZ TAMBIÉN =====
+// Ruta adicional para servir FrontendPublic desde la raíz (para compatibilidad)
+app.use('/', express.static(path.join(__dirname, '../FrontendPublic'), {
   setHeaders: (res, path, stat) => {
     // Configurar tipos MIME correctos para diferentes archivos
     if (path.endsWith('.js')) {

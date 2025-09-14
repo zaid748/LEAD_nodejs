@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as useLocation, aR as NavLink, aS as ForwardRef$1l, aT as ForwardRef$1m, aU as Routes, aV as Route, aW as Outlet, aX as ReactDOM, aY as BrowserRouter } from "./vendor-BhFJFT_P.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as ForwardRef$1n, aT as ForwardRef$1o, aU as useLocation, aV as NavLink, aW as ForwardRef$1p, aX as ForwardRef$1q, aY as Routes, aZ as Route, a_ as Outlet, a$ as ReactDOM, b0 as BrowserRouter } from "./vendor-CKzzQ-hP.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -4156,11 +4156,12 @@ const ProyectosMarketing = () => {
             /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: proyecto.direccion || "Sin dirección" }) }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("td", { className: "py-3 px-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "green", className: "font-bold", children: [
-                "$",
+                (proyecto.moneda || "MXN") === "USD" ? "US$" : "$",
                 proyecto.precio || "Consultar"
               ] }),
               proyecto.precioOferta && /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal opacity-70", children: [
-                "Oferta: $",
+                "Oferta: ",
+                (proyecto.monedaOferta || proyecto.moneda || "MXN") === "USD" ? "US$" : "$",
                 proyecto.precioOferta
               ] })
             ] }),
@@ -4259,24 +4260,29 @@ const ProyectosMarketing = () => {
   ] }) });
 };
 const API_URL = "https://lead-inmobiliaria.com";
-function logCookies() {
-  console.log("Cookies disponibles:", document.cookie);
-}
 const fetchAPI = async (endpoint, method = "GET", data = null) => {
   try {
     const url = `${API_URL}${endpoint}`;
-    logCookies();
     const headers = {
       "Content-Type": "application/json",
       "Accept": "application/json"
     };
     const authCookie = document.cookie.split("; ").find((cookie) => cookie.startsWith("Authorization="));
+    let bearerToken = null;
     if (authCookie) {
       const token = authCookie.split("=")[1];
+      bearerToken = token && token.startsWith("Bearer") ? token : `Bearer ${token}`;
       console.log("Token de autenticación encontrado en cookie");
-      headers["Authorization"] = token;
-    } else {
-      console.warn("No se encontró cookie de autenticación");
+    }
+    if (!bearerToken) {
+      const lsToken = typeof localStorage !== "undefined" ? localStorage.getItem("token") : null;
+      if (lsToken) {
+        bearerToken = lsToken.startsWith("Bearer") ? lsToken : `Bearer ${lsToken}`;
+        console.log("Token de autenticación encontrado en localStorage");
+      }
+    }
+    if (bearerToken) {
+      headers["Authorization"] = bearerToken;
     }
     const options = {
       method,
@@ -4367,6 +4373,7 @@ function EditarMarketing() {
   const [formData, setFormData] = reactExports$1.useState({
     titulo: "",
     precioOferta: "",
+    monedaOferta: "MXN",
     descripcionMarketing: "",
     estatusPublicacion: "No publicada",
     imagenesMarketing: []
@@ -4437,6 +4444,7 @@ function EditarMarketing() {
       const formDataInicial = {
         titulo: proyectoData.marketing?.titulo || proyectoData.propiedad?.titulo || proyectoData.propiedad?.descripcion_adicional || "",
         precioOferta: proyectoData.marketing?.precioOferta || proyectoData.venta?.monto_venta || proyectoData.propiedad?.precio || "",
+        monedaOferta: proyectoData.marketing?.monedaOferta || proyectoData.venta?.moneda || "MXN",
         descripcionMarketing: proyectoData.marketing?.descripcion || proyectoData.propiedad?.descripcion_adicional || "",
         estatusPublicacion: proyectoData.marketing?.estatus_publicacion || "No publicada",
         imagenesMarketing: proyectoData.marketing?.imagenes || []
@@ -4571,6 +4579,7 @@ function EditarMarketing() {
       const formDataToSend = new FormData();
       formDataToSend.append("titulo", formData.titulo);
       formDataToSend.append("precioOferta", formData.precioOferta);
+      formDataToSend.append("monedaOferta", formData.monedaOferta);
       formDataToSend.append("descripcionMarketing", formData.descripcionMarketing);
       nuevasImagenes.forEach((imagen, index) => {
         formDataToSend.append("imagenesMarketing", imagen);
@@ -4588,6 +4597,7 @@ function EditarMarketing() {
           tituloMarketing: formData.titulo,
           descripcionMarketing: formData.descripcionMarketing,
           precioOferta: formData.precioOferta,
+          monedaOferta: formData.monedaOferta,
           estatusPublicacion: formData.estatusPublicacion
         })
       });
@@ -4706,7 +4716,7 @@ function EditarMarketing() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Configuración de Marketing" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               reactExports.Input,
               {
@@ -4725,6 +4735,18 @@ function EditarMarketing() {
                 value: formData.precioOferta,
                 onChange: handleInputChange,
                 placeholder: "Ej: $2,500,000"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Select,
+              {
+                label: "Moneda",
+                value: formData.monedaOferta,
+                onChange: (value) => setFormData((prev) => ({ ...prev, monedaOferta: value })),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "MXN", children: "MXN (Pesos)" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "USD", children: "USD (Dólares)" })
+                ]
               }
             )
           ] }),
@@ -5064,7 +5086,7 @@ function DetalleMarketing() {
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Precio de Venta" }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: [
-                "$",
+                (proyecto.venta?.moneda || "MXN") === "USD" ? "US$" : "$",
                 proyecto.venta?.monto_venta || "Sin precio definido"
               ] })
             ] })
@@ -5099,7 +5121,7 @@ function DetalleMarketing() {
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 bg-green-50 rounded-lg", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "green", className: "mb-2", children: "Precio de Oferta" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h5", color: "green", className: "font-bold", children: [
-              "$",
+              (proyecto.marketing?.monedaOferta || proyecto.venta?.moneda || "MXN") === "USD" ? "US$" : "$",
               proyecto.marketing?.precioOferta || "Sin precio definido"
             ] })
           ] }),
@@ -7435,6 +7457,7 @@ function CrearCaptacion() {
     },
     venta: {
       precio_venta: "",
+      moneda: "MXN",
       comision_venta: "",
       fecha_venta: "",
       estatus_venta: "En proceso",
@@ -7535,6 +7558,7 @@ function CrearCaptacion() {
     }),
     venta: create$3().shape({
       precio_venta: create$5().transform((value) => isNaN(value) || value === null || value === "" ? void 0 : value).nullable().optional(),
+      moneda: create$6().oneOf(["MXN", "USD"]).optional(),
       tipo_credito: create$6().nullable().optional(),
       en_venta: create$7().default(false),
       comprador: create$3().shape({
@@ -7762,6 +7786,9 @@ function CrearCaptacion() {
           }
           return referenciaActualizada;
         });
+      }
+      if (!formData2.fecha_captacion && !formData2.fechaCaptacion) {
+        formData2.fecha_captacion = (/* @__PURE__ */ new Date()).toISOString();
       }
       console.log("Datos a enviar:", formData2);
       const responseData = await captacionesAPI.create(formData2);
@@ -8967,7 +8994,7 @@ function CrearCaptacion() {
               watch("venta.en_venta") && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4 bg-white p-4 rounded-lg border border-blue-gray-100", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-3", children: "Datos de la Operación" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
                     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
                       /* @__PURE__ */ jsxRuntimeExports.jsx(
                         Controller,
@@ -8992,6 +9019,25 @@ function CrearCaptacion() {
                       ),
                       errors.venta?.precio_venta && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-red-500 text-xs mt-1", children: errors.venta.precio_venta.message })
                     ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      Controller,
+                      {
+                        name: "venta.moneda",
+                        control,
+                        render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                          reactExports.Select,
+                          {
+                            label: "Moneda",
+                            value: field.value || "MXN",
+                            onChange: (value) => field.onChange(value),
+                            children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "MXN", children: "MXN (Pesos)" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "USD", children: "USD (Dólares)" })
+                            ]
+                          }
+                        )
+                      }
+                    ) }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                       Controller,
                       {
@@ -9358,7 +9404,7 @@ function CrearPropiedadExterna() {
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Select, { label: "Origen", value: form.origen, onChange: (v) => handleChange("origen", v), children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Mercado Libre", children: "Mercado Libre" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Renta Externa", children: "Renta Externa" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Renta", children: "Renta" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Otro", children: "Otro" })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Select, { label: "Operación", value: form.tipo_operacion, onChange: (v) => handleChange("tipo_operacion", v), children: [
@@ -9496,6 +9542,7 @@ function EditarCaptacion() {
     },
     venta: {
       precio_venta: "",
+      moneda: "MXN",
       comision_venta: "",
       fecha_venta: "",
       en_venta: false,
@@ -9594,6 +9641,7 @@ function EditarCaptacion() {
     }),
     venta: create$3().shape({
       precio_venta: create$5().transform((value) => isNaN(value) || value === null || value === "" ? void 0 : value).nullable().optional(),
+      moneda: create$6().oneOf(["MXN", "USD"]).optional(),
       tipo_credito: create$6().nullable().optional(),
       en_venta: create$7().default(false),
       comprador: create$3().shape({
@@ -9745,6 +9793,7 @@ function EditarCaptacion() {
             comision_venta: data.venta.comision_total || data.venta.comision_venta || "",
             fecha_venta: data.venta.fecha_venta || "",
             en_venta: data.estatus_actual === "Disponible para venta" || false,
+            moneda: data.venta.moneda || "MXN",
             comprador: data.venta.comprador ? {
               nombre: data.venta.comprador.nombre || "",
               telefono: data.venta.comprador.telefono || "",
@@ -10950,7 +10999,7 @@ function EditarCaptacion() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Información de Venta" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-[300px]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 p-4 rounded-lg mb-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", className: "mb-4", children: "Complete la información relacionada con la venta de la propiedad." }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Controller,
                   {
@@ -10981,6 +11030,25 @@ function EditarCaptacion() {
                         type: "number",
                         label: "Precio de Venta",
                         ...field
+                      }
+                    )
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Controller,
+                  {
+                    name: "venta.moneda",
+                    control,
+                    render: ({ field }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                      reactExports.Select,
+                      {
+                        label: "Moneda",
+                        value: field.value || "MXN",
+                        onChange: (value) => field.onChange(value),
+                        children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "MXN", children: "MXN (Pesos)" }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "USD", children: "USD (Dólares)" })
+                        ]
                       }
                     )
                   }
@@ -11672,7 +11740,7 @@ function MisProyectos() {
             },
             header
           )) }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus }, index) => {
+          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: captaciones.map(({ _id, propiedad, propietario, estatus_actual, captacion, historial_estatus, ultima_actualizacion, updatedAt }, index) => {
             const isLast = index === captaciones.length - 1;
             const classes = isLast ? "py-3 px-5" : "py-3 px-5 border-b border-blue-gray-50";
             const propiedadTipo = propiedad?.tipo || "Sin especificar";
@@ -11691,21 +11759,40 @@ function MisProyectos() {
             }
             let ultimaActualizacionNombre = "Nunca editado";
             let ultimaActualizacionFecha = "";
-            const historial = historial_estatus || [];
-            if (historial.length > 0) {
-              const ultimo = historial[historial.length - 1];
-              if (ultimo.usuario) {
-                ultimaActualizacionNombre = ultimo.usuario.name || ultimo.usuario.nombre || [
-                  ultimo.usuario.prim_nom,
-                  ultimo.usuario.segun_nom,
-                  ultimo.usuario.apell_pa,
-                  ultimo.usuario.apell_ma
-                ].filter(Boolean).join(" ") || ultimo.usuario.email || "Sin nombre";
-                if (ultimo.fecha) {
-                  try {
-                    ultimaActualizacionFecha = new Date(ultimo.fecha).toLocaleDateString();
-                  } catch {
+            const ua = ultima_actualizacion || captacion?.ultima_actualizacion;
+            if (ua && (ua.usuario || ua.fecha)) {
+              const u = ua.usuario || {};
+              ultimaActualizacionNombre = u.name || u.nombre || [u.prim_nom, u.segun_nom, u.apell_pa, u.apell_ma].filter(Boolean).join(" ") || u.email || "Sin nombre";
+              if (ua.fecha) {
+                try {
+                  ultimaActualizacionFecha = new Date(ua.fecha).toLocaleDateString();
+                } catch {
+                }
+              }
+            } else {
+              const historial = historial_estatus || [];
+              if (historial.length > 0) {
+                const ultimo = historial[historial.length - 1];
+                if (ultimo.usuario) {
+                  ultimaActualizacionNombre = ultimo.usuario.name || ultimo.usuario.nombre || [
+                    ultimo.usuario.prim_nom,
+                    ultimo.usuario.segun_nom,
+                    ultimo.usuario.apell_pa,
+                    ultimo.usuario.apell_ma
+                  ].filter(Boolean).join(" ") || ultimo.usuario.email || "Sin nombre";
+                  if (ultimo.fecha) {
+                    try {
+                      ultimaActualizacionFecha = new Date(ultimo.fecha).toLocaleDateString();
+                    } catch {
+                    }
                   }
+                }
+              }
+              if (!ultimaActualizacionFecha) {
+                try {
+                  const f = updatedAt || captacion?.fecha || propiedad?.updatedAt;
+                  if (f) ultimaActualizacionFecha = new Date(f).toLocaleDateString();
+                } catch {
                 }
               }
             }
@@ -11898,6 +11985,8 @@ function DetalleCaptacion() {
   if (!captacion) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 mx-3 lg:mx-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "red", children: "Captación no encontrada" }) });
   }
+  const fechaCaptacion = captacion.fecha_captacion || captacion.fechaCaptacion || captacion.createdAt;
+  const adeudos = captacion.propiedad?.adeudos || captacion.adeudos || [];
   const TABS2 = [
     {
       label: "General",
@@ -11907,7 +11996,7 @@ function DetalleCaptacion() {
     {
       label: "Propietario",
       value: "propietario",
-      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5" })
+      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5" })
     },
     {
       label: "Propiedad",
@@ -11917,27 +12006,27 @@ function DetalleCaptacion() {
     {
       label: "Financiero",
       value: "financiero",
-      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5" })
+      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-5 w-5" })
     },
     {
       label: "Laboral",
       value: "laboral",
-      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-5 w-5" })
+      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$N, { className: "h-5 w-5" })
     },
     {
       label: "Referencias",
       value: "referencias",
-      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$N, { className: "h-5 w-5" })
+      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$O, { className: "h-5 w-5" })
     },
     {
       label: "Documentos",
       value: "documentos",
-      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$R, { className: "h-5 w-5" })
+      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-5 w-5" })
     },
     {
       label: "Adeudos",
       value: "adeudos",
-      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-5 w-5" })
+      icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-5 w-5" })
     }
   ];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-12 mb-8 flex flex-col gap-8", children: [
@@ -11996,8 +12085,11 @@ function DetalleCaptacion() {
         )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Fecha de Captación:" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { className: "mt-1", children: formatDate(captacion.fecha_captacion) })
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Fecha de Captación:" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { className: "mt-1", children: formatDate(fechaCaptacion) })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Captador:" }),
@@ -12009,12 +12101,12 @@ function DetalleCaptacion() {
       ] })
     ] }) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { className: "mx-3 lg:mx-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "p-0", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Tabs, { value: activeTab, className: "w-full", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabsHeader, { className: "mb-6 flex flex-wrap md:flex-nowrap h-auto md:h-12 py-2 gap-1 bg-blue-gray-50 overflow-x-auto md:overflow-x-auto hide-scrollbar", children: TABS2.map(({ label, value, icon: icon2 }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabsHeader, { className: "mt-2 mb-6 flex flex-wrap md:flex-nowrap items-center min-h-[48px] py-2 gap-1 bg-blue-gray-50 overflow-x-auto hide-scrollbar px-2", children: TABS2.map(({ label, value, icon: icon2 }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
         reactExports.Tab,
         {
           value,
           onClick: () => handleTabChange(value),
-          className: `py-2 px-3 whitespace-nowrap rounded-md transition-all flex items-center gap-2 ${activeTab === value ? "bg-white shadow-sm font-medium" : ""}`,
+          className: `h-10 py-2 px-3 whitespace-nowrap rounded-md transition-all flex items-center gap-2 leading-none ${activeTab === value ? "bg-white shadow-sm font-medium" : ""}`,
           children: [
             icon2,
             label
@@ -12036,7 +12128,13 @@ function DetalleCaptacion() {
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Última Actualización:" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { className: "mt-1", children: formatDate(captacion.updatedAt) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { className: "mt-1", children: formatDate(captacion.ultima_actualizacion && captacion.ultima_actualizacion.fecha || captacion.updatedAt) }),
+              captacion.ultima_actualizacion?.usuario && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "opacity-70", children: captacion.ultima_actualizacion.usuario.name || captacion.ultima_actualizacion.usuario.nombre || [
+                captacion.ultima_actualizacion.usuario.prim_nom,
+                captacion.ultima_actualizacion.usuario.segun_nom,
+                captacion.ultima_actualizacion.usuario.apell_pa,
+                captacion.ultima_actualizacion.usuario.apell_ma
+              ].filter(Boolean).join(" ") || captacion.ultima_actualizacion.usuario.email })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Estatus Actual:" }),
@@ -12054,7 +12152,7 @@ function DetalleCaptacion() {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabPanel, { value: "propietario", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-6 w-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-6 w-6" }),
             "Información del Propietario"
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
@@ -12118,7 +12216,7 @@ function DetalleCaptacion() {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabPanel, { value: "financiero", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-6 w-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-6 w-6" }),
             "Información Financiera"
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
@@ -12142,7 +12240,7 @@ function DetalleCaptacion() {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabPanel, { value: "laboral", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-6 w-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$N, { className: "h-6 w-6" }),
             "Datos Laborales del Propietario"
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
@@ -12177,7 +12275,7 @@ function DetalleCaptacion() {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabPanel, { value: "referencias", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$N, { className: "h-6 w-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$O, { className: "h-6 w-6" }),
             "Referencias Personales"
           ] }),
           captacion.referencias_personales && captacion.referencias_personales.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: captacion.referencias_personales.map((ref, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
@@ -12198,15 +12296,15 @@ function DetalleCaptacion() {
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$O, { className: "h-4 w-4 text-blue-gray-500" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$P, { className: "h-4 w-4 text-blue-gray-500" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: ref.telefono || "N/A" })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$P, { className: "h-4 w-4 text-blue-gray-500" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Q, { className: "h-4 w-4 text-blue-gray-500" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: ref.email || "N/A" })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Q, { className: "h-4 w-4 text-blue-gray-500" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$R, { className: "h-4 w-4 text-blue-gray-500" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: mostrarValor(ref.direccion) })
               ] })
             ] })
@@ -12214,7 +12312,7 @@ function DetalleCaptacion() {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabPanel, { value: "documentos", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$R, { className: "h-6 w-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-6 w-6" }),
             "Documentos del Propietario"
           ] }),
           captacion.documentos && captacion.documentos.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: captacion.documentos.map((doc, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
@@ -12233,17 +12331,17 @@ function DetalleCaptacion() {
         ] }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TabPanel, { value: "adeudos", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-lg shadow-sm p-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4 flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-6 w-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-6 w-6" }),
             "Adeudos y Deudas"
           ] }),
-          captacion.adeudos && captacion.adeudos.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: captacion.adeudos.map((adeudo, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
+          adeudos.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: adeudos.map((adeudo, idx) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-gray-50 p-4 rounded-lg", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-2", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", children: adeudo.tipo }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Badge, { color: "red", className: "ml-2", children: formatCurrency(adeudo.monto) })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "mb-2", children: adeudo.descripcion }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-gray-600", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-4 w-4" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
                 "Vencimiento: ",
                 formatDate(adeudo.fecha_vencimiento)
@@ -13063,27 +13161,28 @@ const RemodelacionPage = () => {
       setLoading(false);
     }
   };
-  const verListasCompraAdmin = async () => {
+  const verListasCompraAdmin = async (proyecto) => {
     try {
       setLoading(true);
       setError(null);
-      console.log("📋 Cargando listas de compra para administración...");
-      const response = await axios.get(`${"https://lead-inmobiliaria.com"}/api/lista-compra/admin/todas`, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`
-        }
+      if (!proyecto?._id) {
+        throw new Error("Proyecto no válido para cargar listas de compra");
+      }
+      console.log("📋 Cargando listas de compra para administración por proyecto...", proyecto._id);
+      const response = await axios.get(`/api/lista-compra/proyecto/${proyecto._id}`, {
+        withCredentials: true
       });
       console.log("📡 Respuesta del servidor:", response.data);
       if (response.data.success) {
         setListasCompra(response.data.data || []);
         setShowListasCompraModal(true);
-        console.log("✅ Listas de compra cargadas:", response.data.data.length);
+        console.log("✅ Listas de compra cargadas para el proyecto:", response.data.data.length);
       } else {
-        throw new Error("Error al cargar listas de compra");
+        throw new Error("Error al cargar listas de compra del proyecto");
       }
     } catch (error2) {
       console.error("❌ Error al cargar listas de compra:", error2);
-      setError(`Error al cargar las listas de compra: ${error2.message}`);
+      setError(`Error al cargar las listas de compra del proyecto: ${error2.message}`);
     } finally {
       setLoading(false);
     }
@@ -13312,7 +13411,7 @@ const RemodelacionPage = () => {
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-1", children: "Con Presupuesto" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h4", color: "green", className: "font-bold", children: estadisticas.conPresupuesto })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-8 w-8 text-green-500" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-8 w-8 text-green-500" })
       ] }) }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
@@ -13326,7 +13425,7 @@ const RemodelacionPage = () => {
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-1", children: "Gastos Totales" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h4", color: "purple", className: "font-bold", children: formatCurrency(estadisticas.gastosTotales) })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-8 w-8 text-purple-500" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-8 w-8 text-purple-500" })
       ] }) }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { className: "mx-3 lg:mx-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
@@ -13432,11 +13531,11 @@ const RemodelacionPage = () => {
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: formatearDireccion(proyecto.propiedad?.direccion) })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: proyecto.remodelacion?.supervisor ? `${proyecto.remodelacion.supervisor.prim_nom || ""} ${proyecto.remodelacion.supervisor.apell_pa || ""}`.trim() || proyecto.remodelacion.supervisor.email : "Sin asignar" })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-gray-400" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-gray-400" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: proyecto.remodelacion?.contratista ? `${proyecto.remodelacion.contratista.prim_nom || ""} ${proyecto.remodelacion.contratista.apell_pa || ""}`.trim() || proyecto.remodelacion.contratista.email : "Sin asignar" })
           ] }) }),
           user?.role !== "contratista" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -13517,7 +13616,7 @@ const RemodelacionPage = () => {
                   onClick: () => verRequerimientos(proyecto),
                   title: "Gestionar Requerimientos y Costos",
                   children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-4 w-4" }),
                     "Costos"
                   ]
                 }
@@ -13531,7 +13630,7 @@ const RemodelacionPage = () => {
                   className: "p-2",
                   onClick: () => abrirModalAsignar(proyecto),
                   title: "Asignar contratista",
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" })
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" })
                 }
               )
             ] })
@@ -13569,7 +13668,7 @@ const RemodelacionPage = () => {
                   color: "purple",
                   variant: "outlined",
                   className: "flex items-center gap-1 px-3 py-1",
-                  onClick: verListasCompraAdmin,
+                  onClick: () => verListasCompraAdmin(proyecto),
                   title: "Ver Listas de Compra",
                   children: [
                     /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-4 w-4" }),
@@ -14121,7 +14220,7 @@ const RemodelacionPage = () => {
                 },
                 className: "flex items-center gap-2",
                 children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-5 w-5" }),
                   "Agregar Costo"
                 ]
               }
@@ -14454,7 +14553,7 @@ const RemodelacionPage = () => {
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: formatearDireccion(lista2.proyecto_id?.propiedad?.direccion) }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: lista2.contratista_id ? `${lista2.contratista_id.prim_nom || ""} ${lista2.contratista_id.apell_pa || ""}`.trim() || lista2.contratista_id.email : "N/A" })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "green", className: "font-medium", children: formatCurrency(lista2.total_final || lista2.total_estimado || 0) }) }),
@@ -14533,17 +14632,17 @@ const RemodelacionPage = () => {
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { className: "bg-gradient-to-r from-gray-50 to-gray-100 pb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", className: "font-bold", children: "📊 Información General" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "pt-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-blue-50 rounded-lg border border-blue-200", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-8 w-8 text-blue-500 mx-auto mb-2" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-8 w-8 text-blue-500 mx-auto mb-2" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "font-medium mb-1", children: "Fecha de Creación" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: formatDate(listaSeleccionada.fecha_creacion) })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-green-50 rounded-lg border border-green-200", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-8 w-8 text-green-500 mx-auto mb-2" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-8 w-8 text-green-500 mx-auto mb-2" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "font-medium mb-1", children: "Contratista" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: listaSeleccionada.contratista_id ? `${listaSeleccionada.contratista_id.prim_nom || ""} ${listaSeleccionada.contratista_id.apell_pa || ""}`.trim() || listaSeleccionada.contratista_id.email : "N/A" })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-purple-50 rounded-lg border border-purple-200", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-8 w-8 text-purple-500 mx-auto mb-2" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-8 w-8 text-purple-500 mx-auto mb-2" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "font-medium mb-1", children: "Total" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "green", className: "font-bold text-lg", children: formatCurrency(listaSeleccionada.total_final || listaSeleccionada.total_estimado || 0) })
             ] })
@@ -15132,7 +15231,7 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-8 w-8 text-blue-500" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-8 w-8 text-blue-500" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", children: "Presupuesto del Proyecto" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Gestión financiera y asignación de recursos" })
@@ -15226,7 +15325,7 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
               name: "presupuesto_estimado",
               value: formData.presupuesto_estimado,
               onChange: handleInputChange,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" }),
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-4 w-4" }),
               disabled: esSupervisor
             }
           ),
@@ -15237,7 +15336,7 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
               name: "supervisor_asignado",
               value: formData.supervisor_asignado,
               onChange: handleInputChange,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" }),
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" }),
               disabled: esSupervisor
             }
           ),
@@ -15248,7 +15347,7 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
               name: "contratista_asignado",
               value: formData.contratista_asignado,
               onChange: handleInputChange,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" })
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" })
             }
           )
         ] }),
@@ -15261,7 +15360,7 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
               name: "fecha_inicio",
               value: formData.fecha_inicio,
               onChange: handleInputChange,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-4 w-4" })
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -15272,7 +15371,7 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
               name: "fecha_fin",
               value: formData.fecha_fin,
               onChange: handleInputChange,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-4 w-4" })
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" })
             }
           )
         ] }),
@@ -15314,28 +15413,28 @@ function Presupuesto({ proyectoId, userRole, proyecto, remodelacionData }) {
       ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Supervisor Asignado" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { children: presupuesto?.supervisor_asignado || "No asignado" })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Contratista Asignado" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { children: presupuesto?.contratista_asignado || "No asignado" })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-5 w-5 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Fecha de Inicio" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { children: presupuesto?.fecha_inicio || "No definida" })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-5 w-5 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Fecha de Finalización" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { children: presupuesto?.fecha_fin || "No definida" })
@@ -15602,7 +15701,7 @@ function MaterialForm({ proyectoId, userRole }) {
               required: true,
               step: "0.01",
               min: "0",
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" })
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-4 w-4" })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -15692,11 +15791,11 @@ function MaterialForm({ proyectoId, userRole }) {
             }
           ) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: material.usuario_registro })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-4 w-4 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: formatDate(material.fecha_registro) })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
@@ -15971,7 +16070,7 @@ function SolicitudForm({ proyectoId, userRole }) {
       case "Aprobado para su compra":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$_, { className: "h-4 w-4" });
       case "En proceso de entrega":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" });
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-4 w-4" });
       case "Entregado":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$_, { className: "h-4 w-4" });
       default:
@@ -16089,7 +16188,7 @@ function SolicitudForm({ proyectoId, userRole }) {
             solicitud.notas && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "italic", children: solicitud.notas })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: solicitud.contratista })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16106,7 +16205,7 @@ function SolicitudForm({ proyectoId, userRole }) {
             solicitud.costo_estimado.toLocaleString()
           ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Pendiente" }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-4 w-4 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: formatDate(solicitud.fecha_solicitud) })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
@@ -16152,7 +16251,7 @@ function SolicitudForm({ proyectoId, userRole }) {
                     agregarCosto2(solicitud._id, costo);
                   }
                 },
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" })
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-4 w-4" })
               }
             ),
             puedeAprobar && solicitud.estatus === "Aprobacion administrativa" && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16311,7 +16410,7 @@ function Notificaciones({ proyectoId, userRole }) {
       case "solicitud_material":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$11, { className: "h-5 w-5" });
       case "costo_agregado":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5" });
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-5 w-5" });
       case "solicitud_aprobada":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$18, { className: "h-5 w-5" });
       case "material_comprado":
@@ -16496,7 +16595,7 @@ function Notificaciones({ proyectoId, userRole }) {
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { color: "gray", className: "mb-2", children: notificacion.mensaje }),
                 /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4 text-sm text-gray-500", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: notificacion.usuario_origen })
                   ] }),
                   /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
@@ -16762,7 +16861,7 @@ function CartaResponsabilidad({ proyectoId, userRole }) {
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$R, { className: "h-8 w-8 text-blue-500" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-8 w-8 text-blue-500" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", children: "Carta de Responsabilidad" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Gestión de responsabilidades por materiales entregados" })
@@ -16788,7 +16887,7 @@ function CartaResponsabilidad({ proyectoId, userRole }) {
               value: formData.contratista,
               onChange: handleInputChange,
               required: true,
-              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4" })
+              icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -16849,7 +16948,7 @@ function CartaResponsabilidad({ proyectoId, userRole }) {
                 /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$A, { className: "h-4 w-4" }),
                 "Actualizar"
               ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$R, { className: "h-4 w-4" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-4 w-4" }),
                 "Crear Carta"
               ] })
             }
@@ -16864,7 +16963,7 @@ function CartaResponsabilidad({ proyectoId, userRole }) {
         ")"
       ] }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "p-0", children: cartas.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-8", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$R, { className: "h-12 w-12 text-gray-400 mx-auto mb-4" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-12 w-12 text-gray-400 mx-auto mb-4" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { color: "gray", children: "No hay cartas de responsabilidad" })
       ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Table, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableHead, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.TableRow, { children: [
@@ -16901,7 +17000,7 @@ function CartaResponsabilidad({ proyectoId, userRole }) {
             }
           ) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-4 w-4 text-blue-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", children: formatDate(carta.fecha_firma) })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.TableCell, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
@@ -17197,7 +17296,7 @@ function Reportes({ proyectoId, userRole }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: "Tiempo Promedio de Aprobación" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-green-50 rounded-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-8 w-8 text-green-500 mx-auto mb-2" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-8 w-8 text-green-500 mx-auto mb-2" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h4", color: "green", className: "font-bold", children: [
             reportes.metricas_tiempo.tiempo_promedio_compra,
             " días"
@@ -17205,7 +17304,7 @@ function Reportes({ proyectoId, userRole }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "green", children: "Tiempo Promedio de Compra" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-purple-50 rounded-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-8 w-8 text-purple-500 mx-auto mb-2" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-8 w-8 text-purple-500 mx-auto mb-2" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h4", color: "purple", className: "font-bold", children: [
             reportes.metricas_tiempo.tiempo_promedio_entrega,
             " días"
@@ -17636,12 +17735,12 @@ const TABS = [
   {
     label: "Presupuesto",
     value: "presupuesto",
-    icon: ForwardRef$L
+    icon: ForwardRef$M
   },
   {
     label: "Gastos Administrativos",
     value: "gastos-admin",
-    icon: ForwardRef$S
+    icon: ForwardRef$T
   },
   {
     label: "Solicitudes de Material",
@@ -17651,7 +17750,7 @@ const TABS = [
   {
     label: "Carta de Responsabilidad",
     value: "carta",
-    icon: ForwardRef$R
+    icon: ForwardRef$S
   },
   {
     label: "Reportes",
@@ -18150,7 +18249,7 @@ const EditarRemodelacion = () => {
                   step: "0.01",
                   min: "0",
                   required: true,
-                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-5 w-5" })
+                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-5 w-5" })
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "mt-1", children: "Presupuesto total estimado para la remodelación" })
@@ -18200,7 +18299,7 @@ const EditarRemodelacion = () => {
                   label: "Fecha de Inicio",
                   value: formData.fecha_inicio,
                   onChange: (e) => handleInputChange("fecha_inicio", e.target.value),
-                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-5 w-5" })
+                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5" })
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "mt-1", children: "Fecha estimada de inicio de la remodelación" })
@@ -18213,7 +18312,7 @@ const EditarRemodelacion = () => {
                   label: "Fecha de Finalización",
                   value: formData.fecha_fin,
                   onChange: (e) => handleInputChange("fecha_fin", e.target.value),
-                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$T, { className: "h-5 w-5" })
+                  icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-5 w-5" })
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "mt-1", children: "Fecha estimada de finalización" })
@@ -18561,7 +18660,7 @@ const ListasCompraAdminPage = () => {
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: formatearDireccion(lista.proyecto_id?.propiedad?.direccion) }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-gray-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-gray-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: lista.contratista_id ? `${lista.contratista_id.prim_nom || ""} ${lista.contratista_id.apell_pa || ""}`.trim() || lista.contratista_id.email : "N/A" })
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-5 border-b border-blue-gray-50", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "green", className: "font-medium", children: formatCurrency(lista.total_final || lista.total_estimado || 0) }) }),
@@ -18772,6 +18871,1350 @@ const ListasCompraAdminPage = () => {
     ] }) })
   ] });
 };
+const BlogList = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = reactExports$1.useState(null);
+  const [blogs, setBlogs] = reactExports$1.useState([]);
+  const [isLoading, setIsLoading] = reactExports$1.useState(true);
+  const [error, setError] = reactExports$1.useState(null);
+  const [page, setPage] = reactExports$1.useState(1);
+  const [totalPages, setTotalPages] = reactExports$1.useState(1);
+  const [searchTerm, setSearchTerm] = reactExports$1.useState("");
+  const [filterCategory, setFilterCategory] = reactExports$1.useState("");
+  const [searchParams] = reactExports$1.useState({
+    limit: 10,
+    sort: "-createdAt"
+  });
+  reactExports$1.useEffect(() => {
+    const checkAuth = async () => {
+      console.log("=== DEBUG: Verificando autenticación ===");
+      try {
+        console.log("Haciendo petición a:", `${"https://lead-inmobiliaria.com"}/api/check-auth`);
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
+          credentials: "include",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+        console.log("Respuesta de autenticación:", response.status, response.ok);
+        if (!response.ok) {
+          console.log("Autenticación fallida, redirigiendo a /sign-in");
+          navigate("/sign-in");
+          return;
+        }
+        const data = await response.json();
+        console.log("Usuario autenticado:", data.user);
+        setUser(data.user);
+      } catch (error2) {
+        console.error("Error al verificar autenticación:", error2);
+        console.log("Error de autenticación, redirigiendo a /sign-in");
+        navigate("/sign-in");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setPage(1);
+  };
+  const handleCategoryFilter = (value) => {
+    setFilterCategory(value);
+    setPage(1);
+  };
+  reactExports$1.useEffect(() => {
+    if (!user) return;
+    const fetchBlogs = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        let apiUrl = `${"https://lead-inmobiliaria.com"}/api/blog?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}`;
+        if (searchTerm) {
+          apiUrl += `&search=${encodeURIComponent(searchTerm)}`;
+        }
+        if (filterCategory) {
+          apiUrl += `&category=${encodeURIComponent(filterCategory)}`;
+        }
+        console.log("Consultando API de blogs:", apiUrl);
+        const response = await fetch(apiUrl, {
+          credentials: "include",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ mensaje: `Error ${response.status}` }));
+          throw new Error(errorData.mensaje || `Error al obtener blogs: ${response.status}`);
+        }
+        const data = await response.json();
+        if (!data.blogs || data.blogs.length === 0) {
+          setBlogs([]);
+          setTotalPages(0);
+          return;
+        }
+        console.log("Blogs obtenidos:", data.blogs);
+        setBlogs(data.blogs);
+        setTotalPages(data.paginacion?.paginas || 1);
+      } catch (error2) {
+        console.error("Error al obtener blogs:", error2);
+        setError(error2.message || "No se pudieron cargar los blogs");
+        setBlogs([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, [user, page, searchParams, searchTerm, filterCategory]);
+  const handlePrevPage = () => {
+    setPage((prev) => Math.max(prev - 1, 1));
+  };
+  const handleNextPage = () => {
+    setPage((prev) => Math.min(prev + 1, totalPages));
+  };
+  const formatDate = (dateString) => {
+    if (!dateString) return "Sin fecha";
+    return new Date(dateString).toLocaleDateString("es-MX", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  };
+  if (isLoading && !blogs.length) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-96", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-12 w-12" }) });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Card, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { variant: "gradient", color: "blue", className: "mb-8 p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "white", children: "Gestión de Blog" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "white", className: "opacity-80", children: "Administra el contenido del blog corporativo" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          reactExports.Button,
+          {
+            size: "sm",
+            color: "white",
+            variant: "outlined",
+            onClick: () => navigate("/dashboard/blog/nuevo"),
+            className: "flex items-center gap-2",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$12, { className: "h-4 w-4" }),
+              "Nuevo Blog"
+            ]
+          }
+        )
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "overflow-x-scroll px-0 pt-0 pb-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center px-4 py-2 gap-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full max-w-md", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          reactExports.Input,
+          {
+            label: "Buscar por título o contenido",
+            icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$m, { className: "h-5 w-5" }),
+            value: searchTerm,
+            onChange: handleSearch
+          }
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full max-w-xs", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          reactExports.Select,
+          {
+            label: "Filtrar por categoría",
+            value: filterCategory,
+            onChange: handleCategoryFilter,
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "", children: "Todas las categorías" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "eventos", children: "Eventos" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "cursos", children: "Cursos" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "noticias", children: "Noticias" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "proyectos", children: "Proyectos" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "testimonios", children: "Testimonios" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "otros", children: "Otros" })
+            ]
+          }
+        ) })
+      ] }),
+      error && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "red", className: "mx-4 mt-4", children: error }),
+      blogs.length === 0 && !isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$S, { className: "h-16 w-16 text-gray-400 mx-auto mb-4" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", className: "text-gray-600", children: "No hay blogs disponibles" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { className: "text-gray-500 mt-2", children: searchTerm || filterCategory ? "No se encontraron blogs con los criterios de búsqueda" : "Comienza creando tu primer blog" }),
+        !searchTerm && !filterCategory && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          reactExports.Button,
+          {
+            color: "blue",
+            className: "mt-4",
+            onClick: () => navigate("/dashboard/blog/nuevo"),
+            children: "Crear Primer Blog"
+          }
+        )
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("table", { className: "w-full min-w-[640px] table-auto", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("thead", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("tr", { children: ["Título", "Categoría", "Autor", "Fecha", "Estado", "Imágenes", "Acciones"].map((header) => /* @__PURE__ */ jsxRuntimeExports.jsx("th", { className: "border-b border-blue-gray-50 py-3 px-6 text-left", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium leading-none opacity-70", children: header }) }, header)) }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("tbody", { children: blogs.map((blog, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("tr", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: blog.titulo || "Sin título" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal opacity-70", children: blog.resumen ? blog.resumen.substring(0, 50) + "..." : "Sin resumen" })
+            ] }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Chip,
+              {
+                variant: "ghost",
+                size: "sm",
+                value: blog.categoria || "Sin categoría",
+                color: blog.categoria === "eventos" ? "green" : blog.categoria === "cursos" ? "blue" : blog.categoria === "noticias" ? "purple" : blog.categoria === "proyectos" ? "amber" : blog.categoria === "testimonios" ? "pink" : "gray"
+              }
+            ) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-blue-gray-500" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: blog.autor ? `${blog.autor.prim_nom || ""} ${blog.autor.apell_pa || ""}`.trim() || "Sin autor" : "Sin autor" })
+            ] }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$K, { className: "h-4 w-4 text-blue-gray-500" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: formatDate(blog.fechaPublicacion) })
+            ] }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Chip,
+              {
+                variant: "ghost",
+                size: "sm",
+                value: blog.estado || "Borrador",
+                color: blog.estado === "Publicado" ? "green" : blog.estado === "Borrador" ? "amber" : blog.estado === "Programado" ? "blue" : "red"
+              }
+            ) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$z, { className: "h-5 w-5 text-blue-gray-500" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: [
+                blog.imagenes?.length || 0,
+                "/10"
+              ] })
+            ] }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("td", { className: "py-3 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Tooltip, { content: "Ver detalles", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.IconButton,
+                {
+                  variant: "text",
+                  color: "blue",
+                  size: "sm",
+                  onClick: () => navigate(`/dashboard/blog/${blog.id || blog._id}/detalle`),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$k, { className: "h-4 w-4" })
+                }
+              ) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Tooltip, { content: "Editar blog", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.IconButton,
+                {
+                  variant: "text",
+                  color: "green",
+                  size: "sm",
+                  onClick: () => navigate(`/dashboard/blog/${blog.id || blog._id}/editar`),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$A, { className: "h-4 w-4" })
+                }
+              ) })
+            ] }) })
+          ] }, blog.id || blog._id || index)) })
+        ] }),
+        totalPages > 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-center items-center gap-4 py-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Button,
+            {
+              variant: "outlined",
+              size: "sm",
+              onClick: handlePrevPage,
+              disabled: page === 1,
+              children: "Anterior"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-normal", children: [
+            "Página ",
+            page,
+            " de ",
+            totalPages
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Button,
+            {
+              variant: "outlined",
+              size: "sm",
+              onClick: handleNextPage,
+              disabled: page === totalPages,
+              children: "Siguiente"
+            }
+          )
+        ] })
+      ] })
+    ] })
+  ] }) });
+};
+function CrearBlog() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = reactExports$1.useState(false);
+  const [error, setError] = reactExports$1.useState(null);
+  const [success, setSuccess] = reactExports$1.useState(null);
+  const [user, setUser] = reactExports$1.useState(null);
+  const [formData, setFormData] = reactExports$1.useState({
+    titulo: "",
+    resumen: "",
+    contenido: "",
+    categoria: "",
+    estado: "Borrador",
+    fechaPublicacion: "",
+    tags: ""
+  });
+  const [imagenes, setImagenes] = reactExports$1.useState([]);
+  reactExports$1.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
+          credentials: "include"
+        });
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.user);
+        } else {
+          navigate("/sign-in");
+        }
+      } catch (error2) {
+        console.error("Error al verificar autenticación:", error2);
+        navigate("/sign-in");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  const handleImagenesSelect = (e) => {
+    const files = Array.from(e.target.files);
+    if (imagenes.length + files.length > 10) {
+      setError("No se pueden subir más de 10 imágenes por blog");
+      return;
+    }
+    setImagenes((prev) => [...prev, ...files]);
+    setError(null);
+  };
+  const removeImagen = (index) => {
+    setImagenes((prev) => prev.filter((_, i) => i !== index));
+  };
+  const validateForm = () => {
+    if (!formData.titulo.trim()) {
+      setError("El título es obligatorio");
+      return false;
+    }
+    if (!formData.contenido.trim()) {
+      setError("El contenido es obligatorio");
+      return false;
+    }
+    if (!formData.categoria) {
+      setError("La categoría es obligatoria");
+      return false;
+    }
+    if (formData.estado === "Publicado" && !formData.fechaPublicacion) {
+      setError("La fecha de publicación es obligatoria para blogs publicados");
+      return false;
+    }
+    return true;
+  };
+  const handleSave = async () => {
+    if (!validateForm()) return;
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("titulo", formData.titulo);
+      formDataToSend.append("resumen", formData.resumen);
+      formDataToSend.append("contenido", formData.contenido);
+      formDataToSend.append("categoria", formData.categoria);
+      formDataToSend.append("estado", formData.estado);
+      formDataToSend.append("tags", formData.tags);
+      if (formData.fechaPublicacion) {
+        formDataToSend.append("fechaPublicacion", formData.fechaPublicacion);
+      }
+      imagenes.forEach((imagen, index) => {
+        formDataToSend.append("imagenes", imagen);
+      });
+      console.log("Enviando datos del blog:", {
+        titulo: formData.titulo,
+        categoria: formData.categoria,
+        estado: formData.estado,
+        imagenes: imagenes.length
+      });
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/blog`, {
+        method: "POST",
+        credentials: "include",
+        body: formDataToSend
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ mensaje: `Error ${response.status}` }));
+        throw new Error(errorData.mensaje || `Error al crear el blog: ${response.status}`);
+      }
+      const result = await response.json();
+      if (result.success) {
+        setSuccess("Blog creado correctamente");
+        setFormData({
+          titulo: "",
+          resumen: "",
+          contenido: "",
+          categoria: "",
+          estado: "Borrador",
+          fechaPublicacion: "",
+          tags: ""
+        });
+        setImagenes([]);
+        setTimeout(() => {
+          navigate("/dashboard/blog");
+        }, 2e3);
+      } else {
+        throw new Error(result.message || "Error al crear el blog");
+      }
+    } catch (error2) {
+      console.error("Error al guardar:", error2);
+      setError(error2.message || "Error al guardar el blog");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Card, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { variant: "gradient", color: "blue", className: "mb-8 p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "white", children: "Crear Nuevo Blog" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        reactExports.Button,
+        {
+          size: "sm",
+          variant: "text",
+          color: "white",
+          onClick: () => navigate("/dashboard/blog"),
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+            "Volver"
+          ]
+        }
+      )
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
+      error && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "red", className: "mb-4", children: error }),
+      success && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "green", className: "mb-4", children: success }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Información Básica" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Input,
+              {
+                label: "Título del Blog *",
+                name: "titulo",
+                value: formData.titulo,
+                onChange: handleInputChange,
+                placeholder: "Ej: Participamos en la Expo Inmobiliaria 2024"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Select,
+              {
+                label: "Categoría *",
+                value: formData.categoria,
+                onChange: (value) => setFormData((prev) => ({ ...prev, categoria: value })),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "eventos", children: "Eventos" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "cursos", children: "Cursos" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "noticias", children: "Noticias" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "proyectos", children: "Proyectos" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "testimonios", children: "Testimonios" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "otros", children: "Otros" })
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Textarea,
+            {
+              label: "Resumen",
+              name: "resumen",
+              value: formData.resumen,
+              onChange: handleInputChange,
+              placeholder: "Breve descripción del blog (aparecerá en la lista)",
+              rows: 3
+            }
+          ) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Textarea,
+            {
+              label: "Contenido Completo *",
+              name: "contenido",
+              value: formData.contenido,
+              onChange: handleInputChange,
+              placeholder: "Escribe aquí el contenido completo del blog...",
+              rows: 8
+            }
+          ) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Configuración de Publicación" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Select,
+              {
+                label: "Estado",
+                value: formData.estado,
+                onChange: (value) => setFormData((prev) => ({ ...prev, estado: value })),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Borrador", children: "Borrador" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Publicado", children: "Publicado" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Programado", children: "Programado" })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Input,
+              {
+                label: "Fecha de Publicación",
+                name: "fechaPublicacion",
+                type: "date",
+                value: formData.fechaPublicacion,
+                onChange: handleInputChange,
+                disabled: formData.estado === "Borrador"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Input,
+              {
+                label: "Tags (separados por comas)",
+                name: "tags",
+                value: formData.tags,
+                onChange: handleInputChange,
+                placeholder: "Ej: inmobiliaria, eventos, expo"
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Imágenes del Blog" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "mb-2", children: "Seleccionar Imágenes (máximo 10):" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                type: "file",
+                multiple: true,
+                accept: "image/*",
+                onChange: handleImagenesSelect,
+                className: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "mt-1", children: "La primera imagen será la portada del blog (1200x630px). Las demás serán imágenes adicionales (800x600px). Formatos: JPG, PNG, GIF. Tamaño máximo: 5MB por imagen." })
+          ] }),
+          imagenes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "blue-gray", className: "mb-2", children: [
+              "Imágenes seleccionadas (",
+              imagenes.length,
+              "):"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: imagenes.map((imagen, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: URL.createObjectURL(imagen),
+                  alt: `Vista previa ${index + 1}`,
+                  className: `w-full h-32 object-cover rounded-lg border-2 ${index === 0 ? "border-blue-500" : "border-green-200"}`
+                }
+              ),
+              index === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded", children: "Principal" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.IconButton,
+                {
+                  variant: "text",
+                  color: "red",
+                  size: "sm",
+                  className: "absolute top-2 right-2 bg-white",
+                  onClick: () => removeImagen(index),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$x, { className: "h-5 w-5" })
+                }
+              )
+            ] }, index)) })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end gap-4 pt-4 border-t", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Button,
+            {
+              variant: "text",
+              color: "gray",
+              onClick: () => navigate("/dashboard/blog"),
+              disabled: isLoading,
+              children: "Cancelar"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Button,
+            {
+              color: "blue",
+              onClick: handleSave,
+              disabled: isLoading,
+              className: "flex items-center gap-2",
+              children: isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-4 w-4" }),
+                "Guardando..."
+              ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-4 w-4" }),
+                "Crear Blog"
+              ] })
+            }
+          )
+        ] })
+      ] })
+    ] })
+  ] }) });
+}
+function EditarBlog() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = reactExports$1.useState(true);
+  const [isSaving, setIsSaving] = reactExports$1.useState(false);
+  const [error, setError] = reactExports$1.useState(null);
+  const [success, setSuccess] = reactExports$1.useState(null);
+  const [blog, setBlog] = reactExports$1.useState(null);
+  const [user, setUser] = reactExports$1.useState(null);
+  const [formData, setFormData] = reactExports$1.useState({
+    titulo: "",
+    resumen: "",
+    contenido: "",
+    categoria: "",
+    estado: "Borrador",
+    fechaPublicacion: "",
+    tags: ""
+  });
+  const [imagenes, setImagenes] = reactExports$1.useState([]);
+  const [imagenesAEliminar, setImagenesAEliminar] = reactExports$1.useState([]);
+  reactExports$1.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
+          credentials: "include"
+        });
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.user);
+        } else {
+          navigate("/sign-in");
+        }
+      } catch (error2) {
+        console.error("Error al verificar autenticación:", error2);
+        navigate("/sign-in");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+  const fetchBlog = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      console.log("=== DEBUG: fetchBlog ejecutándose ===");
+      console.log("ID del blog:", id);
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/blog/${id}`, {
+        credentials: "include",
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ mensaje: `Error ${response.status}` }));
+        throw new Error(errorData.mensaje || `Error al obtener el blog: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("=== DEBUG: Respuesta completa del backend ===");
+      console.log("data:", data);
+      const blogData = data.blog || data;
+      setBlog(blogData);
+      console.log("=== DEBUG: Datos del blog cargados ===");
+      console.log("blogData:", blogData);
+      const formDataInicial = {
+        titulo: blogData.titulo || "",
+        resumen: blogData.resumen || "",
+        contenido: blogData.contenido || "",
+        categoria: blogData.categoria || "",
+        estado: blogData.estado || "Borrador",
+        fechaPublicacion: blogData.fechaPublicacion ? blogData.fechaPublicacion.split("T")[0] : "",
+        tags: blogData.tags || ""
+      };
+      setFormData(formDataInicial);
+      setImagenes([]);
+      console.log("=== DEBUG: Formulario inicializado ===");
+      console.log("formDataInicial:", formDataInicial);
+    } catch (error2) {
+      console.error("Error al obtener el blog:", error2);
+      setError(error2.message || "No se pudo cargar el blog");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  reactExports$1.useEffect(() => {
+    if (!user || !id) return;
+    fetchBlog();
+  }, [user, id]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  const handleImagenesSelect = (e) => {
+    const files = Array.from(e.target.files);
+    const currentImagesCount = (blog?.imagenPrincipal ? 1 : 0) + (blog?.imagenes?.length || 0);
+    if (currentImagesCount + imagenes.length + files.length > 10) {
+      setError("No se pueden subir más de 10 imágenes por blog");
+      return;
+    }
+    setImagenes((prev) => [...prev, ...files]);
+    setError(null);
+  };
+  const removeImagen = (index) => {
+    setImagenes((prev) => prev.filter((_, i) => i !== index));
+  };
+  const handleDeleteImage = async (imageKey) => {
+    if (!confirm("¿Estás seguro de que quieres eliminar esta imagen?")) {
+      return;
+    }
+    try {
+      console.log("=== DEBUG: Eliminando imagen ===");
+      console.log("imageKey:", imageKey);
+      console.log("ID del blog:", id);
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/blog/${id}/imagenes?imageKey=${encodeURIComponent(imageKey)}`, {
+        method: "DELETE",
+        credentials: "include"
+      });
+      console.log("=== DEBUG: Respuesta de eliminación ===");
+      console.log("Status:", response.status);
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log("Error data:", errorData);
+        throw new Error(errorData.message || "Error al eliminar imagen");
+      }
+      const data = await response.json();
+      console.log("Respuesta exitosa:", data);
+      setSuccess(data.message);
+      fetchBlog();
+    } catch (error2) {
+      console.error("Error al eliminar imagen:", error2);
+      setError(error2.message || "Error al eliminar imagen");
+    }
+  };
+  const validateForm = () => {
+    if (!formData.titulo.trim()) {
+      setError("El título es obligatorio");
+      return false;
+    }
+    if (!formData.contenido.trim()) {
+      setError("El contenido es obligatorio");
+      return false;
+    }
+    if (!formData.categoria) {
+      setError("La categoría es obligatoria");
+      return false;
+    }
+    if (formData.estado === "Publicado" && !formData.fechaPublicacion) {
+      setError("La fecha de publicación es obligatoria para blogs publicados");
+      return false;
+    }
+    return true;
+  };
+  const handleSave = async () => {
+    if (!validateForm()) return;
+    setIsSaving(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("titulo", formData.titulo);
+      formDataToSend.append("resumen", formData.resumen);
+      formDataToSend.append("contenido", formData.contenido);
+      formDataToSend.append("categoria", formData.categoria);
+      formDataToSend.append("estado", formData.estado);
+      formDataToSend.append("tags", formData.tags);
+      if (formData.fechaPublicacion) {
+        formDataToSend.append("fechaPublicacion", formData.fechaPublicacion);
+      }
+      imagenes.forEach((imagen, index) => {
+        if (typeof imagen === "object" && imagen instanceof File) {
+          formDataToSend.append("imagenes", imagen);
+        }
+      });
+      if (imagenesAEliminar.length > 0) {
+        formDataToSend.append("imagenesAEliminar", JSON.stringify(imagenesAEliminar));
+      }
+      console.log("Enviando actualización del blog:", {
+        titulo: formData.titulo,
+        categoria: formData.categoria,
+        estado: formData.estado
+      });
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/blog/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        body: formDataToSend
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ mensaje: `Error ${response.status}` }));
+        throw new Error(errorData.mensaje || `Error al actualizar el blog: ${response.status}`);
+      }
+      const result = await response.json();
+      if (result.success) {
+        setSuccess("Blog actualizado correctamente");
+        setImagenesAEliminar([]);
+        setTimeout(() => {
+          navigate("/dashboard/blog");
+        }, 2e3);
+      } else {
+        throw new Error(result.message || "Error al actualizar el blog");
+      }
+    } catch (error2) {
+      console.error("Error al guardar:", error2);
+      setError(error2.message || "Error al guardar los cambios");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  if (isLoading) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-96", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-12 w-12" }) });
+  }
+  if (error && !blog) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "red", className: "mb-4", children: error }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        reactExports.Button,
+        {
+          color: "blue",
+          onClick: () => navigate("/dashboard/blog"),
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+            "Volver a Blog"
+          ]
+        }
+      )
+    ] }) }) });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Card, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { variant: "gradient", color: "blue", className: "mb-8 p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "white", children: [
+        "Editar Blog - ",
+        blog?.titulo || "Blog"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        reactExports.Button,
+        {
+          size: "sm",
+          variant: "text",
+          color: "white",
+          onClick: () => navigate("/dashboard/blog"),
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+            "Volver"
+          ]
+        }
+      )
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
+      error && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "red", className: "mb-4", children: error }),
+      success && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "green", className: "mb-4", children: success }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Información Básica" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Input,
+              {
+                label: "Título del Blog *",
+                name: "titulo",
+                value: formData.titulo,
+                onChange: handleInputChange,
+                placeholder: "Ej: Participamos en la Expo Inmobiliaria 2024"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Select,
+              {
+                label: "Categoría *",
+                value: formData.categoria,
+                onChange: (value) => setFormData((prev) => ({ ...prev, categoria: value })),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "eventos", children: "Eventos" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "cursos", children: "Cursos" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "noticias", children: "Noticias" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "proyectos", children: "Proyectos" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "testimonios", children: "Testimonios" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "otros", children: "Otros" })
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Textarea,
+            {
+              label: "Resumen",
+              name: "resumen",
+              value: formData.resumen,
+              onChange: handleInputChange,
+              placeholder: "Breve descripción del blog (aparecerá en la lista)",
+              rows: 3
+            }
+          ) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Textarea,
+            {
+              label: "Contenido Completo *",
+              name: "contenido",
+              value: formData.contenido,
+              onChange: handleInputChange,
+              placeholder: "Escribe aquí el contenido completo del blog...",
+              rows: 8
+            }
+          ) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Configuración de Publicación" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Select,
+              {
+                label: "Estado",
+                value: formData.estado,
+                onChange: (value) => setFormData((prev) => ({ ...prev, estado: value })),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Borrador", children: "Borrador" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Publicado", children: "Publicado" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "Programado", children: "Programado" })
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Input,
+              {
+                label: "Fecha de Publicación",
+                name: "fechaPublicacion",
+                type: "date",
+                value: formData.fechaPublicacion,
+                onChange: handleInputChange,
+                disabled: formData.estado === "Borrador"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Input,
+              {
+                label: "Tags (separados por comas)",
+                name: "tags",
+                value: formData.tags,
+                onChange: handleInputChange,
+                placeholder: "Ej: inmobiliaria, eventos, expo"
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Imágenes del Blog" }),
+          blog?.imagenes && blog.imagenes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "blue-gray", className: "mb-2", children: [
+              "Imágenes actuales (",
+              blog.imagenes.length,
+              "/10):"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: blog.imagenes.map((imagen, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative group", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: imagen.url,
+                  alt: `Imagen ${index + 1}`,
+                  className: "w-full h-32 object-cover rounded-lg border-2 border-gray-200"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all rounded-lg flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Tooltip, { content: "Eliminar imagen", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.IconButton,
+                {
+                  variant: "text",
+                  color: "red",
+                  onClick: () => handleDeleteImage(imagen.key || imagen.s3Key),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$x, { className: "h-5 w-5" })
+                }
+              ) }) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-2 left-2 bg-white bg-opacity-80 rounded px-2 py-1 text-xs text-gray-700", children: index + 1 })
+            ] }, index)) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "mb-2", children: "Agregar Nuevas Imágenes:" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                type: "file",
+                multiple: true,
+                accept: "image/*",
+                onChange: handleImagenesSelect,
+                className: "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "mt-1", children: "La primera imagen será la nueva portada del blog (1200x630px). Las demás serán imágenes adicionales (800x600px). Formatos: JPG, PNG, GIF. Tamaño máximo: 5MB por imagen." }),
+            imagenes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "blue-gray", className: "mb-2", children: [
+                "Nuevas imágenes (",
+                imagenes.length,
+                "):"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4", children: imagenes.map((imagen, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "img",
+                  {
+                    src: URL.createObjectURL(imagen),
+                    alt: `Vista previa ${index + 1}`,
+                    className: `w-full h-32 object-cover rounded-lg border-2 ${index === 0 ? "border-blue-500" : "border-green-200"}`
+                  }
+                ),
+                index === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded", children: "Nueva Principal" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  reactExports.IconButton,
+                  {
+                    variant: "text",
+                    color: "red",
+                    size: "sm",
+                    className: "absolute top-2 right-2 bg-white",
+                    onClick: () => removeImagen(index),
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$x, { className: "h-5 w-5" })
+                  }
+                )
+              ] }, index)) })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end gap-4 pt-4 border-t", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Button,
+            {
+              variant: "text",
+              color: "gray",
+              onClick: () => navigate("/dashboard/blog"),
+              disabled: isSaving,
+              children: "Cancelar"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Button,
+            {
+              color: "blue",
+              onClick: handleSave,
+              disabled: isSaving,
+              className: "flex items-center gap-2",
+              children: isSaving ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-4 w-4" }),
+                "Guardando..."
+              ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-4 w-4" }),
+                "Guardar Cambios"
+              ] })
+            }
+          )
+        ] })
+      ] })
+    ] })
+  ] }) });
+}
+function DetalleBlog() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [isLoading, setIsLoading] = reactExports$1.useState(true);
+  const [error, setError] = reactExports$1.useState(null);
+  const [blog, setBlog] = reactExports$1.useState(null);
+  const [user, setUser] = reactExports$1.useState(null);
+  reactExports$1.useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/check-auth`, {
+          credentials: "include"
+        });
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.user);
+        } else {
+          navigate("/sign-in");
+        }
+      } catch (error2) {
+        console.error("Error al verificar autenticación:", error2);
+        navigate("/sign-in");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+  reactExports$1.useEffect(() => {
+    if (!user || !id) return;
+    const fetchBlog = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`${"https://lead-inmobiliaria.com"}/api/blog/${id}`, {
+          credentials: "include",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ mensaje: `Error ${response.status}` }));
+          throw new Error(errorData.mensaje || `Error al obtener el blog: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("=== DEBUG: Respuesta completa del backend ===");
+        console.log("data:", data);
+        const blogData = data.blog || data;
+        setBlog(blogData);
+        console.log("=== DEBUG: Datos del blog cargados en DetalleBlog ===");
+        console.log("blogData:", blogData);
+      } catch (error2) {
+        console.error("Error al obtener el blog:", error2);
+        setError(error2.message || "No se pudo cargar el blog");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchBlog();
+  }, [user, id]);
+  const formatDate = (dateString) => {
+    if (!dateString) return "Sin fecha";
+    return new Date(dateString).toLocaleDateString("es-MX", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  };
+  if (isLoading) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center h-96", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-12 w-12" }) });
+  }
+  if (error && !blog) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Alert, { color: "red", className: "mb-4", children: error }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        reactExports.Button,
+        {
+          color: "blue",
+          onClick: () => navigate("/dashboard/blog"),
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+            "Volver a Blog"
+          ]
+        }
+      )
+    ] }) }) });
+  }
+  if (!blog) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "red", className: "mb-4", children: "Blog no encontrado" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        reactExports.Button,
+        {
+          color: "blue",
+          onClick: () => navigate("/dashboard/blog"),
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+            "Volver a Blog"
+          ]
+        }
+      )
+    ] }) }) });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-12 mb-8 flex flex-col gap-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Card, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { variant: "gradient", color: "blue", className: "mb-8 p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between items-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "white", children: [
+        "Detalle del Blog - ",
+        blog.titulo
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          reactExports.Button,
+          {
+            size: "sm",
+            variant: "text",
+            color: "white",
+            onClick: () => navigate("/dashboard/blog"),
+            className: "flex items-center gap-2",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+              "Volver"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          reactExports.Button,
+          {
+            size: "sm",
+            color: "white",
+            onClick: () => navigate(`/dashboard/blog/${id}/editar`),
+            className: "flex items-center gap-2",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$p, { className: "h-4 w-4" }),
+              "Editar Blog"
+            ]
+          }
+        )
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h4", color: "blue-gray", className: "mb-4", children: blog.titulo }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-blue-50 rounded-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1f, { className: "h-6 w-6 text-blue-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Categoría" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: blog.categoria || "Sin categoría" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-green-50 rounded-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1g, { className: "h-6 w-6 text-green-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Autor" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: blog.autor ? `${blog.autor.prim_nom || ""} ${blog.autor.apell_pa || ""}`.trim() || "Sin autor" : "Sin autor" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-amber-50 rounded-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1h, { className: "h-6 w-6 text-amber-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Fecha de Publicación" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: formatDate(blog.fechaPublicacion) })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-purple-50 rounded-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-6 w-6 text-purple-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Estado" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.Chip,
+                {
+                  value: blog.estado || "Borrador",
+                  color: blog.estado === "Publicado" ? "green" : blog.estado === "Borrador" ? "amber" : blog.estado === "Programado" ? "blue" : "red",
+                  size: "sm"
+                }
+              )
+            ] })
+          ] })
+        ] }),
+        blog.tags && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-2", children: "Tags" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap gap-2", children: blog.tags.split(",").map((tag, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            reactExports.Chip,
+            {
+              value: tag.trim(),
+              variant: "outlined",
+              size: "sm",
+              color: "blue"
+            },
+            index
+          )) })
+        ] })
+      ] }),
+      blog.resumen && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", className: "mb-4", children: "Resumen" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4 bg-gray-50 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: blog.resumen }) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", className: "mb-4", children: "Contenido Completo" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6 bg-white border border-gray-200 rounded-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          reactExports.Typography,
+          {
+            variant: "paragraph",
+            color: "blue-gray",
+            className: "whitespace-pre-wrap",
+            children: blog.contenido
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", className: "mb-4", children: "Galería de Imágenes" }),
+        blog.imagenPrincipal && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue", className: "mb-3", children: "Imagen Principal" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative group", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: blog.imagenPrincipal.url,
+                alt: "Imagen principal",
+                className: "w-full max-w-2xl h-64 object-cover rounded-lg border-2 border-blue-200 hover:border-blue-500 transition-colors cursor-pointer",
+                onClick: () => window.open(blog.imagenPrincipal.url, "_blank")
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-lg flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$C, { className: "h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded", children: "Principal" })
+          ] })
+        ] }),
+        blog.imagenes && blog.imagenes.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h6", color: "green", className: "mb-3", children: [
+            "Imágenes Adicionales (",
+            blog.imagenes.length,
+            ")"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4", children: blog.imagenes.map((imagen, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative group", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: imagen.url,
+                alt: `Imagen ${index + 1}`,
+                className: "w-full h-32 object-cover rounded-lg border-2 border-green-200 hover:border-green-500 transition-colors cursor-pointer",
+                onClick: () => window.open(imagen.url, "_blank")
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-lg flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$C, { className: "h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded", children: index + 1 })
+          ] }, index)) })
+        ] }),
+        !blog.imagenPrincipal && (!blog.imagenes || blog.imagenes.length === 0) && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-8 bg-gray-50 rounded-lg", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$C, { className: "h-16 w-16 text-gray-400 mx-auto mb-4" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "gray", className: "mb-2", children: "No hay imágenes disponibles" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Este blog aún no tiene imágenes cargadas" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", className: "mb-4", children: "Información Adicional" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 bg-blue-50 rounded-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue", className: "mb-2", children: "Fecha de Creación" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: formatDate(blog.createdAt) })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 bg-blue-50 rounded-lg", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue", className: "mb-2", children: "Última Actualización" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: formatDate(blog.updatedAt) })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-center gap-4 pt-6 border-t", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          reactExports.Button,
+          {
+            variant: "text",
+            color: "gray",
+            onClick: () => navigate("/dashboard/blog"),
+            className: "flex items-center gap-2",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$o, { className: "h-4 w-4" }),
+              "Volver a Blog"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          reactExports.Button,
+          {
+            color: "blue",
+            onClick: () => navigate(`/dashboard/blog/${id}/editar`),
+            className: "flex items-center gap-2",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$p, { className: "h-4 w-4" }),
+              "Editar Blog"
+            ]
+          }
+        )
+      ] })
+    ] })
+  ] }) });
+}
 const icon = {
   className: "w-5 h-5 text-inherit"
 };
@@ -18806,7 +20249,7 @@ const routes = [
         firstForNonAdmin: true
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1i, { ...icon }),
         name: "Usuarios",
         path: "/users",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(UsersTable, {}),
@@ -18843,7 +20286,7 @@ const routes = [
         showInSidebar: false
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1f, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1j, { ...icon }),
         name: "Empleados",
         path: "/empleados",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(EmpleadosTable, {}),
@@ -18883,7 +20326,7 @@ const routes = [
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(CrearNomina, {})
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1g, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { ...icon }),
         name: "Mi Nómina",
         path: "/nominas/mi-nomina",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(MiNominaPage, {}),
@@ -18895,7 +20338,7 @@ const routes = [
       },
       // Nuevas rutas para captaciones inmobiliarias
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1h, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1k, { ...icon }),
         name: "Proyectos",
         path: "/captaciones",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(MisProyectos, {}),
@@ -18957,7 +20400,7 @@ const routes = [
       },
       // Rutas para Remodelación
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1i, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1l, { ...icon }),
         name: "Remodelación",
         path: "/remodelacion",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(RemodelacionPage, {}),
@@ -18977,12 +20420,36 @@ const routes = [
       },
       // Rutas para Administración de Listas de Compra
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1g, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { ...icon }),
         name: "Listas de Compra",
         path: "/administracion/listas-compra",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(ListasCompraAdminPage, {}),
         roleAccess: ["administrator", "administrador", "ayudante de administrador"]
         // Solo administradores
+      },
+      // Rutas para Blog Corporativo
+      {
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1m, { ...icon }),
+        name: "Blog",
+        path: "/blog",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(BlogList, {}),
+        roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"]
+        // Supervisor y contratista no tienen acceso
+      },
+      {
+        path: "/blog/nuevo",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(CrearBlog, {}),
+        showInSidebar: false
+      },
+      {
+        path: "/blog/:id/editar",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(EditarBlog, {}),
+        showInSidebar: false
+      },
+      {
+        path: "/blog/:id/detalle",
+        element: /* @__PURE__ */ jsxRuntimeExports.jsx(DetalleBlog, {}),
+        showInSidebar: false
       }
     ]
   },
@@ -18991,13 +20458,13 @@ const routes = [
     layout: "auth",
     pages: [
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1j, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1n, { ...icon }),
         name: "sign in",
         path: "/sign-in",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(SignIn, {})
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1k, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1o, { ...icon }),
         name: "sign up",
         path: "/sign-up",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(SignUp, {}),
@@ -19080,12 +20547,12 @@ function Sidenav({ brandImg, brandName }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "aside",
     {
-      className: `${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"} fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`,
+      className: `${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"} fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 flex flex-col`,
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",
           {
-            className: `relative border-b ${sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"}`,
+            className: `relative border-b flex-shrink-0 ${sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"}`,
             children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/", className: "flex items-center gap-4 py-6 px-8", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Avatar, { src: brandImg, size: "sm" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -19111,8 +20578,8 @@ function Sidenav({ brandImg, brandName }) {
             children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Z, { strokeWidth: 2, className: "h-5 w-5" })
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "m-4", children: [
-          activeLayout?.title && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-3.5 mt-4 mb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col flex-1 overflow-hidden", children: [
+          activeLayout?.title && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-3.5 mt-4 mb-2 flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             reactExports.Typography,
             {
               variant: "small",
@@ -19121,7 +20588,7 @@ function Sidenav({ brandImg, brandName }) {
               children: activeLayout.title
             }
           ) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "mb-4 flex flex-col gap-1", children: activePages.map((page, key) => {
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 overflow-y-auto px-4 pb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "flex flex-col gap-1", children: activePages.map((page, key) => {
             if (!page.name) return null;
             return /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(NavLink, { to: `/dashboard${page.path}`, children: ({ isActive }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
               reactExports.Button,
@@ -19143,7 +20610,7 @@ function Sidenav({ brandImg, brandName }) {
                 ]
               }
             ) }) }, key);
-          }) })
+          }) }) })
         ] })
       ]
     }
@@ -19220,7 +20687,7 @@ function DashboardNavbar() {
               color: "blue-gray",
               className: "grid xl:hidden",
               onClick: () => setOpenSidenav(dispatch, !openSidenav),
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1l, { strokeWidth: 3, className: "h-6 w-6 text-blue-gray-500" })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1p, { strokeWidth: 3, className: "h-6 w-6 text-blue-gray-500" })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -19357,7 +20824,7 @@ function DashboardNavbar() {
               variant: "text",
               color: "blue-gray",
               onClick: () => setOpenConfigurator(dispatch, true),
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1m, { className: "h-5 w-5 text-blue-gray-500" })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1q, { className: "h-5 w-5 text-blue-gray-500" })
             }
           )
         ] })
@@ -19642,7 +21109,7 @@ function Dashboard() {
           className: "fixed bottom-8 right-8 z-40 rounded-full shadow-blue-gray-900/10",
           ripple: false,
           onClick: () => setOpenConfigurator(dispatch, true),
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1m, { className: "h-12 w-12" })
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1q, { className: "h-12 w-12" })
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [

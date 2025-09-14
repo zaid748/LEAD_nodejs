@@ -31,7 +31,7 @@ upload.multerConfig = multer({
 });
 
 // Función para subir imagen a S3
-upload.uploadImageToS3 = async (imageBuffer, fileName, propiedadId) => {
+upload.uploadImageToS3 = async (imageBuffer, fileName, folder = 'Marketing', entityId = null) => {
   try {
     // Configurar cliente S3
     const s3Client = new S3Client({
@@ -50,11 +50,16 @@ upload.uploadImageToS3 = async (imageBuffer, fileName, propiedadId) => {
     const uniqueFileName = `${baseName}_${timestamp}${extension}`;
     
     // Definir la carpeta y key en S3
-    const folder = 'Marketing';
-    const s3Key = `${folder}/${propiedadId}/${uniqueFileName}`;
+    const s3Key = entityId ? `${folder}/${entityId}/${uniqueFileName}` : `${folder}/${uniqueFileName}`;
     
     // Crear key único para identificación
-    const uniqueKey = `marketing_${propiedadId}_${timestamp}_${Date.now()}`;
+    const uniqueKey = `${folder.toLowerCase()}_${entityId || 'general'}_${timestamp}_${Date.now()}`;
+    
+    // Determinar Content-Type basado en la extensión
+    let contentType = 'image/jpeg'; // Por defecto
+    if (extension.toLowerCase() === '.png') contentType = 'image/png';
+    else if (extension.toLowerCase() === '.gif') contentType = 'image/gif';
+    else if (extension.toLowerCase() === '.webp') contentType = 'image/webp';
     
     // Parámetros para subir a S3
     const params = {
@@ -62,7 +67,7 @@ upload.uploadImageToS3 = async (imageBuffer, fileName, propiedadId) => {
       Key: s3Key,
       Body: imageBuffer,
       ACL: "public-read",
-      ContentType: 'image/jpeg' // Ajustar según el tipo de imagen
+      ContentType: contentType
     };
 
     // Subir imagen a S3

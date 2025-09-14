@@ -8485,7 +8485,7 @@ function ArrowDownTrayIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1m = reactExports$1.forwardRef(ArrowDownTrayIcon$1);
+const ForwardRef$1q = reactExports$1.forwardRef(ArrowDownTrayIcon$1);
 function ArrowLeftIcon$1({
   title,
   titleId,
@@ -8506,7 +8506,7 @@ function ArrowLeftIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1l = reactExports$1.forwardRef(ArrowLeftIcon$1);
+const ForwardRef$1p = reactExports$1.forwardRef(ArrowLeftIcon$1);
 function ArrowRightOnRectangleIcon({
   title,
   titleId,
@@ -8552,7 +8552,7 @@ function BanknotesIcon({
     d: "M2.25 18a.75.75 0 000 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 00-.75-.75H2.25z"
   }));
 }
-const ForwardRef$1k = reactExports$1.forwardRef(BanknotesIcon);
+const ForwardRef$1o = reactExports$1.forwardRef(BanknotesIcon);
 function Bars3Icon({
   title,
   titleId,
@@ -8573,7 +8573,7 @@ function Bars3Icon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1j = reactExports$1.forwardRef(Bars3Icon);
+const ForwardRef$1n = reactExports$1.forwardRef(Bars3Icon);
 function BellIcon$1({
   title,
   titleId,
@@ -8594,7 +8594,7 @@ function BellIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1i = reactExports$1.forwardRef(BellIcon$1);
+const ForwardRef$1m = reactExports$1.forwardRef(BellIcon$1);
 function BriefcaseIcon$1({
   title,
   titleId,
@@ -8617,7 +8617,7 @@ function BriefcaseIcon$1({
     d: "M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z"
   }));
 }
-const ForwardRef$1h = reactExports$1.forwardRef(BriefcaseIcon$1);
+const ForwardRef$1l = reactExports$1.forwardRef(BriefcaseIcon$1);
 function BuildingOffice2Icon({
   title,
   titleId,
@@ -8638,7 +8638,7 @@ function BuildingOffice2Icon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1g = reactExports$1.forwardRef(BuildingOffice2Icon);
+const ForwardRef$1k = reactExports$1.forwardRef(BuildingOffice2Icon);
 function BuildingOfficeIcon$1({
   title,
   titleId,
@@ -8659,7 +8659,7 @@ function BuildingOfficeIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1f = reactExports$1.forwardRef(BuildingOfficeIcon$1);
+const ForwardRef$1j = reactExports$1.forwardRef(BuildingOfficeIcon$1);
 function CalendarDaysIcon({
   title,
   titleId,
@@ -8682,7 +8682,28 @@ function CalendarDaysIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1e = reactExports$1.forwardRef(CalendarDaysIcon);
+const ForwardRef$1i = reactExports$1.forwardRef(CalendarDaysIcon);
+function CalendarIcon$1({
+  title,
+  titleId,
+  ...props
+}, svgRef) {
+  return /* @__PURE__ */ reactExports$1.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef,
+    "aria-labelledby": titleId
+  }, props), title ? /* @__PURE__ */ reactExports$1.createElement("title", {
+    id: titleId
+  }, title) : null, /* @__PURE__ */ reactExports$1.createElement("path", {
+    fillRule: "evenodd",
+    d: "M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z",
+    clipRule: "evenodd"
+  }));
+}
+const ForwardRef$1h = reactExports$1.forwardRef(CalendarIcon$1);
 function ChartBarIcon$1({
   title,
   titleId,
@@ -8701,7 +8722,7 @@ function ChartBarIcon$1({
     d: "M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
   }));
 }
-const ForwardRef$1d = reactExports$1.forwardRef(ChartBarIcon$1);
+const ForwardRef$1g = reactExports$1.forwardRef(ChartBarIcon$1);
 function ChartPieIcon({
   title,
   titleId,
@@ -8747,7 +8768,7 @@ function CheckCircleIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1c = reactExports$1.forwardRef(CheckCircleIcon$1);
+const ForwardRef$1f = reactExports$1.forwardRef(CheckCircleIcon$1);
 function ClockIcon$1({
   title,
   titleId,
@@ -8768,7 +8789,7 @@ function ClockIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1b = reactExports$1.forwardRef(ClockIcon$1);
+const ForwardRef$1e = reactExports$1.forwardRef(ClockIcon$1);
 function CloudArrowUpIcon({
   title,
   titleId,
@@ -8789,7 +8810,7 @@ function CloudArrowUpIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1a = reactExports$1.forwardRef(CloudArrowUpIcon);
+const ForwardRef$1d = reactExports$1.forwardRef(CloudArrowUpIcon);
 function Cog6ToothIcon({
   title,
   titleId,
@@ -8810,7 +8831,7 @@ function Cog6ToothIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$19 = reactExports$1.forwardRef(Cog6ToothIcon);
+const ForwardRef$1c = reactExports$1.forwardRef(Cog6ToothIcon);
 function CreditCardIcon({
   title,
   titleId,
@@ -8833,7 +8854,7 @@ function CreditCardIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$18 = reactExports$1.forwardRef(CreditCardIcon);
+const ForwardRef$1b = reactExports$1.forwardRef(CreditCardIcon);
 function CurrencyDollarIcon$1({
   title,
   titleId,
@@ -8856,7 +8877,7 @@ function CurrencyDollarIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$17 = reactExports$1.forwardRef(CurrencyDollarIcon$1);
+const ForwardRef$1a = reactExports$1.forwardRef(CurrencyDollarIcon$1);
 function DocumentArrowDownIcon({
   title,
   titleId,
@@ -8879,7 +8900,7 @@ function DocumentArrowDownIcon({
     d: "M14.25 5.25a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963A5.23 5.23 0 0016.5 7.5h-1.875a.375.375 0 01-.375-.375V5.25z"
   }));
 }
-const ForwardRef$16 = reactExports$1.forwardRef(DocumentArrowDownIcon);
+const ForwardRef$19 = reactExports$1.forwardRef(DocumentArrowDownIcon);
 function DocumentTextIcon$1({
   title,
   titleId,
@@ -8902,7 +8923,7 @@ function DocumentTextIcon$1({
     d: "M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"
   }));
 }
-const ForwardRef$15 = reactExports$1.forwardRef(DocumentTextIcon$1);
+const ForwardRef$18 = reactExports$1.forwardRef(DocumentTextIcon$1);
 function EnvelopeIcon$1({
   title,
   titleId,
@@ -8923,7 +8944,7 @@ function EnvelopeIcon$1({
     d: "M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
   }));
 }
-const ForwardRef$14 = reactExports$1.forwardRef(EnvelopeIcon$1);
+const ForwardRef$17 = reactExports$1.forwardRef(EnvelopeIcon$1);
 function EyeSlashIcon({
   title,
   titleId,
@@ -8946,7 +8967,7 @@ function EyeSlashIcon({
     d: "M6.75 12c0-.619.107-1.213.304-1.764l-3.1-3.1a11.25 11.25 0 00-2.63 4.31c-.12.362-.12.752 0 1.114 1.489 4.467 5.704 7.69 10.675 7.69 1.5 0 2.933-.294 4.242-.827l-2.477-2.477A5.25 5.25 0 016.75 12z"
   }));
 }
-const ForwardRef$13 = reactExports$1.forwardRef(EyeSlashIcon);
+const ForwardRef$16 = reactExports$1.forwardRef(EyeSlashIcon);
 function EyeIcon$1({
   title,
   titleId,
@@ -8969,7 +8990,7 @@ function EyeIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$12 = reactExports$1.forwardRef(EyeIcon$1);
+const ForwardRef$15 = reactExports$1.forwardRef(EyeIcon$1);
 function HomeIcon({
   title,
   titleId,
@@ -8990,7 +9011,7 @@ function HomeIcon({
     d: "M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
   }));
 }
-const ForwardRef$11 = reactExports$1.forwardRef(HomeIcon);
+const ForwardRef$14 = reactExports$1.forwardRef(HomeIcon);
 function IdentificationIcon({
   title,
   titleId,
@@ -9011,7 +9032,7 @@ function IdentificationIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$10 = reactExports$1.forwardRef(IdentificationIcon);
+const ForwardRef$13 = reactExports$1.forwardRef(IdentificationIcon);
 function LockOpenIcon({
   title,
   titleId,
@@ -9030,7 +9051,7 @@ function LockOpenIcon({
     d: "M18 1.5c2.9 0 5.25 2.35 5.25 5.25v3.75a.75.75 0 01-1.5 0V6.75a3.75 3.75 0 10-7.5 0v3a3 3 0 013 3v6.75a3 3 0 01-3 3H3.75a3 3 0 01-3-3v-6.75a3 3 0 013-3h9v-3c0-2.9 2.35-5.25 5.25-5.25z"
   }));
 }
-const ForwardRef$$ = reactExports$1.forwardRef(LockOpenIcon);
+const ForwardRef$12 = reactExports$1.forwardRef(LockOpenIcon);
 function MagnifyingGlassIcon$1({
   title,
   titleId,
@@ -9051,7 +9072,7 @@ function MagnifyingGlassIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$_ = reactExports$1.forwardRef(MagnifyingGlassIcon$1);
+const ForwardRef$11 = reactExports$1.forwardRef(MagnifyingGlassIcon$1);
 function MapPinIcon$1({
   title,
   titleId,
@@ -9072,7 +9093,30 @@ function MapPinIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$Z = reactExports$1.forwardRef(MapPinIcon$1);
+const ForwardRef$10 = reactExports$1.forwardRef(MapPinIcon$1);
+function NewspaperIcon({
+  title,
+  titleId,
+  ...props
+}, svgRef) {
+  return /* @__PURE__ */ reactExports$1.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef,
+    "aria-labelledby": titleId
+  }, props), title ? /* @__PURE__ */ reactExports$1.createElement("title", {
+    id: titleId
+  }, title) : null, /* @__PURE__ */ reactExports$1.createElement("path", {
+    fillRule: "evenodd",
+    d: "M4.125 3C3.089 3 2.25 3.84 2.25 4.875V18a3 3 0 003 3h15a3 3 0 01-3-3V4.875C17.25 3.839 16.41 3 15.375 3H4.125zM12 9.75a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H12zm-.75-2.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H12a.75.75 0 01-.75-.75zM6 12.75a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5H6zm-.75 3.75a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75zM6 6.75a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-3A.75.75 0 009 6.75H6z",
+    clipRule: "evenodd"
+  }), /* @__PURE__ */ reactExports$1.createElement("path", {
+    d: "M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 01-3 0V6.75z"
+  }));
+}
+const ForwardRef$$ = reactExports$1.forwardRef(NewspaperIcon);
 function PencilSquareIcon({
   title,
   titleId,
@@ -9093,7 +9137,7 @@ function PencilSquareIcon({
     d: "M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z"
   }));
 }
-const ForwardRef$Y = reactExports$1.forwardRef(PencilSquareIcon);
+const ForwardRef$_ = reactExports$1.forwardRef(PencilSquareIcon);
 function PencilIcon$1({
   title,
   titleId,
@@ -9112,7 +9156,7 @@ function PencilIcon$1({
     d: "M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"
   }));
 }
-const ForwardRef$X = reactExports$1.forwardRef(PencilIcon$1);
+const ForwardRef$Z = reactExports$1.forwardRef(PencilIcon$1);
 function PhoneIcon$1({
   title,
   titleId,
@@ -9133,7 +9177,7 @@ function PhoneIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$W = reactExports$1.forwardRef(PhoneIcon$1);
+const ForwardRef$Y = reactExports$1.forwardRef(PhoneIcon$1);
 function PhotoIcon$1({
   title,
   titleId,
@@ -9154,7 +9198,7 @@ function PhotoIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$V = reactExports$1.forwardRef(PhotoIcon$1);
+const ForwardRef$X = reactExports$1.forwardRef(PhotoIcon$1);
 function PlusCircleIcon({
   title,
   titleId,
@@ -9175,7 +9219,7 @@ function PlusCircleIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$U = reactExports$1.forwardRef(PlusCircleIcon);
+const ForwardRef$W = reactExports$1.forwardRef(PlusCircleIcon);
 function PlusIcon$1({
   title,
   titleId,
@@ -9196,7 +9240,7 @@ function PlusIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$T = reactExports$1.forwardRef(PlusIcon$1);
+const ForwardRef$V = reactExports$1.forwardRef(PlusIcon$1);
 function RectangleStackIcon({
   title,
   titleId,
@@ -9215,7 +9259,7 @@ function RectangleStackIcon({
     d: "M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.683 1.657A4.505 4.505 0 0018.75 7.5H5.25z"
   }));
 }
-const ForwardRef$S = reactExports$1.forwardRef(RectangleStackIcon);
+const ForwardRef$U = reactExports$1.forwardRef(RectangleStackIcon);
 function ServerStackIcon({
   title,
   titleId,
@@ -9238,7 +9282,7 @@ function ServerStackIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$R = reactExports$1.forwardRef(ServerStackIcon);
+const ForwardRef$T = reactExports$1.forwardRef(ServerStackIcon);
 function ShieldCheckIcon({
   title,
   titleId,
@@ -9259,7 +9303,7 @@ function ShieldCheckIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$Q = reactExports$1.forwardRef(ShieldCheckIcon);
+const ForwardRef$S = reactExports$1.forwardRef(ShieldCheckIcon);
 function ShoppingCartIcon$1({
   title,
   titleId,
@@ -9278,7 +9322,7 @@ function ShoppingCartIcon$1({
     d: "M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
   }));
 }
-const ForwardRef$P = reactExports$1.forwardRef(ShoppingCartIcon$1);
+const ForwardRef$R = reactExports$1.forwardRef(ShoppingCartIcon$1);
 function TableCellsIcon({
   title,
   titleId,
@@ -9299,7 +9343,28 @@ function TableCellsIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$O = reactExports$1.forwardRef(TableCellsIcon);
+const ForwardRef$Q = reactExports$1.forwardRef(TableCellsIcon);
+function TagIcon({
+  title,
+  titleId,
+  ...props
+}, svgRef) {
+  return /* @__PURE__ */ reactExports$1.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 24 24",
+    fill: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef,
+    "aria-labelledby": titleId
+  }, props), title ? /* @__PURE__ */ reactExports$1.createElement("title", {
+    id: titleId
+  }, title) : null, /* @__PURE__ */ reactExports$1.createElement("path", {
+    fillRule: "evenodd",
+    d: "M5.25 2.25a3 3 0 00-3 3v4.318a3 3 0 00.879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428a18.849 18.849 0 005.441-5.44c.758-1.16.492-2.629-.428-3.548l-9.58-9.581a3 3 0 00-2.122-.879H5.25zM6.375 7.5a1.125 1.125 0 100-2.25 1.125 1.125 0 000 2.25z",
+    clipRule: "evenodd"
+  }));
+}
+const ForwardRef$P = reactExports$1.forwardRef(TagIcon);
 function TrashIcon$1({
   title,
   titleId,
@@ -9320,7 +9385,7 @@ function TrashIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$N = reactExports$1.forwardRef(TrashIcon$1);
+const ForwardRef$O = reactExports$1.forwardRef(TrashIcon$1);
 function UserCircleIcon({
   title,
   titleId,
@@ -9341,7 +9406,7 @@ function UserCircleIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$M = reactExports$1.forwardRef(UserCircleIcon);
+const ForwardRef$N = reactExports$1.forwardRef(UserCircleIcon);
 function UserGroupIcon$1({
   title,
   titleId,
@@ -9364,7 +9429,7 @@ function UserGroupIcon$1({
     d: "M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z"
   }));
 }
-const ForwardRef$L = reactExports$1.forwardRef(UserGroupIcon$1);
+const ForwardRef$M = reactExports$1.forwardRef(UserGroupIcon$1);
 function UserPlusIcon$1({
   title,
   titleId,
@@ -9383,7 +9448,7 @@ function UserPlusIcon$1({
     d: "M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"
   }));
 }
-const ForwardRef$K = reactExports$1.forwardRef(UserPlusIcon$1);
+const ForwardRef$L = reactExports$1.forwardRef(UserPlusIcon$1);
 function UserIcon$1({
   title,
   titleId,
@@ -9404,7 +9469,7 @@ function UserIcon$1({
     clipRule: "evenodd"
   }));
 }
-reactExports$1.forwardRef(UserIcon$1);
+const ForwardRef$K = reactExports$1.forwardRef(UserIcon$1);
 function UsersIcon({
   title,
   titleId,
@@ -24786,7 +24851,7 @@ var hideOthers = function(originalTarget, parentNode, markerName) {
       return null;
     };
   }
-  targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live]")));
+  targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
   return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
 };
 /*!
@@ -25127,8 +25192,9 @@ function getOppositeAxis(axis) {
 function getAxisLength(axis) {
   return axis === "y" ? "height" : "width";
 }
+const yAxisSides = /* @__PURE__ */ new Set(["top", "bottom"]);
 function getSideAxis(placement) {
-  return ["top", "bottom"].includes(getSide(placement)) ? "y" : "x";
+  return yAxisSides.has(getSide(placement)) ? "y" : "x";
 }
 function getAlignmentAxis(placement) {
   return getOppositeAxis(getSideAxis(placement));
@@ -25153,19 +25219,19 @@ function getExpandedPlacements(placement) {
 function getOppositeAlignmentPlacement(placement) {
   return placement.replace(/start|end/g, (alignment) => oppositeAlignmentMap[alignment]);
 }
+const lrPlacement = ["left", "right"];
+const rlPlacement = ["right", "left"];
+const tbPlacement = ["top", "bottom"];
+const btPlacement = ["bottom", "top"];
 function getSideList(side, isStart, rtl) {
-  const lr = ["left", "right"];
-  const rl = ["right", "left"];
-  const tb = ["top", "bottom"];
-  const bt = ["bottom", "top"];
   switch (side) {
     case "top":
     case "bottom":
-      if (rtl) return isStart ? rl : lr;
-      return isStart ? lr : rl;
+      if (rtl) return isStart ? rlPlacement : lrPlacement;
+      return isStart ? lrPlacement : rlPlacement;
     case "left":
     case "right":
-      return isStart ? tb : bt;
+      return isStart ? tbPlacement : btPlacement;
     default:
       return [];
   }
@@ -25629,15 +25695,20 @@ const flip$1 = function(options) {
         const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? void 0 : _middlewareData$flip2.index) || 0) + 1;
         const nextPlacement = placements2[nextIndex];
         if (nextPlacement) {
-          return {
-            data: {
-              index: nextIndex,
-              overflows: overflowsData
-            },
-            reset: {
-              placement: nextPlacement
-            }
-          };
+          const ignoreCrossAxisOverflow = checkCrossAxis === "alignment" ? initialSideAxis !== getSideAxis(nextPlacement) : false;
+          if (!ignoreCrossAxisOverflow || // We leave the current main axis only if every placement on that axis
+          // overflows the main axis.
+          overflowsData.every((d) => getSideAxis(d.placement) === initialSideAxis ? d.overflows[0] > 0 : true)) {
+            return {
+              data: {
+                index: nextIndex,
+                overflows: overflowsData
+              },
+              reset: {
+                placement: nextPlacement
+              }
+            };
+          }
         }
         let resetPlacement = (_overflowsData$filter = overflowsData.filter((d) => d.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
         if (!resetPlacement) {
@@ -25853,6 +25924,7 @@ const inline$1 = function(options) {
     }
   };
 };
+const originSides = /* @__PURE__ */ new Set(["left", "top"]);
 async function convertValueToCoords(state, options) {
   const {
     placement,
@@ -25863,7 +25935,7 @@ async function convertValueToCoords(state, options) {
   const side = getSide(placement);
   const alignment = getAlignment(placement);
   const isVertical = getSideAxis(placement) === "y";
-  const mainAxisMulti = ["left", "top"].includes(side) ? -1 : 1;
+  const mainAxisMulti = originSides.has(side) ? -1 : 1;
   const crossAxisMulti = rtl && isVertical ? -1 : 1;
   const rawValue = evaluate(options, state);
   let {
@@ -26041,7 +26113,7 @@ const limitShift$1 = function(options) {
       if (checkCrossAxis) {
         var _middlewareData$offse, _middlewareData$offse2;
         const len = mainAxis === "y" ? "width" : "height";
-        const isOriginSide = ["top", "left"].includes(getSide(placement));
+        const isOriginSide = originSides.has(getSide(placement));
         const limitMin = rects.reference[crossAxis] - rects.floating[len] + (isOriginSide ? ((_middlewareData$offse = middlewareData.offset) == null ? void 0 : _middlewareData$offse[crossAxis]) || 0 : 0) + (isOriginSide ? 0 : computedOffset.crossAxis);
         const limitMax = rects.reference[crossAxis] + rects.reference[len] + (isOriginSide ? 0 : ((_middlewareData$offse2 = middlewareData.offset) == null ? void 0 : _middlewareData$offse2[crossAxis]) || 0) - (isOriginSide ? computedOffset.crossAxis : 0);
         if (crossAxisCoord < limitMin) {
@@ -26176,6 +26248,7 @@ function isShadowRoot$1(value) {
   }
   return value instanceof ShadowRoot || value instanceof getWindow$1(value).ShadowRoot;
 }
+const invalidOverflowDisplayValues = /* @__PURE__ */ new Set(["inline", "contents"]);
 function isOverflowElement(element) {
   const {
     overflow,
@@ -26183,24 +26256,29 @@ function isOverflowElement(element) {
     overflowY,
     display
   } = getComputedStyle$1(element);
-  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !["inline", "contents"].includes(display);
+  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !invalidOverflowDisplayValues.has(display);
 }
+const tableElements = /* @__PURE__ */ new Set(["table", "td", "th"]);
 function isTableElement(element) {
-  return ["table", "td", "th"].includes(getNodeName(element));
+  return tableElements.has(getNodeName(element));
 }
+const topLayerSelectors = [":popover-open", ":modal"];
 function isTopLayer(element) {
-  return [":popover-open", ":modal"].some((selector) => {
+  return topLayerSelectors.some((selector) => {
     try {
       return element.matches(selector);
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   });
 }
+const transformProperties = ["transform", "translate", "scale", "rotate", "perspective"];
+const willChangeValues = ["transform", "translate", "scale", "rotate", "perspective", "filter"];
+const containValues = ["paint", "layout", "strict", "content"];
 function isContainingBlock(elementOrCss) {
   const webkit = isWebKit();
   const css = isElement$1(elementOrCss) ? getComputedStyle$1(elementOrCss) : elementOrCss;
-  return ["transform", "translate", "scale", "rotate", "perspective"].some((value) => css[value] ? css[value] !== "none" : false) || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || ["transform", "translate", "scale", "rotate", "perspective", "filter"].some((value) => (css.willChange || "").includes(value)) || ["paint", "layout", "strict", "content"].some((value) => (css.contain || "").includes(value));
+  return transformProperties.some((value) => css[value] ? css[value] !== "none" : false) || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || willChangeValues.some((value) => (css.willChange || "").includes(value)) || containValues.some((value) => (css.contain || "").includes(value));
 }
 function getContainingBlock(element) {
   let currentNode = getParentNode(element);
@@ -26218,8 +26296,9 @@ function isWebKit() {
   if (typeof CSS === "undefined" || !CSS.supports) return false;
   return CSS.supports("-webkit-backdrop-filter", "none");
 }
+const lastTraversableNodeNames = /* @__PURE__ */ new Set(["html", "body", "#document"]);
 function isLastTraversableNode(node) {
-  return ["html", "body", "#document"].includes(getNodeName(node));
+  return lastTraversableNodeNames.has(getNodeName(node));
 }
 function getComputedStyle$1(element) {
   return getWindow$1(element).getComputedStyle(element);
@@ -26502,6 +26581,7 @@ function getViewportRect(element, strategy) {
     y
   };
 }
+const absoluteOrFixed = /* @__PURE__ */ new Set(["absolute", "fixed"]);
 function getInnerBoundingClientRect(element, strategy) {
   const clientRect = getBoundingClientRect(element, true, strategy === "fixed");
   const top = clientRect.top + element.clientTop;
@@ -26559,7 +26639,7 @@ function getClippingElementAncestors(element, cache) {
     if (!currentNodeIsContaining && computedStyle.position === "fixed") {
       currentContainingBlockComputedStyle = null;
     }
-    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && absoluteOrFixed.has(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
     if (shouldDropCurrentNode) {
       result = result.filter((ancestor) => ancestor !== currentNode);
     } else {
@@ -26615,6 +26695,9 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
     scrollTop: 0
   };
   const offsets = createCoords(0);
+  function setLeftRTLScrollbarOffset() {
+    offsets.x = getWindowScrollBarX(documentElement);
+  }
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
     if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
       scroll2 = getNodeScroll(offsetParent);
@@ -26624,8 +26707,11 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
       offsets.x = offsetRect.x + offsetParent.clientLeft;
       offsets.y = offsetRect.y + offsetParent.clientTop;
     } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
+      setLeftRTLScrollbarOffset();
     }
+  }
+  if (isFixed && !isOffsetParentAnElement && documentElement) {
+    setLeftRTLScrollbarOffset();
   }
   const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll2) : createCoords(0);
   const x = rect.left + scroll2.scrollLeft - offsets.x - htmlOffset.x;
@@ -26775,7 +26861,7 @@ function observeMove(element, onMove) {
         // Handle <iframe>s
         root: root.ownerDocument
       });
-    } catch (e) {
+    } catch (_e) {
       io = new IntersectionObserver(handleObserve, options);
     }
     io.observe(element);
@@ -75561,30 +75647,31 @@ export {
   ForwardRef$2 as B,
   Chart as C,
   useParams as D,
-  ForwardRef$1l as E,
-  ForwardRef$1k as F,
-  ForwardRef$X as G,
-  ForwardRef$1h as H,
-  ForwardRef$1e as I,
-  ForwardRef$Z as J,
-  ForwardRef$14 as K,
-  ForwardRef$W as L,
-  ForwardRef$1f as M,
-  ForwardRef$16 as N,
-  ForwardRef$N as O,
+  ForwardRef$1p as E,
+  ForwardRef$1o as F,
+  ForwardRef$Z as G,
+  ForwardRef$1l as H,
+  ForwardRef$1i as I,
+  ForwardRef$10 as J,
+  ForwardRef$17 as K,
+  ForwardRef$Y as L,
+  ForwardRef$1j as M,
+  ForwardRef$19 as N,
+  ForwardRef$O as O,
   PropTypes as P,
-  ForwardRef$T as Q,
+  ForwardRef$V as Q,
   React as R,
   ForwardRef$a as S,
   ForwardRef$c as T,
   ForwardRef$F as U,
-  ForwardRef$V as V,
-  ForwardRef$11 as W,
+  ForwardRef$X as V,
+  ForwardRef$14 as W,
   Navigate as X,
-  ForwardRef$1a as Y,
+  ForwardRef$1d as Y,
   Link as Z,
   create$3 as _,
   ForwardRef$J as a,
+  ReactDOM as a$,
   create$5 as a0,
   create$6 as a1,
   create$7 as a2,
@@ -75592,8 +75679,8 @@ export {
   useFieldArray as a4,
   Controller as a5,
   o as a6,
-  ForwardRef$_ as a7,
-  ForwardRef$1m as a8,
+  ForwardRef$11 as a7,
+  ForwardRef$1q as a8,
   ForwardRef$j as a9,
   ForwardRef$g as aA,
   ForwardRef$4 as aB,
@@ -75604,34 +75691,36 @@ export {
   ForwardRef$D as aG,
   ForwardRef$E as aH,
   ForwardRef$t as aI,
-  ForwardRef$O as aJ,
-  ForwardRef$L as aK,
-  ForwardRef$15 as aL,
-  ForwardRef$1g as aM,
-  ForwardRef$I as aN,
-  ForwardRef$R as aO,
-  ForwardRef$S as aP,
-  useLocation as aQ,
-  NavLink as aR,
-  ForwardRef$1j as aS,
-  ForwardRef$19 as aT,
-  Routes as aU,
-  Route as aV,
-  Outlet as aW,
-  ReactDOM as aX,
-  BrowserRouter as aY,
+  ForwardRef$18 as aJ,
+  ForwardRef$P as aK,
+  ForwardRef$K as aL,
+  ForwardRef$1h as aM,
+  ForwardRef$Q as aN,
+  ForwardRef$M as aO,
+  ForwardRef$1k as aP,
+  ForwardRef$I as aQ,
+  ForwardRef$$ as aR,
+  ForwardRef$T as aS,
+  ForwardRef$U as aT,
+  useLocation as aU,
+  NavLink as aV,
+  ForwardRef$1n as aW,
+  ForwardRef$1c as aX,
+  Routes as aY,
+  Route as aZ,
+  Outlet as a_,
   ForwardRef$z as aa,
   ForwardRef$G as ab,
-  ForwardRef$1 as ac,
-  ForwardRef$p as ad,
-  ForwardRef$A as ae,
-  ForwardRef$3 as af,
-  ForwardRef$b as ag,
-  ForwardRef$l as ah,
-  ForwardRef$d as ai,
-  ForwardRef$n as aj,
-  ForwardRef$s as ak,
-  ForwardRef$x as al,
+  ForwardRef$x as ac,
+  ForwardRef$1 as ad,
+  ForwardRef$p as ae,
+  ForwardRef$A as af,
+  ForwardRef$3 as ag,
+  ForwardRef$b as ah,
+  ForwardRef$l as ai,
+  ForwardRef$d as aj,
+  ForwardRef$n as ak,
+  ForwardRef$s as al,
   ForwardRef$k as am,
   ForwardRef$h as an,
   ForwardRef$y as ao,
@@ -75646,28 +75735,29 @@ export {
   ForwardRef$9 as ax,
   ForwardRef$B as ay,
   ForwardRef$q as az,
-  ForwardRef$K as b,
-  ForwardRef$1d as c,
-  ForwardRef$1i as d,
-  ForwardRef$U as e,
-  ForwardRef$P as f,
-  ForwardRef$18 as g,
-  ForwardRef$$ as h,
-  ForwardRef$1b as i,
+  ForwardRef$L as b,
+  BrowserRouter as b0,
+  ForwardRef$1g as c,
+  ForwardRef$1m as d,
+  ForwardRef$W as e,
+  ForwardRef$R as f,
+  ForwardRef$1b as g,
+  ForwardRef$12 as h,
+  ForwardRef$1e as i,
   jsxRuntimeExports as j,
-  ForwardRef$1c as k,
+  ForwardRef$1f as k,
   ForwardRef$m as l,
   ForwardRef$C as m,
   axios as n,
   reactExports$1 as o,
-  ForwardRef$Y as p,
-  ForwardRef$M as q,
+  ForwardRef$_ as p,
+  ForwardRef$N as q,
   reactExports as r,
-  ForwardRef$17 as s,
-  ForwardRef$Q as t,
-  ForwardRef$10 as u,
-  ForwardRef$13 as v,
-  ForwardRef$12 as w,
+  ForwardRef$1a as s,
+  ForwardRef$S as t,
+  ForwardRef$13 as u,
+  ForwardRef$16 as v,
+  ForwardRef$15 as w,
   useNavigate as x,
   ForwardRef$i as y,
   ForwardRef$5 as z

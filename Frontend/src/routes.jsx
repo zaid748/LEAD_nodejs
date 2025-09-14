@@ -13,6 +13,7 @@ import {
   PlusIcon,
   PhotoIcon,
   WrenchScrewdriverIcon,
+  NewspaperIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications, UsersTable, ProfileUsers, EmpleadosTable, ProfileEmpleados, EditarNomina, DocumentosEmpleado } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
@@ -33,6 +34,7 @@ import { DetalleCaptacion } from '@/pages/dashboard/captaciones/DetalleCaptacion
 import { ProyectosMarketing, EditarMarketing, DetalleMarketing } from '@/pages/dashboard/Publicidad';
 import { RemodelacionPage, DetalleRemodelacion, EditarRemodelacion } from '@/pages/dashboard/remodelacion';
 import ListasCompraAdminPage from '@/pages/dashboard/administracion/ListasCompraAdminPage';
+import { BlogList, CrearBlog, EditarBlog, DetalleBlog } from '@/pages/dashboard/Blog';
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -245,6 +247,29 @@ export const routes = [
         path: "/administracion/listas-compra",
         element: <ListasCompraAdminPage />,
         roleAccess: ["administrator", "administrador", "ayudante de administrador"], // Solo administradores
+      },
+      // Rutas para Blog Corporativo
+      {
+        icon: <NewspaperIcon {...icon} />,
+        name: "Blog",
+        path: "/blog",
+        element: <BlogList />,
+        roleAccess: ["user", "administrator", "administrador", "ayudante de administrador"], // Supervisor y contratista no tienen acceso
+      },
+      {
+        path: "/blog/nuevo",
+        element: <CrearBlog />,
+        showInSidebar: false,
+      },
+      {
+        path: "/blog/:id/editar",
+        element: <EditarBlog />,
+        showInSidebar: false,
+      },
+      {
+        path: "/blog/:id/detalle",
+        element: <DetalleBlog />,
+        showInSidebar: false,
       },
     ],
   },

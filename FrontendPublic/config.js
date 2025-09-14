@@ -3,10 +3,12 @@
 const CONFIG = {
     // ===== CONFIGURACIÓN DE LA API =====
     API: {
-        BASE_URL: window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://lead-inmobiliaria.com',
+        BASE_URL: window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://lead-inmobiliaria.com',
         ENDPOINTS: {
             MARKETING_PUBLICO: '/api/publico/marketing',
-            PROYECTO_PUBLICO: '/api/publico/marketing'
+            PROYECTO_PUBLICO: '/api/publico/marketing',
+            BLOG_PUBLICO: '/api/blog/public',
+            BLOG_DETALLE: '/api/blog/public'
         }
     },
     

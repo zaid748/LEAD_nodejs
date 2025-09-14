@@ -49,7 +49,7 @@
         <div class="container py-1">
           <div class="row align-items-center">
             <div class="col-8 col-md-8 col-lg-4">
-              <h1 class="mb-0"><a href="index.html" class="text-white h2 mb-0" aria-label="LEAD INMOBILIARIA"><img src="images/LEAD INMOBILIARI.svg" alt="LEAD INMOBILIARIA" style="height:64px"></a></h1>
+              <h1 class="mb-0"><a href="index.html" class="text-white h2 mb-0" aria-label="LEAD INMOBILIARIA"><img src="images/LEAD INMOBILIARI.svg" alt="LEAD INMOBILIARIA" style="height:200px; margin-top: -2rem;"></a></h1>
             </div>
             <div class="col-4 col-md-4 col-lg-8">
               <nav class="site-navigation text-right text-md-right" role="navigation">
@@ -103,70 +103,48 @@
 
     <div class="site-section">
       <div class="container">
-        <div class="row">
-          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-            <a href="#"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
+        <!-- Filtros y búsqueda -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="category-filter" class="sr-only">Filtrar por categoría</label>
+              <select id="category-filter" class="form-control">
+                <option value="all">Todas las categorías</option>
+                <option value="eventos">Eventos</option>
+                <option value="cursos">Cursos</option>
+                <option value="noticias">Noticias</option>
+                <option value="proyectos">Proyectos</option>
+                <option value="testimonios">Testimonios</option>
+                <option value="otros">Otros</option>
+              </select>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-            <a href="#"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="search-input" class="sr-only">Buscar blogs</label>
+              <input type="text" id="search-input" class="form-control" placeholder="Buscar blogs...">
             </div>
           </div>
-          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
-            <a href="#"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
-            </div>
-          </div>
-
-
-          <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-            <a href="#"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-6" data-aos="fade-up" data-aos-delay="200">
-            <a href="#"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 mb-7" data-aos="fade-up" data-aos-delay="300">
-            <a href="#"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-            <div class="p-4 bg-white">
-              <span class="d-block text-secondary small text-uppercase">Jan 20th, 2019</span>
-              <h2 class="h5 text-black mb-3"><a href="#">Art Gossip by Mike Charles</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias enim, ipsa exercitationem veniam quae sunt.</p>
-            </div>
-          </div>
-
         </div>
 
+        <!-- Loading spinner -->
+        <div id="loading-spinner" class="text-center py-5" style="display: none;">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Cargando...</span>
+          </div>
+          <p class="mt-2">Cargando blogs...</p>
+        </div>
+
+        <!-- Contenedor de blogs -->
+        <div id="blogs-container" class="row">
+          <!-- Los blogs se cargarán dinámicamente aquí -->
+        </div>
+
+        <!-- Paginación -->
         <div class="row" data-aos="fade-up">
           <div class="col-md-12 text-center">
-            <div class="site-pagination">
-              <a href="#" class="active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <span>...</span>
-              <a href="#">10</a>
+            <div id="pagination-container" class="site-pagination">
+              <!-- La paginación se generará dinámicamente aquí -->
             </div>
           </div>  
         </div>
@@ -181,7 +159,7 @@
           <div class="col-lg-4">
             <div class="mb-5">
               <h3 class="footer-heading mb-4">About Homeland</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur reprehenderit vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos illum totam quis blanditiis, minima minus odio!</p>
+              <p>Somos una inmobiliaria comprometida con brindar soluciones accesibles y seguras a las familias que buscan un hogar de calidad. Nuestra prioridad es ofrecer un servicio cercano, confiable y transparente, guiado siempre por nuestros asesores profesionales.</p>
             </div>
 
             
@@ -217,9 +195,9 @@
             <h3 class="footer-heading mb-4">Follow Us</h3>
 
                 <div>
-                  <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                  <a href="https://www.facebook.com/share/1AXrhPbypG/" target="_blank" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
                   <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                  <a href="https://www.instagram.com/leadinmobiliaria?igsh=eHJ2Z3N5ZmZ1b2Ew" target="_blank" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
                   <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
                 </div>
 
@@ -258,6 +236,7 @@
   <script src="config.js"></script>
 
   <script src="js/main.js"></script>
+  <script src="js/blog-public.js"></script>
     
   </body>
 </html>

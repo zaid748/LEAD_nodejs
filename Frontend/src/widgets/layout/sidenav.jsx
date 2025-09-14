@@ -127,10 +127,11 @@ export function Sidenav({ brandImg, brandName }) {
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
+      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 flex flex-col`}
     >
+      {/* Header fijo */}
       <div
-        className={`relative border-b ${
+        className={`relative border-b flex-shrink-0 ${
           sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
         }`}
       >
@@ -157,9 +158,10 @@ export function Sidenav({ brandImg, brandName }) {
         <XMarkIcon strokeWidth={2} className="h-5 w-5" />
       </IconButton>
       
-      <div className="m-4">
+      {/* Contenido scrolleable */}
+      <div className="flex flex-col flex-1 overflow-hidden">
         {activeLayout?.title && (
-          <div className="mx-3.5 mt-4 mb-2">
+          <div className="mx-3.5 mt-4 mb-2 flex-shrink-0">
             <Typography
               variant="small"
               color={sidenavType === "dark" ? "white" : "blue-gray"}
@@ -169,40 +171,42 @@ export function Sidenav({ brandImg, brandName }) {
             </Typography>
           </div>
         )}
-        <ul className="mb-4 flex flex-col gap-1">
-          {activePages.map((page, key) => {
-            if (!page.name) return null; // Omitir elementos sin nombre
-            
-            return (
-              <li key={key}>
-                <NavLink to={`/dashboard${page.path}`}>
-                  {({ isActive }) => (
-                    <Button
-                      variant={isActive ? "gradient" : "text"}
-                      color={
-                        isActive
-                          ? sidenavColor
-                          : sidenavType === "dark"
-                          ? "white"
-                          : "blue-gray"
-                      }
-                      className="flex items-center gap-4 px-4 capitalize"
-                      fullWidth
-                    >
-                      {page.icon}
-                      <Typography
-                        color="inherit"
-                        className="font-medium capitalize"
+        <div className="flex-1 overflow-y-auto px-4 pb-4">
+          <ul className="flex flex-col gap-1">
+            {activePages.map((page, key) => {
+              if (!page.name) return null; // Omitir elementos sin nombre
+              
+              return (
+                <li key={key}>
+                  <NavLink to={`/dashboard${page.path}`}>
+                    {({ isActive }) => (
+                      <Button
+                        variant={isActive ? "gradient" : "text"}
+                        color={
+                          isActive
+                            ? sidenavColor
+                            : sidenavType === "dark"
+                            ? "white"
+                            : "blue-gray"
+                        }
+                        className="flex items-center gap-4 px-4 capitalize"
+                        fullWidth
                       >
-                        {page.name}
-                      </Typography>
-                    </Button>
-                  )}
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
+                        {page.icon}
+                        <Typography
+                          color="inherit"
+                          className="font-medium capitalize"
+                        >
+                          {page.name}
+                        </Typography>
+                      </Button>
+                    )}
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </aside>
   );
