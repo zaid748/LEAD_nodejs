@@ -1,4 +1,4 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as ForwardRef$1n, aT as ForwardRef$1o, aU as useLocation, aV as NavLink, aW as ForwardRef$1p, aX as ForwardRef$1q, aY as Routes, aZ as Route, a_ as Outlet, a$ as ReactDOM, b0 as BrowserRouter } from "./vendor-CKzzQ-hP.js";
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as ForwardRef$1n, aT as ForwardRef$1o, aU as useLocation, aV as NavLink, aW as ForwardRef$1p, aX as ForwardRef$1q, aY as Routes, aZ as Route, a_ as Outlet, a$ as ReactDOM, b0 as BrowserRouter } from "./vendor-CEl_m1pR.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -7508,7 +7508,19 @@ function CrearCaptacion() {
         /^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$/,
         "El formato de CURP no es válido"
       ),
-      estado_civil: create$6().required("El estado civil es requerido")
+      estado_civil: create$6().required("El estado civil es requerido"),
+      // Validación condicional de cónyuge: solo obligatorio cuando es Casado
+      conyuge: create$3().when("estado_civil", {
+        is: (val) => val === "Casado",
+        then: (schema2) => schema2.shape({
+          nombre: create$6().required("El nombre de la esposa(o) es requerido"),
+          telefono: create$6().matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos").required("El teléfono de la esposa(o) es requerido"),
+          nss: create$6().optional().matches(/^\d{11}$/, "El NSS debe contener 11 dígitos numéricos"),
+          rfc: create$6().optional().matches(/^[A-Z&Ñ]{3,4}[0-9]{6}[A-Z0-9]{3}$/, "El formato de RFC no es válido (ej. ABCD123456XXX)"),
+          curp: create$6().optional().matches(/^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$/, "El formato de CURP no es válido")
+        }),
+        otherwise: create$3().strip()
+      })
     }),
     propiedad: create$3().shape({
       tipo: create$6().required("El tipo de propiedad es requerido"),
@@ -7735,10 +7747,18 @@ function CrearCaptacion() {
       ...prev,
       propietario: {
         ...prev.propietario,
-        estado_civil: value
+        estado_civil: value,
+        conyuge: value === "Casado" ? prev.propietario.conyuge : { nombre: "", telefono: "", nss: "", rfc: "", curp: "" }
       }
     }));
     setValue("propietario.estado_civil", value);
+    if (value !== "Casado") {
+      setValue("propietario.conyuge.nombre", "");
+      setValue("propietario.conyuge.telefono", "");
+      setValue("propietario.conyuge.nss", "");
+      setValue("propietario.conyuge.rfc", "");
+      setValue("propietario.conyuge.curp", "");
+    }
   };
   const handleAddAdeudo = () => {
     const nuevoAdeudo = {
@@ -7774,6 +7794,11 @@ function CrearCaptacion() {
     try {
       setIsLoading(true);
       const formData2 = getValues();
+      if (formData2?.propietario?.estado_civil !== "Casado") {
+        if (formData2?.propietario?.conyuge !== void 0) {
+          delete formData2.propietario.conyuge;
+        }
+      }
       if (formData2.documentacion) {
         formData2.documentos_entregados = { ...formData2.documentacion };
         delete formData2.documentacion;

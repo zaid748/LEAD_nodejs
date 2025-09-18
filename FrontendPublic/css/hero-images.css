@@ -28,7 +28,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
 
@@ -236,7 +236,7 @@
 
 /* Posicionamiento del logo en el navbar */
 .site-navbar .container {
-  max-width: 100% !important;
+  max-width: 90% !important;
   padding-left: 20px !important;
   padding-right: 20px !important;
 }
