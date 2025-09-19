@@ -122,12 +122,17 @@ a:hover {
 }
 
 /* Navbar */
-.site-navbar .site-navigation .site-menu .active > a {
-  color: var(--primary-color) !important;
+/* Color por defecto de los enlaces del navbar */
+.site-navbar .site-navigation .site-menu > li > a {
+  color: var(--primary-color) !important; /* #6e8e00 */
 }
 
-.site-navbar .site-navigation .site-menu a:hover {
-  color: var(--primary-color) !important;
+/* Activo/seleccionado y hover en amarillo verdoso */
+.site-navbar .site-navigation .site-menu .active > a,
+.site-navbar .site-navigation .site-menu > li.active > a,
+.site-navbar .site-navigation .site-menu > li > a:hover,
+.site-navbar .site-navigation .site-menu > li > a:focus {
+  color: var(--title-color) !important; /* #F4FE81 */
 }
 
 /* Footer - MEJORAR CONTRASTE */
@@ -170,6 +175,41 @@ a:hover {
 .site-footer .fab,
 .site-footer .fas {
   color: var(--text-white) !important;
+}
+
+/* Tamaño para iconos de redes sociales en el footer */
+.site-footer .icon,
+.site-footer [class^="icon-"],
+.site-footer [class*=" icon-"] {
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+}
+
+/* Selectores explícitos por si hay overrides del theme */
+.site-footer .icon-facebook,
+.site-footer .icon-twitter,
+.site-footer .icon-instagram,
+.site-footer .icon-linkedin {
+  font-size: 1.5rem !important;
+}
+
+/* Forzar tamaño en los pseudo-elementos de los íconos (Icomoon) */
+.site-footer [class^="icon-"]::before,
+.site-footer [class*=" icon-"]::before,
+.site-footer .icon-facebook::before,
+.site-footer .icon-twitter::before,
+.site-footer .icon-instagram::before,
+.site-footer .icon-linkedin::before {
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+}
+
+/* Aumentar área clickeable conservando espaciado existente */
+.site-footer a .icon,
+.site-footer a [class^="icon-"],
+.site-footer a [class*=" icon-"] {
+  display: inline-block !important;
+  padding: 6px 6px !important;
 }
 
 /* Servicios */
@@ -705,4 +745,29 @@ a:not(.btn):not(.nav-link):not(.dropdown-item) {
 
 .site-navbar .site-navigation .site-menu > li > a:hover {
   color: #fff !important;
+}
+
+/* ===== OVERRIDES FINALES PARA COLORES DEL NAVBAR (solicitud del usuario) ===== */
+/* Color base verde para todas las letras del navegador */
+.site-navbar .site-navigation .site-menu > li > a,
+.site-navbar .site-navigation .site-menu > li > a:not(.btn) {
+  color: var(--primary-color) !important; /* #6e8e00 */
+}
+
+/* Estado activo/hover en amarilloso */
+.site-navbar .site-navigation .site-menu .active > a,
+.site-navbar .site-navigation .site-menu > li.active > a,
+.site-navbar .site-navigation .site-menu > li > a:hover,
+.site-navbar .site-navigation .site-menu > li > a:focus {
+  color: var(--title-color) !important; /* #F4FE81 */
+}
+
+/* Mobile menu: aplicar los mismos colores */
+.site-mobile-menu .site-nav-wrap a {
+  color: var(--primary-color) !important;
+}
+.site-mobile-menu .site-nav-wrap li.active > a,
+.site-mobile-menu .site-nav-wrap a:hover,
+.site-mobile-menu .site-nav-wrap a:focus {
+  color: var(--title-color) !important;
 }

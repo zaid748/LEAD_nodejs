@@ -236,7 +236,7 @@
 
 /* Posicionamiento del logo en el navbar */
 .site-navbar .container {
-  max-width: 100% !important;
+  max-width: 90% !important;
   padding-left: 20px !important;
   padding-right: 20px !important;
 }

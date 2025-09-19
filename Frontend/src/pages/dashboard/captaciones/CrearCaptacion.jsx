@@ -181,7 +181,35 @@ export function CrearCaptacion() {
         ),
       estado_civil: yup
         .string()
-        .required("El estado civil es requerido")
+        .required("El estado civil es requerido"),
+      // Validación condicional de cónyuge: solo obligatorio cuando es Casado
+      conyuge: yup
+        .object()
+        .when('estado_civil', {
+          is: (val) => val === 'Casado',
+          then: (schema) => schema.shape({
+            nombre: yup
+              .string()
+              .required("El nombre de la esposa(o) es requerido"),
+            telefono: yup
+              .string()
+              .matches(/^\d{10}$/, "El teléfono debe contener exactamente 10 dígitos numéricos")
+              .required("El teléfono de la esposa(o) es requerido"),
+            nss: yup
+              .string()
+              .optional()
+              .matches(/^\d{11}$/, "El NSS debe contener 11 dígitos numéricos"),
+            rfc: yup
+              .string()
+              .optional()
+              .matches(/^[A-Z&Ñ]{3,4}[0-9]{6}[A-Z0-9]{3}$/, "El formato de RFC no es válido (ej. ABCD123456XXX)"),
+            curp: yup
+              .string()
+              .optional()
+              .matches(/^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9A-Z]{2}$/, "El formato de CURP no es válido"),
+          }),
+          otherwise: yup.object().strip(),
+        })
     }),
     propiedad: yup.object().shape({
       tipo: yup
@@ -604,12 +632,22 @@ export function CrearCaptacion() {
       ...prev,
       propietario: {
         ...prev.propietario,
-        estado_civil: value
+        estado_civil: value,
+        conyuge: value === 'Casado'
+          ? prev.propietario.conyuge
+          : { nombre: '', telefono: '', nss: '', rfc: '', curp: '' }
       }
     }));
     
     // Actualizar también en react-hook-form
     setValue('propietario.estado_civil', value);
+    if (value !== 'Casado') {
+      setValue('propietario.conyuge.nombre', '');
+      setValue('propietario.conyuge.telefono', '');
+      setValue('propietario.conyuge.nss', '');
+      setValue('propietario.conyuge.rfc', '');
+      setValue('propietario.conyuge.curp', '');
+    }
   };
   // Función para manejar adeudos
   const handleAddAdeudo = () => {
@@ -657,6 +695,13 @@ export function CrearCaptacion() {
 
       // Obtener valores del formulario usando getValues() de React Hook Form
       const formData = getValues();
+
+      // Si NO es casado, eliminar/borrar datos de cónyuge para evitar validaciones/envíos innecesarios
+      if (formData?.propietario?.estado_civil !== 'Casado') {
+        if (formData?.propietario?.conyuge !== undefined) {
+          delete formData.propietario.conyuge;
+        }
+      }
       
       // Corregir la estructura para los documentos entregados
       // El backend espera 'documentos_entregados' pero tenemos 'documentacion'
