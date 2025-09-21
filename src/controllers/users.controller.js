@@ -178,8 +178,9 @@ userCtrl.logout = (req, res) => {
         maxAge: 1,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        path: '/',
+        domain: process.env.NODE_ENV === 'production' ? '.lead-inmobiliaria.com' : undefined
     });
     return res.status(200).json({
         success: true,
