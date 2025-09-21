@@ -1,5 +1,5 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-CsqrE451.js","assets/vendor-DWOw1XCm.js","assets/index-C4obLl2K.css"])))=>i.map(i=>d[i]);
-import { _ as __vitePreload } from "./index-CsqrE451.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/index-6CcBeqdF.js","assets/vendor-DWOw1XCm.js","assets/index-C4obLl2K.css"])))=>i.map(i=>d[i]);
+import { _ as __vitePreload } from "./index-6CcBeqdF.js";
 import "./vendor-DWOw1XCm.js";
 class HybridNotificationService {
   constructor() {
@@ -163,7 +163,7 @@ class HybridNotificationService {
   async sendWebSocketNotification(notificationData) {
     try {
       const { default: webSocketService } = await __vitePreload(async () => {
-        const { default: webSocketService2 } = await import("./index-CsqrE451.js").then((n) => n.w);
+        const { default: webSocketService2 } = await import("./index-6CcBeqdF.js").then((n) => n.w);
         return { default: webSocketService2 };
       }, true ? __vite__mapDeps([0,1,2]) : void 0);
       console.log("📡 Notificación WebSocket enviada");

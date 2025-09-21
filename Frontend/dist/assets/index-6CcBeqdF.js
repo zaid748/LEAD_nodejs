@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-BBhbA_Gw.js","assets/vendor-DWOw1XCm.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-BamAkhRo.js","assets/vendor-DWOw1XCm.js"])))=>i.map(i=>d[i]);
 import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as useLocation, aT as NavLink, aU as ForwardRef$1n, aV as ForwardRef$1o, aW as ForwardRef$1p, aX as Routes, aY as Route, aZ as Outlet, a_ as ReactDOM, a$ as BrowserRouter } from "./vendor-DWOw1XCm.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
@@ -20909,7 +20909,8 @@ class WebSocketService {
       const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
       const host = window.location.hostname;
       const port = "4000";
-      const wsUrl = `${protocol}//${host}:${port}?token=${token}`;
+      const isProduction = window.location.protocol === "https:";
+      const wsUrl = isProduction ? `${protocol}//${host}/ws?token=${token}` : `${protocol}//${host}:${port}?token=${token}`;
       console.log("🔌 Conectando a WebSocket:", wsUrl);
       this.ws = new WebSocket(wsUrl);
       this.ws.onopen = (event) => {
@@ -21734,7 +21735,7 @@ Métodos: ${status.methods.join(", ")}
 ${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo cuando app esté abierta"}`);
                           } else {
                             const { default: hybridService } = await __vitePreload(async () => {
-                              const { default: hybridService2 } = await import("./hybridNotifications-BBhbA_Gw.js");
+                              const { default: hybridService2 } = await import("./hybridNotifications-BamAkhRo.js");
                               return { default: hybridService2 };
                             }, true ? __vite__mapDeps([0,1]) : void 0);
                             const testNotification = {
@@ -21770,7 +21771,7 @@ ${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo c
                       onClick: async () => {
                         try {
                           const { default: hybridService } = await __vitePreload(async () => {
-                            const { default: hybridService2 } = await import("./hybridNotifications-BBhbA_Gw.js");
+                            const { default: hybridService2 } = await import("./hybridNotifications-BamAkhRo.js");
                             return { default: hybridService2 };
                           }, true ? __vite__mapDeps([0,1]) : void 0);
                           const results = await hybridService.requestAllPermissions();

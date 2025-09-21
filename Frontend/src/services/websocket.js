@@ -40,7 +40,12 @@ class WebSocketService {
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             const host = window.location.hostname;
             const port = import.meta.env.VITE_API_PORT || '4000';
-            const wsUrl = `${protocol}//${host}:${port}?token=${token}`;
+            
+            // En producción, usar la misma URL que el frontend (sin puerto específico)
+            const isProduction = window.location.protocol === 'https:';
+            const wsUrl = isProduction 
+                ? `${protocol}//${host}/ws?token=${token}`
+                : `${protocol}//${host}:${port}?token=${token}`;
 
             console.log('🔌 Conectando a WebSocket:', wsUrl);
 
