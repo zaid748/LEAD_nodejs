@@ -1,4 +1,5 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import mobileNotificationService from '../../services/mobileNotifications';
 import {
   Navbar,
   Typography,
@@ -9,15 +10,12 @@ import {
   Menu,
   MenuHandler,
   MenuList,
-  MenuItem,
-  Avatar,
+  Badge,
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
   Cog6ToothIcon,
   BellIcon,
-  ClockIcon,
-  CreditCardIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import {
@@ -27,14 +25,106 @@ import {
 } from "@/context";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
+import GlobalNotifications from "../../components/GlobalNotifications";
+import { useState, useEffect, useCallback } from "react";
+import webSocketService from "../../services/websocket";
 
 export function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
   const navigate = useNavigate();
   const { logout } = useAuth();
+
+  // Callbacks estables para evitar re-renderizados
+  const handleNotificationRead = useCallback(() => {
+    setUnreadNotifications(prev => Math.max(0, prev - 1));
+  }, []);
+
+  const handleNotificationCountChange = useCallback((count) => {
+    setUnreadNotifications(count);
+  }, []);
+
+  // Inicializar notificaciones móviles
+  useEffect(() => {
+    const initializeMobileNotifications = async () => {
+      try {
+        const status = mobileNotificationService.getStatus();
+        console.log('📱 Estado de notificaciones móviles:', status);
+        
+        if (status.isMobile) {
+          console.log('📱 Dispositivo móvil detectado, inicializando notificaciones...');
+          const result = await mobileNotificationService.initialize();
+          console.log('📱 Resultado de inicialización móvil:', result);
+          
+          if (result.success && result.type === 'mobile_push') {
+            console.log('✅ ¡Notificaciones móviles activadas! Como WhatsApp/Facebook');
+          }
+        }
+      } catch (error) {
+        console.error('❌ Error inicializando notificaciones móviles:', error);
+      }
+    };
+
+    initializeMobileNotifications();
+  }, []);
+
+
+  // Cargar contador inicial de notificaciones y escuchar en tiempo real
+  useEffect(() => {
+    
+    // Cargar notificaciones iniciales para obtener el contador
+    const loadInitialNotifications = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+        const response = await fetch(`${apiUrl}/api/captaciones/notificaciones-usuario`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const unreadCount = data.data?.filter(n => !n.leida).length || 0;
+          setUnreadNotifications(unreadCount);
+          console.log('🔢 Contador inicial de notificaciones:', unreadCount);
+        }
+      } catch (error) {
+        console.error('Error cargando notificaciones iniciales:', error);
+      }
+    };
+
+    // Configurar handler de notificaciones INMEDIATAMENTE para actualizar contador
+    const handleNotification = (notification) => {
+      setUnreadNotifications(prev => prev + 1);
+    };
+
+    // Registrar handler INMEDIATAMENTE
+    webSocketService.onMessage('notification', handleNotification);
+
+    // Conectar al WebSocket si no está conectado
+    if (!webSocketService.isConnected()) {
+      webSocketService.connect();
+    }
+
+    // Suscribirse a notificaciones
+    setTimeout(() => {
+      if (webSocketService.isConnected()) {
+        webSocketService.subscribeToNotifications();
+      }
+    }, 1000);
+
+    // Cargar contador inicial
+    loadInitialNotifications();
+
+    return () => {
+      webSocketService.offMessage('notification');
+    };
+  }, []); // Dependencias vacías para que solo se ejecute una vez
 
   const handleLogout = async () => {
     try {
@@ -117,79 +207,148 @@ export function DashboardNavbar() {
           <Menu>
             <MenuHandler>
               <IconButton variant="text" color="blue-gray">
+                <Badge
+                  content={unreadNotifications}
+                  className="min-w-[20px] min-h-[20px] bg-red-500 animate-pulse"
+                  hidden={unreadNotifications === 0}
+                >
                 <BellIcon className="h-5 w-5 text-blue-gray-500" />
+                </Badge>
               </IconButton>
             </MenuHandler>
-            <MenuList className="w-max border-0">
-              <MenuItem className="flex items-center gap-3">
-                <Avatar
-                  src="https://demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg"
-                  alt="item-1"
-                  size="sm"
-                  variant="circular"
-                />
-                <div>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-1 font-normal"
+            <MenuList className="w-96 max-h-98 overflow-visible -translate-x-full">
+              <div className="p-2 border-b">
+                <div className="flex gap-2">
+                  <button 
+                    onClick={async () => {
+                      try {
+                        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+                        const response = await fetch(`${apiUrl}/api/captaciones/test-websocket`, {
+                          method: 'POST',
+                          credentials: 'include',
+                          headers: { 'Content-Type': 'application/json' }
+                        });
+                        
+                        if (!response.ok) {
+                          throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        console.log('🧪 Respuesta de prueba:', data);
+                      } catch (error) {
+                        console.error('❌ Error en prueba:', error);
+                      }
+                    }}
+                    className="flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600"
                   >
-                    <strong>New message</strong> from Laur
-                  </Typography>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="flex items-center gap-1 text-xs font-normal opacity-60"
+                    🧪 Probar WebSocket
+                  </button>
+                  <button 
+                    onClick={async () => {
+                      try {
+                        console.log('🔍 Estado WebSocket Local:', webSocketService.isConnected());
+                        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+                        const response = await fetch(`${apiUrl}/api/captaciones/websocket-status`, {
+                          method: 'GET',
+                          credentials: 'include',
+                          headers: { 'Content-Type': 'application/json' }
+                        });
+                        
+                        if (response.ok) {
+                          const data = await response.json();
+                          console.log('🔍 Estado WebSocket del Servidor:', data);
+                        } else {
+                          console.error('❌ Error al obtener estado WebSocket');
+                        }
+                      } catch (error) {
+                        console.error('❌ Error al verificar estado WebSocket:', error);
+                      }
+                    }}
+                    className="flex-1 bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600"
                   >
-                    <ClockIcon className="h-3.5 w-3.5" /> 13 minutes ago
-                  </Typography>
+                    🔍 Estado WS
+                  </button>
                 </div>
-              </MenuItem>
-              <MenuItem className="flex items-center gap-4">
-                <Avatar
-                  src="https://demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-spotify.svg"
-                  alt="item-1"
-                  size="sm"
-                  variant="circular"
-                />
-                <div>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-1 font-normal"
+                <div className="flex gap-2 mt-2">
+                  <button 
+                    onClick={async () => {
+                      try {
+                        const status = mobileNotificationService.getStatus();
+                        console.log('📱 Estado móvil:', status);
+                        
+                        if (status.isMobile) {
+                          // Probar notificaciones móviles
+                          mobileNotificationService.showMobileNotification(
+                            '📱 Prueba Móvil',
+                            '¡Notificación de prueba para móvil! Como WhatsApp/Facebook',
+                            { url: '/dashboard/remodelacion' }
+                          );
+                          alert(`📱 Notificación móvil enviada!\n\nEstrategia: ${status.strategy}\nMétodos: ${status.methods.join(', ')}\n\n${status.canPush ? '✅ Push activado - como WhatsApp/Facebook' : '⚠️ Solo cuando app esté abierta'}`);
+                        } else {
+                          // Probar notificaciones de escritorio
+                          const { default: hybridService } = await import('../../services/hybridNotifications');
+                          
+                          const testNotification = {
+                            titulo: 'Notificación de Prueba',
+                            mensaje: 'Esta es una notificación de prueba del sistema híbrido LEAD.',
+                            tipo: 'General',
+                            prioridad: 'Media'
+                          };
+
+                          const results = await hybridService.sendNotification(testNotification);
+                          console.log('🧪 Resultados de prueba híbrida:', results);
+                          
+                          const successful = results.filter(r => r.status === 'fulfilled' && r.value.success);
+                          
+                          if (successful.length > 0) {
+                            const methods = successful.map(s => s.value.method);
+                            alert(`✅ Notificación enviada por ${successful.length} método(s): ${methods.join(', ')}\n\n🎯 WebSocket siempre funciona para notificaciones en tiempo real.`);
+                          } else {
+                            alert('❌ No se pudo enviar la notificación por ningún método.');
+                          }
+                        }
+                      } catch (error) {
+                        console.error('❌ Error enviando notificación:', error);
+                        alert('❌ Error: ' + error.message);
+                      }
+                    }}
+                    className="flex-1 bg-purple-500 text-white px-3 py-1 rounded text-sm hover:bg-purple-600"
                   >
-                    <strong>New album</strong> by Travis Scott
-                  </Typography>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="flex items-center gap-1 text-xs font-normal opacity-60"
+                    📱 Probar Móvil
+                  </button>
+                  <button 
+                    onClick={async () => {
+                      try {
+                        const { default: hybridService } = await import('../../services/hybridNotifications');
+                        
+                        const results = await hybridService.requestAllPermissions();
+                        console.log('🔐 Resultados de permisos híbridos:', results);
+                        
+                        const granted = Object.entries(results)
+                          .filter(([_, granted]) => granted)
+                          .map(([key, _]) => key);
+                        
+                        if (granted.length > 0) {
+                          alert(`✅ Permisos configurados: ${granted.join(', ')}\n\n🎯 WebSocket siempre funciona para notificaciones en tiempo real.`);
+                        } else {
+                          alert('⚠️ No se pudieron configurar permisos adicionales.\n\n🎯 WebSocket siempre funciona para notificaciones en tiempo real.');
+                        }
+                      } catch (error) {
+                        console.error('❌ Error solicitando permisos híbridos:', error);
+                        alert('❌ Error: ' + error.message);
+                      }
+                    }}
+                    className="flex-1 bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600"
                   >
-                    <ClockIcon className="h-3.5 w-3.5" /> 1 day ago
-                  </Typography>
+                    🔐 Configurar
+                  </button>
                 </div>
-              </MenuItem>
-              <MenuItem className="flex items-center gap-4">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900">
-                  <CreditCardIcon className="h-4 w-4 text-white" />
-                </div>
-                <div>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="mb-1 font-normal"
-                  >
-                    Payment successfully completed
-                  </Typography>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="flex items-center gap-1 text-xs font-normal opacity-60"
-                  >
-                    <ClockIcon className="h-3.5 w-3.5" /> 2 days ago
-                  </Typography>
-                </div>
-              </MenuItem>
+              </div>
+              {console.log('🔔 Navbar: Renderizando GlobalNotifications')}
+              <GlobalNotifications 
+                onNotificationRead={handleNotificationRead}
+                onNotificationCountChange={handleNotificationCountChange}
+              />
             </MenuList>
           </Menu>
           <IconButton

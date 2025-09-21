@@ -14,7 +14,7 @@ import {
 import Presupuesto from '../../../components/remodelacion/Presupuesto';
 import MaterialForm from '../../../components/remodelacion/MaterialForm';
 import SolicitudForm from '../../../components/remodelacion/SolicitudForm';
-import Notificaciones from '../../../components/remodelacion/Notificaciones';
+// import Notificaciones from '../../../components/remodelacion/Notificaciones'; // Archivo eliminado - ahora se usa GlobalNotifications en el navbar
 import CartaResponsabilidad from '../../../components/remodelacion/CartaResponsabilidad';
 import Reportes from '../../../components/remodelacion/Reportes';
 
@@ -296,12 +296,17 @@ const RemodelacionPage = () => {
                 )}
 
                 {activeTab === "notificaciones" && (
-                    <Notificaciones 
-                        proyectoId={id}
-                        onActualizar={actualizarDatos}
-                        notificacionesNoLeidas={notificacionesNoLeidas}
-                        setNotificacionesNoLeidas={setNotificacionesNoLeidas}
-                    />
+                    <div className="p-6 text-center">
+                        <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                            Notificaciones
+                        </h3>
+                        <p className="text-gray-500">
+                            Las notificaciones ahora se muestran en el menú global del navbar (icono de campana en la parte superior).
+                        </p>
+                        <p className="text-sm text-gray-400 mt-2">
+                            Haz clic en la campana en la parte superior derecha para ver todas las notificaciones.
+                        </p>
+                    </div>
                 )}
             </div>
         </div>

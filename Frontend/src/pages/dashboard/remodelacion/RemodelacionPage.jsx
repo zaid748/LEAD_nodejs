@@ -1025,21 +1025,20 @@ const RemodelacionPage = () => {
             setLoading(true);
             setError(null);
             
-            console.log('📤 Enviando lista de compra:', listaId);
-            
             const response = await axios.post(`/api/lista-compra/${listaId}/enviar`);
             
             if (response.data.success) {
-                console.log('✅ Lista de compra enviada exitosamente');
                 // Recargar la lista de requerimientos
                 if (proyectoSeleccionado) {
                     await verRequerimientos(proyectoSeleccionado);
                 }
+                // Mostrar mensaje de éxito
+                alert('✅ Lista de compra enviada al supervisor exitosamente');
             } else {
                 throw new Error(response.data.message || 'Error al enviar lista de compra');
             }
         } catch (error) {
-            console.error('❌ Error al enviar lista de compra:', error);
+            console.error('Error al enviar lista de compra:', error);
             setError(error.response?.data?.message || error.message || 'Error al enviar lista de compra');
         } finally {
             setLoading(false);
@@ -2687,6 +2686,16 @@ const RemodelacionPage = () => {
                             <div className="flex gap-3 justify-end">
                                 <Button
                                     size="lg"
+                                    color="purple"
+                                    variant="outlined"
+                                    onClick={() => imprimirOrdenCompra(lista)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PrinterIcon className="h-5 w-5" />
+                                    Imprimir Lista
+                                </Button>
+                                <Button
+                                    size="lg"
                                     color="red"
                                     variant="outlined"
                                     onClick={() => rechazarListaCompra(lista._id)}
@@ -2717,6 +2726,16 @@ const RemodelacionPage = () => {
                         {/* CASO 2: Lista en revisión - Editar, Aprobar o Rechazar */}
                         {lista.estatus_general === 'En revisión' && (
                             <div className="flex gap-3 justify-end">
+                                <Button
+                                    size="lg"
+                                    color="purple"
+                                    variant="outlined"
+                                    onClick={() => imprimirOrdenCompra(lista)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PrinterIcon className="h-5 w-5" />
+                                    Imprimir Lista
+                                </Button>
                                 <Button
                                     size="lg"
                                     color="blue"
@@ -2754,8 +2773,18 @@ const RemodelacionPage = () => {
 
                         {/* CASO 3: Material ya aprobado pero editable - Solo mostrar estado */}
                         {lista.estatus_general === 'Aprobada' && (
-                            <div className="flex justify-center">
-                                <div className="bg-blue-50 rounded-lg p-3">
+                            <div className="flex gap-3 justify-end">
+                                <Button
+                                    size="lg"
+                                    color="purple"
+                                    variant="outlined"
+                                    onClick={() => imprimirOrdenCompra(lista)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PrinterIcon className="h-5 w-5" />
+                                    Imprimir Lista
+                                </Button>
+                                <div className="bg-blue-50 rounded-lg p-3 flex-1">
                                     <Typography variant="small" color="blue" className="text-center">
                                         ✅ Material aprobado y enviado a administración
                                     </Typography>
@@ -2766,6 +2795,16 @@ const RemodelacionPage = () => {
                         {/* CASO NUEVO: Material en compra - Supervisor puede marcar como comprado */}
                         {lista.estatus_general === 'En compra' && (
                             <div className="flex gap-3 justify-end">
+                                <Button
+                                    size="lg"
+                                    color="purple"
+                                    variant="outlined"
+                                    onClick={() => imprimirOrdenCompra(lista)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PrinterIcon className="h-5 w-5" />
+                                    Imprimir Lista
+                                </Button>
                                 <Button
                                     size="lg"
                                     color="green"
@@ -2782,8 +2821,18 @@ const RemodelacionPage = () => {
 
                         {/* CASO NUEVO: Material recibido - Esperando compra */}
                         {lista.estatus_general === 'Recibida' && (
-                            <div className="flex justify-center">
-                                <div className="bg-teal-50 rounded-lg p-3">
+                            <div className="flex gap-3 justify-end">
+                                <Button
+                                    size="lg"
+                                    color="purple"
+                                    variant="outlined"
+                                    onClick={() => imprimirOrdenCompra(lista)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PrinterIcon className="h-5 w-5" />
+                                    Imprimir Lista
+                                </Button>
+                                <div className="bg-teal-50 rounded-lg p-3 flex-1">
                                     <Typography variant="small" color="teal" className="text-center">
                                         📋 Material recibido por contratista - Listo para compra
                                     </Typography>
@@ -2793,8 +2842,18 @@ const RemodelacionPage = () => {
 
                         {/* CASO NUEVO: Material comprado - Proceso completado */}
                         {lista.estatus_general === 'Comprada' && (
-                            <div className="flex justify-center">
-                                <div className="bg-purple-50 rounded-lg p-3">
+                            <div className="flex gap-3 justify-end">
+                                <Button
+                                    size="lg"
+                                    color="purple"
+                                    variant="outlined"
+                                    onClick={() => imprimirOrdenCompra(lista)}
+                                    className="flex items-center gap-2"
+                                >
+                                    <PrinterIcon className="h-5 w-5" />
+                                    Imprimir Lista
+                                </Button>
+                                <div className="bg-purple-50 rounded-lg p-3 flex-1">
                                     <Typography variant="small" color="purple" className="text-center">
                                         🛒 Material comprado exitosamente - Proceso completado
                                     </Typography>

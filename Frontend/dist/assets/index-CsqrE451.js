@@ -1,4 +1,5 @@
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as ForwardRef$1n, aT as ForwardRef$1o, aU as useLocation, aV as NavLink, aW as ForwardRef$1p, aX as ForwardRef$1q, aY as Routes, aZ as Route, a_ as Outlet, a$ as ReactDOM, b0 as BrowserRouter } from "./vendor-CEl_m1pR.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-BBhbA_Gw.js","assets/vendor-DWOw1XCm.js"])))=>i.map(i=>d[i]);
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as useLocation, aT as NavLink, aU as ForwardRef$1n, aV as ForwardRef$1o, aW as ForwardRef$1p, aX as Routes, aY as Route, aZ as Outlet, a_ as ReactDOM, a$ as BrowserRouter } from "./vendor-DWOw1XCm.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -13145,18 +13146,17 @@ const RemodelacionPage = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log("📤 Enviando lista de compra:", listaId);
       const response = await axios.post(`/api/lista-compra/${listaId}/enviar`);
       if (response.data.success) {
-        console.log("✅ Lista de compra enviada exitosamente");
         if (proyectoSeleccionado) {
           await verRequerimientos(proyectoSeleccionado);
         }
+        alert("✅ Lista de compra enviada al supervisor exitosamente");
       } else {
         throw new Error(response.data.message || "Error al enviar lista de compra");
       }
     } catch (error2) {
-      console.error("❌ Error al enviar lista de compra:", error2);
+      console.error("Error al enviar lista de compra:", error2);
       setError(error2.response?.data?.message || error2.message || "Error al enviar lista de compra");
     } finally {
       setLoading(false);
@@ -14222,6 +14222,20 @@ const RemodelacionPage = () => {
               reactExports.Button,
               {
                 size: "lg",
+                color: "purple",
+                variant: "outlined",
+                onClick: () => imprimirOrdenCompra(lista2),
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-5 w-5" }),
+                  "Imprimir Lista"
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
                 color: "red",
                 variant: "outlined",
                 onClick: () => rechazarListaCompra(lista2._id),
@@ -14252,6 +14266,20 @@ const RemodelacionPage = () => {
             )
           ] }),
           lista2.estatus_general === "En revisión" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 justify-end", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
+                color: "purple",
+                variant: "outlined",
+                onClick: () => imprimirOrdenCompra(lista2),
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-5 w-5" }),
+                  "Imprimir Lista"
+                ]
+              }
+            ),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               reactExports.Button,
               {
@@ -14297,24 +14325,88 @@ const RemodelacionPage = () => {
               }
             )
           ] }),
-          lista2.estatus_general === "Aprobada" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-50 rounded-lg p-3", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue", className: "text-center", children: "✅ Material aprobado y enviado a administración" }) }) }),
-          lista2.estatus_general === "En compra" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 justify-end", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            reactExports.Button,
-            {
-              size: "lg",
-              color: "green",
-              variant: "outlined",
-              onClick: () => abrirModalComprobante(lista2),
-              disabled: loading,
-              className: "flex items-center gap-2",
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$$, { className: "h-5 w-5" }),
-                "🛒 Marcar como Comprado"
-              ]
-            }
-          ) }),
-          lista2.estatus_general === "Recibida" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-teal-50 rounded-lg p-3", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "teal", className: "text-center", children: "📋 Material recibido por contratista - Listo para compra" }) }) }),
-          lista2.estatus_general === "Comprada" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-purple-50 rounded-lg p-3", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "purple", className: "text-center", children: "🛒 Material comprado exitosamente - Proceso completado" }) }) }),
+          lista2.estatus_general === "Aprobada" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 justify-end", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
+                color: "purple",
+                variant: "outlined",
+                onClick: () => imprimirOrdenCompra(lista2),
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-5 w-5" }),
+                  "Imprimir Lista"
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-blue-50 rounded-lg p-3 flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue", className: "text-center", children: "✅ Material aprobado y enviado a administración" }) })
+          ] }),
+          lista2.estatus_general === "En compra" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 justify-end", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
+                color: "purple",
+                variant: "outlined",
+                onClick: () => imprimirOrdenCompra(lista2),
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-5 w-5" }),
+                  "Imprimir Lista"
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
+                color: "green",
+                variant: "outlined",
+                onClick: () => abrirModalComprobante(lista2),
+                disabled: loading,
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$$, { className: "h-5 w-5" }),
+                  "🛒 Marcar como Comprado"
+                ]
+              }
+            )
+          ] }),
+          lista2.estatus_general === "Recibida" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 justify-end", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
+                color: "purple",
+                variant: "outlined",
+                onClick: () => imprimirOrdenCompra(lista2),
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-5 w-5" }),
+                  "Imprimir Lista"
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-teal-50 rounded-lg p-3 flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "teal", className: "text-center", children: "📋 Material recibido por contratista - Listo para compra" }) })
+          ] }),
+          lista2.estatus_general === "Comprada" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 justify-end", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              reactExports.Button,
+              {
+                size: "lg",
+                color: "purple",
+                variant: "outlined",
+                onClick: () => imprimirOrdenCompra(lista2),
+                className: "flex items-center gap-2",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Y, { className: "h-5 w-5" }),
+                  "Imprimir Lista"
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-purple-50 rounded-lg p-3 flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "purple", className: "text-center", children: "🛒 Material comprado exitosamente - Proceso completado" }) })
+          ] }),
           lista2.estatus_general === "Rechazada" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-red-50 rounded-lg p-3", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "red", className: "text-center", children: "❌ Material rechazado por supervisor" }) }) })
         ] }),
         user?.role === "contratista" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 pt-4 border-t", children: [
@@ -16325,365 +16417,6 @@ function SolicitudForm({ proyectoId, userRole }) {
     ] }) })
   ] });
 }
-function Notificaciones({ proyectoId, userRole }) {
-  const [notificaciones, setNotificaciones] = reactExports$1.useState([]);
-  const [loading, setLoading] = reactExports$1.useState(false);
-  const [error, setError] = reactExports$1.useState(null);
-  const [filtro, setFiltro] = reactExports$1.useState("todas");
-  reactExports$1.useEffect(() => {
-    cargarNotificaciones();
-  }, [proyectoId]);
-  const cargarNotificaciones = async () => {
-    try {
-      setLoading(true);
-      setNotificaciones([
-        {
-          _id: "1",
-          titulo: "Nueva solicitud de material",
-          mensaje: "Se ha creado una nueva solicitud para el proyecto Casa Azul",
-          tipo: "solicitud_material",
-          prioridad: "media",
-          leida: false,
-          fecha_creacion: "2024-01-15T10:30:00Z",
-          usuario_origen: "Carlos López",
-          accion_requerida: "revisar_solicitud"
-        },
-        {
-          _id: "2",
-          titulo: "Costo agregado a solicitud",
-          mensaje: "Se ha agregado un costo de $8,500 a la solicitud de azulejos",
-          tipo: "costo_agregado",
-          prioridad: "alta",
-          leida: false,
-          fecha_creacion: "2024-01-15T14:20:00Z",
-          usuario_origen: "Juan Pérez",
-          accion_requerida: "aprobar_solicitud"
-        },
-        {
-          _id: "3",
-          titulo: "Solicitud aprobada",
-          mensaje: "La solicitud de cemento ha sido aprobada por administración",
-          tipo: "solicitud_aprobada",
-          prioridad: "baja",
-          leida: true,
-          fecha_creacion: "2024-01-15T16:45:00Z",
-          usuario_origen: "Admin User",
-          accion_requerida: "comprar_material"
-        },
-        {
-          _id: "4",
-          titulo: "Material comprado",
-          mensaje: "El cemento ha sido comprado y está en proceso de entrega",
-          tipo: "material_comprado",
-          prioridad: "media",
-          leida: true,
-          fecha_creacion: "2024-01-16T09:15:00Z",
-          usuario_origen: "Juan Pérez",
-          accion_requerida: "entregar_material"
-        },
-        {
-          _id: "5",
-          titulo: "Material entregado",
-          mensaje: "El cemento ha sido entregado al contratista",
-          tipo: "material_entregado",
-          prioridad: "baja",
-          leida: false,
-          fecha_creacion: "2024-01-16T11:30:00Z",
-          usuario_origen: "Juan Pérez",
-          accion_requerida: "firmar_carta"
-        }
-      ]);
-    } catch (err) {
-      console.error("Error al cargar notificaciones:", err);
-      setError("Error al cargar las notificaciones");
-    } finally {
-      setLoading(false);
-    }
-  };
-  const marcarComoLeida = async (notificacionId) => {
-    try {
-      setNotificaciones((prev) => prev.map(
-        (n) => n._id === notificacionId ? { ...n, leida: true, fecha_lectura: (/* @__PURE__ */ new Date()).toISOString() } : n
-      ));
-    } catch (err) {
-      console.error("Error al marcar notificación como leída:", err);
-    }
-  };
-  const marcarTodasComoLeidas = async () => {
-    try {
-      setNotificaciones((prev) => prev.map((n) => ({
-        ...n,
-        leida: true,
-        fecha_lectura: (/* @__PURE__ */ new Date()).toISOString()
-      })));
-    } catch (err) {
-      console.error("Error al marcar todas las notificaciones como leídas:", err);
-    }
-  };
-  const eliminarNotificacion = async (notificacionId) => {
-    if (!confirm("¿Estás seguro de que quieres eliminar esta notificación?")) {
-      return;
-    }
-    try {
-      setNotificaciones((prev) => prev.filter((n) => n._id !== notificacionId));
-    } catch (err) {
-      console.error("Error al eliminar notificación:", err);
-    }
-  };
-  const getTipoIcon = (tipo) => {
-    switch (tipo) {
-      case "solicitud_material":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$11, { className: "h-5 w-5" });
-      case "costo_agregado":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-5 w-5" });
-      case "solicitud_aprobada":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$18, { className: "h-5 w-5" });
-      case "material_comprado":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$17, { className: "h-5 w-5" });
-      case "material_entregado":
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$16, { className: "h-5 w-5" });
-      default:
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$15, { className: "h-5 w-5" });
-    }
-  };
-  const getTipoColor = (tipo) => {
-    switch (tipo) {
-      case "solicitud_material":
-        return "blue";
-      case "costo_agregado":
-        return "amber";
-      case "solicitud_aprobada":
-        return "green";
-      case "material_comprado":
-        return "purple";
-      case "material_entregado":
-        return "green";
-      default:
-        return "gray";
-    }
-  };
-  const getPrioridadColor = (prioridad) => {
-    switch (prioridad) {
-      case "alta":
-        return "red";
-      case "media":
-        return "amber";
-      case "baja":
-        return "green";
-      default:
-        return "gray";
-    }
-  };
-  const getAccionRequerida = (accion) => {
-    switch (accion) {
-      case "revisar_solicitud":
-        return "Revisar solicitud";
-      case "aprobar_solicitud":
-        return "Aprobar solicitud";
-      case "comprar_material":
-        return "Comprar material";
-      case "entregar_material":
-        return "Entregar material";
-      case "firmar_carta":
-        return "Firmar carta de responsabilidad";
-      default:
-        return "Sin acción requerida";
-    }
-  };
-  const formatDate = (dateString) => {
-    const fecha = new Date(dateString);
-    const ahora = /* @__PURE__ */ new Date();
-    const diffMs = ahora - fecha;
-    const diffMins = Math.floor(diffMs / 6e4);
-    const diffHours = Math.floor(diffMs / 36e5);
-    const diffDays = Math.floor(diffMs / 864e5);
-    if (diffMins < 1) return "Ahora mismo";
-    if (diffMins < 60) return `Hace ${diffMins} min`;
-    if (diffHours < 24) return `Hace ${diffHours} horas`;
-    if (diffDays < 7) return `Hace ${diffDays} días`;
-    return fecha.toLocaleDateString("es-MX");
-  };
-  const notificacionesFiltradas = notificaciones.filter((notif) => {
-    if (filtro === "no_leidas") return !notif.leida;
-    if (filtro === "leidas") return notif.leida;
-    return true;
-  });
-  const notificacionesNoLeidas = notificaciones.filter((n) => !n.leida).length;
-  if (loading) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center p-8", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { size: "lg" }) });
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$13, { className: "h-8 w-8 text-blue-500" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", children: "Notificaciones" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Sistema de notificaciones en tiempo real" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$13, { className: "h-6 w-6 text-blue-gray-500" }),
-          notificacionesNoLeidas > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            reactExports.Chip,
-            {
-              value: notificacionesNoLeidas,
-              size: "sm",
-              color: "red",
-              className: "absolute -top-2 -right-2 min-w-[20px] h-5 text-xs"
-            }
-          )
-        ] }),
-        notificacionesNoLeidas > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          reactExports.Button,
-          {
-            size: "sm",
-            variant: "text",
-            color: "blue",
-            onClick: marcarTodasComoLeidas,
-            children: "Marcar todas como leídas"
-          }
-        )
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        reactExports.Button,
-        {
-          variant: filtro === "todas" ? "gradient" : "outlined",
-          color: "blue",
-          size: "sm",
-          onClick: () => setFiltro("todas"),
-          children: [
-            "Todas (",
-            notificaciones.length,
-            ")"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        reactExports.Button,
-        {
-          variant: filtro === "no_leidas" ? "gradient" : "outlined",
-          color: "amber",
-          size: "sm",
-          onClick: () => setFiltro("no_leidas"),
-          children: [
-            "No leídas (",
-            notificacionesNoLeidas,
-            ")"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        reactExports.Button,
-        {
-          variant: filtro === "leidas" ? "gradient" : "outlined",
-          color: "green",
-          size: "sm",
-          onClick: () => setFiltro("leidas"),
-          children: [
-            "Leídas (",
-            notificaciones.filter((n) => n.leida).length,
-            ")"
-          ]
-        }
-      )
-    ] }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Card, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { color: "blue-gray", variant: "gradient", className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "white", children: "Notificaciones del Proyecto" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "p-0", children: notificacionesFiltradas.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-8", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$13, { className: "h-12 w-12 text-gray-400 mx-auto mb-4" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "gray", className: "mb-2", children: "No hay notificaciones" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { color: "gray", children: filtro === "todas" ? "No hay notificaciones para este proyecto" : `No hay notificaciones ${filtro === "no_leidas" ? "no leídas" : "leídas"}` })
-      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "divide-y divide-gray-200", children: notificacionesFiltradas.map((notificacion) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "div",
-        {
-          className: `p-4 hover:bg-gray-50 transition-colors ${!notificacion.leida ? "bg-blue-50" : ""}`,
-          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `p-2 rounded-full bg-${getTipoColor(notificacion.tipo)}-100`, children: getTipoIcon(notificacion.tipo) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 min-w-0", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start justify-between", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-1", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "font-medium", children: notificacion.titulo }),
-                  !notificacion.leida && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 bg-blue-500 rounded-full" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    reactExports.Chip,
-                    {
-                      value: notificacion.prioridad,
-                      color: getPrioridadColor(notificacion.prioridad),
-                      size: "sm",
-                      variant: "ghost"
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { color: "gray", className: "mb-2", children: notificacion.mensaje }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4 text-sm text-gray-500", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: notificacion.usuario_origen })
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$14, { className: "h-4 w-4" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: formatDate(notificacion.fecha_creacion) })
-                  ] })
-                ] }),
-                notificacion.accion_requerida && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-2", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-medium", children: "Acción requerida:" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: getAccionRequerida(notificacion.accion_requerida) })
-                ] })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 ml-4", children: [
-                !notificacion.leida && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  reactExports.Button,
-                  {
-                    size: "sm",
-                    variant: "text",
-                    color: "blue",
-                    onClick: () => marcarComoLeida(notificacion._id),
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$_, { className: "h-4 w-4" })
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  reactExports.Button,
-                  {
-                    size: "sm",
-                    variant: "text",
-                    color: "red",
-                    onClick: () => eliminarNotificacion(notificacion._id),
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$Z, { className: "h-4 w-4" })
-                  }
-                )
-              ] })
-            ] }) })
-          ] })
-        },
-        notificacion._id
-      )) }) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { className: "bg-blue-50 border-blue-200", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-6", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Sistema de Notificaciones" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 bg-blue-500 rounded-full mt-2" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: "Las notificaciones se generan automáticamente según las acciones realizadas en el sistema." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 bg-blue-500 rounded-full mt-2" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: "Las notificaciones no leídas se marcan con un punto azul y se destacan en azul claro." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 bg-blue-500 rounded-full mt-2" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: "Puedes marcar notificaciones como leídas individualmente o todas a la vez." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 bg-blue-500 rounded-full mt-2" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", children: "Las notificaciones se organizan por prioridad: Alta (roja), Media (ámbar), Baja (verde)." })
-        ] })
-      ] })
-    ] }) })
-  ] });
-}
 function CartaResponsabilidad({ proyectoId, userRole }) {
   const [cartas, setCartas] = reactExports$1.useState([]);
   const [loading, setLoading] = reactExports$1.useState(false);
@@ -17037,7 +16770,7 @@ function CartaResponsabilidad({ proyectoId, userRole }) {
                 color: "blue",
                 onClick: () => descargarPDF(carta.pdf_url),
                 className: "p-2",
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$19, { className: "h-4 w-4" })
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$14, { className: "h-4 w-4" })
               }
             ),
             carta.firma_url && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -17200,7 +16933,7 @@ function Reportes({ proyectoId, userRole }) {
   };
   const getTendenciaIcon = (valor, tipo) => {
     {
-      return valor > 4e4 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1b, { className: "h-4 w-4 text-red-500" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1c, { className: "h-4 w-4 text-green-500" });
+      return valor > 4e4 ? /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$18, { className: "h-4 w-4 text-red-500" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$19, { className: "h-4 w-4 text-green-500" });
     }
   };
   const formatCurrency = (amount) => {
@@ -17221,7 +16954,7 @@ function Reportes({ proyectoId, userRole }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1a, { className: "h-8 w-8 text-blue-500" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$15, { className: "h-8 w-8 text-blue-500" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h5", color: "blue-gray", children: "Reportes y Métricas" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Análisis financiero y métricas de rendimiento del proyecto" })
@@ -17266,7 +16999,7 @@ function Reportes({ proyectoId, userRole }) {
             onClick: () => exportarReporte("PDF"),
             className: "flex items-center gap-2",
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$19, { className: "h-4 w-4" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$14, { className: "h-4 w-4" }),
               "Exportar"
             ]
           }
@@ -17313,7 +17046,7 @@ function Reportes({ proyectoId, userRole }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardHeader, { color: "green", variant: "gradient", className: "p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "white", children: "Métricas de Tiempo y Eficiencia" }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.CardBody, { className: "p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-4 gap-6", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-blue-50 rounded-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$14, { className: "h-8 w-8 text-blue-500 mx-auto mb-2" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$16, { className: "h-8 w-8 text-blue-500 mx-auto mb-2" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h4", color: "blue", className: "font-bold", children: [
             reportes.metricas_tiempo.tiempo_promedio_aprobacion,
             " días"
@@ -17337,7 +17070,7 @@ function Reportes({ proyectoId, userRole }) {
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "purple", children: "Tiempo Promedio de Entrega" })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-4 bg-amber-50 rounded-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$18, { className: "h-8 w-8 text-amber-500 mx-auto mb-2" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$17, { className: "h-8 w-8 text-amber-500 mx-auto mb-2" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "h4", color: "amber", className: "font-bold", children: [
             reportes.metricas_tiempo.eficiencia_aprobaciones,
             "%"
@@ -17770,7 +17503,7 @@ const TABS = [
   {
     label: "Solicitudes de Material",
     value: "solicitudes",
-    icon: ForwardRef$16
+    icon: ForwardRef$1b
   },
   {
     label: "Carta de Responsabilidad",
@@ -17780,7 +17513,7 @@ const TABS = [
   {
     label: "Reportes",
     value: "reportes",
-    icon: ForwardRef$1a
+    icon: ForwardRef$15
   },
   {
     label: "Notificaciones",
@@ -17873,7 +17606,7 @@ const DetalleRemodelacion = () => {
           onClick: () => navigate("/dashboard/remodelacion"),
           className: "flex items-center gap-2",
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1d, { className: "h-4 w-4" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1a, { className: "h-4 w-4" }),
             "Volver a Remodelación"
           ]
         }
@@ -17918,7 +17651,7 @@ const DetalleRemodelacion = () => {
             className: "flex gap-2",
             onClick: () => navigate("/dashboard/remodelacion"),
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1d, { className: "h-4 w-4" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1a, { className: "h-4 w-4" }),
               "Volver"
             ]
           }
@@ -18034,13 +17767,12 @@ const DetalleRemodelacion = () => {
             userRole: "administrator"
           }
         ),
-        activeTab === "notificaciones" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Notificaciones,
-          {
-            proyectoId: id,
-            userRole: "administrator"
-          }
-        )
+        activeTab === "notificaciones" && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-6 text-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-lg font-semibold text-gray-700 mb-2", children: "Notificaciones" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500", children: "Las notificaciones ahora se muestran en el menú global del navbar (icono de campana en la parte superior)." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-400 mt-2", children: "Haz clic en la campana en la parte superior derecha para ver todas las notificaciones." })
+        ] }),
+        console.log("🔍 Tab activo:", activeTab, "ID del proyecto:", id)
       ] })
     ] }) }) })
   ] });
@@ -18190,7 +17922,7 @@ const EditarRemodelacion = () => {
           onClick: () => navigate("/dashboard/remodelacion"),
           className: "flex items-center gap-2",
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1d, { className: "h-4 w-4" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1a, { className: "h-4 w-4" }),
             "Volver a Remodelación"
           ]
         }
@@ -18221,7 +17953,7 @@ const EditarRemodelacion = () => {
           className: "flex items-center gap-2",
           onClick: () => navigate(`/dashboard/remodelacion/${id}`),
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1d, { className: "h-4 w-4" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1a, { className: "h-4 w-4" }),
             "Volver al Detalle"
           ]
         }
@@ -18461,11 +18193,10 @@ const ListasCompraAdminPage = () => {
   };
   const cargarProyectos = async () => {
     try {
-      const response = await axios.get("/api/captaciones", {
-        params: { estatus: "Remodelacion" }
-      });
+      const response = await axios.get("/api/captaciones");
       if (response.data && Array.isArray(response.data)) {
         setProyectos(response.data);
+        console.log("✅ Proyectos cargados:", response.data.length);
       }
     } catch (error2) {
       console.error("Error al cargar proyectos:", error2);
@@ -18540,9 +18271,111 @@ const ListasCompraAdminPage = () => {
     setShowDetallesModal(false);
     setListaSeleccionada(null);
   };
-  const imprimirOrdenCompra = (lista) => {
-    console.log("🖨️ Imprimiendo orden de compra para:", lista._id);
-    alert("Funcionalidad de impresión será implementada próximamente");
+  const imprimirOrdenCompra = async (lista) => {
+    try {
+      console.log("📊 Generando archivo Excel para lista:", lista._id);
+      const proyectoId = lista.proyecto_id?._id || lista.proyecto_id;
+      let proyecto = proyectos.find((p) => p._id === proyectoId);
+      if (!proyecto) {
+        console.warn("⚠️ Proyecto no encontrado en lista local, usando datos de la lista:", proyectoId);
+        proyecto = lista.proyecto_id;
+        if (!proyecto) {
+          console.error("❌ No se encontró información del proyecto en ningún lugar:", proyectoId);
+          alert("No se encontró información del proyecto");
+          return;
+        }
+      }
+      const contratistaId = lista.contratista_id?._id || lista.contratista_id;
+      const contratista = lista.contratista_id;
+      const supervisor = lista.supervisor_id;
+      console.log("🔍 Datos obtenidos para Excel:");
+      console.log("  - Proyecto ID:", proyectoId);
+      console.log("  - Proyecto encontrado:", proyecto);
+      console.log("  - Proyecto título:", proyecto.titulo || "Sin título");
+      console.log("  - Proyecto dirección:", proyecto.propiedad?.direccion);
+      console.log("  - Contratista ID:", contratistaId);
+      console.log("  - Contratista encontrado:", contratista);
+      console.log("  - Contratista nombre:", contratista ? `${contratista.prim_nom} ${contratista.apell_pa}` : "No encontrado");
+      console.log("  - Supervisor:", supervisor ? `${supervisor.prim_nom} ${supervisor.apell_pa}` : "No encontrado");
+      console.log("  - Proyectos disponibles:", proyectos.length);
+      const fecha = /* @__PURE__ */ new Date();
+      const year = fecha.getFullYear().toString().slice(-2);
+      const month = (fecha.getMonth() + 1).toString().padStart(2, "0");
+      const day = fecha.getDate().toString().padStart(2, "0");
+      const numeroRFM = `RFM-${proyecto._id.slice(-2)}-${year}${month}${day}-${lista._id.slice(-2)}`;
+      const response = await fetch(`${"https://lead-inmobiliaria.com"}/files/RFM-19-250130-28 hotel 16.xlsx`);
+      if (!response.ok) {
+        throw new Error("No se pudo cargar la plantilla Excel");
+      }
+      const arrayBuffer = await response.arrayBuffer();
+      const workbook = new ExcelJS.Workbook();
+      await workbook.xlsx.load(arrayBuffer);
+      const worksheet = workbook.getWorksheet(1);
+      worksheet.getCell("G3").value = numeroRFM;
+      const proyectoNombre = proyecto.titulo || proyecto.propiedad?.direccion?.completa || `${proyecto.propiedad?.direccion?.calle || ""} ${proyecto.propiedad?.direccion?.numero_exterior || ""}`.trim() || `Proyecto ${proyecto._id.slice(-4)}`;
+      worksheet.getCell("B5").value = proyectoNombre;
+      let contratistaNombre = "N/A";
+      if (contratista && typeof contratista === "object") {
+        contratistaNombre = `${contratista.prim_nom || ""} ${contratista.apell_pa || ""}`.trim() || contratista.email || "Contratista sin nombre";
+      } else {
+        console.warn("⚠️ No se pudo obtener información del contratista");
+      }
+      worksheet.getCell("F5").value = contratistaNombre;
+      const supervisorNombre = supervisor ? `${supervisor.prim_nom || ""} ${supervisor.apell_pa || ""}`.trim() || supervisor.email || "Supervisor sin nombre" : "N/A";
+      worksheet.getCell("F6").value = supervisorNombre;
+      let startRow = 15;
+      lista.materiales.forEach((material, index) => {
+        const row = startRow + index;
+        worksheet.getCell(`A${row}`).value = index + 1;
+        worksheet.getCell(`B${row}`).value = material.tipo || "N/A";
+        worksheet.getCell(`C${row}`).value = material.tipo_unidad || "N/A";
+        worksheet.getCell(`D${row}`).value = material.cantidad || 0;
+        worksheet.getCell(`E${row}`).value = material.cantidad || 0;
+        worksheet.getCell(`F${row}`).value = material.descripcion || "N/A";
+      });
+      worksheet.getCell("B46").value = supervisorNombre;
+      worksheet.getCell("B48").value = (/* @__PURE__ */ new Date()).toLocaleDateString();
+      worksheet.getCell("J37").value = (/* @__PURE__ */ new Date()).toLocaleDateString();
+      const direccionProyecto = proyecto.propiedad?.direccion ? `${proyecto.propiedad.direccion.calle || ""} ${proyecto.propiedad.direccion.numero || ""}`.trim() || `${proyecto.propiedad.direccion.calle || ""}, ${proyecto.propiedad.direccion.colonia || ""}, ${proyecto.propiedad.direccion.ciudad || ""}`.trim() || "Dirección no disponible" : "N/A";
+      worksheet.getCell("B51").value = direccionProyecto;
+      let contratistaTelefono = "N/A";
+      if (contratista?.telefono) {
+        contratistaTelefono = contratista.telefono;
+      } else if (contratista?.phone) {
+        contratistaTelefono = contratista.phone;
+      } else if (contratistaId) {
+        try {
+          console.log("🔍 Consultando datos completos del contratista:", contratistaId);
+          const contratistaResponse = await axios.get(`${"https://lead-inmobiliaria.com"}/api/users/${contratistaId}`, {
+            withCredentials: true
+          });
+          if (contratistaResponse.data.success && contratistaResponse.data.user.telefono) {
+            contratistaTelefono = contratistaResponse.data.user.telefono;
+            console.log("✅ Teléfono obtenido de consulta adicional:", contratistaTelefono);
+          }
+        } catch (error2) {
+          console.warn("⚠️ No se pudo obtener teléfono del contratista:", error2.message);
+        }
+      }
+      console.log("📞 Teléfono final del contratista:", contratistaTelefono);
+      worksheet.getCell("B53").value = contratistaTelefono;
+      const fileName = `RFM-${proyecto._id.slice(-2)}-${year}${month}${day}-${lista._id.slice(-2)}.xlsx`;
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      console.log("✅ Archivo Excel generado y descargado:", fileName);
+      alert(`Archivo Excel "${fileName}" descargado exitosamente`);
+    } catch (error2) {
+      console.error("❌ Error al generar archivo Excel:", error2);
+      alert("Error al generar el archivo Excel. Intenta nuevamente.");
+    }
   };
   const formatearDireccion = (direccion) => {
     if (!direccion || typeof direccion !== "object") return "N/A";
@@ -19482,7 +19315,7 @@ function CrearBlog() {
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-4 w-4" }),
                 "Guardando..."
               ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-4 w-4" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1c, { className: "h-4 w-4" }),
                 "Crear Blog"
               ] })
             }
@@ -19932,7 +19765,7 @@ function EditarBlog() {
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Spinner, { className: "h-4 w-4" }),
                 "Guardando..."
               ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-4 w-4" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1c, { className: "h-4 w-4" }),
                 "Guardar Cambios"
               ] })
             }
@@ -20088,28 +19921,28 @@ function DetalleBlog() {
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h4", color: "blue-gray", className: "mb-4", children: blog.titulo }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-blue-50 rounded-lg", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1f, { className: "h-6 w-6 text-blue-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1d, { className: "h-6 w-6 text-blue-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Categoría" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: blog.categoria || "Sin categoría" })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-green-50 rounded-lg", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1g, { className: "h-6 w-6 text-green-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-6 w-6 text-green-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Autor" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: blog.autor ? `${blog.autor.prim_nom || ""} ${blog.autor.apell_pa || ""}`.trim() || "Sin autor" : "Sin autor" })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-amber-50 rounded-lg", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1h, { className: "h-6 w-6 text-amber-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1f, { className: "h-6 w-6 text-amber-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Fecha de Publicación" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "paragraph", color: "blue-gray", children: formatDate(blog.fechaPublicacion) })
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 p-4 bg-purple-50 rounded-lg", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { className: "h-6 w-6 text-purple-500" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1c, { className: "h-6 w-6 text-purple-500" }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue-gray", className: "font-semibold", children: "Estado" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -20274,7 +20107,7 @@ const routes = [
         firstForNonAdmin: true
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1i, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1g, { ...icon }),
         name: "Usuarios",
         path: "/users",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(UsersTable, {}),
@@ -20311,7 +20144,7 @@ const routes = [
         showInSidebar: false
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1j, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1h, { ...icon }),
         name: "Empleados",
         path: "/empleados",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(EmpleadosTable, {}),
@@ -20351,7 +20184,7 @@ const routes = [
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(CrearNomina, {})
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1c, { ...icon }),
         name: "Mi Nómina",
         path: "/nominas/mi-nomina",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(MiNominaPage, {}),
@@ -20363,7 +20196,7 @@ const routes = [
       },
       // Nuevas rutas para captaciones inmobiliarias
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1k, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1i, { ...icon }),
         name: "Proyectos",
         path: "/captaciones",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(MisProyectos, {}),
@@ -20425,7 +20258,7 @@ const routes = [
       },
       // Rutas para Remodelación
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1l, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1j, { ...icon }),
         name: "Remodelación",
         path: "/remodelacion",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(RemodelacionPage, {}),
@@ -20445,7 +20278,7 @@ const routes = [
       },
       // Rutas para Administración de Listas de Compra
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1e, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1c, { ...icon }),
         name: "Listas de Compra",
         path: "/administracion/listas-compra",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(ListasCompraAdminPage, {}),
@@ -20454,7 +20287,7 @@ const routes = [
       },
       // Rutas para Blog Corporativo
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1m, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1k, { ...icon }),
         name: "Blog",
         path: "/blog",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(BlogList, {}),
@@ -20483,13 +20316,13 @@ const routes = [
     layout: "auth",
     pages: [
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1n, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1l, { ...icon }),
         name: "sign in",
         path: "/sign-in",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(SignIn, {})
       },
       {
-        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1o, { ...icon }),
+        icon: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1m, { ...icon }),
         name: "sign up",
         path: "/sign-up",
         element: /* @__PURE__ */ jsxRuntimeExports.jsx(SignUp, {}),
@@ -20650,13 +20483,1090 @@ Sidenav.propTypes = {
   brandName: PropTypes.string
 };
 Sidenav.displayName = "/src/widgets/layout/sidnave.jsx";
+const scriptRel = "modulepreload";
+const assetsURL = function(dep) {
+  return "/" + dep;
+};
+const seen = {};
+const __vitePreload = function preload(baseModule, deps, importerUrl) {
+  let promise = Promise.resolve();
+  if (deps && deps.length > 0) {
+    let allSettled = function(promises$2) {
+      return Promise.all(promises$2.map((p) => Promise.resolve(p).then((value$1) => ({
+        status: "fulfilled",
+        value: value$1
+      }), (reason) => ({
+        status: "rejected",
+        reason
+      }))));
+    };
+    document.getElementsByTagName("link");
+    const cspNonceMeta = document.querySelector("meta[property=csp-nonce]");
+    const cspNonce = cspNonceMeta?.nonce || cspNonceMeta?.getAttribute("nonce");
+    promise = allSettled(deps.map((dep) => {
+      dep = assetsURL(dep);
+      if (dep in seen) return;
+      seen[dep] = true;
+      const isCss = dep.endsWith(".css");
+      const cssSelector = isCss ? '[rel="stylesheet"]' : "";
+      if (document.querySelector(`link[href="${dep}"]${cssSelector}`)) return;
+      const link = document.createElement("link");
+      link.rel = isCss ? "stylesheet" : scriptRel;
+      if (!isCss) link.as = "script";
+      link.crossOrigin = "";
+      link.href = dep;
+      if (cspNonce) link.setAttribute("nonce", cspNonce);
+      document.head.appendChild(link);
+      if (isCss) return new Promise((res, rej) => {
+        link.addEventListener("load", res);
+        link.addEventListener("error", () => rej(/* @__PURE__ */ new Error(`Unable to preload CSS for ${dep}`)));
+      });
+    }));
+  }
+  function handlePreloadError(err$2) {
+    const e$1 = new Event("vite:preloadError", { cancelable: true });
+    e$1.payload = err$2;
+    window.dispatchEvent(e$1);
+    if (!e$1.defaultPrevented) throw err$2;
+  }
+  return promise.then((res) => {
+    for (const item of res || []) {
+      if (item.status !== "rejected") continue;
+      handlePreloadError(item.reason);
+    }
+    return baseModule().catch(handlePreloadError);
+  });
+};
+const detectMobileCapabilities = () => {
+  const userAgent = navigator.userAgent;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  const isAndroid = /Android/i.test(userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+  const isChrome = /Chrome/i.test(userAgent) && !/Edge/i.test(userAgent);
+  const isSamsungBrowser = /SamsungBrowser/i.test(userAgent);
+  const isFirefox = /Firefox/i.test(userAgent);
+  const isSafari = /Safari/i.test(userAgent) && !/Chrome/i.test(userAgent);
+  return {
+    isMobile,
+    isAndroid,
+    isIOS,
+    browser: {
+      chrome: isChrome,
+      samsung: isSamsungBrowser,
+      firefox: isFirefox,
+      safari: isSafari
+    },
+    pushCapabilities: {
+      // Chrome en Android soporta push notifications
+      chromeAndroid: isMobile && isAndroid && isChrome,
+      // Samsung Browser soporta push notifications
+      samsungAndroid: isMobile && isAndroid && isSamsungBrowser,
+      // Firefox en Android soporta push notifications
+      firefoxAndroid: isMobile && isAndroid && isFirefox,
+      // Safari en iOS NO soporta push notifications en web
+      safariIOS: false
+      // Safari no soporta push notifications en web apps
+    }
+  };
+};
+const getMobileNotificationStrategy = () => {
+  const capabilities = detectMobileCapabilities();
+  if (!capabilities.isMobile) {
+    return {
+      strategy: "desktop",
+      message: "Dispositivo de escritorio - usando WebSocket + Sistema",
+      methods: ["websocket", "system"]
+    };
+  }
+  if (capabilities.pushCapabilities.chromeAndroid || capabilities.pushCapabilities.samsungAndroid || capabilities.pushCapabilities.firefoxAndroid) {
+    return {
+      strategy: "mobile_push",
+      message: "Móvil con soporte de Push - como WhatsApp/Facebook",
+      methods: ["websocket", "push", "system"],
+      priority: "push"
+    };
+  }
+  if (capabilities.isIOS) {
+    return {
+      strategy: "ios_limited",
+      message: "iOS - solo WebSocket cuando app está abierta",
+      methods: ["websocket", "system"],
+      note: "iOS Safari no soporta push notifications en web apps"
+    };
+  }
+  return {
+    strategy: "mobile_basic",
+    message: "Móvil básico - WebSocket + Sistema",
+    methods: ["websocket", "system"]
+  };
+};
+const requestMobilePermissions = async () => {
+  const strategy = getMobileNotificationStrategy();
+  if (strategy.strategy === "mobile_push") {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        console.log("✅ Permisos de notificación concedidos en móvil");
+        return {
+          success: true,
+          permission: "granted",
+          canPush: true,
+          message: "¡Notificaciones activadas! Recibirás notificaciones como WhatsApp/Facebook"
+        };
+      } else {
+        console.log("❌ Permisos de notificación denegados");
+        return {
+          success: false,
+          permission: "denied",
+          canPush: false,
+          message: "Permisos denegados. Solo notificaciones cuando la app esté abierta."
+        };
+      }
+    } catch (error) {
+      console.error("Error solicitando permisos:", error);
+      return {
+        success: false,
+        error: error.message,
+        message: "Error al solicitar permisos de notificación"
+      };
+    }
+  }
+  return {
+    success: false,
+    message: strategy.message,
+    methods: strategy.methods
+  };
+};
+class MobileNotificationService {
+  constructor() {
+    this.capabilities = detectMobileCapabilities();
+    this.strategy = getMobileNotificationStrategy();
+    this.isSupported = "serviceWorker" in navigator && "PushManager" in window;
+    this.vapidPublicKey = null;
+    this.registration = null;
+    this.subscription = null;
+  }
+  /**
+   * Inicializar notificaciones móviles
+   */
+  async initialize() {
+    console.log("📱 Inicializando notificaciones móviles...");
+    console.log("📱 Estrategia:", this.strategy.strategy);
+    if (this.strategy.strategy === "mobile_push") {
+      return await this.setupMobilePush();
+    } else {
+      console.log("📱 Usando estrategia básica para móvil");
+      return await this.setupBasicMobile();
+    }
+  }
+  /**
+   * Configurar push notifications para móvil (como WhatsApp/Facebook)
+   */
+  async setupMobilePush() {
+    try {
+      console.log("📱 Configurando push notifications móviles...");
+      await this.registerServiceWorker();
+      const permissionResult = await requestMobilePermissions();
+      if (!permissionResult.success || !permissionResult.canPush) {
+        console.log("📱 Push notifications no disponibles, usando modo básico");
+        return await this.setupBasicMobile();
+      }
+      await this.subscribeToPush();
+      console.log("✅ Push notifications móviles configuradas - ¡Como WhatsApp/Facebook!");
+      return {
+        success: true,
+        type: "mobile_push",
+        message: "¡Notificaciones móviles activadas! Recibirás notificaciones aunque la app esté cerrada.",
+        methods: ["push", "websocket", "system"]
+      };
+    } catch (error) {
+      console.error("❌ Error configurando push móvil:", error);
+      return await this.setupBasicMobile();
+    }
+  }
+  /**
+   * Configurar modo básico para móvil
+   */
+  async setupBasicMobile() {
+    console.log("📱 Configurando modo básico móvil...");
+    try {
+      const permission = await Notification.requestPermission();
+      console.log("📱 Permisos básicos:", permission);
+    } catch (error) {
+      console.log("📱 No se pudieron solicitar permisos básicos:", error);
+    }
+    return {
+      success: true,
+      type: "mobile_basic",
+      message: "Modo básico móvil activado. Notificaciones cuando la app esté abierta.",
+      methods: ["websocket", "system"]
+    };
+  }
+  /**
+   * Registrar Service Worker
+   */
+  async registerServiceWorker() {
+    if (!this.isSupported) {
+      throw new Error("Service Worker no soportado");
+    }
+    try {
+      this.registration = await navigator.serviceWorker.register("/sw.js");
+      console.log("📱 Service Worker registrado:", this.registration);
+      return this.registration;
+    } catch (error) {
+      console.error("❌ Error registrando Service Worker:", error);
+      throw error;
+    }
+  }
+  /**
+   * Suscribirse a push notifications
+   */
+  async subscribeToPush() {
+    if (!this.registration) {
+      throw new Error("Service Worker no registrado");
+    }
+    if (!this.vapidPublicKey) {
+      throw new Error("VAPID key no configurada");
+    }
+    try {
+      const applicationServerKey = this.urlBase64ToUint8Array(this.vapidPublicKey);
+      this.subscription = await this.registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey
+      });
+      console.log("📱 Suscripción push creada:", this.subscription);
+      await this.sendSubscriptionToServer(this.subscription);
+      return this.subscription;
+    } catch (error) {
+      console.error("❌ Error suscribiéndose a push:", error);
+      throw error;
+    }
+  }
+  /**
+   * Enviar suscripción al servidor
+   */
+  async sendSubscriptionToServer(subscription) {
+    try {
+      const apiUrl = "https://lead-inmobiliaria.com";
+      const response = await fetch(`${apiUrl}/api/push/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          subscription,
+          userAgent: navigator.userAgent,
+          isMobile: this.capabilities.isMobile
+        })
+      });
+      if (!response.ok) {
+        throw new Error(`Error del servidor: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("📱 Suscripción enviada al servidor:", data);
+      return data;
+    } catch (error) {
+      console.error("❌ Error enviando suscripción:", error);
+      throw error;
+    }
+  }
+  /**
+   * Convertir VAPID key
+   */
+  urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+  /**
+   * Mostrar notificación móvil
+   */
+  showMobileNotification(title, message, options = {}) {
+    if (!this.registration) {
+      console.log("📱 Service Worker no registrado, usando notificación básica");
+      this.showBasicNotification(title, message, options);
+      return;
+    }
+    const notificationOptions = {
+      body: message,
+      icon: "/img/lead-logo.svg",
+      badge: "/img/lead-logo.svg",
+      vibrate: [100, 50, 100],
+      data: {
+        url: options.url || "/dashboard/remodelacion",
+        timestamp: Date.now()
+      },
+      actions: [
+        { action: "open", title: "Abrir App" },
+        { action: "close", title: "Cerrar" }
+      ],
+      ...options
+    };
+    this.registration.showNotification(title, notificationOptions);
+  }
+  /**
+   * Mostrar notificación básica
+   */
+  showBasicNotification(title, message, options = {}) {
+    if (Notification.permission === "granted") {
+      new Notification(title, {
+        body: message,
+        icon: "/img/lead-logo.svg",
+        ...options
+      });
+    }
+  }
+  /**
+   * Verificar estado de las notificaciones móviles
+   */
+  getStatus() {
+    return {
+      isMobile: this.capabilities.isMobile,
+      strategy: this.strategy.strategy,
+      methods: this.strategy.methods,
+      hasServiceWorker: !!this.registration,
+      hasPushSubscription: !!this.subscription,
+      notificationPermission: Notification.permission,
+      canPush: this.strategy.strategy === "mobile_push" && Notification.permission === "granted"
+    };
+  }
+}
+const mobileNotificationService = new MobileNotificationService();
+const getWebSocketToken = async () => {
+  try {
+    console.log("🔌 Obteniendo token WebSocket desde API...");
+    const apiUrl = "https://lead-inmobiliaria.com";
+    const url = `${apiUrl}/api/captaciones/websocket-token`;
+    console.log("🔌 URL del token WebSocket:", url);
+    const response = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      // Agregar timeout
+      signal: AbortSignal.timeout(1e4)
+      // 10 segundos timeout
+    });
+    console.log("🔌 Respuesta del servidor:", response.status, response.statusText);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("❌ Error en respuesta del servidor:", errorText);
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+    }
+    const data = await response.json();
+    console.log("🔌 Datos recibidos:", data);
+    if (data.success && data.data?.token) {
+      console.log("✅ Token WebSocket obtenido exitosamente");
+      return data.data.token;
+    } else {
+      console.error("❌ Token WebSocket no encontrado en respuesta:", data);
+      throw new Error("Token WebSocket no encontrado en respuesta");
+    }
+  } catch (error) {
+    console.error("❌ Error al obtener token WebSocket:", error);
+    if (error.name === "TimeoutError") {
+      console.error("⏱️ Timeout al obtener token WebSocket - servidor no responde");
+    }
+    return null;
+  }
+};
+class WebSocketService {
+  constructor() {
+    this.ws = null;
+    this.reconnectAttempts = 0;
+    this.maxReconnectAttempts = 5;
+    this.reconnectInterval = 3e3;
+    this.isConnecting = false;
+    this.messageHandlers = /* @__PURE__ */ new Map();
+    this.pendingNotifications = [];
+  }
+  /**
+   * Conectar al WebSocket
+   */
+  async connect() {
+    console.log("🔌 WebSocketService.connect() llamado. Estado actual:", this.ws ? this.ws.readyState : "No inicializado");
+    if (this.isConnecting || this.ws && this.ws.readyState === WebSocket.OPEN) {
+      console.log("⚠️ WebSocket ya está conectado o conectándose");
+      return;
+    }
+    try {
+      this.isConnecting = true;
+      console.log("🔄 Iniciando conexión WebSocket...");
+      const token = await getWebSocketToken();
+      console.log("🔑 Token WebSocket obtenido:", !!token, token ? "Longitud: " + token.length : "N/A");
+      if (!token) {
+        console.error("❌ No se pudo obtener token WebSocket");
+        this.isConnecting = false;
+        return;
+      }
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      const host = window.location.hostname;
+      const port = "4000";
+      const wsUrl = `${protocol}//${host}:${port}?token=${token}`;
+      console.log("🔌 Conectando a WebSocket:", wsUrl);
+      this.ws = new WebSocket(wsUrl);
+      this.ws.onopen = (event) => {
+        console.log("✅ WebSocket conectado exitosamente. Evento:", event);
+        console.log("✅ WebSocket conectado exitosamente");
+        this.isConnecting = false;
+        this.reconnectAttempts = 0;
+        this.dispatchMessage("connection_status", true);
+        setTimeout(() => {
+          this.subscribeToNotifications();
+        }, 1e3);
+      };
+      this.ws.onmessage = (event) => {
+        try {
+          console.log("📨 WebSocket - Mensaje raw recibido:", event.data);
+          const data = JSON.parse(event.data);
+          console.log("📨 WebSocket - Datos parseados:", data);
+          this.handleMessage(data);
+        } catch (error) {
+          console.error("❌ Error al parsear mensaje WebSocket:", error);
+          console.error("❌ Datos raw:", event.data);
+        }
+      };
+      this.ws.onclose = (event) => {
+        console.log("❌ WebSocket cerrado. Código:", event.code, "Razón:", event.reason, "Fue limpio:", event.wasClean);
+        console.log("❌ WebSocket cerrado:", event.code, event.reason);
+        this.isConnecting = false;
+        this.dispatchMessage("connection_status", false);
+        this.handleReconnect();
+      };
+      this.ws.onerror = (error) => {
+        console.error("❌ Error en WebSocket:", error);
+        console.error("❌ Error en WebSocket:", error);
+        this.isConnecting = false;
+        this.dispatchMessage("connection_status", false);
+      };
+    } catch (error) {
+      console.error("❌ Error al conectar WebSocket:", error);
+      this.isConnecting = false;
+      this.dispatchMessage("connection_status", false);
+      this.handleReconnect();
+    }
+  }
+  /**
+   * Manejar reconexión automática
+   */
+  handleReconnect() {
+    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      console.log("Max intentos de reconexión alcanzados. Último estado:", this.ws ? this.ws.readyState : "N/A");
+      console.log("⚠️ WebSocket - No se pudo reconectar después de", this.maxReconnectAttempts, "intentos");
+      return;
+    }
+    this.reconnectAttempts++;
+    console.log(`🔄 Intentando reconectar WebSocket (${this.reconnectAttempts}/${this.maxReconnectAttempts})... Estado actual:`, this.ws ? this.ws.readyState : "N/A");
+    const backoffDelay = this.reconnectInterval * Math.pow(1.5, this.reconnectAttempts - 1);
+    console.log(`⏱️ Esperando ${backoffDelay}ms antes de reconectar...`);
+    setTimeout(() => {
+      console.log("🔄 Ejecutando reconexión WebSocket...");
+      this.connect();
+    }, backoffDelay);
+  }
+  /**
+   * Manejar mensajes recibidos
+   */
+  handleMessage(data) {
+    console.log("📨 Mensaje WebSocket recibido:", data);
+    switch (data.type) {
+      case "auth_success":
+        console.log("✅ Autenticación WebSocket exitosa");
+        this.subscribedProjects.forEach((projectId) => {
+          this.subscribeToProject(projectId);
+        });
+        break;
+      case "auth_error":
+        console.error("❌ Error de autenticación WebSocket:", data.message);
+        break;
+      case "notification":
+      case "remodelacion_notification":
+        this.handleNotification(data);
+        break;
+      case "project_notification":
+        this.handleProjectNotification(data);
+        break;
+      case "pong":
+        break;
+      case "connection_established":
+        console.log("✅ Conexión WebSocket establecida:", data.message);
+        this.dispatchMessage("connection_status", true);
+        break;
+      case "subscribed":
+        console.log("✅ Suscripción confirmada:", data.message);
+        break;
+      default:
+        console.log("Tipo de mensaje no manejado:", data.type);
+    }
+  }
+  /**
+   * Manejar notificaciones generales
+   */
+  handleNotification(data) {
+    const notification = data.data || data.notification || data;
+    const notificationHandlers = Array.from(this.messageHandlers.entries()).filter(([key, handler]) => key === "notification" || key === "all");
+    if (notificationHandlers.length === 0) {
+      this.pendingNotifications.push(notification);
+      return;
+    }
+    notificationHandlers.forEach(([key, handler]) => {
+      try {
+        handler(notification);
+      } catch (error) {
+        console.error("Error en handler de notificación:", key, error);
+      }
+    });
+    const listHandlers = Array.from(this.messageHandlers.entries()).filter(([key, handler]) => key === "notification_list");
+    listHandlers.forEach(([key, handler]) => {
+      try {
+        handler(notification);
+      } catch (error) {
+        console.error("Error en handler de lista de notificaciones:", key, error);
+      }
+    });
+    if (window.showNotification) {
+      window.showNotification({
+        title: notification.titulo,
+        message: notification.mensaje,
+        type: notification.tipo
+      });
+    }
+  }
+  /**
+   * Manejar notificaciones de proyecto
+   */
+  handleProjectNotification(data) {
+    const notification = data.data;
+    this.messageHandlers.forEach((handler, key) => {
+      if (key === `project_${data.projectId}` || key === "project_notification") {
+        handler(notification);
+      }
+    });
+  }
+  /**
+   * Suscribirse a notificaciones generales
+   */
+  subscribeToNotifications() {
+    if (!this.isConnected()) {
+      console.log("WebSocket no conectado, guardando suscripción para más tarde");
+      return;
+    }
+    this.ws.send(JSON.stringify({
+      type: "subscribe_notifications"
+    }));
+    console.log("📌 Suscrito a notificaciones generales");
+  }
+  /**
+   * Registrar handler para mensajes
+   */
+  onMessage(type, handler) {
+    this.messageHandlers.set(type, handler);
+    if ((type === "notification" || type === "notification_list" || type === "all") && this.pendingNotifications.length > 0) {
+      const pendingCopy = [...this.pendingNotifications];
+      this.pendingNotifications = [];
+      pendingCopy.forEach((notification) => {
+        try {
+          handler(notification);
+        } catch (error) {
+          console.error("Error al procesar notificación pendiente:", error);
+        }
+      });
+    }
+  }
+  /**
+   * Remover handler
+   */
+  offMessage(type) {
+    this.messageHandlers.delete(type);
+  }
+  /**
+   * Enviar mensaje a los handlers registrados
+   */
+  dispatchMessage(type, data) {
+    const handler = this.messageHandlers.get(type);
+    if (handler) {
+      try {
+        handler(data);
+      } catch (error) {
+        console.error(`Error en handler de ${type}:`, error);
+      }
+    }
+  }
+  /**
+   * Verificar si está conectado
+   */
+  isConnected() {
+    return this.ws && this.ws.readyState === WebSocket.OPEN;
+  }
+  /**
+   * Desconectar WebSocket manualmente
+   */
+  disconnect() {
+    console.log("🔌 Desconectando WebSocket manualmente...");
+    if (this.ws) {
+      this.ws.close(1e3, "Desconexión intencional");
+      this.ws = null;
+    }
+    this.isConnecting = false;
+    this.messageHandlers.clear();
+    this.reconnectAttempts = 0;
+    this.dispatchMessage("connection_status", false);
+  }
+  /**
+   * Enviar ping para mantener conexión viva
+   */
+  ping() {
+    if (this.isConnected()) {
+      this.ws.send(JSON.stringify({
+        type: "ping",
+        timestamp: Date.now()
+      }));
+    }
+  }
+}
+const webSocketService = new WebSocketService();
+setInterval(() => {
+  webSocketService.ping();
+}, 3e4);
+const websocket = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: webSocketService
+}, Symbol.toStringTag, { value: "Module" }));
+const notificationsAPI = {
+  /**
+   * Obtener notificaciones de un proyecto
+   */
+  async getProjectNotifications(projectId) {
+    try {
+      console.log("🔍 Obteniendo notificaciones del proyecto:", projectId);
+      const response = await fetchAPI(`/api/captaciones/${projectId}/remodelacion/notificaciones`, "GET");
+      console.log("📨 Respuesta de notificaciones:", response);
+      return response.data || [];
+    } catch (error) {
+      console.error("Error al obtener notificaciones:", error);
+      throw error;
+    }
+  },
+  /**
+   * Obtener notificaciones del usuario actual
+   */
+  async getUserNotifications() {
+    try {
+      console.log("🔍 Obteniendo notificaciones del usuario");
+      const response = await fetchAPI("/api/captaciones/notificaciones-usuario", "GET");
+      console.log("📨 Respuesta de notificaciones del usuario:", response);
+      return response.data || [];
+    } catch (error) {
+      console.error("Error al obtener notificaciones del usuario:", error);
+      throw error;
+    }
+  },
+  /**
+   * Marcar notificación como leída
+   */
+  async markAsRead(notificationId) {
+    try {
+      console.log("🔍 Marcando notificación como leída:", notificationId);
+      const response = await fetchAPI(`/api/captaciones/notificacion/${notificationId}/marcar-leida-usuario`, "PUT");
+      console.log("✅ Notificación marcada como leída:", response);
+      return response;
+    } catch (error) {
+      console.error("Error al marcar notificación como leída:", error);
+      throw error;
+    }
+  },
+  /**
+   * Marcar todas las notificaciones como leídas
+   */
+  async markAllAsRead() {
+    try {
+      console.log("🔍 Marcando todas las notificaciones como leídas");
+      const notifications = await this.getUserNotifications();
+      const promises = notifications.filter((n) => !n.leida).map((n) => this.markAsRead(n._id));
+      await Promise.all(promises);
+      return { success: true, message: "Todas las notificaciones marcadas como leídas" };
+    } catch (error) {
+      console.error("Error al marcar todas las notificaciones como leídas:", error);
+      throw error;
+    }
+  },
+  /**
+   * Eliminar notificación
+   */
+  async deleteNotification(notificationId) {
+    try {
+      console.log("🔍 Eliminando notificación:", notificationId);
+      console.log("⚠️ Endpoint de eliminación no implementado, simulando eliminación");
+      return { success: true, message: "Notificación eliminada" };
+    } catch (error) {
+      console.error("Error al eliminar notificación:", error);
+      throw error;
+    }
+  },
+  /**
+   * Obtener notificaciones no leídas
+   */
+  async getUnreadNotifications() {
+    try {
+      console.log("🔍 Obteniendo notificaciones no leídas");
+      const response = await fetchAPI("/api/captaciones/notificaciones?leida=false", "GET");
+      console.log("📨 Respuesta de notificaciones no leídas:", response);
+      return response.data || [];
+    } catch (error) {
+      console.error("Error al obtener notificaciones no leídas:", error);
+      throw error;
+    }
+  }
+};
+const GlobalNotifications = reactExports$1.forwardRef(({ onNotificationRead, onNotificationCountChange }, ref) => {
+  const [notifications, setNotifications] = reactExports$1.useState([]);
+  const [loading, setLoading] = reactExports$1.useState(false);
+  const [wsConnected, setWsConnected] = reactExports$1.useState(false);
+  const [totalNotifications, setTotalNotifications] = reactExports$1.useState(0);
+  reactExports$1.useEffect(() => {
+    const handleNotification = (notification) => {
+      setNotifications((prev) => {
+        const newNotifications = [notification, ...prev];
+        if (onNotificationCountChange) {
+          const newUnreadCount = newNotifications.filter((n) => !n.leida).length;
+          onNotificationCountChange(newUnreadCount);
+        }
+        return newNotifications;
+      });
+    };
+    webSocketService.onMessage("notification_list", handleNotification);
+    loadUserNotifications();
+    webSocketService.onMessage("connection_status", (connected) => {
+      setWsConnected(connected);
+    });
+    setWsConnected(webSocketService.isConnected());
+    return () => {
+      webSocketService.offMessage("notification_list");
+      webSocketService.offMessage("connection_status");
+    };
+  }, []);
+  const loadUserNotifications = async () => {
+    try {
+      setLoading(true);
+      console.log("🔔 Cargando notificaciones del usuario");
+      const data = await notificationsAPI.getUserNotifications();
+      console.log("🔔 Notificaciones cargadas:", data);
+      setTotalNotifications(data.length);
+      const limitedNotifications = data.slice(0, 10);
+      setNotifications(limitedNotifications);
+      const unreadCount2 = data.filter((n) => !n.leida).length;
+      if (onNotificationCountChange) {
+        onNotificationCountChange(unreadCount2);
+        console.log("🔢 Contador sincronizado con navbar:", unreadCount2);
+      }
+    } catch (error) {
+      console.error("❌ Error al cargar notificaciones:", error);
+      setNotifications([
+        {
+          _id: "1",
+          titulo: "Nueva solicitud de material",
+          mensaje: "Se ha creado una nueva solicitud para el proyecto Casa Azul",
+          tipo: "Solicitud",
+          prioridad: "Media",
+          leida: false,
+          fecha_creacion: new Date(Date.now() - 13 * 60 * 1e3).toISOString()
+          // 13 minutos atrás
+        },
+        {
+          _id: "2",
+          titulo: "Costo agregado a solicitud",
+          mensaje: "Se ha agregado un costo de $8,500 a la solicitud de azulejos",
+          tipo: "Compra",
+          prioridad: "Alta",
+          leida: false,
+          fecha_creacion: new Date(Date.now() - 24 * 60 * 60 * 1e3).toISOString()
+          // 1 día atrás
+        },
+        {
+          _id: "3",
+          titulo: "Material entregado",
+          mensaje: "El cemento ha sido entregado al contratista",
+          tipo: "Entrega",
+          prioridad: "Baja",
+          leida: true,
+          fecha_creacion: new Date(Date.now() - 2 * 24 * 60 * 60 * 1e3).toISOString()
+          // 2 días atrás
+        }
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const markAsRead = async (notificationId) => {
+    try {
+      await notificationsAPI.markAsRead(notificationId);
+      setNotifications((prev) => prev.map(
+        (n) => n._id === notificationId ? { ...n, leida: true, fecha_lectura: (/* @__PURE__ */ new Date()).toISOString() } : n
+      ));
+      console.log("✅ Notificación marcada como leída:", notificationId);
+      if (onNotificationRead) {
+        onNotificationRead();
+      }
+    } catch (error) {
+      console.error("Error al marcar notificación como leída:", error);
+      setNotifications((prev) => prev.map(
+        (n) => n._id === notificationId ? { ...n, leida: true, fecha_lectura: (/* @__PURE__ */ new Date()).toISOString() } : n
+      ));
+      if (onNotificationRead) {
+        onNotificationRead();
+      }
+    }
+  };
+  const markAllAsRead = async () => {
+    try {
+      await notificationsAPI.markAllAsRead();
+      setNotifications((prev) => prev.map((n) => ({
+        ...n,
+        leida: true,
+        fecha_lectura: (/* @__PURE__ */ new Date()).toISOString()
+      })));
+      if (onNotificationCountChange) {
+        onNotificationCountChange(0);
+      }
+    } catch (error) {
+      console.error("Error al marcar todas como leídas:", error);
+      setNotifications((prev) => prev.map((n) => ({
+        ...n,
+        leida: true,
+        fecha_lectura: (/* @__PURE__ */ new Date()).toISOString()
+      })));
+      if (onNotificationCountChange) {
+        onNotificationCountChange(0);
+      }
+    }
+  };
+  const getNotificationIcon = (tipo) => {
+    switch (tipo) {
+      case "Solicitud":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$11, { className: "h-4 w-4 text-blue-500" });
+      case "Compra":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$M, { className: "h-4 w-4 text-amber-500" });
+      case "Aprobacion":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$17, { className: "h-4 w-4 text-green-500" });
+      case "Entrega":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1b, { className: "h-4 w-4 text-green-500" });
+      case "Asignacion":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$L, { className: "h-4 w-4 text-purple-500" });
+      case "Rechazo":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$H, { className: "h-4 w-4 text-red-500" });
+      default:
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1n, { className: "h-4 w-4 text-gray-500" });
+    }
+  };
+  const getPriorityColor = (prioridad) => {
+    switch (prioridad) {
+      case "Alta":
+      case "Urgente":
+        return "red";
+      case "Media":
+        return "amber";
+      case "Baja":
+        return "green";
+      default:
+        return "gray";
+    }
+  };
+  const formatTimeAgo = (dateString) => {
+    const fecha = new Date(dateString);
+    const ahora = /* @__PURE__ */ new Date();
+    const diffMs = ahora - fecha;
+    const diffMins = Math.floor(diffMs / 6e4);
+    const diffHours = Math.floor(diffMs / 36e5);
+    const diffDays = Math.floor(diffMs / 864e5);
+    if (diffMins < 1) return "Ahora mismo";
+    if (diffMins < 60) return `${diffMins} min`;
+    if (diffHours < 24) return `${diffHours} horas`;
+    if (diffDays < 7) return `${diffDays} días`;
+    return fecha.toLocaleDateString("es-MX");
+  };
+  const unreadCount = notifications.filter((n) => !n.leida).length;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3 border-b border-gray-200", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "font-medium", children: "Notificaciones" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `w-2 h-2 rounded-full ${wsConnected ? "bg-green-500" : "bg-red-500"}` }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "text-xs", children: wsConnected ? "Conectado" : "Desconectado" })
+        ] })
+      ] }),
+      unreadCount > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        reactExports.Button,
+        {
+          size: "sm",
+          variant: "text",
+          color: "blue",
+          className: "text-xs",
+          onClick: markAllAsRead,
+          children: "Marcar todas como leídas"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "max-h-64 overflow-y-auto px-2 py-1", children: loading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "Cargando notificaciones..." }) }) : notifications.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 text-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$13, { className: "h-8 w-8 text-gray-400 mx-auto mb-2" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", children: "No hay notificaciones" })
+    ] }) : notifications.map((notification) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      reactExports.MenuItem,
+      {
+        className: `flex items-center gap-2 p-2 mb-1 rounded hover:bg-gray-50 ${!notification.leida ? "bg-blue-50" : ""}`,
+        onClick: () => !notification.leida && markAsRead(notification._id),
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `p-1 rounded-full ${!notification.leida ? "bg-blue-100" : "bg-gray-100"}`, children: getNotificationIcon(notification.tipo) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Typography,
+              {
+                variant: "small",
+                color: "blue-gray",
+                className: `text-xs ${!notification.leida ? "font-semibold" : "font-normal"}`,
+                children: notification.titulo
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Typography,
+              {
+                variant: "small",
+                color: "gray",
+                className: "text-xs truncate",
+                children: notification.mensaje
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1 mt-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.Typography,
+                {
+                  variant: "small",
+                  color: "blue-gray",
+                  className: "text-xs opacity-60",
+                  children: formatTimeAgo(notification.fecha_creacion)
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                reactExports.Chip,
+                {
+                  value: notification.prioridad,
+                  color: getPriorityColor(notification.prioridad),
+                  size: "sm",
+                  variant: "ghost",
+                  className: "text-xs h-4"
+                }
+              )
+            ] })
+          ] }),
+          !notification.leida && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" })
+        ]
+      },
+      notification._id
+    )) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3 border-t border-gray-200", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "text-xs", children: totalNotifications > 10 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          "Mostrando ",
+          notifications.length,
+          " de ",
+          totalNotifications,
+          " notificaciones"
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          notifications.length,
+          " notificaciones"
+        ] }) }),
+        unreadCount > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          reactExports.Chip,
+          {
+            value: unreadCount,
+            color: "red",
+            size: "sm",
+            className: "text-xs"
+          }
+        )
+      ] }),
+      totalNotifications > 10 && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "blue", className: "text-xs mt-1", children: "Mostrando solo las 10 más recientes" })
+    ] })
+  ] });
+});
+GlobalNotifications.displayName = "GlobalNotifications";
 function DashboardNavbar() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
+  const [unreadNotifications, setUnreadNotifications] = reactExports$1.useState(0);
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const handleNotificationRead = reactExports$1.useCallback(() => {
+    setUnreadNotifications((prev) => Math.max(0, prev - 1));
+  }, []);
+  const handleNotificationCountChange = reactExports$1.useCallback((count) => {
+    setUnreadNotifications(count);
+  }, []);
+  reactExports$1.useEffect(() => {
+    const initializeMobileNotifications = async () => {
+      try {
+        const status = mobileNotificationService.getStatus();
+        console.log("📱 Estado de notificaciones móviles:", status);
+        if (status.isMobile) {
+          console.log("📱 Dispositivo móvil detectado, inicializando notificaciones...");
+          const result = await mobileNotificationService.initialize();
+          console.log("📱 Resultado de inicialización móvil:", result);
+          if (result.success && result.type === "mobile_push") {
+            console.log("✅ ¡Notificaciones móviles activadas! Como WhatsApp/Facebook");
+          }
+        }
+      } catch (error) {
+        console.error("❌ Error inicializando notificaciones móviles:", error);
+      }
+    };
+    initializeMobileNotifications();
+  }, []);
+  reactExports$1.useEffect(() => {
+    const loadInitialNotifications = async () => {
+      try {
+        const apiUrl = "https://lead-inmobiliaria.com";
+        const response = await fetch(`${apiUrl}/api/captaciones/notificaciones-usuario`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const unreadCount = data.data?.filter((n) => !n.leida).length || 0;
+          setUnreadNotifications(unreadCount);
+          console.log("🔢 Contador inicial de notificaciones:", unreadCount);
+        }
+      } catch (error) {
+        console.error("Error cargando notificaciones iniciales:", error);
+      }
+    };
+    const handleNotification = (notification) => {
+      setUnreadNotifications((prev) => prev + 1);
+    };
+    webSocketService.onMessage("notification", handleNotification);
+    if (!webSocketService.isConnected()) {
+      webSocketService.connect();
+    }
+    setTimeout(() => {
+      if (webSocketService.isConnected()) {
+        webSocketService.subscribeToNotifications();
+      }
+    }, 1e3);
+    loadInitialNotifications();
+    return () => {
+      webSocketService.offMessage("notification");
+    };
+  }, []);
   const handleLogout = async () => {
     try {
       await axios.get("/api/logout", { withCredentials: true });
@@ -20712,7 +21622,7 @@ function DashboardNavbar() {
               color: "blue-gray",
               className: "grid xl:hidden",
               onClick: () => setOpenSidenav(dispatch, !openSidenav),
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1p, { strokeWidth: 3, className: "h-6 w-6 text-blue-gray-500" })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1o, { strokeWidth: 3, className: "h-6 w-6 text-blue-gray-500" })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -20739,108 +21649,159 @@ function DashboardNavbar() {
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Menu, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.MenuHandler, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.IconButton, { variant: "text", color: "blue-gray", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$4, { className: "h-5 w-5 text-blue-gray-500" }) }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.MenuList, { className: "w-max border-0", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.MenuItem, { className: "flex items-center gap-3", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  reactExports.Avatar,
-                  {
-                    src: "https://demos.creative-tim.com/material-dashboard/assets/img/team-2.jpg",
-                    alt: "item-1",
-                    size: "sm",
-                    variant: "circular"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    reactExports.Typography,
-                    {
-                      variant: "small",
-                      color: "blue-gray",
-                      className: "mb-1 font-normal",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "New message" }),
-                        " from Laur"
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    reactExports.Typography,
-                    {
-                      variant: "small",
-                      color: "blue-gray",
-                      className: "flex items-center gap-1 text-xs font-normal opacity-60",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$9, { className: "h-3.5 w-3.5" }),
-                        " 13 minutes ago"
-                      ]
-                    }
-                  )
-                ] })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.MenuItem, { className: "flex items-center gap-4", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  reactExports.Avatar,
-                  {
-                    src: "https://demos.creative-tim.com/material-dashboard/assets/img/small-logos/logo-spotify.svg",
-                    alt: "item-1",
-                    size: "sm",
-                    variant: "circular"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    reactExports.Typography,
-                    {
-                      variant: "small",
-                      color: "blue-gray",
-                      className: "mb-1 font-normal",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "New album" }),
-                        " by Travis Scott"
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    reactExports.Typography,
-                    {
-                      variant: "small",
-                      color: "blue-gray",
-                      className: "flex items-center gap-1 text-xs font-normal opacity-60",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$9, { className: "h-3.5 w-3.5" }),
-                        " 1 day ago"
-                      ]
-                    }
-                  )
-                ] })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.MenuItem, { className: "flex items-center gap-4", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-blue-gray-800 to-blue-gray-900", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$7, { className: "h-4 w-4 text-white" }) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.MenuHandler, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.IconButton, { variant: "text", color: "blue-gray", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Badge,
+              {
+                content: unreadNotifications,
+                className: "min-w-[20px] min-h-[20px] bg-red-500 animate-pulse",
+                hidden: unreadNotifications === 0,
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$4, { className: "h-5 w-5 text-blue-gray-500" })
+              }
+            ) }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.MenuList, { className: "w-96 max-h-98 overflow-visible -translate-x-full", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-2 border-b", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    reactExports.Typography,
+                    "button",
                     {
-                      variant: "small",
-                      color: "blue-gray",
-                      className: "mb-1 font-normal",
-                      children: "Payment successfully completed"
+                      onClick: async () => {
+                        try {
+                          const apiUrl = "https://lead-inmobiliaria.com";
+                          const response = await fetch(`${apiUrl}/api/captaciones/test-websocket`, {
+                            method: "POST",
+                            credentials: "include",
+                            headers: { "Content-Type": "application/json" }
+                          });
+                          if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                          }
+                          const data = await response.json();
+                          console.log("🧪 Respuesta de prueba:", data);
+                        } catch (error) {
+                          console.error("❌ Error en prueba:", error);
+                        }
+                      },
+                      className: "flex-1 bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600",
+                      children: "🧪 Probar WebSocket"
                     }
                   ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    reactExports.Typography,
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
                     {
-                      variant: "small",
-                      color: "blue-gray",
-                      className: "flex items-center gap-1 text-xs font-normal opacity-60",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$9, { className: "h-3.5 w-3.5" }),
-                        " 2 days ago"
-                      ]
+                      onClick: async () => {
+                        try {
+                          console.log("🔍 Estado WebSocket Local:", webSocketService.isConnected());
+                          const apiUrl = "https://lead-inmobiliaria.com";
+                          const response = await fetch(`${apiUrl}/api/captaciones/websocket-status`, {
+                            method: "GET",
+                            credentials: "include",
+                            headers: { "Content-Type": "application/json" }
+                          });
+                          if (response.ok) {
+                            const data = await response.json();
+                            console.log("🔍 Estado WebSocket del Servidor:", data);
+                          } else {
+                            console.error("❌ Error al obtener estado WebSocket");
+                          }
+                        } catch (error) {
+                          console.error("❌ Error al verificar estado WebSocket:", error);
+                        }
+                      },
+                      className: "flex-1 bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600",
+                      children: "🔍 Estado WS"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 mt-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: async () => {
+                        try {
+                          const status = mobileNotificationService.getStatus();
+                          console.log("📱 Estado móvil:", status);
+                          if (status.isMobile) {
+                            mobileNotificationService.showMobileNotification(
+                              "📱 Prueba Móvil",
+                              "¡Notificación de prueba para móvil! Como WhatsApp/Facebook",
+                              { url: "/dashboard/remodelacion" }
+                            );
+                            alert(`📱 Notificación móvil enviada!
+
+Estrategia: ${status.strategy}
+Métodos: ${status.methods.join(", ")}
+
+${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo cuando app esté abierta"}`);
+                          } else {
+                            const { default: hybridService } = await __vitePreload(async () => {
+                              const { default: hybridService2 } = await import("./hybridNotifications-BBhbA_Gw.js");
+                              return { default: hybridService2 };
+                            }, true ? __vite__mapDeps([0,1]) : void 0);
+                            const testNotification = {
+                              titulo: "Notificación de Prueba",
+                              mensaje: "Esta es una notificación de prueba del sistema híbrido LEAD.",
+                              tipo: "General",
+                              prioridad: "Media"
+                            };
+                            const results = await hybridService.sendNotification(testNotification);
+                            console.log("🧪 Resultados de prueba híbrida:", results);
+                            const successful = results.filter((r) => r.status === "fulfilled" && r.value.success);
+                            if (successful.length > 0) {
+                              const methods = successful.map((s) => s.value.method);
+                              alert(`✅ Notificación enviada por ${successful.length} método(s): ${methods.join(", ")}
+
+🎯 WebSocket siempre funciona para notificaciones en tiempo real.`);
+                            } else {
+                              alert("❌ No se pudo enviar la notificación por ningún método.");
+                            }
+                          }
+                        } catch (error) {
+                          console.error("❌ Error enviando notificación:", error);
+                          alert("❌ Error: " + error.message);
+                        }
+                      },
+                      className: "flex-1 bg-purple-500 text-white px-3 py-1 rounded text-sm hover:bg-purple-600",
+                      children: "📱 Probar Móvil"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      onClick: async () => {
+                        try {
+                          const { default: hybridService } = await __vitePreload(async () => {
+                            const { default: hybridService2 } = await import("./hybridNotifications-BBhbA_Gw.js");
+                            return { default: hybridService2 };
+                          }, true ? __vite__mapDeps([0,1]) : void 0);
+                          const results = await hybridService.requestAllPermissions();
+                          console.log("🔐 Resultados de permisos híbridos:", results);
+                          const granted = Object.entries(results).filter(([_, granted2]) => granted2).map(([key, _]) => key);
+                          if (granted.length > 0) {
+                            alert(`✅ Permisos configurados: ${granted.join(", ")}
+
+🎯 WebSocket siempre funciona para notificaciones en tiempo real.`);
+                          } else {
+                            alert("⚠️ No se pudieron configurar permisos adicionales.\n\n🎯 WebSocket siempre funciona para notificaciones en tiempo real.");
+                          }
+                        } catch (error) {
+                          console.error("❌ Error solicitando permisos híbridos:", error);
+                          alert("❌ Error: " + error.message);
+                        }
+                      },
+                      className: "flex-1 bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600",
+                      children: "🔐 Configurar"
                     }
                   )
                 ] })
-              ] })
+              ] }),
+              console.log("🔔 Navbar: Renderizando GlobalNotifications"),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                GlobalNotifications,
+                {
+                  onNotificationRead: handleNotificationRead,
+                  onNotificationCountChange: handleNotificationCountChange
+                }
+              )
             ] })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -20849,7 +21810,7 @@ function DashboardNavbar() {
               variant: "text",
               color: "blue-gray",
               onClick: () => setOpenConfigurator(dispatch, true),
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1q, { className: "h-5 w-5 text-blue-gray-500" })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1p, { className: "h-5 w-5 text-blue-gray-500" })
             }
           )
         ] })
@@ -21134,7 +22095,7 @@ function Dashboard() {
           className: "fixed bottom-8 right-8 z-40 rounded-full shadow-blue-gray-900/10",
           ripple: false,
           onClick: () => setOpenConfigurator(dispatch, true),
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1q, { className: "h-12 w-12" })
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(ForwardRef$1p, { className: "h-12 w-12" })
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
@@ -21692,3 +22653,7 @@ function App() {
 ReactDOM.createRoot(document.getElementById("root")).render(
   /* @__PURE__ */ jsxRuntimeExports.jsx(React.StrictMode, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(BrowserRouter, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.ThemeProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(MaterialTailwindControllerProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(AuthProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(App, {}) }) }) }) }) })
 );
+export {
+  __vitePreload as _,
+  websocket as w
+};

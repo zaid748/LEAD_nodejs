@@ -29,6 +29,10 @@ const NotificacionSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Material' 
     },
+    lista_compra_id: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'ListaCompra' 
+    },
     leida: { 
         type: Boolean, 
         default: false 
@@ -45,7 +49,7 @@ const NotificacionSchema = new mongoose.Schema({
     },
     accion_requerida: {
         type: String,
-        enum: ['Revisar', 'Aprobar', 'Aprobar compra', 'Comprar', 'Entregar', 'Firmar', 'Ninguna'],
+        enum: ['Revisar', 'Aprobar', 'Aprobar compra', 'Autorizar compra', 'Comprar', 'Entregar', 'Firmar', 'Ninguna'],
         default: 'Ninguna'
     }
 }, { timestamps: true });
@@ -55,6 +59,7 @@ NotificacionSchema.index({ usuario_destino: 1 });
 NotificacionSchema.index({ leida: 1 });
 NotificacionSchema.index({ tipo: 1 });
 NotificacionSchema.index({ proyecto_id: 1 });
+NotificacionSchema.index({ lista_compra_id: 1 });
 NotificacionSchema.index({ fecha_creacion: -1 });
 NotificacionSchema.index({ prioridad: 1 });
 

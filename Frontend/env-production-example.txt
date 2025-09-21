@@ -1,0 +1,6 @@
+# Configuración Frontend para PRODUCCIÓN
+VITE_API_URL=https://lead-inmobiliaria.com/api
+VITE_VAPID_PUBLIC_KEY=BH8QuI-t1TieUaywkDJs7MhTLYVj6ouwOfM8NZjXv_S1QgX78HmLJQL2MEp9Zm6mCsPrzYnagrG299uCFN8d5dI
+VITE_APP_NAME=LEAD Inmobiliaria
+VITE_APP_VERSION=1.0.0
+VITE_APP_ENV=production

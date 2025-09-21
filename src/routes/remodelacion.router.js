@@ -8,6 +8,7 @@ const {
     validarSolicitudMaterial, 
     validarPresupuesto 
 } = require('../middleware/permisos-remodelacion');
+const { verificarToken } = require('../helpers/auth');
 
 /**
  * @route   GET /api/captaciones/
@@ -175,6 +176,7 @@ router.get('/materiales',
     }
 );
 
+
 /**
  * @route   GET /api/captaciones/notificaciones
  * @desc    Obtener notificaciones del proyecto
@@ -213,6 +215,7 @@ router.get('/notificaciones',
         }
     }
 );
+
 
 /**
  * @route   PUT /api/captaciones/notificacion/:notificacionId/marcar-leida
@@ -368,9 +371,14 @@ router.put('/materiales/:materialId/aprobar',
                 role: { $in: ['administrator', 'administrador'] } 
             });
 
+            console.log('🔍 DEBUG - Administradores encontrados:', administradores.length);
+            console.log('🔍 DEBUG - IDs de administradores:', administradores.map(a => a._id));
+            console.log('🔍 DEBUG - wsManager disponible:', !!req.app.get('wsManager'));
+            console.log('🔍 DEBUG - Usuario actual:', usuario._id, usuario.role);
+
             // Crear notificación para cada administrador
             for (const admin of administradores) {
-                await Notificacion.create({
+                const notificacion = await Notificacion.create({
                     usuario_destino: admin._id,
                     titulo: 'Material Aprobado por Supervisor',
                     mensaje: mensaje || `Supervisor aprobó: ${material.tipo} - Costo: $${material.costo?.toLocaleString('es-MX')}`,
@@ -381,9 +389,48 @@ router.put('/materiales/:materialId/aprobar',
                     prioridad: 'Alta',
                     accion_requerida: 'Aprobar compra'
                 });
+
+                // Enviar notificación por WebSocket
+                const wsManager = req.app.get('wsManager');
+                console.log('🔍 DEBUG - wsManager disponible:', !!wsManager);
+                if (wsManager) {
+                    try {
+                        wsManager.sendNotification(admin._id.toString(), notificacion);
+                        console.log('📡 Notificación WebSocket enviada al administrador:', admin._id);
+                    } catch (wsError) {
+                        console.error('❌ Error enviando WebSocket:', wsError);
+                    }
+                } else {
+                    console.log('⚠️ wsManager no disponible');
+                }
+            }
+
+            // Crear notificación para el supervisor (él mismo) para proceder con la compra
+            console.log('🔔 DEBUG - Creando notificación para supervisor...');
+            const notificacionSupervisor = await Notificacion.create({
+                usuario_destino: usuario._id, // Notificación para el supervisor mismo
+                titulo: 'Material Aprobado - Proceder con Compra',
+                mensaje: `Has aprobado el material "${material.tipo}". Ahora debes proceder a comprarlo o ingresar la cantidad final gastada para el proyecto.`,
+                tipo: 'Compra',
+                proyecto_id: proyectoId,
+                material_id: materialId,
+                leida: false,
+                prioridad: 'Alta',
+                accion_requerida: 'Comprar'
+            });
+
+            // Enviar notificación al supervisor por WebSocket
+            if (wsManager) {
+                try {
+                    wsManager.sendNotification(usuario._id.toString(), notificacionSupervisor);
+                    console.log('📡 Notificación WebSocket enviada al supervisor:', usuario._id);
+                } catch (wsError) {
+                    console.error('❌ Error enviando WebSocket al supervisor:', wsError);
+                }
             }
 
             console.log('✅ DEBUG - Material aprobado y enviado a administración');
+            console.log('✅ DEBUG - Notificación para supervisor creada exitosamente');
 
             res.json({
                 success: true,

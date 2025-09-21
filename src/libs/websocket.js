@@ -76,63 +76,63 @@ class WebSocketManager {
      */
     async authenticateConnection(ws, token) {
         try {
-            // Aquí se implementaría la verificación del token
-            // Por ahora, simulamos la autenticación
+            console.log('🔐 WebSocket - Autenticando conexión con token:', token.substring(0, 20) + '...');
             const userId = this.verifyToken(token);
             
             if (userId) {
-                // Almacenar conexión por usuario
-                this.clients.set(userId, ws);
-                ws.userId = userId;
+                // Almacenar conexión por usuario (siempre como string)
+                const userIdStr = userId.toString();
+                this.clients.set(userIdStr, ws);
+                ws.userId = userIdStr;
+                
+                console.log(`✅ WebSocket - Usuario ${userIdStr} conectado exitosamente`);
+                console.log(`📊 WebSocket - Total clientes conectados: ${this.clients.size}`);
                 
                 // Enviar confirmación de conexión
                 ws.send(JSON.stringify({
                     type: 'connection_established',
                     message: 'Conexión WebSocket establecida exitosamente',
-                    userId: userId
+                    userId: userIdStr
                 }));
 
-                console.log(`Usuario ${userId} conectado via WebSocket`);
+                console.log(`🔔 WebSocket - Usuario ${userIdStr} conectado via WebSocket`);
             } else {
+                console.log('❌ WebSocket - Token inválido, cerrando conexión');
                 ws.close(1008, 'Token inválido');
             }
         } catch (error) {
-            console.error('Error en autenticación WebSocket:', error);
+            console.error('❌ Error en autenticación WebSocket:', error);
             ws.close(1008, 'Error de autenticación');
         }
     }
 
     /**
-     * Verificar token (implementar según tu sistema de autenticación)
+     * Verificar token usando JWT real
      */
     verifyToken(token) {
-        // Aquí implementarías la verificación real del token
-        // Por ahora, simulamos que el token es válido
-        
         try {
-            // Simulación: extraer userId del token
-            // En implementación real, verificarías el token con tu secret
-            const decoded = this.decodeToken(token);
-            return decoded ? decoded.userId : null;
+            const jwt = require('jsonwebtoken');
+            const JWT_SECRET = process.env.JWT_SECRET || process.env.SECRET || process.env.SESSION_SECRET;
+            
+            if (!JWT_SECRET) {
+                console.error('❌ JWT_SECRET no configurado');
+                return null;
+            }
+
+            const decoded = jwt.verify(token, JWT_SECRET);
+            console.log('🔐 WebSocket - Token verificado para usuario:', decoded._id);
+            return decoded._id;
         } catch (error) {
-            console.error('Error al verificar token:', error);
+            console.error('❌ Error al verificar token WebSocket:', error.message);
             return null;
         }
     }
 
     /**
-     * Decodificar token (implementar según tu sistema)
+     * Decodificar token (ya no se usa, pero mantenemos para compatibilidad)
      */
     decodeToken(token) {
-        // Implementar según tu sistema de autenticación
-        // Por ahora, simulamos la decodificación
-        try {
-            // En implementación real, usarías JWT.verify()
-            // Por ahora, simulamos que el token contiene userId
-            return { userId: token.substring(0, 24) }; // Simular ObjectId
-        } catch (error) {
-            return null;
-        }
+        return this.verifyToken(token);
     }
 
     /**
@@ -155,6 +155,15 @@ class WebSocketManager {
                         message: 'Suscrito a notificaciones del proyecto'
                     }));
                 }
+                break;
+            
+            case 'subscribe_notifications':
+                // Suscribir a notificaciones generales
+                ws.subscribedToNotifications = true;
+                ws.send(JSON.stringify({
+                    type: 'subscribed',
+                    message: 'Suscrito a notificaciones generales'
+                }));
                 break;
             
             case 'unsubscribe_project':
@@ -181,20 +190,68 @@ class WebSocketManager {
      * Enviar notificación a un usuario específico
      */
     sendNotification(userId, notification) {
-        const ws = this.clients.get(userId);
+        console.log('📡 WebSocket - Intentando enviar notificación a usuario:', userId);
+        console.log('📡 WebSocket - Total clientes conectados:', this.clients.size);
+        console.log('📡 WebSocket - Clientes conectados:', Array.from(this.clients.keys()));
+        
+        // Convertir userId a string para asegurar consistencia
+        const userIdStr = userId.toString();
+        const ws = this.clients.get(userIdStr);
+        
+        console.log('📡 WebSocket - Usuario encontrado en clients:', !!ws);
+        console.log('📡 WebSocket - Estado de conexión:', ws ? ws.readyState : 'No encontrado');
+        
         if (ws && ws.readyState === WebSocket.OPEN) {
             try {
-                ws.send(JSON.stringify({
+                const message = {
                     type: 'notification',
                     data: notification
-                }));
+                };
+                console.log('📡 WebSocket - Enviando mensaje:', message);
+                ws.send(JSON.stringify(message));
+                console.log('✅ WebSocket - Notificación enviada exitosamente a usuario:', userIdStr);
                 return true;
             } catch (error) {
-                console.error('Error al enviar notificación:', error);
+                console.error('❌ Error al enviar notificación:', error);
                 return false;
+            }
+        } else {
+            console.log('⚠️ WebSocket - Usuario no conectado o conexión cerrada:', userIdStr);
+            if (ws) {
+                console.log('⚠️ WebSocket - Estado de conexión:', ws.readyState);
+            } else {
+                console.log('⚠️ WebSocket - No se encontró conexión para usuario:', userIdStr);
+                // Mostrar todos los clientes para debugging
+                console.log('📋 WebSocket - Todos los clientes conectados:');
+                this.clients.forEach((clientWs, clientId) => {
+                    console.log(`  - Cliente: ${clientId}, Estado: ${clientWs.readyState}`);
+                });
             }
         }
         return false;
+    }
+
+    /**
+     * Enviar notificación a todos los usuarios suscritos a notificaciones generales
+     */
+    broadcastToAllUsers(notification) {
+        let sentCount = 0;
+        
+        this.clients.forEach((ws, userId) => {
+            if (ws.readyState === WebSocket.OPEN && ws.subscribedToNotifications) {
+                try {
+                    ws.send(JSON.stringify({
+                        type: 'notification',
+                        data: notification
+                    }));
+                    sentCount++;
+                } catch (error) {
+                    console.error(`Error al enviar notificación general a usuario ${userId}:`, error);
+                }
+            }
+        });
+
+        return sentCount;
     }
 
     /**

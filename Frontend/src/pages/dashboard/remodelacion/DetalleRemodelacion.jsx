@@ -30,7 +30,7 @@ import {
     Presupuesto, 
     MaterialForm, 
     SolicitudForm, 
-    Notificaciones, 
+    // Notificaciones, // Archivo eliminado - ahora se usa GlobalNotifications en el navbar 
     CartaResponsabilidad, 
     Reportes 
 } from '../../../components/remodelacion';
@@ -420,11 +420,21 @@ const DetalleRemodelacion = () => {
 
                             {/* Notificaciones */}
                             {activeTab === "notificaciones" && (
-                                <Notificaciones 
-                                    proyectoId={id} 
-                                    userRole="administrator"
-                                />
+                                <div className="p-6 text-center">
+                                    <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                                        Notificaciones
+                                    </h3>
+                                    <p className="text-gray-500">
+                                        Las notificaciones ahora se muestran en el menú global del navbar (icono de campana en la parte superior).
+                                    </p>
+                                    <p className="text-sm text-gray-400 mt-2">
+                                        Haz clic en la campana en la parte superior derecha para ver todas las notificaciones.
+                                    </p>
+                                </div>
                             )}
+                            
+                            {/* Debug: Mostrar tab activo */}
+                            {console.log('🔍 Tab activo:', activeTab, 'ID del proyecto:', id)}
                         </div>
                     </Tabs>
                 </CardBody>

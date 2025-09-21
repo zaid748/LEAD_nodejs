@@ -1,0 +1,13 @@
+# Configuración de VAPID Keys para Push Notifications
+# Agregar estas variables a tu archivo .env
+
+# VAPID Keys para Push Notifications
+VAPID_PUBLIC_KEY=tu_vapid_public_key_aqui
+VAPID_PRIVATE_KEY=tu_vapid_private_key_aqui
+VAPID_SUBJECT=mailto:admin@lead-inmobiliaria.com
+
+# Frontend
+VITE_VAPID_PUBLIC_KEY=tu_vapid_public_key_aqui
+
+# Para generar VAPID keys, ejecuta:
+# npx web-push generate-vapid-keys
