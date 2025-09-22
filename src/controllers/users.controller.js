@@ -131,13 +131,17 @@ userCtrl.signIn = async (req, res) => {
                 { expiresIn: '24h' }
             );
 
-            res.cookie('Authorization', token, { 
+            // Configuración de cookies para producción
+            const cookieOptions = {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production', // true en HTTPS
+                sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // none para HTTPS cross-origin
                 maxAge: 24 * 60 * 60 * 1000, // 24 horas
-                path: '/'
-            });
+                path: '/',
+                domain: process.env.NODE_ENV === 'production' ? '.lead-inmobiliaria.com' : undefined
+            };
+            
+            res.cookie('Authorization', token, cookieOptions);
 
 
             return res.status(200).json({
@@ -174,8 +178,9 @@ userCtrl.logout = (req, res) => {
         maxAge: 1,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        path: '/',
+        domain: process.env.NODE_ENV === 'production' ? '.lead-inmobiliaria.com' : undefined
     });
     return res.status(200).json({
         success: true,

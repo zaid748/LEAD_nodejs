@@ -30,6 +30,10 @@ services:
       - MONGODB_USERNAME=admin_lead
       - MONGODB_PASSWORD=LeadPass2024
       - MONGODB_AUTH_SOURCE=admin
+      - VAPID_PUBLIC_KEY=BH8QuI-t1TieUaywkDJs7MhTLYVj6ouwOfM8NZjXv_S1QgX78HmLJQL2MEp9Zm6mCsPrzYnagrG299uCFN8d5dI
+      - VAPID_PRIVATE_KEY=LTyPAFQGI7wPaci3Fttt-zod9H8voNMfLaJwFKN8JMg
+      - VAPID_SUBJECT=mailto:admin@lead-inmobiliaria.com
+      - FCM_SERVER_KEY=YOUR_FCM_SERVER_KEY_HERE
     user: "node"
     security_opt:
       - no-new-privileges:true
@@ -72,6 +76,7 @@ services:
     environment:
       - NODE_ENV=development
       - VITE_API_URL=http://localhost:4000
+      - VITE_VAPID_PUBLIC_KEY=BH8QuI-t1TieUaywkDJs7MhTLYVj6ouwOfM8NZjXv_S1QgX78HmLJQL2MEp9Zm6mCsPrzYnagrG299uCFN8d5dI
     command: npm run dev -- --host 0.0.0.0
     depends_on:
       - backend

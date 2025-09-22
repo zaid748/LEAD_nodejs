@@ -17,6 +17,10 @@ services:
       - LOG_LEVEL=info
       # Orígenes permitidos (usar .env.prod por defecto, aquí como respaldo)
       - ALLOWED_ORIGINS=https://lead-inmobiliaria.com,https://www.lead-inmobiliaria.com
+      # VAPID Keys para Push Notifications
+      - VAPID_PUBLIC_KEY=BH8QuI-t1TieUaywkDJs7MhTLYVj6ouwOfM8NZjXv_S1QgX78HmLJQL2MEp9Zm6mCsPrzYnagrG299uCFN8d5dI
+      - VAPID_PRIVATE_KEY=LTyPAFQGI7wPaci3Fttt-zod9H8voNMfLaJwFKN8JMg
+      - VAPID_SUBJECT=mailto:zaidnevarez7@gmail.com
     volumes:
       - ./Frontend/dist:/usr/src/app/Frontend/dist:ro
       - ./FrontendPublic:/usr/src/app/FrontendPublic:ro

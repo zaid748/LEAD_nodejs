@@ -1,0 +1,32 @@
+# Configuración para PRODUCCIÓN
+NODE_ENV=production
+
+# Base de datos
+NOTES_APP_MONGODB_HOST=mongodb://mongodb:27017/lead_production
+NOTES_APP_MONGODB_DATABASE=lead_production
+
+# JWT
+SECRET=tu_jwt_secret_super_seguro_para_produccion_cambiar_esto
+
+# CORS - Dominios permitidos en producción
+ALLOWED_ORIGINS=https://tu-dominio.com,https://www.tu-dominio.com
+
+# VAPID Keys para Push Notifications
+VAPID_PUBLIC_KEY=tu_vapid_public_key_produccion
+VAPID_PRIVATE_KEY=tu_vapid_private_key_produccion
+VAPID_SUBJECT=mailto:admin@tu-dominio.com
+
+# FCM Server Key (opcional - deshabilitado)
+FCM_SERVER_KEY=tu_fcm_server_key_si_lo_necesitas
+
+# AWS S3 (si usas almacenamiento en la nube)
+AWS_ACCESS_KEY_ID=tu_aws_access_key
+AWS_SECRET_ACCESS_KEY=tu_aws_secret_key
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=lead-inmobiliaria-production
+
+# Email (si usas notificaciones por email)
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=tu_email@gmail.com
+EMAIL_PASS=tu_app_password

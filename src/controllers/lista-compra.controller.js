@@ -2,6 +2,7 @@ const ListaCompra = require('../models/lista-compra');
 const CaptacionInmobiliaria = require('../models/captacion-inmobiliaria');
 const Notificacion = require('../models/notificacion');
 const User = require('../models/user');
+const PushController = require('./push.controller');
 const { uploadImageToS3, uploadComprobanteToS3 } = require('../libs/multerImagenes');
 
 /**
@@ -109,12 +110,12 @@ class ListaCompraController {
                     usuario_destino: listaCompra.supervisor_id._id,
                     titulo: 'Nueva Lista de Compra Recibida',
                     mensaje: `El contratista ha enviado una lista de compra con ${listaCompra.materiales.length} materiales para el proyecto ${listaCompra.proyecto_id.propiedad?.tipo || 'Sin título'}`,
-                    tipo: 'Lista_Compra',
+                    tipo: 'Solicitud',
                     proyecto_id: listaCompra.proyecto_id._id,
                     lista_compra_id: listaCompra._id,
                     prioridad: 'Alta',
                     accion_requerida: 'Revisar'
-                });
+                }, req);
             }
 
             res.json({
@@ -427,6 +428,7 @@ class ListaCompraController {
                 }
 
                 // Crear notificación para administradores
+                console.log('🔔 DEBUG - Creando notificación para administradores...');
                 await this.crearNotificacion({
                     usuario_destino: null, // Se enviará a todos los administradores
                     titulo: 'Lista de Compra Aprobada por Supervisor',
@@ -436,7 +438,24 @@ class ListaCompraController {
                     lista_compra_id: listaCompra._id,
                     prioridad: 'Alta',
                     accion_requerida: 'Autorizar compra'
-                });
+                }, req);
+                console.log('✅ DEBUG - Notificación para administradores creada exitosamente');
+
+                // Crear notificación para el supervisor (él mismo) para proceder con la compra
+            console.log('🔔 DEBUG - Creando notificación para supervisor...');
+            console.log('🔔 DEBUG - Supervisor ID:', usuario._id);
+            console.log('🔔 DEBUG - Proyecto:', listaCompra.proyecto_id.propiedad?.tipo);
+            await this.crearNotificacion({
+                usuario_destino: usuario._id, // Notificación para el supervisor mismo
+                titulo: 'Proceder con la Compra de Materiales',
+                mensaje: `Has aprobado la lista de compra. Ahora debes proceder a comprar los materiales o ingresar la cantidad final gastada para el proyecto ${listaCompra.proyecto_id.propiedad?.tipo || 'Sin título'}`,
+                tipo: 'Compra',
+                proyecto_id: listaCompra.proyecto_id._id,
+                lista_compra_id: listaCompra._id,
+                prioridad: 'Alta',
+                accion_requerida: 'Comprar'
+            }, req);
+            console.log('✅ DEBUG - Notificación para supervisor creada exitosamente');
 
             } else if (accion === 'rechazar') {
                 listaCompra.estatus_general = 'Rechazada';
@@ -452,7 +471,7 @@ class ListaCompraController {
                     lista_compra_id: listaCompra._id,
                     prioridad: 'Media',
                     accion_requerida: 'Revisar'
-                });
+                }, req);
             }
 
             // Actualizar información de revisión
@@ -557,7 +576,7 @@ class ListaCompraController {
     /**
      * Crear notificación
      */
-    static async crearNotificacion(datos) {
+    static async crearNotificacion(datos, req = null) {
         try {
             // Si no hay usuario destino específico, enviar a todos los administradores
             if (!datos.usuario_destino) {
@@ -571,10 +590,72 @@ class ListaCompraController {
                         usuario_destino: admin._id
                     });
                     await notificacion.save();
+
+                    // Enviar notificación por WebSocket si está disponible
+                    if (req && req.app) {
+                        const wsManager = req.app.get('wsManager');
+                        if (wsManager) {
+                            try {
+                                wsManager.sendNotification(admin._id.toString(), notificacion);
+                            } catch (wsError) {
+                                console.error('Error enviando WebSocket:', wsError);
+                            }
+                        }
+                    }
+
+                    // Enviar push notification
+                    try {
+                        await PushController.sendNotificationToUser(admin._id, {
+                            titulo: notificacion.titulo,
+                            mensaje: notificacion.mensaje,
+                            tipo: notificacion.tipo,
+                            proyecto_id: notificacion.proyecto_id,
+                            lista_compra_id: notificacion.lista_compra_id,
+                            prioridad: notificacion.prioridad,
+                            accion_requerida: notificacion.accion_requerida
+                        });
+                    } catch (pushError) {
+                        console.error('Error enviando push notification:', pushError);
+                    }
                 }
             } else {
                 const notificacion = new Notificacion(datos);
                 await notificacion.save();
+
+                // Enviar notificación por WebSocket si está disponible
+                if (req && req.app) {
+                    const wsManager = req.app.get('wsManager');
+                    if (wsManager) {
+                        try {
+                            const userId = typeof datos.usuario_destino === 'object' 
+                                ? datos.usuario_destino._id.toString() 
+                                : datos.usuario_destino.toString();
+                            
+                            wsManager.sendNotification(userId, notificacion);
+                        } catch (wsError) {
+                            console.error('Error enviando WebSocket:', wsError);
+                        }
+                    }
+                }
+
+                // Enviar push notification
+                try {
+                    const userId = typeof datos.usuario_destino === 'object' 
+                        ? datos.usuario_destino._id 
+                        : datos.usuario_destino;
+                        
+                    await PushController.sendNotificationToUser(userId, {
+                        titulo: notificacion.titulo,
+                        mensaje: notificacion.mensaje,
+                        tipo: notificacion.tipo,
+                        proyecto_id: notificacion.proyecto_id,
+                        lista_compra_id: notificacion.lista_compra_id,
+                        prioridad: notificacion.prioridad,
+                        accion_requerida: notificacion.accion_requerida
+                    });
+                } catch (pushError) {
+                    console.error('Error enviando push notification:', pushError);
+                }
             }
         } catch (error) {
             console.error('Error al crear notificación:', error);
@@ -706,13 +787,35 @@ class ListaCompraController {
             await ListaCompraController.crearNotificacion({
                 titulo: 'Lista de Compra Aprobada',
                 mensaje: `Tu lista de compra "${listaCompra.titulo}" ha sido aprobada por administración y está lista para compra.`,
-                tipo: 'lista_compra_aprobada',
+                tipo: 'Aprobacion',
                 usuario_destino: listaCompra.contratista_id,
-                datos_adicionales: {
-                    lista_compra_id: listaCompra._id,
-                    proyecto_id: listaCompra.proyecto_id._id
-                }
+                proyecto_id: listaCompra.proyecto_id._id,
+                lista_compra_id: listaCompra._id,
+                prioridad: 'Media',
+                accion_requerida: 'Ninguna'
+            }, req);
+
+            // Crear notificación para el supervisor
+            console.log('🔔 DEBUG - Creando notificación para supervisor sobre autorización...');
+            console.log('🔔 DEBUG - Supervisor ID:', listaCompra.supervisor_id);
+            console.log('🔔 DEBUG - Datos de notificación:', {
+                usuario_destino: listaCompra.supervisor_id,
+                titulo: 'Lista de Compra Autorizada por Administración',
+                tipo: 'Aprobacion',
+                prioridad: 'Alta',
+                accion_requerida: 'Comprar'
             });
+            await this.crearNotificacion({
+                usuario_destino: listaCompra.supervisor_id,
+                titulo: 'Lista de Compra Autorizada por Administración',
+                mensaje: `La administración ha autorizado tu lista de compra "${listaCompra.titulo}". El estatus ha cambiado a "En compra" y ahora puedes proceder con la compra de materiales.`,
+                tipo: 'Aprobacion',
+                proyecto_id: listaCompra.proyecto_id._id,
+                lista_compra_id: listaCompra._id,
+                prioridad: 'Alta',
+                accion_requerida: 'Comprar'
+            }, req);
+            console.log('✅ DEBUG - Notificación para supervisor creada exitosamente');
 
             res.json({
                 success: true,
@@ -779,12 +882,15 @@ class ListaCompraController {
                 mensaje: `Tu lista de compra "${listaCompra.titulo}" ha sido rechazada por administración. Motivo: ${motivo_rechazo}`,
                 tipo: 'lista_compra_rechazada',
                 usuario_destino: listaCompra.contratista_id,
+                proyecto_id: listaCompra.proyecto_id._id,
+                prioridad: 'Alta',
+                accion_requerida: 'Corregir',
                 datos_adicionales: {
                     lista_compra_id: listaCompra._id,
                     proyecto_id: listaCompra.proyecto_id._id,
                     motivo_rechazo: motivo_rechazo
                 }
-            });
+            }, req);
 
             // Crear notificación para el supervisor
             await ListaCompraController.crearNotificacion({
@@ -792,12 +898,15 @@ class ListaCompraController {
                 mensaje: `La lista de compra "${listaCompra.titulo}" ha sido rechazada por administración. Motivo: ${motivo_rechazo}`,
                 tipo: 'lista_compra_rechazada_admin',
                 usuario_destino: listaCompra.supervisor_id,
+                proyecto_id: listaCompra.proyecto_id._id,
+                prioridad: 'Alta',
+                accion_requerida: 'Informar',
                 datos_adicionales: {
                     lista_compra_id: listaCompra._id,
                     proyecto_id: listaCompra.proyecto_id._id,
                     motivo_rechazo: motivo_rechazo
                 }
-            });
+            }, req);
 
             res.json({
                 success: true,
@@ -875,8 +984,9 @@ class ListaCompraController {
                 tipo: 'Entrega',
                 usuario_destino: listaCompra.supervisor_id,
                 proyecto_id: listaCompra.proyecto_id._id,
+                prioridad: 'Media',
                 accion_requerida: 'Ninguna'
-            });
+            }, req);
 
             res.json({
                 success: true,
@@ -1063,8 +1173,9 @@ class ListaCompraController {
                 tipo: 'Compra',
                 usuario_destino: listaCompra.contratista_id,
                 proyecto_id: listaCompra.proyecto_id._id,
+                prioridad: 'Media',
                 accion_requerida: 'Ninguna'
-            });
+            }, req);
 
             res.json({
                 success: true,

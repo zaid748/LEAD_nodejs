@@ -8485,7 +8485,7 @@ function ArrowDownTrayIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1q = reactExports$1.forwardRef(ArrowDownTrayIcon$1);
+const ForwardRef$1p = reactExports$1.forwardRef(ArrowDownTrayIcon$1);
 function ArrowLeftIcon$1({
   title,
   titleId,
@@ -8506,7 +8506,7 @@ function ArrowLeftIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1p = reactExports$1.forwardRef(ArrowLeftIcon$1);
+const ForwardRef$1o = reactExports$1.forwardRef(ArrowLeftIcon$1);
 function ArrowRightOnRectangleIcon({
   title,
   titleId,
@@ -8552,7 +8552,7 @@ function BanknotesIcon({
     d: "M2.25 18a.75.75 0 000 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 00-.75-.75H2.25z"
   }));
 }
-const ForwardRef$1o = reactExports$1.forwardRef(BanknotesIcon);
+const ForwardRef$1n = reactExports$1.forwardRef(BanknotesIcon);
 function Bars3Icon({
   title,
   titleId,
@@ -8573,7 +8573,7 @@ function Bars3Icon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1n = reactExports$1.forwardRef(Bars3Icon);
+const ForwardRef$1m = reactExports$1.forwardRef(Bars3Icon);
 function BellIcon$1({
   title,
   titleId,
@@ -8594,7 +8594,7 @@ function BellIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1m = reactExports$1.forwardRef(BellIcon$1);
+const ForwardRef$1l = reactExports$1.forwardRef(BellIcon$1);
 function BriefcaseIcon$1({
   title,
   titleId,
@@ -8617,7 +8617,7 @@ function BriefcaseIcon$1({
     d: "M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z"
   }));
 }
-const ForwardRef$1l = reactExports$1.forwardRef(BriefcaseIcon$1);
+const ForwardRef$1k = reactExports$1.forwardRef(BriefcaseIcon$1);
 function BuildingOffice2Icon({
   title,
   titleId,
@@ -8638,7 +8638,7 @@ function BuildingOffice2Icon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1k = reactExports$1.forwardRef(BuildingOffice2Icon);
+const ForwardRef$1j = reactExports$1.forwardRef(BuildingOffice2Icon);
 function BuildingOfficeIcon$1({
   title,
   titleId,
@@ -8659,7 +8659,7 @@ function BuildingOfficeIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1j = reactExports$1.forwardRef(BuildingOfficeIcon$1);
+const ForwardRef$1i = reactExports$1.forwardRef(BuildingOfficeIcon$1);
 function CalendarDaysIcon({
   title,
   titleId,
@@ -8682,7 +8682,7 @@ function CalendarDaysIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1i = reactExports$1.forwardRef(CalendarDaysIcon);
+const ForwardRef$1h = reactExports$1.forwardRef(CalendarDaysIcon);
 function CalendarIcon$1({
   title,
   titleId,
@@ -8703,7 +8703,7 @@ function CalendarIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1h = reactExports$1.forwardRef(CalendarIcon$1);
+const ForwardRef$1g = reactExports$1.forwardRef(CalendarIcon$1);
 function ChartBarIcon$1({
   title,
   titleId,
@@ -8722,7 +8722,7 @@ function ChartBarIcon$1({
     d: "M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
   }));
 }
-const ForwardRef$1g = reactExports$1.forwardRef(ChartBarIcon$1);
+const ForwardRef$1f = reactExports$1.forwardRef(ChartBarIcon$1);
 function ChartPieIcon({
   title,
   titleId,
@@ -8768,7 +8768,7 @@ function CheckCircleIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1f = reactExports$1.forwardRef(CheckCircleIcon$1);
+const ForwardRef$1e = reactExports$1.forwardRef(CheckCircleIcon$1);
 function ClockIcon$1({
   title,
   titleId,
@@ -8789,7 +8789,7 @@ function ClockIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1e = reactExports$1.forwardRef(ClockIcon$1);
+const ForwardRef$1d = reactExports$1.forwardRef(ClockIcon$1);
 function CloudArrowUpIcon({
   title,
   titleId,
@@ -8810,7 +8810,7 @@ function CloudArrowUpIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1d = reactExports$1.forwardRef(CloudArrowUpIcon);
+const ForwardRef$1c = reactExports$1.forwardRef(CloudArrowUpIcon);
 function Cog6ToothIcon({
   title,
   titleId,
@@ -8831,7 +8831,7 @@ function Cog6ToothIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1c = reactExports$1.forwardRef(Cog6ToothIcon);
+const ForwardRef$1b = reactExports$1.forwardRef(Cog6ToothIcon);
 function CreditCardIcon({
   title,
   titleId,
@@ -8854,7 +8854,7 @@ function CreditCardIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1b = reactExports$1.forwardRef(CreditCardIcon);
+const ForwardRef$1a = reactExports$1.forwardRef(CreditCardIcon);
 function CurrencyDollarIcon$1({
   title,
   titleId,
@@ -8877,7 +8877,7 @@ function CurrencyDollarIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$1a = reactExports$1.forwardRef(CurrencyDollarIcon$1);
+const ForwardRef$19 = reactExports$1.forwardRef(CurrencyDollarIcon$1);
 function DocumentArrowDownIcon({
   title,
   titleId,
@@ -8900,7 +8900,7 @@ function DocumentArrowDownIcon({
     d: "M14.25 5.25a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963A5.23 5.23 0 0016.5 7.5h-1.875a.375.375 0 01-.375-.375V5.25z"
   }));
 }
-const ForwardRef$19 = reactExports$1.forwardRef(DocumentArrowDownIcon);
+const ForwardRef$18 = reactExports$1.forwardRef(DocumentArrowDownIcon);
 function DocumentTextIcon$1({
   title,
   titleId,
@@ -8923,7 +8923,7 @@ function DocumentTextIcon$1({
     d: "M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"
   }));
 }
-const ForwardRef$18 = reactExports$1.forwardRef(DocumentTextIcon$1);
+const ForwardRef$17 = reactExports$1.forwardRef(DocumentTextIcon$1);
 function EnvelopeIcon$1({
   title,
   titleId,
@@ -8944,7 +8944,7 @@ function EnvelopeIcon$1({
     d: "M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
   }));
 }
-const ForwardRef$17 = reactExports$1.forwardRef(EnvelopeIcon$1);
+const ForwardRef$16 = reactExports$1.forwardRef(EnvelopeIcon$1);
 function EyeSlashIcon({
   title,
   titleId,
@@ -8967,7 +8967,7 @@ function EyeSlashIcon({
     d: "M6.75 12c0-.619.107-1.213.304-1.764l-3.1-3.1a11.25 11.25 0 00-2.63 4.31c-.12.362-.12.752 0 1.114 1.489 4.467 5.704 7.69 10.675 7.69 1.5 0 2.933-.294 4.242-.827l-2.477-2.477A5.25 5.25 0 016.75 12z"
   }));
 }
-const ForwardRef$16 = reactExports$1.forwardRef(EyeSlashIcon);
+const ForwardRef$15 = reactExports$1.forwardRef(EyeSlashIcon);
 function EyeIcon$1({
   title,
   titleId,
@@ -8990,7 +8990,7 @@ function EyeIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$15 = reactExports$1.forwardRef(EyeIcon$1);
+const ForwardRef$14 = reactExports$1.forwardRef(EyeIcon$1);
 function HomeIcon({
   title,
   titleId,
@@ -9011,7 +9011,7 @@ function HomeIcon({
     d: "M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
   }));
 }
-const ForwardRef$14 = reactExports$1.forwardRef(HomeIcon);
+const ForwardRef$13 = reactExports$1.forwardRef(HomeIcon);
 function IdentificationIcon({
   title,
   titleId,
@@ -9032,7 +9032,7 @@ function IdentificationIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$13 = reactExports$1.forwardRef(IdentificationIcon);
+const ForwardRef$12 = reactExports$1.forwardRef(IdentificationIcon);
 function LockOpenIcon({
   title,
   titleId,
@@ -9051,7 +9051,7 @@ function LockOpenIcon({
     d: "M18 1.5c2.9 0 5.25 2.35 5.25 5.25v3.75a.75.75 0 01-1.5 0V6.75a3.75 3.75 0 10-7.5 0v3a3 3 0 013 3v6.75a3 3 0 01-3 3H3.75a3 3 0 01-3-3v-6.75a3 3 0 013-3h9v-3c0-2.9 2.35-5.25 5.25-5.25z"
   }));
 }
-const ForwardRef$12 = reactExports$1.forwardRef(LockOpenIcon);
+const ForwardRef$11 = reactExports$1.forwardRef(LockOpenIcon);
 function MagnifyingGlassIcon$1({
   title,
   titleId,
@@ -9072,7 +9072,7 @@ function MagnifyingGlassIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$11 = reactExports$1.forwardRef(MagnifyingGlassIcon$1);
+const ForwardRef$10 = reactExports$1.forwardRef(MagnifyingGlassIcon$1);
 function MapPinIcon$1({
   title,
   titleId,
@@ -9093,7 +9093,7 @@ function MapPinIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$10 = reactExports$1.forwardRef(MapPinIcon$1);
+const ForwardRef$$ = reactExports$1.forwardRef(MapPinIcon$1);
 function NewspaperIcon({
   title,
   titleId,
@@ -9116,7 +9116,7 @@ function NewspaperIcon({
     d: "M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 01-3 0V6.75z"
   }));
 }
-const ForwardRef$$ = reactExports$1.forwardRef(NewspaperIcon);
+const ForwardRef$_ = reactExports$1.forwardRef(NewspaperIcon);
 function PencilSquareIcon({
   title,
   titleId,
@@ -9137,7 +9137,7 @@ function PencilSquareIcon({
     d: "M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z"
   }));
 }
-const ForwardRef$_ = reactExports$1.forwardRef(PencilSquareIcon);
+const ForwardRef$Z = reactExports$1.forwardRef(PencilSquareIcon);
 function PencilIcon$1({
   title,
   titleId,
@@ -9156,7 +9156,7 @@ function PencilIcon$1({
     d: "M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"
   }));
 }
-const ForwardRef$Z = reactExports$1.forwardRef(PencilIcon$1);
+const ForwardRef$Y = reactExports$1.forwardRef(PencilIcon$1);
 function PhoneIcon$1({
   title,
   titleId,
@@ -9177,7 +9177,7 @@ function PhoneIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$Y = reactExports$1.forwardRef(PhoneIcon$1);
+const ForwardRef$X = reactExports$1.forwardRef(PhoneIcon$1);
 function PhotoIcon$1({
   title,
   titleId,
@@ -9198,7 +9198,7 @@ function PhotoIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$X = reactExports$1.forwardRef(PhotoIcon$1);
+const ForwardRef$W = reactExports$1.forwardRef(PhotoIcon$1);
 function PlusCircleIcon({
   title,
   titleId,
@@ -9219,7 +9219,7 @@ function PlusCircleIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$W = reactExports$1.forwardRef(PlusCircleIcon);
+const ForwardRef$V = reactExports$1.forwardRef(PlusCircleIcon);
 function PlusIcon$1({
   title,
   titleId,
@@ -9240,7 +9240,7 @@ function PlusIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$V = reactExports$1.forwardRef(PlusIcon$1);
+const ForwardRef$U = reactExports$1.forwardRef(PlusIcon$1);
 function RectangleStackIcon({
   title,
   titleId,
@@ -9259,7 +9259,7 @@ function RectangleStackIcon({
     d: "M5.566 4.657A4.505 4.505 0 016.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0015.75 3h-7.5a3 3 0 00-2.684 1.657zM2.25 12a3 3 0 013-3h13.5a3 3 0 013 3v6a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-6zM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 016.75 6h10.5a3 3 0 012.683 1.657A4.505 4.505 0 0018.75 7.5H5.25z"
   }));
 }
-const ForwardRef$U = reactExports$1.forwardRef(RectangleStackIcon);
+const ForwardRef$T = reactExports$1.forwardRef(RectangleStackIcon);
 function ServerStackIcon({
   title,
   titleId,
@@ -9282,7 +9282,7 @@ function ServerStackIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$T = reactExports$1.forwardRef(ServerStackIcon);
+const ForwardRef$S = reactExports$1.forwardRef(ServerStackIcon);
 function ShieldCheckIcon({
   title,
   titleId,
@@ -9303,8 +9303,8 @@ function ShieldCheckIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$S = reactExports$1.forwardRef(ShieldCheckIcon);
-function ShoppingCartIcon$1({
+const ForwardRef$R = reactExports$1.forwardRef(ShieldCheckIcon);
+function ShoppingCartIcon({
   title,
   titleId,
   ...props
@@ -9322,7 +9322,7 @@ function ShoppingCartIcon$1({
     d: "M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
   }));
 }
-const ForwardRef$R = reactExports$1.forwardRef(ShoppingCartIcon$1);
+const ForwardRef$Q = reactExports$1.forwardRef(ShoppingCartIcon);
 function TableCellsIcon({
   title,
   titleId,
@@ -9343,7 +9343,7 @@ function TableCellsIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$Q = reactExports$1.forwardRef(TableCellsIcon);
+const ForwardRef$P = reactExports$1.forwardRef(TableCellsIcon);
 function TagIcon({
   title,
   titleId,
@@ -9364,7 +9364,7 @@ function TagIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$P = reactExports$1.forwardRef(TagIcon);
+const ForwardRef$O = reactExports$1.forwardRef(TagIcon);
 function TrashIcon$1({
   title,
   titleId,
@@ -9385,7 +9385,7 @@ function TrashIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$O = reactExports$1.forwardRef(TrashIcon$1);
+const ForwardRef$N = reactExports$1.forwardRef(TrashIcon$1);
 function UserCircleIcon({
   title,
   titleId,
@@ -9406,7 +9406,7 @@ function UserCircleIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$N = reactExports$1.forwardRef(UserCircleIcon);
+const ForwardRef$M = reactExports$1.forwardRef(UserCircleIcon);
 function UserGroupIcon$1({
   title,
   titleId,
@@ -9429,7 +9429,7 @@ function UserGroupIcon$1({
     d: "M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z"
   }));
 }
-const ForwardRef$M = reactExports$1.forwardRef(UserGroupIcon$1);
+const ForwardRef$L = reactExports$1.forwardRef(UserGroupIcon$1);
 function UserPlusIcon$1({
   title,
   titleId,
@@ -9448,7 +9448,7 @@ function UserPlusIcon$1({
     d: "M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"
   }));
 }
-const ForwardRef$L = reactExports$1.forwardRef(UserPlusIcon$1);
+const ForwardRef$K = reactExports$1.forwardRef(UserPlusIcon$1);
 function UserIcon$1({
   title,
   titleId,
@@ -9469,7 +9469,7 @@ function UserIcon$1({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$K = reactExports$1.forwardRef(UserIcon$1);
+const ForwardRef$J = reactExports$1.forwardRef(UserIcon$1);
 function UsersIcon({
   title,
   titleId,
@@ -9488,7 +9488,7 @@ function UsersIcon({
     d: "M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z"
   }));
 }
-const ForwardRef$J = reactExports$1.forwardRef(UsersIcon);
+const ForwardRef$I = reactExports$1.forwardRef(UsersIcon);
 function WrenchScrewdriverIcon({
   title,
   titleId,
@@ -9515,7 +9515,7 @@ function WrenchScrewdriverIcon({
     clipRule: "evenodd"
   }));
 }
-const ForwardRef$I = reactExports$1.forwardRef(WrenchScrewdriverIcon);
+const ForwardRef$H = reactExports$1.forwardRef(WrenchScrewdriverIcon);
 var react = {};
 var Accordion = {};
 var classnames = { exports: {} };
@@ -24851,7 +24851,7 @@ var hideOthers = function(originalTarget, parentNode, markerName) {
       return null;
     };
   }
-  targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live]")));
+  targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
   return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
 };
 /*!
@@ -25192,8 +25192,9 @@ function getOppositeAxis(axis) {
 function getAxisLength(axis) {
   return axis === "y" ? "height" : "width";
 }
+const yAxisSides = /* @__PURE__ */ new Set(["top", "bottom"]);
 function getSideAxis(placement) {
-  return ["top", "bottom"].includes(getSide(placement)) ? "y" : "x";
+  return yAxisSides.has(getSide(placement)) ? "y" : "x";
 }
 function getAlignmentAxis(placement) {
   return getOppositeAxis(getSideAxis(placement));
@@ -25218,19 +25219,19 @@ function getExpandedPlacements(placement) {
 function getOppositeAlignmentPlacement(placement) {
   return placement.replace(/start|end/g, (alignment) => oppositeAlignmentMap[alignment]);
 }
+const lrPlacement = ["left", "right"];
+const rlPlacement = ["right", "left"];
+const tbPlacement = ["top", "bottom"];
+const btPlacement = ["bottom", "top"];
 function getSideList(side, isStart, rtl) {
-  const lr = ["left", "right"];
-  const rl = ["right", "left"];
-  const tb = ["top", "bottom"];
-  const bt = ["bottom", "top"];
   switch (side) {
     case "top":
     case "bottom":
-      if (rtl) return isStart ? rl : lr;
-      return isStart ? lr : rl;
+      if (rtl) return isStart ? rlPlacement : lrPlacement;
+      return isStart ? lrPlacement : rlPlacement;
     case "left":
     case "right":
-      return isStart ? tb : bt;
+      return isStart ? tbPlacement : btPlacement;
     default:
       return [];
   }
@@ -25694,15 +25695,20 @@ const flip$1 = function(options) {
         const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? void 0 : _middlewareData$flip2.index) || 0) + 1;
         const nextPlacement = placements2[nextIndex];
         if (nextPlacement) {
-          return {
-            data: {
-              index: nextIndex,
-              overflows: overflowsData
-            },
-            reset: {
-              placement: nextPlacement
-            }
-          };
+          const ignoreCrossAxisOverflow = checkCrossAxis === "alignment" ? initialSideAxis !== getSideAxis(nextPlacement) : false;
+          if (!ignoreCrossAxisOverflow || // We leave the current main axis only if every placement on that axis
+          // overflows the main axis.
+          overflowsData.every((d) => getSideAxis(d.placement) === initialSideAxis ? d.overflows[0] > 0 : true)) {
+            return {
+              data: {
+                index: nextIndex,
+                overflows: overflowsData
+              },
+              reset: {
+                placement: nextPlacement
+              }
+            };
+          }
         }
         let resetPlacement = (_overflowsData$filter = overflowsData.filter((d) => d.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
         if (!resetPlacement) {
@@ -25918,6 +25924,7 @@ const inline$1 = function(options) {
     }
   };
 };
+const originSides = /* @__PURE__ */ new Set(["left", "top"]);
 async function convertValueToCoords(state, options) {
   const {
     placement,
@@ -25928,7 +25935,7 @@ async function convertValueToCoords(state, options) {
   const side = getSide(placement);
   const alignment = getAlignment(placement);
   const isVertical = getSideAxis(placement) === "y";
-  const mainAxisMulti = ["left", "top"].includes(side) ? -1 : 1;
+  const mainAxisMulti = originSides.has(side) ? -1 : 1;
   const crossAxisMulti = rtl && isVertical ? -1 : 1;
   const rawValue = evaluate(options, state);
   let {
@@ -26106,7 +26113,7 @@ const limitShift$1 = function(options) {
       if (checkCrossAxis) {
         var _middlewareData$offse, _middlewareData$offse2;
         const len = mainAxis === "y" ? "width" : "height";
-        const isOriginSide = ["top", "left"].includes(getSide(placement));
+        const isOriginSide = originSides.has(getSide(placement));
         const limitMin = rects.reference[crossAxis] - rects.floating[len] + (isOriginSide ? ((_middlewareData$offse = middlewareData.offset) == null ? void 0 : _middlewareData$offse[crossAxis]) || 0 : 0) + (isOriginSide ? 0 : computedOffset.crossAxis);
         const limitMax = rects.reference[crossAxis] + rects.reference[len] + (isOriginSide ? 0 : ((_middlewareData$offse2 = middlewareData.offset) == null ? void 0 : _middlewareData$offse2[crossAxis]) || 0) - (isOriginSide ? computedOffset.crossAxis : 0);
         if (crossAxisCoord < limitMin) {
@@ -26241,6 +26248,7 @@ function isShadowRoot$1(value) {
   }
   return value instanceof ShadowRoot || value instanceof getWindow$1(value).ShadowRoot;
 }
+const invalidOverflowDisplayValues = /* @__PURE__ */ new Set(["inline", "contents"]);
 function isOverflowElement(element) {
   const {
     overflow,
@@ -26248,24 +26256,29 @@ function isOverflowElement(element) {
     overflowY,
     display
   } = getComputedStyle$1(element);
-  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !["inline", "contents"].includes(display);
+  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !invalidOverflowDisplayValues.has(display);
 }
+const tableElements = /* @__PURE__ */ new Set(["table", "td", "th"]);
 function isTableElement(element) {
-  return ["table", "td", "th"].includes(getNodeName(element));
+  return tableElements.has(getNodeName(element));
 }
+const topLayerSelectors = [":popover-open", ":modal"];
 function isTopLayer(element) {
-  return [":popover-open", ":modal"].some((selector) => {
+  return topLayerSelectors.some((selector) => {
     try {
       return element.matches(selector);
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   });
 }
+const transformProperties = ["transform", "translate", "scale", "rotate", "perspective"];
+const willChangeValues = ["transform", "translate", "scale", "rotate", "perspective", "filter"];
+const containValues = ["paint", "layout", "strict", "content"];
 function isContainingBlock(elementOrCss) {
   const webkit = isWebKit();
   const css = isElement$1(elementOrCss) ? getComputedStyle$1(elementOrCss) : elementOrCss;
-  return ["transform", "translate", "scale", "rotate", "perspective"].some((value) => css[value] ? css[value] !== "none" : false) || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || ["transform", "translate", "scale", "rotate", "perspective", "filter"].some((value) => (css.willChange || "").includes(value)) || ["paint", "layout", "strict", "content"].some((value) => (css.contain || "").includes(value));
+  return transformProperties.some((value) => css[value] ? css[value] !== "none" : false) || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || willChangeValues.some((value) => (css.willChange || "").includes(value)) || containValues.some((value) => (css.contain || "").includes(value));
 }
 function getContainingBlock(element) {
   let currentNode = getParentNode(element);
@@ -26283,8 +26296,9 @@ function isWebKit() {
   if (typeof CSS === "undefined" || !CSS.supports) return false;
   return CSS.supports("-webkit-backdrop-filter", "none");
 }
+const lastTraversableNodeNames = /* @__PURE__ */ new Set(["html", "body", "#document"]);
 function isLastTraversableNode(node) {
-  return ["html", "body", "#document"].includes(getNodeName(node));
+  return lastTraversableNodeNames.has(getNodeName(node));
 }
 function getComputedStyle$1(element) {
   return getWindow$1(element).getComputedStyle(element);
@@ -26567,6 +26581,7 @@ function getViewportRect(element, strategy) {
     y
   };
 }
+const absoluteOrFixed = /* @__PURE__ */ new Set(["absolute", "fixed"]);
 function getInnerBoundingClientRect(element, strategy) {
   const clientRect = getBoundingClientRect(element, true, strategy === "fixed");
   const top = clientRect.top + element.clientTop;
@@ -26624,7 +26639,7 @@ function getClippingElementAncestors(element, cache) {
     if (!currentNodeIsContaining && computedStyle.position === "fixed") {
       currentContainingBlockComputedStyle = null;
     }
-    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && absoluteOrFixed.has(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
     if (shouldDropCurrentNode) {
       result = result.filter((ancestor) => ancestor !== currentNode);
     } else {
@@ -26680,6 +26695,9 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
     scrollTop: 0
   };
   const offsets = createCoords(0);
+  function setLeftRTLScrollbarOffset() {
+    offsets.x = getWindowScrollBarX(documentElement);
+  }
   if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
     if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) {
       scroll2 = getNodeScroll(offsetParent);
@@ -26689,8 +26707,11 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
       offsets.x = offsetRect.x + offsetParent.clientLeft;
       offsets.y = offsetRect.y + offsetParent.clientTop;
     } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
+      setLeftRTLScrollbarOffset();
     }
+  }
+  if (isFixed && !isOffsetParentAnElement && documentElement) {
+    setLeftRTLScrollbarOffset();
   }
   const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll2) : createCoords(0);
   const x = rect.left + scroll2.scrollLeft - offsets.x - htmlOffset.x;
@@ -26840,7 +26861,7 @@ function observeMove(element, onMove) {
         // Handle <iframe>s
         root: root.ownerDocument
       });
-    } catch (e) {
+    } catch (_e) {
       io = new IntersectionObserver(handleObserve, options);
     }
     io.observe(element);
@@ -36955,7 +36976,7 @@ function ArrowDownTrayIcon({
     d: "M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
   }));
 }
-const ForwardRef$H = reactExports$1.forwardRef(ArrowDownTrayIcon);
+const ForwardRef$G = reactExports$1.forwardRef(ArrowDownTrayIcon);
 function ArrowLeftIcon({
   title,
   titleId,
@@ -36978,7 +36999,7 @@ function ArrowLeftIcon({
     d: "M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
   }));
 }
-const ForwardRef$G = reactExports$1.forwardRef(ArrowLeftIcon);
+const ForwardRef$F = reactExports$1.forwardRef(ArrowLeftIcon);
 function ArrowTopRightOnSquareIcon({
   title,
   titleId,
@@ -37001,7 +37022,7 @@ function ArrowTopRightOnSquareIcon({
     d: "M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
   }));
 }
-const ForwardRef$F = reactExports$1.forwardRef(ArrowTopRightOnSquareIcon);
+const ForwardRef$E = reactExports$1.forwardRef(ArrowTopRightOnSquareIcon);
 function ArrowTrendingDownIcon({
   title,
   titleId,
@@ -37024,7 +37045,7 @@ function ArrowTrendingDownIcon({
     d: "M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
   }));
 }
-const ForwardRef$E = reactExports$1.forwardRef(ArrowTrendingDownIcon);
+const ForwardRef$D = reactExports$1.forwardRef(ArrowTrendingDownIcon);
 function ArrowTrendingUpIcon({
   title,
   titleId,
@@ -37047,7 +37068,7 @@ function ArrowTrendingUpIcon({
     d: "M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
   }));
 }
-const ForwardRef$D = reactExports$1.forwardRef(ArrowTrendingUpIcon);
+const ForwardRef$C = reactExports$1.forwardRef(ArrowTrendingUpIcon);
 function ArrowUpIcon({
   title,
   titleId,
@@ -37070,7 +37091,7 @@ function ArrowUpIcon({
     d: "M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18"
   }));
 }
-const ForwardRef$C = reactExports$1.forwardRef(ArrowUpIcon);
+const ForwardRef$B = reactExports$1.forwardRef(ArrowUpIcon);
 function BellIcon({
   title,
   titleId,
@@ -37093,7 +37114,7 @@ function BellIcon({
     d: "M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
   }));
 }
-const ForwardRef$B = reactExports$1.forwardRef(BellIcon);
+const ForwardRef$A = reactExports$1.forwardRef(BellIcon);
 function BriefcaseIcon({
   title,
   titleId,
@@ -37116,7 +37137,7 @@ function BriefcaseIcon({
     d: "M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"
   }));
 }
-const ForwardRef$A = reactExports$1.forwardRef(BriefcaseIcon);
+const ForwardRef$z = reactExports$1.forwardRef(BriefcaseIcon);
 function BuildingOfficeIcon({
   title,
   titleId,
@@ -37139,7 +37160,7 @@ function BuildingOfficeIcon({
     d: "M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
   }));
 }
-const ForwardRef$z = reactExports$1.forwardRef(BuildingOfficeIcon);
+const ForwardRef$y = reactExports$1.forwardRef(BuildingOfficeIcon);
 function BuildingStorefrontIcon({
   title,
   titleId,
@@ -37162,7 +37183,7 @@ function BuildingStorefrontIcon({
     d: "M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"
   }));
 }
-const ForwardRef$y = reactExports$1.forwardRef(BuildingStorefrontIcon);
+const ForwardRef$x = reactExports$1.forwardRef(BuildingStorefrontIcon);
 function CalendarIcon({
   title,
   titleId,
@@ -37185,7 +37206,7 @@ function CalendarIcon({
     d: "M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
   }));
 }
-const ForwardRef$x = reactExports$1.forwardRef(CalendarIcon);
+const ForwardRef$w = reactExports$1.forwardRef(CalendarIcon);
 function ChartBarIcon({
   title,
   titleId,
@@ -37208,7 +37229,7 @@ function ChartBarIcon({
     d: "M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"
   }));
 }
-const ForwardRef$w = reactExports$1.forwardRef(ChartBarIcon);
+const ForwardRef$v = reactExports$1.forwardRef(ChartBarIcon);
 function CheckCircleIcon({
   title,
   titleId,
@@ -37231,7 +37252,7 @@ function CheckCircleIcon({
     d: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
   }));
 }
-const ForwardRef$v = reactExports$1.forwardRef(CheckCircleIcon);
+const ForwardRef$u = reactExports$1.forwardRef(CheckCircleIcon);
 function CheckIcon({
   title,
   titleId,
@@ -37254,7 +37275,7 @@ function CheckIcon({
     d: "M4.5 12.75l6 6 9-13.5"
   }));
 }
-const ForwardRef$u = reactExports$1.forwardRef(CheckIcon);
+const ForwardRef$t = reactExports$1.forwardRef(CheckIcon);
 function ChevronLeftIcon({
   title,
   titleId,
@@ -37277,7 +37298,7 @@ function ChevronLeftIcon({
     d: "M15.75 19.5L8.25 12l7.5-7.5"
   }));
 }
-const ForwardRef$t = reactExports$1.forwardRef(ChevronLeftIcon);
+const ForwardRef$s = reactExports$1.forwardRef(ChevronLeftIcon);
 function ClipboardDocumentListIcon({
   title,
   titleId,
@@ -37300,7 +37321,7 @@ function ClipboardDocumentListIcon({
     d: "M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
   }));
 }
-const ForwardRef$s = reactExports$1.forwardRef(ClipboardDocumentListIcon);
+const ForwardRef$r = reactExports$1.forwardRef(ClipboardDocumentListIcon);
 function ClipboardDocumentIcon({
   title,
   titleId,
@@ -37323,7 +37344,7 @@ function ClipboardDocumentIcon({
     d: "M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z"
   }));
 }
-const ForwardRef$r = reactExports$1.forwardRef(ClipboardDocumentIcon);
+const ForwardRef$q = reactExports$1.forwardRef(ClipboardDocumentIcon);
 function ClockIcon({
   title,
   titleId,
@@ -37346,7 +37367,7 @@ function ClockIcon({
     d: "M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
   }));
 }
-const ForwardRef$q = reactExports$1.forwardRef(ClockIcon);
+const ForwardRef$p = reactExports$1.forwardRef(ClockIcon);
 function CurrencyDollarIcon({
   title,
   titleId,
@@ -37369,7 +37390,7 @@ function CurrencyDollarIcon({
     d: "M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
   }));
 }
-const ForwardRef$p = reactExports$1.forwardRef(CurrencyDollarIcon);
+const ForwardRef$o = reactExports$1.forwardRef(CurrencyDollarIcon);
 function DocumentCheckIcon({
   title,
   titleId,
@@ -37392,7 +37413,7 @@ function DocumentCheckIcon({
     d: "M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12"
   }));
 }
-const ForwardRef$o = reactExports$1.forwardRef(DocumentCheckIcon);
+const ForwardRef$n = reactExports$1.forwardRef(DocumentCheckIcon);
 function DocumentTextIcon({
   title,
   titleId,
@@ -37415,7 +37436,7 @@ function DocumentTextIcon({
     d: "M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
   }));
 }
-const ForwardRef$n = reactExports$1.forwardRef(DocumentTextIcon);
+const ForwardRef$m = reactExports$1.forwardRef(DocumentTextIcon);
 function EllipsisVerticalIcon({
   title,
   titleId,
@@ -37438,7 +37459,7 @@ function EllipsisVerticalIcon({
     d: "M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
   }));
 }
-const ForwardRef$m = reactExports$1.forwardRef(EllipsisVerticalIcon);
+const ForwardRef$l = reactExports$1.forwardRef(EllipsisVerticalIcon);
 function EnvelopeIcon({
   title,
   titleId,
@@ -37461,7 +37482,7 @@ function EnvelopeIcon({
     d: "M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
   }));
 }
-const ForwardRef$l = reactExports$1.forwardRef(EnvelopeIcon);
+const ForwardRef$k = reactExports$1.forwardRef(EnvelopeIcon);
 function ExclamationCircleIcon({
   title,
   titleId,
@@ -37484,7 +37505,7 @@ function ExclamationCircleIcon({
     d: "M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
   }));
 }
-const ForwardRef$k = reactExports$1.forwardRef(ExclamationCircleIcon);
+const ForwardRef$j = reactExports$1.forwardRef(ExclamationCircleIcon);
 function ExclamationTriangleIcon({
   title,
   titleId,
@@ -37507,7 +37528,7 @@ function ExclamationTriangleIcon({
     d: "M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
   }));
 }
-const ForwardRef$j = reactExports$1.forwardRef(ExclamationTriangleIcon);
+const ForwardRef$i = reactExports$1.forwardRef(ExclamationTriangleIcon);
 function EyeIcon({
   title,
   titleId,
@@ -37534,7 +37555,7 @@ function EyeIcon({
     d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
   }));
 }
-const ForwardRef$i = reactExports$1.forwardRef(EyeIcon);
+const ForwardRef$h = reactExports$1.forwardRef(EyeIcon);
 function FunnelIcon({
   title,
   titleId,
@@ -37557,7 +37578,7 @@ function FunnelIcon({
     d: "M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
   }));
 }
-const ForwardRef$h = reactExports$1.forwardRef(FunnelIcon);
+const ForwardRef$g = reactExports$1.forwardRef(FunnelIcon);
 function InformationCircleIcon({
   title,
   titleId,
@@ -37580,7 +37601,7 @@ function InformationCircleIcon({
     d: "M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
   }));
 }
-const ForwardRef$g = reactExports$1.forwardRef(InformationCircleIcon);
+const ForwardRef$f = reactExports$1.forwardRef(InformationCircleIcon);
 function ListBulletIcon({
   title,
   titleId,
@@ -37603,7 +37624,7 @@ function ListBulletIcon({
     d: "M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
   }));
 }
-const ForwardRef$f = reactExports$1.forwardRef(ListBulletIcon);
+const ForwardRef$e = reactExports$1.forwardRef(ListBulletIcon);
 function MagnifyingGlassIcon({
   title,
   titleId,
@@ -37626,7 +37647,7 @@ function MagnifyingGlassIcon({
     d: "M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
   }));
 }
-const ForwardRef$e = reactExports$1.forwardRef(MagnifyingGlassIcon);
+const ForwardRef$d = reactExports$1.forwardRef(MagnifyingGlassIcon);
 function MapPinIcon({
   title,
   titleId,
@@ -37653,7 +37674,7 @@ function MapPinIcon({
     d: "M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
   }));
 }
-const ForwardRef$d = reactExports$1.forwardRef(MapPinIcon);
+const ForwardRef$c = reactExports$1.forwardRef(MapPinIcon);
 function PencilIcon({
   title,
   titleId,
@@ -37676,7 +37697,7 @@ function PencilIcon({
     d: "M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
   }));
 }
-const ForwardRef$c = reactExports$1.forwardRef(PencilIcon);
+const ForwardRef$b = reactExports$1.forwardRef(PencilIcon);
 function PhoneIcon({
   title,
   titleId,
@@ -37699,7 +37720,7 @@ function PhoneIcon({
     d: "M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
   }));
 }
-const ForwardRef$b = reactExports$1.forwardRef(PhoneIcon);
+const ForwardRef$a = reactExports$1.forwardRef(PhoneIcon);
 function PhotoIcon({
   title,
   titleId,
@@ -37722,7 +37743,7 @@ function PhotoIcon({
     d: "M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
   }));
 }
-const ForwardRef$a = reactExports$1.forwardRef(PhotoIcon);
+const ForwardRef$9 = reactExports$1.forwardRef(PhotoIcon);
 function PlusIcon({
   title,
   titleId,
@@ -37745,7 +37766,7 @@ function PlusIcon({
     d: "M12 4.5v15m7.5-7.5h-15"
   }));
 }
-const ForwardRef$9 = reactExports$1.forwardRef(PlusIcon);
+const ForwardRef$8 = reactExports$1.forwardRef(PlusIcon);
 function PrinterIcon({
   title,
   titleId,
@@ -37768,7 +37789,7 @@ function PrinterIcon({
     d: "M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"
   }));
 }
-const ForwardRef$8 = reactExports$1.forwardRef(PrinterIcon);
+const ForwardRef$7 = reactExports$1.forwardRef(PrinterIcon);
 function ShoppingBagIcon({
   title,
   titleId,
@@ -37791,30 +37812,7 @@ function ShoppingBagIcon({
     d: "M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
   }));
 }
-const ForwardRef$7 = reactExports$1.forwardRef(ShoppingBagIcon);
-function ShoppingCartIcon({
-  title,
-  titleId,
-  ...props
-}, svgRef) {
-  return /* @__PURE__ */ reactExports$1.createElement("svg", Object.assign({
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    strokeWidth: 1.5,
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    ref: svgRef,
-    "aria-labelledby": titleId
-  }, props), title ? /* @__PURE__ */ reactExports$1.createElement("title", {
-    id: titleId
-  }, title) : null, /* @__PURE__ */ reactExports$1.createElement("path", {
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    d: "M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-  }));
-}
-const ForwardRef$6 = reactExports$1.forwardRef(ShoppingCartIcon);
+const ForwardRef$6 = reactExports$1.forwardRef(ShoppingBagIcon);
 function TrashIcon({
   title,
   titleId,
@@ -75622,35 +75620,35 @@ var exceljs_minExports = requireExceljs_min();
 const ExcelJS = /* @__PURE__ */ getDefaultExportFromCjs(exceljs_minExports);
 export {
   create$2 as $,
-  ForwardRef$e as A,
+  ForwardRef$d as A,
   ForwardRef$2 as B,
   Chart as C,
   useParams as D,
-  ForwardRef$1p as E,
-  ForwardRef$1o as F,
-  ForwardRef$Z as G,
-  ForwardRef$1l as H,
-  ForwardRef$1i as I,
-  ForwardRef$10 as J,
-  ForwardRef$17 as K,
-  ForwardRef$Y as L,
-  ForwardRef$1j as M,
-  ForwardRef$19 as N,
-  ForwardRef$O as O,
+  ForwardRef$1o as E,
+  ForwardRef$1n as F,
+  ForwardRef$Y as G,
+  ForwardRef$1k as H,
+  ForwardRef$1h as I,
+  ForwardRef$$ as J,
+  ForwardRef$16 as K,
+  ForwardRef$X as L,
+  ForwardRef$1i as M,
+  ForwardRef$18 as N,
+  ForwardRef$N as O,
   PropTypes as P,
-  ForwardRef$V as Q,
+  ForwardRef$U as Q,
   React as R,
-  ForwardRef$a as S,
-  ForwardRef$c as T,
-  ForwardRef$F as U,
-  ForwardRef$X as V,
-  ForwardRef$14 as W,
+  ForwardRef$9 as S,
+  ForwardRef$b as T,
+  ForwardRef$E as U,
+  ForwardRef$W as V,
+  ForwardRef$13 as W,
   Navigate as X,
-  ForwardRef$1d as Y,
+  ForwardRef$1c as Y,
   Link as Z,
   create$3 as _,
-  ForwardRef$J as a,
-  ReactDOM as a$,
+  ForwardRef$I as a,
+  BrowserRouter as a$,
   create$5 as a0,
   create$6 as a1,
   create$7 as a2,
@@ -75658,86 +75656,85 @@ export {
   useFieldArray as a4,
   Controller as a5,
   o as a6,
-  ForwardRef$11 as a7,
-  ForwardRef$1q as a8,
-  ForwardRef$j as a9,
-  ForwardRef$g as aA,
-  ForwardRef$4 as aB,
-  ForwardRef$6 as aC,
-  ForwardRef$v as aD,
-  ForwardRef$H as aE,
-  ForwardRef$w as aF,
-  ForwardRef$D as aG,
-  ForwardRef$E as aH,
-  ForwardRef$t as aI,
-  ForwardRef$18 as aJ,
-  ForwardRef$P as aK,
-  ForwardRef$K as aL,
-  ForwardRef$1h as aM,
-  ForwardRef$Q as aN,
-  ForwardRef$M as aO,
-  ForwardRef$1k as aP,
-  ForwardRef$I as aQ,
-  ForwardRef$$ as aR,
-  ForwardRef$T as aS,
-  ForwardRef$U as aT,
-  useLocation as aU,
-  NavLink as aV,
-  ForwardRef$1n as aW,
-  ForwardRef$1c as aX,
-  Routes as aY,
-  Route as aZ,
-  Outlet as a_,
-  ForwardRef$z as aa,
-  ForwardRef$G as ab,
-  ForwardRef$x as ac,
+  ForwardRef$10 as a7,
+  ForwardRef$1p as a8,
+  ForwardRef$i as a9,
+  ForwardRef$v as aA,
+  ForwardRef$p as aB,
+  ForwardRef$u as aC,
+  ForwardRef$C as aD,
+  ForwardRef$D as aE,
+  ForwardRef$s as aF,
+  ForwardRef$4 as aG,
+  ForwardRef$17 as aH,
+  ForwardRef$O as aI,
+  ForwardRef$J as aJ,
+  ForwardRef$1g as aK,
+  ForwardRef$P as aL,
+  ForwardRef$L as aM,
+  ForwardRef$1j as aN,
+  ForwardRef$H as aO,
+  ForwardRef$_ as aP,
+  ForwardRef$S as aQ,
+  ForwardRef$T as aR,
+  useLocation as aS,
+  NavLink as aT,
+  ForwardRef$f as aU,
+  ForwardRef$1m as aV,
+  ForwardRef$1b as aW,
+  Routes as aX,
+  Route as aY,
+  Outlet as aZ,
+  ReactDOM as a_,
+  ForwardRef$y as aa,
+  ForwardRef$F as ab,
+  ForwardRef$w as ac,
   ForwardRef$1 as ad,
-  ForwardRef$p as ae,
-  ForwardRef$A as af,
+  ForwardRef$o as ae,
+  ForwardRef$z as af,
   ForwardRef$3 as ag,
-  ForwardRef$b as ah,
-  ForwardRef$l as ai,
-  ForwardRef$d as aj,
-  ForwardRef$n as ak,
-  ForwardRef$s as al,
-  ForwardRef$k as am,
-  ForwardRef$h as an,
-  ForwardRef$y as ao,
-  ForwardRef$f as ap,
-  ForwardRef$8 as aq,
+  ForwardRef$a as ah,
+  ForwardRef$k as ai,
+  ForwardRef$c as aj,
+  ForwardRef$m as ak,
+  ForwardRef$r as al,
+  ForwardRef$j as am,
+  ForwardRef$g as an,
+  ForwardRef$x as ao,
+  ForwardRef$e as ap,
+  ForwardRef$7 as aq,
   ForwardRef as ar,
-  ForwardRef$u as as,
-  ForwardRef$7 as at,
-  ForwardRef$o as au,
+  ForwardRef$t as as,
+  ForwardRef$6 as at,
+  ForwardRef$n as au,
   ExcelJS as av,
-  ForwardRef$r as aw,
-  ForwardRef$9 as ax,
-  ForwardRef$B as ay,
-  ForwardRef$q as az,
-  ForwardRef$L as b,
-  BrowserRouter as b0,
-  ForwardRef$1g as c,
-  ForwardRef$1m as d,
-  ForwardRef$W as e,
-  ForwardRef$R as f,
-  ForwardRef$1b as g,
-  ForwardRef$12 as h,
-  ForwardRef$1e as i,
+  ForwardRef$q as aw,
+  ForwardRef$8 as ax,
+  ForwardRef$A as ay,
+  ForwardRef$G as az,
+  ForwardRef$K as b,
+  ForwardRef$1f as c,
+  ForwardRef$1l as d,
+  ForwardRef$V as e,
+  ForwardRef$Q as f,
+  ForwardRef$1a as g,
+  ForwardRef$11 as h,
+  ForwardRef$1d as i,
   jsxRuntimeExports as j,
-  ForwardRef$1f as k,
-  ForwardRef$m as l,
-  ForwardRef$C as m,
+  ForwardRef$1e as k,
+  ForwardRef$l as l,
+  ForwardRef$B as m,
   axios as n,
   reactExports$1 as o,
-  ForwardRef$_ as p,
-  ForwardRef$N as q,
+  ForwardRef$Z as p,
+  ForwardRef$M as q,
   reactExports as r,
-  ForwardRef$1a as s,
-  ForwardRef$S as t,
-  ForwardRef$13 as u,
-  ForwardRef$16 as v,
-  ForwardRef$15 as w,
+  ForwardRef$19 as s,
+  ForwardRef$R as t,
+  ForwardRef$12 as u,
+  ForwardRef$15 as v,
+  ForwardRef$14 as w,
   useNavigate as x,
-  ForwardRef$i as y,
+  ForwardRef$h as y,
   ForwardRef$5 as z
 };

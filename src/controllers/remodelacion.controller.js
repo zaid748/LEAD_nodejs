@@ -434,6 +434,7 @@ class RemodelacionController {
             await material.save();
 
             // Crear notificación para contratista
+            const wsManager = req.app.get('wsManager');
             await RemodelacionController.crearNotificacion({
                 usuario_destino: material.usuario_registro,
                 titulo: 'Material Comprado y Listo para Entrega',
@@ -443,7 +444,7 @@ class RemodelacionController {
                 material_id: material._id,
                 prioridad: 'Media',
                 accion_requerida: 'Entregar'
-            });
+            }, wsManager);
 
             res.json({
                 success: true,
@@ -712,11 +713,7 @@ class RemodelacionController {
                     
                     // Enviar notificación por WebSocket
                     if (wsManager) {
-                        wsManager.sendNotificationToUser(admin._id.toString(), {
-                            type: 'remodelacion_notification',
-                            notification: notificacion.toObject(),
-                            timestamp: new Date().toISOString()
-                        });
+                        wsManager.sendNotification(admin._id.toString(), notificacion);
                     }
                 }
             } else {
@@ -725,11 +722,7 @@ class RemodelacionController {
                 
                 // Enviar notificación por WebSocket
                 if (wsManager) {
-                    wsManager.sendNotificationToUser(datos.usuario_destino.toString(), {
-                        type: 'remodelacion_notification',
-                        notification: notificacion.toObject(),
-                        timestamp: new Date().toISOString()
-                    });
+                    wsManager.sendNotification(datos.usuario_destino.toString(), notificacion);
                 }
             }
         } catch (error) {

@@ -218,6 +218,7 @@ app.use('/api', require('./routes/marketing.router'));
 app.use('/api/captaciones', captacionesRouter);
 app.use('/api/lista-compra', listaCompraRouter);
 app.use('/api/blog', blogRouter);
+app.use('/api/push', require('./routes/push.router'));
 
 // Router público para marketing (sin autenticación)
 app.use('/api', require('./routes/marketing-publico.router'));
