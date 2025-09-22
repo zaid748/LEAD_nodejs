@@ -3850,7 +3850,7 @@ const RemodelacionPage = () => {
                                             <div className="flex justify-between items-start mb-3">
                                                 <div className="flex-1">
                                                     <Typography variant="h6" color="blue-gray" className="font-medium">
-                                                        {material.nombre}
+                                                        {material.tipo}
                                                     </Typography>
                                                     <Typography variant="small" color="gray">
                                                         Cantidad: {material.cantidad} {material.tipo_unidad}

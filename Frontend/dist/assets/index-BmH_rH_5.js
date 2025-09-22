@@ -1,5 +1,5 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-BamAkhRo.js","assets/vendor-DWOw1XCm.js"])))=>i.map(i=>d[i]);
-import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as useLocation, aT as NavLink, aU as ForwardRef$1n, aV as ForwardRef$1o, aW as ForwardRef$1p, aX as Routes, aY as Route, aZ as Outlet, a_ as ReactDOM, a$ as BrowserRouter } from "./vendor-DWOw1XCm.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-CPO2NWDG.js","assets/vendor-Dz0BfvKj.js"])))=>i.map(i=>d[i]);
+import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as useLocation, aT as NavLink, aU as ForwardRef$1n, aV as ForwardRef$1o, aW as ForwardRef$1p, aX as Routes, aY as Route, aZ as Outlet, a_ as ReactDOM, a$ as BrowserRouter } from "./vendor-Dz0BfvKj.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) return;
@@ -4082,7 +4082,9 @@ const ProyectosMarketing = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const apiUrl = `${"https://lead-inmobiliaria.com"}/api/marketing?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}${user.role === "Supervisor" ? `&supervisor=${user._id}` : ""}${searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ""}`;
+        const roleNorm = (user.role || "").toString().trim().toLowerCase();
+        const isSupervisor = roleNorm === "supervisor";
+        const apiUrl = `${"https://lead-inmobiliaria.com"}/api/marketing?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}${isSupervisor ? `&supervisor=${user._id}` : ""}${searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ""}`;
         console.log("Consultando API de marketing:", apiUrl);
         const response = await fetch(apiUrl, {
           credentials: "include",
@@ -4390,12 +4392,12 @@ function EditarMarketing() {
         const data = await response.json();
         if (data.success) {
           setUser(data.user);
-          const userRole = data.user?.role || "";
+          const roleNorm = (data.user?.role || "").toString().trim().toLowerCase();
           setIsAdmin(
-            userRole.toLowerCase().includes("administrator") || userRole === "Admin" || userRole === "Superadministrator"
+            roleNorm.includes("admin")
           );
           setIsMarketing(
-            userRole === "Marketing" || userRole === "Asesor" || userRole === "User"
+            roleNorm === "marketing" || roleNorm === "asesor" || roleNorm === "user" || roleNorm === "vendedor" || roleNorm === "consultor" || roleNorm.includes("marketing")
           );
         } else {
           navigate("/auth/sign-in");
@@ -15105,7 +15107,7 @@ const RemodelacionPage = () => {
         /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-3", children: "📋 Materiales a Comprar - Verificar Costos" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4", children: listaParaComprobante.materiales?.map((material, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Card, { className: "border", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.CardBody, { className: "p-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-between items-start mb-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "font-medium", children: material.nombre }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "font-medium", children: material.tipo }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Typography, { variant: "small", color: "gray", children: [
               "Cantidad: ",
               material.cantidad,
@@ -21735,7 +21737,7 @@ Métodos: ${status.methods.join(", ")}
 ${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo cuando app esté abierta"}`);
                           } else {
                             const { default: hybridService } = await __vitePreload(async () => {
-                              const { default: hybridService2 } = await import("./hybridNotifications-BamAkhRo.js");
+                              const { default: hybridService2 } = await import("./hybridNotifications-CPO2NWDG.js");
                               return { default: hybridService2 };
                             }, true ? __vite__mapDeps([0,1]) : void 0);
                             const testNotification = {
@@ -21771,7 +21773,7 @@ ${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo c
                       onClick: async () => {
                         try {
                           const { default: hybridService } = await __vitePreload(async () => {
-                            const { default: hybridService2 } = await import("./hybridNotifications-BamAkhRo.js");
+                            const { default: hybridService2 } = await import("./hybridNotifications-CPO2NWDG.js");
                             return { default: hybridService2 };
                           }, true ? __vite__mapDeps([0,1]) : void 0);
                           const results = await hybridService.requestAllPermissions();

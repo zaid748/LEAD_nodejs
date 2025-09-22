@@ -771,3 +771,53 @@ a:not(.btn):not(.nav-link):not(.dropdown-item) {
 .site-mobile-menu .site-nav-wrap a:focus {
   color: var(--title-color) !important;
 }
+
+/* ===== NAVBAR - MEJORAS RESPONSIVAS Y CONSISTENCIA ===== */
+/* Espaciado cómodo para los enlaces del navbar */
+.site-navbar .site-navigation .site-menu > li {
+  padding: 8px 5px !important;
+}
+.site-navbar .site-navigation .site-menu > li > a {
+  padding: 6px 10px !important;
+}
+
+/* Añadir algo de padding al contenedor del navbar (píldora) */
+.site-navbar .site-navigation {
+  padding: 6px 12px !important;
+}
+
+@media (max-width: 992px) {
+  /* En tablets, mantener legible y centrado */
+  .site-navbar .site-navigation .site-menu > li > a {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Quitar desplazamiento a la izquierda del logo en móviles */
+  .site-navbar .ml-5 { 
+    margin-left: 0 !important; 
+  }
+  /* Reducir tamaño del logo para que no rompa el layout */
+  .site-navbar h1 a img {
+    height: 120px !important;
+  }
+  .site-navbar .site-navigation {
+    border-radius: 20px !important;
+  }
+  .site-navbar .site-navigation .site-menu > li > a {
+    padding: 6px 8px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Ajustes extra para pantallas muy pequeñas */
+  .site-navbar h1 a img {
+    height: 100px !important;
+  }
+  .site-navbar .site-navigation {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}

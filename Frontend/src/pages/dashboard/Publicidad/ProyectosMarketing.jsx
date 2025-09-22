@@ -86,7 +86,9 @@ const ProyectosMarketing = () => {
       
       try {
         // Construir URL para la API de marketing
-        const apiUrl = `${import.meta.env.VITE_API_URL}/api/marketing?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}${user.role === 'Supervisor' ? `&supervisor=${user._id}` : ''}${searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''}`;
+        const roleNorm = (user.role || '').toString().trim().toLowerCase();
+        const isSupervisor = roleNorm === 'supervisor';
+        const apiUrl = `${import.meta.env.VITE_API_URL}/api/marketing?page=${page}&limit=${searchParams.limit}&sort=${searchParams.sort}${isSupervisor ? `&supervisor=${user._id}` : ''}${searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''}`;
         
         console.log("Consultando API de marketing:", apiUrl);
         

@@ -57,18 +57,19 @@ export function EditarMarketing() {
         if (data.success) {
           setUser(data.user);
           
-          // Comprobar roles
-          const userRole = data.user?.role || '';
+          // Comprobar roles (normalizados, sin sensibilidad a mayúsculas)
+          const roleNorm = (data.user?.role || '').toString().trim().toLowerCase();
           setIsAdmin(
-            userRole.toLowerCase().includes('administrator') || 
-            userRole === 'Admin' ||
-            userRole === 'Superadministrator'
+            roleNorm.includes('admin')
           );
           
           setIsMarketing(
-            userRole === 'Marketing' || 
-            userRole === 'Asesor' ||
-            userRole === 'User'
+            roleNorm === 'marketing' ||
+            roleNorm === 'asesor' ||
+            roleNorm === 'user' ||
+            roleNorm === 'vendedor' ||
+            roleNorm === 'consultor' ||
+            roleNorm.includes('marketing')
           );
           
         } else {
