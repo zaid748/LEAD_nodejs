@@ -29,6 +29,8 @@ export function EditarMarketing() {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isMarketing, setIsMarketing] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [touched, setTouched] = useState({});
 
   // Estados del formulario
   const [formData, setFormData] = useState({
@@ -176,6 +178,57 @@ export function EditarMarketing() {
       ...prev,
       [name]: value
     }));
+    // Validación en tiempo real por campo
+    const error = validateField(name, value);
+    setValidationErrors(prev => ({ ...prev, [name]: error }));
+  };
+
+  // Validar un campo individual
+  const validateField = (name, value) => {
+    const val = (value ?? "").toString().trim();
+    if (name === 'titulo') {
+      if (!val) return 'El título es obligatorio';
+      if (val.length < 5) return 'El título debe tener al menos 5 caracteres';
+      if (val.length > 120) return 'El título no debe exceder 120 caracteres';
+    }
+    if (name === 'descripcionMarketing') {
+      if (!val) return 'La descripción es obligatoria';
+      if (val.length < 10) return 'La descripción debe tener al menos 10 caracteres';
+      if (val.length > 1000) return 'La descripción no debe exceder 1000 caracteres';
+    }
+    if (name === 'precioOferta') {
+      if (val === '') return '';
+      const num = Number(val.toString().replace(/[^0-9.]/g, ''));
+      if (Number.isNaN(num)) return 'El precio debe ser un número válido';
+      if (num <= 0) return 'El precio debe ser mayor que 0';
+    }
+    if (name === 'monedaOferta') {
+      if (formData.precioOferta && !val) return 'Selecciona una moneda';
+    }
+    if (name === 'estatusPublicacion') {
+      if (!['No publicada', 'Publicada'].includes(val)) return 'Estatus inválido';
+    }
+    return '';
+  };
+
+  // Validar todo el formulario
+  const validateForm = () => {
+    const fields = ['titulo', 'descripcionMarketing', 'precioOferta', 'monedaOferta', 'estatusPublicacion'];
+    const newErrors = {};
+    fields.forEach((f) => {
+      const v = f === 'monedaOferta' ? formData.monedaOferta : formData[f];
+      const err = validateField(f, v);
+      if (err) newErrors[f] = err;
+    });
+    setValidationErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    const error = validateField(name, value);
+    setValidationErrors(prev => ({ ...prev, [name]: error }));
   };
 
   // Manejar selección de nuevas imágenes
@@ -325,7 +378,20 @@ export function EditarMarketing() {
   // Guardar cambios
   const handleSave = async () => {
     if (!proyecto) return;
-    
+    // Marcar campos como tocados y validar
+    setTouched({
+      titulo: true,
+      descripcionMarketing: true,
+      precioOferta: true,
+      monedaOferta: true,
+      estatusPublicacion: true
+    });
+    const isValid = validateForm();
+    if (!isValid) {
+      setError('Por favor corrige los campos marcados antes de guardar');
+      return;
+    }
+
     setIsSaving(true);
       setError(null);
       setSuccess(null);
@@ -356,11 +422,11 @@ export function EditarMarketing() {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            tituloMarketing: formData.titulo,
-            descripcionMarketing: formData.descripcionMarketing,
-            precioOferta: formData.precioOferta,
-            monedaOferta: formData.monedaOferta,
-            estatusPublicacion: formData.estatusPublicacion
+            tituloMarketing: (formData.titulo || '').toString().trim(),
+            descripcionMarketing: (formData.descripcionMarketing || '').toString().trim(),
+            precioOferta: (formData.precioOferta || '').toString().trim(),
+            monedaOferta: (formData.monedaOferta || 'MXN').toString().trim(),
+            estatusPublicacion: (formData.estatusPublicacion || 'No publicada').toString().trim()
           })
         });
         
@@ -518,16 +584,28 @@ export function EditarMarketing() {
                   name="titulo"
                   value={formData.titulo}
                   onChange={handleInputChange}
+                  onBlur={handleBlur}
                   placeholder="Ej: Hermosa casa en fraccionamiento exclusivo"
                 />
+                {touched.titulo && validationErrors.titulo && (
+                  <Typography variant="small" color="red" className="mt-1">
+                    {validationErrors.titulo}
+                  </Typography>
+                )}
                 
                 <Input
                   label="Precio de Oferta"
                   name="precioOferta"
                   value={formData.precioOferta}
                   onChange={handleInputChange}
+                  onBlur={handleBlur}
                   placeholder="Ej: $2,500,000"
                 />
+                {touched.precioOferta && validationErrors.precioOferta && (
+                  <Typography variant="small" color="red" className="mt-1">
+                    {validationErrors.precioOferta}
+                  </Typography>
+                )}
                 <Select
                   label="Moneda"
                   value={formData.monedaOferta}
@@ -536,6 +614,11 @@ export function EditarMarketing() {
                   <Option value="MXN">MXN (Pesos)</Option>
                   <Option value="USD">USD (Dólares)</Option>
                 </Select>
+                {touched.monedaOferta && validationErrors.monedaOferta && (
+                  <Typography variant="small" color="red" className="mt-1">
+                    {validationErrors.monedaOferta}
+                  </Typography>
+                )}
               </div>
               
               <div className="mt-4">
@@ -550,6 +633,7 @@ export function EditarMarketing() {
                       value="No publicada"
                       checked={formData.estatusPublicacion === "No publicada"}
                       onChange={handleInputChange}
+                      onBlur={handleBlur}
                       className="text-red-500"
                     />
                     <Typography variant="small" color="red" className="font-medium">
@@ -563,6 +647,7 @@ export function EditarMarketing() {
                       value="Publicada"
                       checked={formData.estatusPublicacion === "Publicada"}
                       onChange={handleInputChange}
+                      onBlur={handleBlur}
                       className="text-green-500"
                     />
                     <Typography variant="small" color="green" className="font-medium">
@@ -570,6 +655,11 @@ export function EditarMarketing() {
                     </Typography>
                   </label>
                 </div>
+                {touched.estatusPublicacion && validationErrors.estatusPublicacion && (
+                  <Typography variant="small" color="red" className="mt-1">
+                    {validationErrors.estatusPublicacion}
+                  </Typography>
+                )}
                 <Typography variant="small" color="gray" className="mt-1">
                   Solo las propiedades marcadas como "Publicada" aparecerán en el sitio web público
                 </Typography>
@@ -581,9 +671,15 @@ export function EditarMarketing() {
                   name="descripcionMarketing"
                   value={formData.descripcionMarketing}
                   onChange={handleInputChange}
+                  onBlur={handleBlur}
                   placeholder="Describe las características más atractivas de la propiedad para el público..."
                   rows={4}
                 />
+                {touched.descripcionMarketing && validationErrors.descripcionMarketing && (
+                  <Typography variant="small" color="red" className="mt-1">
+                    {validationErrors.descripcionMarketing}
+                  </Typography>
+                )}
               </div>
             </div>
             

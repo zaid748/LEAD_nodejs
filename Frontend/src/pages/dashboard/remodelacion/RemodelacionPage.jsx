@@ -1216,6 +1216,8 @@ const RemodelacionPage = () => {
             
             // Llenar la tabla de materiales (empezando desde la fila 15)
             let startRow = 15;
+            // Incluir precios solo si la lista ya fue comprada
+            const incluirPrecios = lista.estatus_general === 'Comprada';
             lista.materiales.forEach((material, index) => {
                 const row = startRow + index;
                 worksheet.getCell(`A${row}`).value = index + 1; // ID
@@ -1224,7 +1226,16 @@ const RemodelacionPage = () => {
                 worksheet.getCell(`D${row}`).value = material.cantidad || 0; // QUANTITY
                 worksheet.getCell(`E${row}`).value = material.cantidad || 0; // QUANTITY (segunda columna)
                 worksheet.getCell(`F${row}`).value = material.descripcion || 'N/A'; // DESCRIPTION
-                // NO se agrega precio/costo según especificación del usuario
+                // Si está comprada, agregar precio unitario y total (asumiendo columnas G y H en plantilla)
+                if (incluirPrecios) {
+                    const totalMaterial = (material.costo_final ?? material.costo_estimado ?? 0) || 0;
+                    worksheet.getCell(`G${row}`).value = Number(totalMaterial.toFixed(2));
+                    try {
+                        worksheet.getCell(`G${row}`).numFmt = '[$$-409]#,##0.00';
+                    } catch (e) {
+                        // ignorar si la plantilla no soporta formato
+                    }
+                }
             });
             
             // Actualizar aprobado por (en la celda B46)

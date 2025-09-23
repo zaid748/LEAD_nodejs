@@ -1,5 +1,6 @@
 // Servicio WebSocket para notificaciones en tiempo real
 import { getToken, getWebSocketToken } from './auth';
+import mobileNotificationService from './mobileNotifications';
 
 class WebSocketService {
     constructor() {
@@ -213,6 +214,19 @@ class WebSocketService {
                 message: notification.mensaje,
                 type: notification.tipo
             });
+        }
+
+        // Disparar notificación móvil automáticamente cuando corresponda
+        try {
+            const status = mobileNotificationService.getStatus();
+            if (status.isMobile) {
+                const title = notification.titulo || 'Nueva notificación';
+                const message = notification.mensaje || '';
+                const url = notification.url || notification.link || notification.path || '/dashboard/remodelacion';
+                mobileNotificationService.showMobileNotification(title, message, { url });
+            }
+        } catch (error) {
+            console.error('Error enviando notificación móvil automática:', error);
         }
     }
 

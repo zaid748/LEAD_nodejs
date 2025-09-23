@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-CPO2NWDG.js","assets/vendor-Dz0BfvKj.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/hybridNotifications-xOWHwLzg.js","assets/vendor-Dz0BfvKj.js"])))=>i.map(i=>d[i]);
 import { R as React, P as PropTypes, j as jsxRuntimeExports, r as reactExports, C as Chart, F as ForwardRef, a as ForwardRef$1, b as ForwardRef$2, c as ForwardRef$3, d as ForwardRef$4, e as ForwardRef$5, f as ForwardRef$6, g as ForwardRef$7, h as ForwardRef$8, i as ForwardRef$9, k as ForwardRef$a, l as ForwardRef$b, m as ForwardRef$c, n as axios, o as reactExports$1, p as ForwardRef$d, q as ForwardRef$e, s as ForwardRef$f, t as ForwardRef$g, u as ForwardRef$h, v as ForwardRef$i, w as ForwardRef$j, x as useNavigate, y as ForwardRef$k, z as ForwardRef$l, A as ForwardRef$m, B as ForwardRef$n, D as useParams, E as ForwardRef$o, G as ForwardRef$p, H as ForwardRef$q, I as ForwardRef$r, J as ForwardRef$s, K as ForwardRef$t, L as ForwardRef$u, M as ForwardRef$v, N as ForwardRef$w, O as ForwardRef$x, Q as ForwardRef$y, S as ForwardRef$z, T as ForwardRef$A, U as ForwardRef$B, V as ForwardRef$C, W as ForwardRef$D, X as Navigate, Y as ForwardRef$E, Z as Link, _ as create$3, $ as create$2, a0 as create$5, a1 as create$6, a2 as create$7, a3 as useForm, a4 as useFieldArray, a5 as Controller, a6 as o, a7 as ForwardRef$F, a8 as ForwardRef$G, a9 as ForwardRef$H, aa as ForwardRef$I, ab as ForwardRef$J, ac as ForwardRef$K, ad as ForwardRef$L, ae as ForwardRef$M, af as ForwardRef$N, ag as ForwardRef$O, ah as ForwardRef$P, ai as ForwardRef$Q, aj as ForwardRef$R, ak as ForwardRef$S, al as ForwardRef$T, am as ForwardRef$U, an as ForwardRef$V, ao as ForwardRef$W, ap as ForwardRef$X, aq as ForwardRef$Y, ar as ForwardRef$Z, as as ForwardRef$_, at as ForwardRef$$, au as ForwardRef$10, av as ExcelJS, aw as ForwardRef$11, ax as ForwardRef$12, ay as ForwardRef$13, az as ForwardRef$14, aA as ForwardRef$15, aB as ForwardRef$16, aC as ForwardRef$17, aD as ForwardRef$18, aE as ForwardRef$19, aF as ForwardRef$1a, aG as ForwardRef$1b, aH as ForwardRef$1c, aI as ForwardRef$1d, aJ as ForwardRef$1e, aK as ForwardRef$1f, aL as ForwardRef$1g, aM as ForwardRef$1h, aN as ForwardRef$1i, aO as ForwardRef$1j, aP as ForwardRef$1k, aQ as ForwardRef$1l, aR as ForwardRef$1m, aS as useLocation, aT as NavLink, aU as ForwardRef$1n, aV as ForwardRef$1o, aW as ForwardRef$1p, aX as Routes, aY as Route, aZ as Outlet, a_ as ReactDOM, a$ as BrowserRouter } from "./vendor-Dz0BfvKj.js";
 (function polyfill() {
   const relList = document.createElement("link").relList;
@@ -4373,6 +4373,8 @@ function EditarMarketing() {
   const [user, setUser] = reactExports$1.useState(null);
   const [isAdmin, setIsAdmin] = reactExports$1.useState(false);
   const [isMarketing, setIsMarketing] = reactExports$1.useState(false);
+  const [validationErrors, setValidationErrors] = reactExports$1.useState({});
+  const [touched, setTouched] = reactExports$1.useState({});
   const [formData, setFormData] = reactExports$1.useState({
     titulo: "",
     precioOferta: "",
@@ -4473,6 +4475,51 @@ function EditarMarketing() {
       ...prev,
       [name]: value
     }));
+    const error2 = validateField(name, value);
+    setValidationErrors((prev) => ({ ...prev, [name]: error2 }));
+  };
+  const validateField = (name, value) => {
+    const val = (value ?? "").toString().trim();
+    if (name === "titulo") {
+      if (!val) return "El título es obligatorio";
+      if (val.length < 5) return "El título debe tener al menos 5 caracteres";
+      if (val.length > 120) return "El título no debe exceder 120 caracteres";
+    }
+    if (name === "descripcionMarketing") {
+      if (!val) return "La descripción es obligatoria";
+      if (val.length < 10) return "La descripción debe tener al menos 10 caracteres";
+      if (val.length > 1e3) return "La descripción no debe exceder 1000 caracteres";
+    }
+    if (name === "precioOferta") {
+      if (val === "") return "";
+      const num = Number(val.toString().replace(/[^0-9.]/g, ""));
+      if (Number.isNaN(num)) return "El precio debe ser un número válido";
+      if (num <= 0) return "El precio debe ser mayor que 0";
+    }
+    if (name === "monedaOferta") {
+      if (formData.precioOferta && !val) return "Selecciona una moneda";
+    }
+    if (name === "estatusPublicacion") {
+      if (!["No publicada", "Publicada"].includes(val)) return "Estatus inválido";
+    }
+    return "";
+  };
+  const validateForm = () => {
+    const fields = ["titulo", "descripcionMarketing", "precioOferta", "monedaOferta", "estatusPublicacion"];
+    const newErrors = {};
+    fields.forEach((f) => {
+      const v = f === "monedaOferta" ? formData.monedaOferta : formData[f];
+      const err = validateField(f, v);
+      if (err) newErrors[f] = err;
+    });
+    setValidationErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    const error2 = validateField(name, value);
+    setValidationErrors((prev) => ({ ...prev, [name]: error2 }));
   };
   const handleImageSelect = (e) => {
     console.log("=== DEBUG: handleImageSelect ejecutándose ===");
@@ -4575,6 +4622,18 @@ function EditarMarketing() {
   };
   const handleSave = async () => {
     if (!proyecto) return;
+    setTouched({
+      titulo: true,
+      descripcionMarketing: true,
+      precioOferta: true,
+      monedaOferta: true,
+      estatusPublicacion: true
+    });
+    const isValid = validateForm();
+    if (!isValid) {
+      setError("Por favor corrige los campos marcados antes de guardar");
+      return;
+    }
     setIsSaving(true);
     setError(null);
     setSuccess(null);
@@ -4597,11 +4656,11 @@ function EditarMarketing() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          tituloMarketing: formData.titulo,
-          descripcionMarketing: formData.descripcionMarketing,
-          precioOferta: formData.precioOferta,
-          monedaOferta: formData.monedaOferta,
-          estatusPublicacion: formData.estatusPublicacion
+          tituloMarketing: (formData.titulo || "").toString().trim(),
+          descripcionMarketing: (formData.descripcionMarketing || "").toString().trim(),
+          precioOferta: (formData.precioOferta || "").toString().trim(),
+          monedaOferta: (formData.monedaOferta || "MXN").toString().trim(),
+          estatusPublicacion: (formData.estatusPublicacion || "No publicada").toString().trim()
         })
       });
       if (!response.ok) {
@@ -4727,9 +4786,11 @@ function EditarMarketing() {
                 name: "titulo",
                 value: formData.titulo,
                 onChange: handleInputChange,
+                onBlur: handleBlur,
                 placeholder: "Ej: Hermosa casa en fraccionamiento exclusivo"
               }
             ),
+            touched.titulo && validationErrors.titulo && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "red", className: "mt-1", children: validationErrors.titulo }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               reactExports.Input,
               {
@@ -4737,9 +4798,11 @@ function EditarMarketing() {
                 name: "precioOferta",
                 value: formData.precioOferta,
                 onChange: handleInputChange,
+                onBlur: handleBlur,
                 placeholder: "Ej: $2,500,000"
               }
             ),
+            touched.precioOferta && validationErrors.precioOferta && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "red", className: "mt-1", children: validationErrors.precioOferta }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               reactExports.Select,
               {
@@ -4751,7 +4814,8 @@ function EditarMarketing() {
                   /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Option, { value: "USD", children: "USD (Dólares)" })
                 ]
               }
-            )
+            ),
+            touched.monedaOferta && validationErrors.monedaOferta && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "red", className: "mt-1", children: validationErrors.monedaOferta })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-2", children: "Estatus de Publicación" }),
@@ -4765,6 +4829,7 @@ function EditarMarketing() {
                     value: "No publicada",
                     checked: formData.estatusPublicacion === "No publicada",
                     onChange: handleInputChange,
+                    onBlur: handleBlur,
                     className: "text-red-500"
                   }
                 ),
@@ -4779,25 +4844,31 @@ function EditarMarketing() {
                     value: "Publicada",
                     checked: formData.estatusPublicacion === "Publicada",
                     onChange: handleInputChange,
+                    onBlur: handleBlur,
                     className: "text-green-500"
                   }
                 ),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "green", className: "font-medium", children: "Publicada" })
               ] })
             ] }),
+            touched.estatusPublicacion && validationErrors.estatusPublicacion && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "red", className: "mt-1", children: validationErrors.estatusPublicacion }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "gray", className: "mt-1", children: 'Solo las propiedades marcadas como "Publicada" aparecerán en el sitio web público' })
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-            reactExports.Textarea,
-            {
-              label: "Descripción Personalizada para Marketing",
-              name: "descripcionMarketing",
-              value: formData.descripcionMarketing,
-              onChange: handleInputChange,
-              placeholder: "Describe las características más atractivas de la propiedad para el público...",
-              rows: 4
-            }
-          ) })
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              reactExports.Textarea,
+              {
+                label: "Descripción Personalizada para Marketing",
+                name: "descripcionMarketing",
+                value: formData.descripcionMarketing,
+                onChange: handleInputChange,
+                onBlur: handleBlur,
+                placeholder: "Describe las características más atractivas de la propiedad para el público...",
+                rows: 4
+              }
+            ),
+            touched.descripcionMarketing && validationErrors.descripcionMarketing && /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "small", color: "red", className: "mt-1", children: validationErrors.descripcionMarketing })
+          ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Typography, { variant: "h6", color: "blue-gray", className: "mb-4", children: "Imágenes de Marketing" }),
@@ -13280,6 +13351,7 @@ const RemodelacionPage = () => {
       const supervisorNombre = supervisor ? `${supervisor.prim_nom || ""} ${supervisor.apell_pa || ""}`.trim() || supervisor.email || "Supervisor sin nombre" : "N/A";
       worksheet.getCell("F6").value = supervisorNombre;
       let startRow = 15;
+      const incluirPrecios = lista2.estatus_general === "Comprada";
       lista2.materiales.forEach((material, index) => {
         const row = startRow + index;
         worksheet.getCell(`A${row}`).value = index + 1;
@@ -13288,6 +13360,14 @@ const RemodelacionPage = () => {
         worksheet.getCell(`D${row}`).value = material.cantidad || 0;
         worksheet.getCell(`E${row}`).value = material.cantidad || 0;
         worksheet.getCell(`F${row}`).value = material.descripcion || "N/A";
+        if (incluirPrecios) {
+          const totalMaterial = (material.costo_final ?? material.costo_estimado ?? 0) || 0;
+          worksheet.getCell(`G${row}`).value = Number(totalMaterial.toFixed(2));
+          try {
+            worksheet.getCell(`G${row}`).numFmt = "[$$-409]#,##0.00";
+          } catch (e) {
+          }
+        }
       });
       worksheet.getCell("B46").value = supervisorNombre;
       worksheet.getCell("B48").value = (/* @__PURE__ */ new Date()).toLocaleDateString();
@@ -21041,6 +21121,17 @@ class WebSocketService {
         type: notification.tipo
       });
     }
+    try {
+      const status = mobileNotificationService.getStatus();
+      if (status.isMobile) {
+        const title = notification.titulo || "Nueva notificación";
+        const message = notification.mensaje || "";
+        const url = notification.url || notification.link || notification.path || "/dashboard/remodelacion";
+        mobileNotificationService.showMobileNotification(title, message, { url });
+      }
+    } catch (error) {
+      console.error("Error enviando notificación móvil automática:", error);
+    }
   }
   /**
    * Manejar notificaciones de proyecto
@@ -21737,7 +21828,7 @@ Métodos: ${status.methods.join(", ")}
 ${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo cuando app esté abierta"}`);
                           } else {
                             const { default: hybridService } = await __vitePreload(async () => {
-                              const { default: hybridService2 } = await import("./hybridNotifications-CPO2NWDG.js");
+                              const { default: hybridService2 } = await import("./hybridNotifications-xOWHwLzg.js");
                               return { default: hybridService2 };
                             }, true ? __vite__mapDeps([0,1]) : void 0);
                             const testNotification = {
@@ -21773,7 +21864,7 @@ ${status.canPush ? "✅ Push activado - como WhatsApp/Facebook" : "⚠️ Solo c
                       onClick: async () => {
                         try {
                           const { default: hybridService } = await __vitePreload(async () => {
-                            const { default: hybridService2 } = await import("./hybridNotifications-CPO2NWDG.js");
+                            const { default: hybridService2 } = await import("./hybridNotifications-xOWHwLzg.js");
                             return { default: hybridService2 };
                           }, true ? __vite__mapDeps([0,1]) : void 0);
                           const results = await hybridService.requestAllPermissions();
